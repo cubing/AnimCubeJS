@@ -4,6 +4,6 @@ Check out the demo and source code to see how the applet works. Make sure to `an
 Next, in the HTML file where you want your cube to be displayed, create an iframe pointing to:
 `cube.html?config=[name of cfg file].cfg&[parameters]`
 
-The full list of parameters can be found at [http://software.rubikscube.info/AnimCube/][the original Java Applet site]. Make sure to declare parameters as follows: `[name]=[value]`, and separate parameter declarations with `&`.
+The full list of parameters can be found at [the original Java Applet site](http://software.rubikscube.info/AnimCube/). Make sure to declare parameters as follows: `[name]=[value]`, and separate parameter declarations with `&`.
 
 You can customize the UI in the .cfg file's parameters.
