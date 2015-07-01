@@ -15,7 +15,7 @@
         }
         return 1;
       }
-      var can = document.getElementById("myCanvas");
+      var can = document.querySelector("canvas");
       var ctx = can.getContext("2d");
       var scaleFactor = backingScale(ctx);
       if(scaleFactor > 1){
