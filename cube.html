@@ -13,7 +13,7 @@
           return 1;
         }
         var can = document.querySelector("canvas");
-        var ctx = can.getContext("2d");
+        var ctx = can.getContext("3d");
         var scaleFactor = backingScale(ctx);
         if(scaleFactor > 1){
           can.width = can.width * scaleFactor;
