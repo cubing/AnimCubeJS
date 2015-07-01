@@ -15,7 +15,7 @@
         }
         return 1;
       }
-      document.querySelector('canvas').onload = function(){
+      window.onload = function(){
         var can = document.querySelector('canvas');
         var ctx = can.getContext("2d");
         var scaleFactor = backingScale(ctx);
