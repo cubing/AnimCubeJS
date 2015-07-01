@@ -6,5 +6,23 @@
   </head>
   <body style="padding:0;margin:0;overflow:hidden">
     <noscript>Javascript required for cube to display.</noscript>
+    <script>
+      function backingScale(context){
+        if('devicePixelRatio' in window){
+          if(window.devicePixelRatio > 1){
+              return window.devicePixelRatio;
+          }
+        }
+        return 1;
+      }
+      var can = document.getElementById("myCanvas");
+      var ctx = can.getContext("2d");
+      var scaleFactor = backingScale(ctx);
+      if(scaleFactor > 1){
+        can.width = can.width * scaleFactor;
+        can.height = can.height * scaleFactor;
+        var ctx = can.getContext("2d");
+      }
+    </script>
   </body>
 </html>
