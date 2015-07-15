@@ -9,4 +9,4 @@ The full list of parameters can be found at [the original Java Applet site](http
 
 You can add parameters in the .cfg file. Just note that URL parameters are prioritized over .cfg parameters, so if a parameter is declared in both the URL and the .cfg, then the URL parameter value will be read instead of the .cfg parameter value.
 
-NOTE: The original Java applet was made by Josef Jelinek. The port was made by Michael Feather.
+NOTE: The original Java applet was made by Josef Jelinek. The port was made by Michael Feather. Here are Feather's [build instructions](http://irbsystems.com/test2/rc/build.html) and [unminified code](http://irbsystems.com/test2/rc/AnimCube/animcube/unminified/).
