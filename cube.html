@@ -2,6 +2,16 @@
 <html>
   <head>
     <script src="animcube.nocache.js"></script>
+    <script>
+      function backingScale(){
+        if('devicePixelRatio' in window){
+          if(window.devicePixelRatio > 1){
+            return window.devicePixelRatio;
+          }
+        }
+        return 1;
+      }
+    </script>
     <title>AnimCube</title>
   </head>
   <body style="padding:0;margin:0;overflow:hidden">
