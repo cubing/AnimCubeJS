@@ -11,6 +11,13 @@
         }
         return 1;
       }
+      function resizeFrame(){
+        var scaleFactor = backingScale();
+        if (scaleFactor > 1){
+          window.frameElement.style.height = window.frameElement.getAttribute('height') * scaleFactor + 'px';
+          window.frameElement.style.width = window.frameElement.getAttribute('width') * scaleFactor + 'px';
+        }
+      }
     </script>
     <title>AnimCube</title>
   </head>
