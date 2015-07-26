@@ -16,6 +16,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Touch;
 import com.google.gwt.animation.client.AnimationScheduler.AnimationCallback;
 import com.google.gwt.animation.client.AnimationScheduler;
 import com.google.gwt.core.client.Scheduler;
@@ -2112,7 +2113,7 @@ public final class AnimCube implements EntryPoint {
     // timer.scheduleRepeating(1);
   } // run 
 
-  public void mouseUp(NativePreviewEvent event) {
+  public void mouseUp(NativePreviewEvent ne) {
     dragging = false;
     if (pushed) {
       pushed = false;
@@ -2140,48 +2141,55 @@ public final class AnimCube implements EntryPoint {
     }
   }
 
-  public void mouseDown(NativePreviewEvent e) {
-      lastDragX = lastX = e.getNativeEvent().getClientX();
-      lastDragY = lastY = e.getNativeEvent().getClientY();
-      toTwist = false;
-      buttonPressed = selectButton(lastX, lastY);
-      if (buttonPressed >= 0) {
-        pushed = true;
-        if (buttonPressed == 3) {
-          if (!animating) // special feature
-            mirrored = !mirrored;
-          else
-            stopAnimation();
-        }
-        else if (buttonPressed == 0) { // clear everything to the initial setup
-          stopAnimation();
-          clear();
-        }
-        else if (buttonPressed == 7) { // next sequence
-          stopAnimation();
-          clear();
-          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
-        }
+  public void mouseDown(NativePreviewEvent npe) {
+    NativeEvent e = npe.getNativeEvent();
+    if (touchEvent) {
+      Touch et =  e.getTouches().get(0); 
+      lastDragX = lastX = et.getClientX(); 
+      lastDragY = lastY = et.getClientY(); 
+    }
+    else {
+      lastDragX = lastX = e.getClientX();
+      lastDragY = lastY = e.getClientY();
+    }
+    toTwist = false;
+    buttonPressed = selectButton(lastX, lastY);
+    if (buttonPressed >= 0) {
+      pushed = true;
+      if (buttonPressed == 3) {
+        if (!animating) // special feature
+          mirrored = !mirrored;
         else
-          startAnimation(buttonAction[buttonPressed]);
-        drawButtons = true;
-        paint();
-      }
-      else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY >= height - progressHeight && lastY < height) {
-        if (clickProgress) {
           stopAnimation();
-          progress(jobNumber++);
-        }
       }
-      else {
-        if (mirrored)
-          lastDragX = lastX = width - lastX;
-        if (editable && !animating) {
-          NativeEvent ne = e.getNativeEvent();
-          if (ne.getButton() == 1 && ne.getShiftKey() == false)
-            toTwist = true;
-        }
+      else if (buttonPressed == 0) { // clear everything to the initial setup
+        stopAnimation();
+        clear();
       }
+      else if (buttonPressed == 7) { // next sequence
+        stopAnimation();
+        clear();
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+      }
+      else
+        startAnimation(buttonAction[buttonPressed]);
+      drawButtons = true;
+      paint();
+    }
+    else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY >= height - progressHeight && lastY < height) {
+      if (clickProgress) {
+        stopAnimation();
+        progress(jobNumber++);
+      }
+    }
+    else {
+      if (mirrored)
+        lastDragX = lastX = width - lastX;
+      if (editable && !animating) {
+        if (e.getButton() == 1 && e.getShiftKey() == false)
+          toTwist = true;
+      }
+    }
   }; // mouseDown
 
   void progress(final int jobNum) {
@@ -2230,21 +2238,43 @@ public final class AnimCube implements EntryPoint {
         description = "Current progress";
       }
     }
-    // if (description != buttonDescription) {
-    //  buttonDescription = description;
-    //  status.showStatus(description);
-    // }
+    if (description != buttonDescription) {
+      buttonDescription = description;
+      status.showStatus(description);
+    }
   }
   */
 
+  boolean touchEvent;
   boolean mouseIsDown = false;
 
   private final NativePreviewHandler nativePreviewHandler = new NativePreviewHandler() {
     public void onPreviewNativeEvent(NativePreviewEvent event) {
       final int eventType = event.getTypeInt();
-      if (eventType == Event.ONMOUSEMOVE) {
-        if (mouseIsDown)
+      touchEvent = false;
+      if (eventType == Event.ONTOUCHMOVE) {
+        event.getNativeEvent().preventDefault();
+        touchEvent = true;
+        if (mouseIsDown) {
           mouseMove(event);
+        }
+      }
+      else if (eventType == Event.ONTOUCHEND) {
+        event.getNativeEvent().preventDefault();
+        touchEvent = true;
+        mouseIsDown = false;
+        mouseUp(event);
+      }
+      else if (eventType == Event.ONTOUCHSTART) {
+        event.getNativeEvent().preventDefault();
+        touchEvent = true;
+        mouseIsDown = true;
+        mouseDown(event);
+      }
+      else if (eventType == Event.ONMOUSEMOVE) {
+        if (mouseIsDown) {
+          mouseMove(event);
+        }
       }
       else if (eventType == Event.ONMOUSEUP) {
         mouseIsDown = false;
@@ -2257,14 +2287,22 @@ public final class AnimCube implements EntryPoint {
     }
   };
 
-  public void mouseMove(NativePreviewEvent e) {
+  public void mouseMove(NativePreviewEvent npe) {
+    int x, y;
     if (pushed) {
       return;
     }
+    NativeEvent e = npe.getNativeEvent();
     if (dragging) {
       stopAnimation();
       int len = realMoveLength(move[curMove]);
-      int pos = ((e.getNativeEvent().getClientX() - 1) * len * 2 / (width - 2) + 1) / 2;
+      int pos;
+      if (touchEvent) {
+        x = e.getTouches().get(0).getClientX();
+        pos = ((x - 1) * len * 2 / (width - 2) + 1) / 2;
+      }
+      else
+        pos = ((e.getClientX() - 1) * len * 2 / (width - 2) + 1) / 2;
       pos = Math.max(0, Math.min(len, pos));
       if (pos > 0)
         pos = arrayMovePos(move[curMove], pos);
@@ -2276,8 +2314,15 @@ public final class AnimCube implements EntryPoint {
       paint();
       return;
     }
-    int x = mirrored ? width - e.getNativeEvent().getClientX() : e.getNativeEvent().getClientX();
-    int y = e.getNativeEvent().getClientY();
+    if (touchEvent) {
+      Touch et =  e.getTouches().get(0); 
+      x = mirrored ? width - et.getClientX() : et.getClientX();
+      y = et.getClientY(); 
+    }
+    else {
+      x = mirrored ? width - e.getClientX() : e.getClientX();
+      y = e.getClientY();
+    }
     int dx = x - lastX;
     int dy = y - lastY;
     if (editable && toTwist && !twisting && !animating) { // we do not twist but we can
