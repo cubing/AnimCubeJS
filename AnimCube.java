@@ -21,6 +21,8 @@ import com.google.gwt.animation.client.AnimationScheduler.AnimationCallback;
 import com.google.gwt.animation.client.AnimationScheduler;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.event.dom.client.ContextMenuEvent;
+import com.google.gwt.event.dom.client.ContextMenuHandler;
 import java.util.HashMap;
 
 /**
@@ -2281,6 +2283,8 @@ public final class AnimCube implements EntryPoint {
         mouseUp(event);
       }
       else if (eventType == Event.ONMOUSEDOWN) {
+        event.getNativeEvent().preventDefault();
+        event.getNativeEvent().stopPropagation();
         mouseIsDown = true;
         mouseDown(event);
       }
@@ -2406,6 +2410,13 @@ public final class AnimCube implements EntryPoint {
     RootPanel.get().add(canv);
 
     Event.addNativePreviewHandler(nativePreviewHandler);
+
+    RootPanel.get().addDomHandler(new ContextMenuHandler() {
+      public void onContextMenu(ContextMenuEvent event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }, ContextMenuEvent.getType());
 
     paint();
   }
