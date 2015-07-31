@@ -5,7 +5,7 @@ Next, in the HTML file where you want your cube to be displayed, create an ifram
 
 `cube.html?config=[name of cfg file].cfg&[parameters]`
 
-The full list of parameters can be found at [the original Java Applet site](http://software.rubikscube.info/AnimCube/). Make sure to declare parameters as follows: `[name]=[value]`, and separate parameter declarations with `&`.
+The list of parameters can be found at [the original Java Applet site](http://software.rubikscube.info/AnimCube/) with a few new additions [here](http://irbsystems.com/test2/rc/animcube_customization2.html). Make sure to declare parameters as follows: `[name]=[value]`, and separate parameter declarations with `&`.
 
 You can add parameters in the .cfg file. Just note that URL parameters are prioritized over .cfg parameters, so if a parameter is declared in both the URL and the .cfg, then the URL parameter value will be read instead of the .cfg parameter value.
 
