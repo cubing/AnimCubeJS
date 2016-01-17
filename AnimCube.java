@@ -154,6 +154,7 @@ public final class AnimCube implements EntryPoint {
   private int moveText;
   private boolean outlined = true;
   private static boolean ww = false;   // waterwheel cube 
+  private static boolean snap = false;
   // transformation tables for compatibility with Lars's applet
   private static final int[] posFaceTransform = {3, 2, 0, 5, 1, 4};
   private static final int[][] posFaceletTransform = {
@@ -507,6 +508,10 @@ public final class AnimCube implements EntryPoint {
     if (param != null) 
       if ("1".equals(param))
         ww = true;
+    param = getParameter("snap");
+    if (param != null) 
+      if ("1".equals(param))
+        snap = true;
     // setup initial values
     for (int i = 0; i < 6; i++)
       for (int j = 0; j < 9; j++)
@@ -2131,8 +2136,8 @@ public final class AnimCube implements EntryPoint {
       while (angle < 0.0)
         angle += 32.0 * Math.PI;
       int num = (int)(angle * 8.0 / Math.PI) % 16; // 2pi ~ 16
-      if (num % 4 == 0 || num % 4 == 3) { // close enough to a corner
-        num = (num + 1) / 4; // 2pi ~ 4
+      if (snap || num % 4 == 0 || num % 4 == 3) { // close enough to a corner
+        num = (num + 2) / 4; // 2pi ~ 4
         if (faceTwistDirs[twistedLayer] > 0)
           num = (4 - num) % 4;
         originalAngle = 0;
