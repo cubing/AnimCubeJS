@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 public final class AnimCube implements EntryPoint {
   // external configuration
-  private final HashMap config = new HashMap();
+  private final HashMap<String, String> config = new HashMap<String, String>();
   // background colors
   private String bgColor;
   private String bgColor2;
