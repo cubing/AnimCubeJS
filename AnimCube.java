@@ -28,7 +28,8 @@ import java.util.HashMap;
 /**
  * @author Josef Jelinek
  * @version 3.5b
- * Modified for use with Google Web Toolkit (GWT) by Michael Feather
+ * Modification for Supercube and conversion to JavaScript (JS) with
+ * Google Web Toolkit (GWT) by Michael Feather
  */
 
 public final class AnimCube implements EntryPoint {
@@ -46,6 +47,8 @@ public final class AnimCube implements EntryPoint {
   private final String[] colors = new String[24];
   // cube facelets
   private final int[][] cube = new int[6][9];
+  private final int[][] scube = new int[6][9];   // supercube facelet rotation
+  private final int[][] initialSCube = new int[6][9];
   private final int[][] initialCube = new int[6][9];
   // normal vectors
   private static final double[][] faceNormals = {
@@ -155,6 +158,10 @@ public final class AnimCube implements EntryPoint {
   private boolean outlined = true;
   private static boolean ww = false;   // waterwheel cube 
   private static boolean snap = false;
+  private static boolean superCube = false;
+  private static double  arrowSize  = .20;
+  private static int  arrowWidth  = 8;
+  private static String  arrowColor = "black";
   // transformation tables for compatibility with Lars's applet
   private static final int[] posFaceTransform = {3, 2, 0, 5, 1, 4};
   private static final int[][] posFaceletTransform = {
@@ -262,6 +269,16 @@ public final class AnimCube implements EntryPoint {
     for (int i = 0; i < 6; i++)
       for (int j = 0; j < 9; j++)
         cube[i][j] = i + 10;
+    param = getParameter("supercube");
+    if (param != null) 
+      if ("1".equals(param))
+        superCube = true;
+    // clean the supercube
+    if (superCube) {
+      for (int i = 1; i < 6; i++)
+        for (int j = 0; j < 9; j++)
+          scube[i][j] = 0;
+    }
     String initialPosition = "lluu";
     // setup color configuration of the solved cube
     param = getParameter("colorscheme");
@@ -308,6 +325,20 @@ public final class AnimCube implements EntryPoint {
           for (int k = 0; k < 23; k++) {
             if (Character.toLowerCase(param.charAt(i * 9 + j)) == "0123456789wyorgbldmcpnk".charAt(k)) {
               cube[i][j] = k;
+              break;
+            }
+          }
+        }
+      }
+    }
+    // setup supercube facelet twist
+    param = getParameter("superfacelets");
+    if (param != null && param.length() == 96) {
+      for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 9; j++) {
+          for (int k = 0; k < 4; k++) {
+            if (Character.toLowerCase(param.charAt(i * 9 + j)) == "0123".charAt(k)) {
+              scube[i][j] = k;
               break;
             }
           }
@@ -512,10 +543,29 @@ public final class AnimCube implements EntryPoint {
     if (param != null) 
       if ("1".equals(param))
         snap = true;
+    param = getParameter("arrowsize");
+    if (param != null) {
+      int n = Integer.parseInt(param);
+      if (n >= 0 & n <= 40)
+        arrowSize = (double)n/100;
+    }
+    param = getParameter("arrowwidth");
+    if (param != null) {
+      int n = Integer.parseInt(param);
+      if (n >= 2 & n <= 20)
+        arrowWidth = n;
+    }
+    param = getParameter("arrowcolor");
+    if (param != null && param.length() == 6) {
+      if (validateColor(param))
+        arrowColor = "#" + param;
+    }
     // setup initial values
     for (int i = 0; i < 6; i++)
-      for (int j = 0; j < 9; j++)
+      for (int j = 0; j < 9; j++) {
         initialCube[i][j] = cube[i][j];
+        initialSCube[i][j] = scube[i][j];
+      }
     for (int i = 0; i < 3; i++) {
       initialEye[i] = eye[i];
       initialEyeX[i] = eyeX[i];
@@ -887,8 +937,10 @@ public final class AnimCube implements EntryPoint {
       natural = true;
       mirrored = false;
       for (int i = 0; i < 6; i++)
-	for (int j = 0; j < 9; j++)
+	for (int j = 0; j < 9; j++) {
 	  cube[i][j] = initialCube[i][j];
+	  scube[i][j] = initialSCube[i][j];
+        }
       for (int i = 0; i < 3; i++) {
 	eye[i] = initialEye[i];
 	eyeX[i] = initialEyeX[i];
@@ -1008,6 +1060,14 @@ public final class AnimCube implements EntryPoint {
   private final int[] twistBuffer = new int[12];
 
   private void twistLayer(int[][] cube, int layer, int num, boolean middle) {
+    twistLayer2(cube, layer, num, middle);
+    if (superCube == true && num > 0 && num < 4) {
+      twistLayer2(scube, layer, num, middle);
+      twistSuperLayer(layer, num, middle);
+    }
+  }
+
+  private void twistLayer2(int[][] cube, int layer, int num, boolean middle) {
     if (!middle) {
       // rotate top facelets
       for (int i = 0; i < 8; i++) // to buffer
@@ -1039,6 +1099,88 @@ public final class AnimCube implements EntryPoint {
 	j++;
 	k++;
       }
+    }
+  }
+
+  int superTwistArr[][][] = {
+   { { 0, 1, 0 },  // F 
+     { 0, 3, 1 },
+     { 0, 3, 4 },
+     { 0, 1, 5 },
+   },
+   { { 6, 1, 0 },  // B
+     { 2, 3, 1 },
+     { 2, 3, 4 },
+     { 6, 1, 5 },
+   },
+   { { 3, 1, 0 },  // F slice
+     { 1, 3, 1 },
+     { 1, 3, 4 },
+     { 3, 1, 5 },
+   },
+   { { 3, 1, 0 },  // B slice
+     { 2, 3, 1 },
+     { 2, 3, 4 },
+     { 3, 1, 5 },
+   }
+  };
+
+  private void twistSuperLayer(int layer, int num, boolean middle) {
+    if (middle == false)
+      for (int i=0; i < 9; i++)
+        scube[layer][i] = (scube[layer][i] + 4-num) % 4;
+    if (layer == 4) {
+      if (middle == false) {
+        superTwist(6, 1, 3);
+        if      (num == 1) superTwist(0, 1, 1);
+        else if (num == 2) superTwist(0, 1, 2);
+        else if (num == 3) superTwist(0, 3, 0);
+      }
+      if (middle == true) {
+        superTwist(3, 1, 3);
+        if      (num == 1) superTwist(3, 1, 1);
+        else if (num == 2) superTwist(3, 1, 2);
+        else if (num == 3) superTwist(1, 3, 0);
+      }
+    }
+    if (layer == 5) {
+      if (middle == false) {
+        superTwist(0, 1, 3);
+        if      (num == 1) superTwist(2, 3, 0);
+        else if (num == 2) superTwist(6, 1, 2);
+        else if (num == 3) superTwist(6, 1, 1);
+      }
+      if (middle == true) {
+        superTwist(3, 1, 3);
+        if      (num == 1) superTwist(1, 3, 0);
+        else if (num == 2) superTwist(3, 1, 2);
+        else if (num == 3) superTwist(3, 1, 1);
+      }
+    }
+    if (middle == false) {
+      if (layer == 2)
+        superTwist2(0, 4-num);
+      if (layer == 3)
+        superTwist2(1, num);
+    }
+    if (middle == true) {
+      if (layer == 2) 
+        superTwist2(2, 4-num);
+      if (layer == 3)
+        superTwist2(3, num);
+    } 
+  }
+
+  private void superTwist(int b, int inc, int face) {
+    for (int i=b, n=0; n < 3; i+=inc, n++)
+      scube[face][i] = (scube[face][i] + 2) % 4;
+  }
+
+  private void superTwist2(int ix, int tw) {
+    for (int i=0; i < 4; i++) {
+      int [] v = superTwistArr[ix][i];
+      for (int j=v[0], n=0; n < 3; j+=v[1], n++)
+        scube[v[2]][j] = (scube[v[2]][j] + tw) % 4;
     }
   }
 
@@ -1381,6 +1523,8 @@ public final class AnimCube implements EntryPoint {
 	      for (int j = 0; j < 4; j++)
 		getCorners(i, j, fillX, fillY, q + border[j][0], p + border[j][1], mirrored);
               drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
+              if (superCube == true)
+                drawTriangle(graphics, fillX, fillY, i, scube[i][p * 3 + q]);
 	    }
 	  }
 	}
@@ -1834,6 +1978,45 @@ public final class AnimCube implements EntryPoint {
     g.stroke();
   }
 
+  void drawTriangle(Context2d g, int[] x, int[] y, int face, int superTwist) {
+    int aw = arrowWidth;
+    int [] xx = new int[4];
+    int [] yy = new int[4];
+    int [] aa = {2, 3, 0, 1};
+    for (int i=0; i < 4; i++) {
+      xx[i] += (int) x[i] + (x[aa[i]] - x[i]) * arrowSize;
+      yy[i] += (int) y[i] + (y[aa[i]] - y[i]) * arrowSize;
+    }
+    if (face == 0)
+      superTwist = (superTwist + 1) % 4;
+    if (face == 4)
+      superTwist = (superTwist + 3) % 4;
+    g.setFillStyle(arrowColor);
+    g.beginPath();
+    if (superTwist == 0) {
+      g.moveTo(xx[0] + (xx[3] - xx[0])/2  + .5, yy[0] + (yy[3] - yy[0])/2  + .5);
+      g.lineTo(xx[1] + (xx[2] - xx[1])/aw + .5, yy[1] + (yy[2] - yy[1])/aw + .5);
+      g.lineTo(xx[2] - (xx[2] - xx[1])/aw + .5, yy[2] - (yy[2] - yy[1])/aw + .5);
+    }
+    else if (superTwist == 1) {  // 1/4 clockwise
+      g.moveTo(xx[3] + (xx[2] - xx[3])/2  + .5, yy[3] + (yy[2] - yy[3])/2  + .5);
+      g.lineTo(xx[0] + (xx[1] - xx[0])/aw + .5, yy[0] + (yy[1] - yy[0])/aw + .5);
+      g.lineTo(xx[1] - (xx[1] - xx[0])/aw + .5, yy[1] - (yy[1] - yy[0])/aw + .5);
+    }
+    else if (superTwist == 2) {  // 1/2 twist
+      g.moveTo(xx[2] + (xx[1] - xx[2])/2  + .5, yy[2] + (yy[1] - yy[2])/2  + .5);
+      g.lineTo(xx[3] + (xx[0] - xx[3])/aw + .5, yy[3] + (yy[0] - yy[3])/aw + .5);
+      g.lineTo(xx[0] - (xx[0] - xx[3])/aw + .5, yy[0] - (yy[0] - yy[3])/aw + .5);
+    }
+    else if (superTwist == 3) {  // 1/4 counter-clockwise
+      g.moveTo(xx[1] + (xx[0] - xx[1])/2  + .5, yy[1] + (yy[0] - yy[1])/2  + .5);
+      g.lineTo(xx[2] + (xx[3] - xx[2])/aw + .5, yy[2] + (yy[3] - yy[2])/aw + .5);
+      g.lineTo(xx[3] - (xx[3] - xx[2])/aw + .5, yy[3] - (yy[3] - yy[2])/aw + .5);
+    }
+    g.closePath();
+    g.fill();
+  }
+
   String colorToHex(String s) {
     if      (s == "white")     return("#FFFFFF"); 
     else if (s == "black")     return("#000000"); 
@@ -2085,8 +2268,10 @@ public final class AnimCube implements EntryPoint {
                   movePos = 0;
                   initInfoText(mv);
                   for (int i = 0; i < 6; i++)
-                    for (int j = 0; j < 9; j++)
+                    for (int j = 0; j < 9; j++) {
                       cube[i][j] = initialCube[i][j];
+                      scube[i][j] = initialSCube[i][j];
+                    }
                 }
               }
             }
