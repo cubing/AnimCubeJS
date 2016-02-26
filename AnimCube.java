@@ -159,9 +159,6 @@ public final class AnimCube implements EntryPoint {
   private static boolean ww = false;   // waterwheel cube 
   private static boolean snap = false;
   private static boolean superCube = false;
-  private static double  arrowSize  = .20;
-  private static int  arrowWidth  = 8;
-  private static String  arrowColor = "black";
   // transformation tables for compatibility with Lars's applet
   private static final int[] posFaceTransform = {3, 2, 0, 5, 1, 4};
   private static final int[][] posFaceletTransform = {
@@ -271,8 +268,31 @@ public final class AnimCube implements EntryPoint {
         cube[i][j] = i + 10;
     param = getParameter("supercube");
     if (param != null) 
-      if ("1".equals(param))
+      if ("1".equals(param)) {
         superCube = true;
+        border = border_gabba;
+      }
+    param = getParameter("gabbacolors");
+    if (param != null) 
+      if ("1".equals(param)) {
+        if (superCube == true) {
+          colors[10] = "#000000";  // W - white -> black
+          colors[11] = "#fdcf00";  // Y - yellow
+          colors[12] = "#fd4e0a";  // O - orange
+          colors[13] = "#93000d";  // R - red
+          colors[14] = "#00702d";  // G - green
+          colors[15] = "#00347a";  // B - blue
+        }
+        else {
+          border = border_gabba;
+          colors[10] = "#ffffff";  // W
+          colors[11] = "#ffd90a";  // Y
+          colors[12] = "#ff4f0b";  // O
+          colors[13] = "#9e0b19";  // R
+          colors[14] = "#0b7d39";  // G
+          colors[15] = "#0b4186";  // B
+        }
+      }
     // clean the supercube
     if (superCube) {
       for (int i = 1; i < 6; i++)
@@ -543,23 +563,6 @@ public final class AnimCube implements EntryPoint {
     if (param != null) 
       if ("1".equals(param))
         snap = true;
-    param = getParameter("arrowsize");
-    if (param != null) {
-      int n = Integer.parseInt(param);
-      if (n >= 0 & n <= 40)
-        arrowSize = (double)n/100;
-    }
-    param = getParameter("arrowwidth");
-    if (param != null) {
-      int n = Integer.parseInt(param);
-      if (n >= 2 & n <= 20)
-        arrowWidth = n;
-    }
-    param = getParameter("arrowcolor");
-    if (param != null && param.length() == 6) {
-      if (validateColor(param))
-        arrowColor = "#" + param;
-    }
     // setup initial values
     for (int i = 0; i < 6; i++)
       for (int j = 0; j < 9; j++) {
@@ -1410,7 +1413,8 @@ public final class AnimCube implements EntryPoint {
   private final double[] coordsY = new double[8];
   private final double[][] cooX = new double[6][4];
   private final double[][] cooY = new double[6][4];
-  private static final double[][] border = {{0.10, 0.10}, {0.90, 0.10}, {0.90, 0.90}, {0.10, 0.90}};
+  private static double[][] border = {{0.10, 0.10}, {0.90, 0.10}, {0.90, 0.90}, {0.10, 0.90}};
+  private static double[][] border_gabba = {{0.06, 0.06}, {0.94, 0.06}, {0.94, 0.94}, {0.06, 0.94}};
   private static final int[][] factors = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};
   private final double[] faceShiftX = new double[6];
   private final double[] faceShiftY = new double[6];
@@ -1465,7 +1469,12 @@ public final class AnimCube implements EntryPoint {
 		  fillX[j] += mirrored ? -x : x;
 		  fillY[j] -= y;
 		}
-                drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
+                if (superCube == true) {
+                  drawPolygon(graphics, fillX, fillY, "#fdfdfd");
+                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
+                }
+                else
+                  drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
 	      }
 	    }
 	  }
@@ -1522,9 +1531,12 @@ public final class AnimCube implements EntryPoint {
 	    for (int o = 0, q = blocks[i][0][0]; o < sideW; o++, q++) {
 	      for (int j = 0; j < 4; j++)
 		getCorners(i, j, fillX, fillY, q + border[j][0], p + border[j][1], mirrored);
-              drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
-              if (superCube == true)
-                drawTriangle(graphics, fillX, fillY, i, scube[i][p * 3 + q]);
+              if (superCube == true) {
+                drawPolygon(graphics, fillX, fillY, "#fdfdfd");
+                drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
+              }
+              else
+                drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
 	    }
 	  }
 	}
@@ -1657,29 +1669,6 @@ public final class AnimCube implements EntryPoint {
     }
     return -1;
   }
-
-  private int xselectButton(int x, int y) {
-    if (buttonBar == 0)
-      return -1;
-    if (move.length > 1 && x >= width - buttonHeight && x < width && y >= 0 && y < buttonHeight)
-      return 7;
-    if (buttonBar == 2) { // only clear (rewind) button present
-      if (x >= 0 && x < buttonHeight && y >= height - buttonHeight && y < height)
-        return 0;
-      return -1;
-    }
-    if (y < height)
-      return -1;
-    int buttonX = 0;
-    for (int i = 0; i < 7; i++) {
-      int buttonWidth = (width - buttonX) / (7 - i);
-      if (x >= buttonX && x < buttonX + buttonWidth && y >= height && y < height + buttonHeight)
-        return i;
-      buttonX += buttonWidth;
-    }
-    return -1;
-  }
-  // Mouse event handlers
 
   private final static int[] buttonAction = {-1, 3, 1, -1, 0, 2, 4, -1};
 
@@ -1966,10 +1955,10 @@ public final class AnimCube implements EntryPoint {
 
   void drawPolygon(Context2d g, int[] x, int[] y, String fillColor) {
     g.beginPath();
-    g.moveTo(x[0]+.5, y[0]+.5);
-    g.lineTo(x[1]+.5, y[1]+.5);
-    g.lineTo(x[2]+.5, y[2]+.5);
-    g.lineTo(x[3]+.5, y[3]+.5);
+    g.moveTo(x[0], y[0]);
+    g.lineTo(x[1], y[1]);
+    g.lineTo(x[2], y[2]);
+    g.lineTo(x[3], y[3]);
     g.closePath();
     g.setFillStyle(fillColor);
     g.setStrokeStyle(fillColor);
@@ -1978,43 +1967,46 @@ public final class AnimCube implements EntryPoint {
     g.stroke();
   }
 
-  void drawTriangle(Context2d g, int[] x, int[] y, int face, int superTwist) {
-    int aw = arrowWidth;
-    int [] xx = new int[4];
-    int [] yy = new int[4];
-    int [] aa = {2, 3, 0, 1};
+  void drawSuperArrow(Context2d g, int[] xx, int[] yy, int face, int superTwist, String color) {
+    int [] x = new int[4];
+    int [] y = new int[4];
+    final int [][] rot = {{0,1,2,3}, {3,0,1,2}, {2,3,0,1}, {1,2,3,0}}; 
+    final double w = .26;  // arrow width
+    // scale down so there is a margin around the arrow
     for (int i=0; i < 4; i++) {
-      xx[i] += (int) x[i] + (x[aa[i]] - x[i]) * arrowSize;
-      yy[i] += (int) y[i] + (y[aa[i]] - y[i]) * arrowSize;
+      x[i] = (int) (xx[i] + (xx[rot[2][i]] - xx[i]) * .05);
+      y[i] = (int) (yy[i] + (yy[rot[2][i]] - yy[i]) * .05);
     }
     if (face == 0)
       superTwist = (superTwist + 1) % 4;
     if (face == 4)
       superTwist = (superTwist + 3) % 4;
-    g.setFillStyle(arrowColor);
+    final int a = rot[superTwist][0];
+    final int b = rot[superTwist][1];
+    final int c = rot[superTwist][2];
+    final int d = rot[superTwist][3];
+    final double A = (x[c] - x[b])*w;
+    final double B = (y[c] - y[b])*w;
+    final double C = (x[a] - x[b])/2;
+    final double D = y[b] + (y[a] - y[b])/2;
+    final double E = y[c] + (y[d] - y[c])/2;
+    final double F = (x[d] - x[c])/2;
+    int n = superTwist ^ 1;
+    g.setFillStyle(color);
     g.beginPath();
-    if (superTwist == 0) {
-      g.moveTo(xx[0] + (xx[3] - xx[0])/2  + .5, yy[0] + (yy[3] - yy[0])/2  + .5);
-      g.lineTo(xx[1] + (xx[2] - xx[1])/aw + .5, yy[1] + (yy[2] - yy[1])/aw + .5);
-      g.lineTo(xx[2] - (xx[2] - xx[1])/aw + .5, yy[2] - (yy[2] - yy[1])/aw + .5);
-    }
-    else if (superTwist == 1) {  // 1/4 clockwise
-      g.moveTo(xx[3] + (xx[2] - xx[3])/2  + .5, yy[3] + (yy[2] - yy[3])/2  + .5);
-      g.lineTo(xx[0] + (xx[1] - xx[0])/aw + .5, yy[0] + (yy[1] - yy[0])/aw + .5);
-      g.lineTo(xx[1] - (xx[1] - xx[0])/aw + .5, yy[1] - (yy[1] - yy[0])/aw + .5);
-    }
-    else if (superTwist == 2) {  // 1/2 twist
-      g.moveTo(xx[2] + (xx[1] - xx[2])/2  + .5, yy[2] + (yy[1] - yy[2])/2  + .5);
-      g.lineTo(xx[3] + (xx[0] - xx[3])/aw + .5, yy[3] + (yy[0] - yy[3])/aw + .5);
-      g.lineTo(xx[0] - (xx[0] - xx[3])/aw + .5, yy[0] - (yy[0] - yy[3])/aw + .5);
-    }
-    else if (superTwist == 3) {  // 1/4 counter-clockwise
-      g.moveTo(xx[1] + (xx[0] - xx[1])/2  + .5, yy[1] + (yy[0] - yy[1])/2  + .5);
-      g.lineTo(xx[2] + (xx[3] - xx[2])/aw + .5, yy[2] + (yy[3] - yy[2])/aw + .5);
-      g.lineTo(xx[3] - (xx[3] - xx[2])/aw + .5, yy[3] - (yy[3] - yy[2])/aw + .5);
-    }
+    g.moveTo(x[a] + (x[d] - x[a])/2, y[a] + (y[d] - y[a])/2);
+    g.lineTo(x[n] + C, D);
+    g.lineTo(x[n] + A + C, D + B);
+    g.lineTo(x[n] + A, y[n] + B);
+    n = (n + 1) % 4;
+    g.lineTo(x[n] - A, y[n] - B);
+    g.lineTo(x[n] - A + F, E - B);
+    g.lineTo(x[n] + F, E);
     g.closePath();
     g.fill();
+    g.setLineWidth(.6);
+    g.setStrokeStyle("black");
+    g.stroke();
   }
 
   String colorToHex(String s) {
