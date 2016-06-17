@@ -1,4 +1,4 @@
-package com.google.gwt.animcube.client;
+package com.google.gwt.animcube4.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.canvas.client.Canvas;
@@ -28,11 +28,11 @@ import java.util.HashMap;
 /**
  * @author Josef Jelinek
  * @version 3.5b
- * Modification for Supercube and conversion to JavaScript (JS) with
+ * Modification for 4x4 Supercube and conversion to JavaScript (JS) with
  * Google Web Toolkit (GWT) by Michael Feather
  */
 
-public final class AnimCube implements EntryPoint {
+public final class AnimCube4 implements EntryPoint {
   // external configuration
   private final HashMap<String, String> config = new HashMap<String, String>();
   // background colors
@@ -46,10 +46,10 @@ public final class AnimCube implements EntryPoint {
   // cube colors
   private final String[] colors = new String[24];
   // cube facelets
-  private final int[][] cube = new int[6][9];
-  private final int[][] scube = new int[6][9];   // supercube facelet rotation
-  private final int[][] initialSCube = new int[6][9];
-  private final int[][] initialCube = new int[6][9];
+  private final int[][] cube = new int[6][16];
+  private final int[][] scube = new int[6][16];   // supercube facelet rotation
+  private final int[][] initialCube = new int[6][16];
+  private final int[][] initialSCube = new int[6][16];
   // normal vectors
   private static final double[][] faceNormals = {
     { 0.0, -1.0,  0.0}, // U
@@ -156,9 +156,11 @@ public final class AnimCube implements EntryPoint {
   private int textSize = 12;
   private int moveText;
   private boolean outlined = true;
-  private static boolean ww = false;   // waterwheel cube 
+  private static boolean ww = false;   // waterwheel cube
   private static boolean snap = false;
   private static boolean superCube = false;
+  private int cval, ival, mval;
+  double vval;
   // transformation tables for compatibility with Lars's applet
   private static final int[] posFaceTransform = {3, 2, 0, 5, 1, 4};
   private static final int[][] posFaceletTransform = {
@@ -264,7 +266,7 @@ public final class AnimCube implements EntryPoint {
     }
     // clean the cube
     for (int i = 0; i < 6; i++)
-      for (int j = 0; j < 9; j++)
+      for (int j = 0; j < 16; j++)
         cube[i][j] = i + 10;
     param = getParameter("supercube");
     if (param != null) 
@@ -296,7 +298,7 @@ public final class AnimCube implements EntryPoint {
     // clean the supercube
     if (superCube) {
       for (int i = 1; i < 6; i++)
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < 16; j++)
           scube[i][j] = 0;
     }
     String initialPosition = "lluu";
@@ -311,24 +313,24 @@ public final class AnimCube implements EntryPoint {
             break;
           }
         }
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < 16; j++)
           cube[i][j] = color;
       }
     }
     // setup facelets - compatible with Lars's applet
     param = getParameter("pos");
-    if (param != null && param.length() == 54) {
+    if (param != null && param.length() == 96) {
       initialPosition = "uuuuff";
       if (bgColor == "gray")
         bgColor = "white";
       for (int i = 0; i < 6; i++) {
         int ti = posFaceTransform[i];
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < 16; j++) {
           int tj = posFaceletTransform[i][j];
           cube[ti][tj] = 23;
           for (int k = 0; k < 14; k++) {
             // "abcdefgh" ~ "gbrwoyld"
-            if (param.charAt(i * 9 + j) == "DFECABdfecabgh".charAt(k)) {
+            if (param.charAt(i * 16 + j) == "DFECABdfecabgh".charAt(k)) {
               cube[ti][tj] = k + 4;
               break;
             }
@@ -338,12 +340,12 @@ public final class AnimCube implements EntryPoint {
     }
     // setup color facelets
     param = getParameter("facelets");
-    if (param != null && param.length() == 54) {
+    if (param != null && param.length() == 96) {
       for (int i = 0; i < 6; i++) {
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < 16; j++) {
           cube[i][j] = 23;
           for (int k = 0; k < 23; k++) {
-            if (Character.toLowerCase(param.charAt(i * 9 + j)) == "0123456789wyorgbldmcpnk".charAt(k)) {
+            if (Character.toLowerCase(param.charAt(i * 16 + j)) == "0123456789wyorgbldmcpnk".charAt(k)) {
               cube[i][j] = k;
               break;
             }
@@ -355,9 +357,9 @@ public final class AnimCube implements EntryPoint {
     param = getParameter("superfacelets");
     if (param != null && param.length() == 96) {
       for (int i = 0; i < 6; i++) {
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < 16; j++) {
           for (int k = 0; k < 4; k++) {
-            if (Character.toLowerCase(param.charAt(i * 9 + j)) == "0123".charAt(k)) {
+            if (Character.toLowerCase(param.charAt(i * 16 + j)) == "0123".charAt(k)) {
               scube[i][j] = k;
               break;
             }
@@ -565,7 +567,7 @@ public final class AnimCube implements EntryPoint {
         snap = true;
     // setup initial values
     for (int i = 0; i < 6; i++)
-      for (int j = 0; j < 9; j++) {
+      for (int j = 0; j < 16; j++) {
         initialCube[i][j] = cube[i][j];
         initialSCube[i][j] = scube[i][j];
       }
@@ -610,8 +612,6 @@ public final class AnimCube implements EntryPoint {
   } // init()
   public String getParameter(String name) {
     String parameter = Window.Location.getParameter(name);
-    // if (name == "edit")
-    //   Window.alert("param: " + parameter);
     if (parameter == null) 
       return (String)config.get(name);
     return parameter;
@@ -667,11 +667,13 @@ public final class AnimCube implements EntryPoint {
     return move;
   }
 
-  private static final char[] modeChar = {'m', 't', 'c', 's', 'a'};
+  private static final char[] modeChar = {'m', 't', 'c', 's', 'a', 'w'};
 
   private int[] getMovePart(String sequence, boolean info) {
+    int n = 0;
     int length = 0;
-    int[] move = new int[sequence.length()]; // overdimmensioned
+    int[] move = new int[sequence.length()]; // overdimensioned
+    int[] skip = new int[sequence.length()];
     for (int i = 0; i < sequence.length(); i++) {
       if (sequence.charAt(i) == '.') {
         move[length] = -1;
@@ -699,7 +701,7 @@ public final class AnimCube implements EntryPoint {
           if (sequence.charAt(i) == "UDFBLRESMXYZxyzudfblr".charAt(j)) {
             i++;
             int mode = moveModes[j];
-            move[length] = moveCodes[j] * 24;
+            move[length] = moveCodes[j] * 28;
             if (i < sequence.length()) {
               if (moveModes[j] == 0) { // modifiers for basic characters UDFBLR
                 for (int k = 0; k < modeChar.length; k++) {
@@ -711,6 +713,13 @@ public final class AnimCube implements EntryPoint {
                 }
               }
             }
+            /*
+            if (mode > 3) {
+              Window.alert("Move not implemented: " + sequence.substring(i-2,i));
+              skip[length] = 1;
+              n++;
+            }
+            */
             move[length] += mode * 4;
             if (i < sequence.length()) {
               if (sequence.charAt(i) == '1')
@@ -736,9 +745,10 @@ public final class AnimCube implements EntryPoint {
         }
       }
     }
-    int[] returnMove = new int[length];
-    for (int i = 0; i < length; i++)
-      returnMove[i] = move[i];
+    int[] returnMove = new int[length-n];
+    for (int i = 0, k = 0; i < length; i++)
+      if (skip[i] == 0)
+        returnMove[k++] = move[i];
     return returnMove;
   }
 
@@ -750,7 +760,6 @@ public final class AnimCube implements EntryPoint {
       s += turnText(move, i);
     return s;
   }
-
   private static final String[][][] turnSymbol = {
     { // "standard" notation
       {"U", "D", "F", "B", "L", "R"},
@@ -758,7 +767,8 @@ public final class AnimCube implements EntryPoint {
       {"Ut", "Dt", "Ft", "Bt", "Lt", "Rt"},
       {"Uc", "Dc", "Fc", "Bc", "Lc", "Rc"},
       {"Us", "Ds", "Fs", "Bs", "Ls", "Rs"},
-      {"Ua", "Da", "Fa", "Ba", "La", "Ra"}
+      {"Ua", "Da", "Fa", "Ba", "La", "Ra"},
+      {"Uw", "Dw", "Fw", "Bw", "Lw", "Rw"}
     },
     { // "reduced" notation
       {"U", "D", "F", "B", "L", "R"},
@@ -766,7 +776,8 @@ public final class AnimCube implements EntryPoint {
       {"u", "d", "f", "b", "l", "r"},
       {"Z", "~Z", "Y", "~Y", "~X", "X"},
       {"Us", "Ds", "Fs", "Bs", "Ls", "Rs"},
-      {"Ua", "Da", "Fa", "Ba", "La", "Ra"}
+      {"Ua", "Da", "Fa", "Ba", "La", "Ra"},
+      {"Uw", "Dw", "Fw", "Bw", "Lw", "Rw"}
     },
     { // "reduced" notation - swapped Y and Z
       {"U", "D", "F", "B", "L", "R"},
@@ -774,7 +785,8 @@ public final class AnimCube implements EntryPoint {
       {"u", "d", "f", "b", "l", "r"},
       {"Y", "~Y", "Z", "~Z", "~X", "X"},
       {"Us", "Ds", "Fs", "Bs", "Ls", "Rs"},
-      {"Ua", "Da", "Fa", "Ba", "La", "Ra"}
+      {"Ua", "Da", "Fa", "Ba", "La", "Ra"},
+      {"Uw", "Dw", "Fw", "Bw", "Lw", "Rw"}
     },
     { // another reduced notation
       {"U", "D", "F", "B", "L", "R"},
@@ -782,7 +794,8 @@ public final class AnimCube implements EntryPoint {
       {"Uu", "Dd", "Ff", "Bb", "Ll", "Rr"},
       {"QU", "QD", "QF", "QB", "QL", "QR"},
       {"UD'", "DU'", "FB'", "BF'", "LR'", "RL'"},
-      {"UD", "DU", "FB", "BF", "LR", "RL"}
+      {"UD", "DU", "FB", "BF", "LR", "RL"},
+      {"ud'", "du'", "fb'", "bf'", "lr'", "rl'"}
     }
   };
   private static final String[] modifierStrings = {"", "2", "'", "2'"};
@@ -794,7 +807,7 @@ public final class AnimCube implements EntryPoint {
       return "";
     if (move[pos] == -1)
       return ".";
-    String s = turnSymbol[moveText - 1][move[pos] / 4 % 6][move[pos] / 24];
+    String s = turnSymbol[moveText - 1][move[pos] / 4 % 7][move[pos] / 28];
     if (s.charAt(0) == '~')
       return s.substring(1) + modifierStrings[(move[pos] + 2) % 4];
     return s + modifierStrings[move[pos] % 4];
@@ -845,7 +858,7 @@ public final class AnimCube implements EntryPoint {
     if (turn < 0 || turn >= 1000)
       return 0;
     int modifier = turn % 4;
-    int mode = turn / 4 % 6;
+    int mode = turn / 4 % 7;
     int n = 1;
     switch (metric) {
      case 1: // quarter-turn metric
@@ -881,12 +894,12 @@ public final class AnimCube implements EntryPoint {
       }
       else if (move[position] >= 0) {
         int modifier = move[position] % 4 + 1;
-        int mode = move[position] / 4 % 6;
+        int mode = move[position] / 4 % 7;
         if (modifier == 4) // reversed double turn
           modifier = 2;
         if (reversed)
           modifier = 4 - modifier;
-        twistLayers(cube, move[position] / 24, modifier, mode);
+        twistLayers(cube, move[position] / 28, modifier, mode);
       }
       if (!reversed) {
         position++;
@@ -940,7 +953,7 @@ public final class AnimCube implements EntryPoint {
       natural = true;
       mirrored = false;
       for (int i = 0; i < 6; i++)
-	for (int j = 0; j < 9; j++) {
+	for (int j = 0; j < 16; j++) {
 	  cube[i][j] = initialCube[i][j];
 	  scube[i][j] = initialSCube[i][j];
         }
@@ -953,31 +966,26 @@ public final class AnimCube implements EntryPoint {
 
   // cube dimensions in number of facelets (mincol, maxcol, minrow, maxrow) for compact cube
   private static final int[][][] cubeBlocks = {
-    {{0, 3}, {0, 3}}, // U
-    {{0, 3}, {0, 3}}, // D
-    {{0, 3}, {0, 3}}, // F
-    {{0, 3}, {0, 3}}, // B
-    {{0, 3}, {0, 3}}, // L
-    {{0, 3}, {0, 3}}  // R
+    {{0, 4}, {0, 4}}, // U
+    {{0, 4}, {0, 4}}, // D
+    {{0, 4}, {0, 4}}, // F
+    {{0, 4}, {0, 4}}, // B
+    {{0, 4}, {0, 4}}, // L
+    {{0, 4}, {0, 4}}  // R
   };
   // subcube dimensions
   private final int[][][] topBlocks = new int[6][][];
   private final int[][][] midBlocks = new int[6][][];
+  private final int[][][] midBlocks2 = new int[6][][];
   private final int[][][] botBlocks = new int[6][][];
   // all possible subcube dimensions for top and bottom layers
   private static final int[][][] topBlockTable = {
-    {{0, 0}, {0, 0}},
-    {{0, 3}, {0, 3}},
-    {{0, 3}, {0, 1}},
-    {{0, 1}, {0, 3}},
-    {{0, 3}, {2, 3}},
-    {{2, 3}, {0, 3}}
-  };
-  // subcube dimmensions for middle layers
-  private static final int[][][] midBlockTable = {
-    {{0, 0}, {0, 0}},
-    {{0, 3}, {1, 2}},
-    {{1, 2}, {0, 3}}
+    {{0, 0}, {0, 0}},  // 0
+    {{0, 4}, {0, 4}},  // 1
+    {{0, 4}, {0, 1}},  // 2
+    {{0, 1}, {0, 4}},  // 3
+    {{0, 4}, {3, 4}},  // 4
+    {{3, 4}, {0, 4}},  // 5
   };
   // indices to topBlockTable[] and botBlockTable[] for each twistedLayer value
   private static final int[][] topBlockFaceDim = {
@@ -989,15 +997,6 @@ public final class AnimCube implements EntryPoint {
     {3, 2, 2, 4, 1, 0}, // L
     {5, 4, 4, 2, 0, 1}  // R
   };
-  private static final int[][] midBlockFaceDim = {
-  // U  D  F  B  L  R
-    {0, 0, 2, 2, 1, 2}, // U
-    {0, 0, 2, 2, 1, 2}, // D
-    {1, 2, 0, 0, 2, 1}, // F
-    {1, 2, 0, 0, 2, 1}, // B
-    {2, 1, 1, 1, 0, 0}, // L
-    {2, 1, 1, 1, 0, 0}  // R
-  };
   private static final int[][] botBlockFaceDim = {
   // U  D  F  B  L  R
     {0, 1, 5, 5, 4, 5}, // U
@@ -1007,12 +1006,38 @@ public final class AnimCube implements EntryPoint {
     {5, 4, 4, 2, 0, 1}, // L
     {3, 2, 2, 4, 1, 0}  // R
   };
-
+  // subcube dimensions for middle layers
+  private static final int[][][] midBlockTable = {
+    {{0, 0}, {0, 0}},  // 0
+    {{0, 4}, {2, 3}},  // 1
+    {{0, 4}, {1, 2}},  // 2
+    {{2, 3}, {0, 4}},  // 3
+    {{1, 2}, {0, 4}},  // 4
+  };
+  private static final int[][] midBlockFaceDim = {
+  // U  D  F  B  L  R
+    {0, 0, 4, 4, 2, 4}, // U
+    {0, 0, 3, 3, 1, 3}, // D
+    {2, 4, 0, 0, 4, 2}, // F
+    {1, 3, 0, 0, 3, 1}, // B
+    {4, 2, 2, 1, 0, 0}, // L
+    {3, 1, 1, 2, 0, 0}, // R
+  };
+  private static final int[][] midBlockFaceDim2 = {
+  // U  D  F  B  L  R
+    {0, 0, 3, 3, 1, 3}, // U
+    {0, 0, 4, 4, 2, 4}, // D
+    {1, 3, 0, 0, 3, 1}, // F
+    {2, 4, 0, 0, 4, 2}, // B
+    {3, 1, 1, 2, 0, 0}, // L
+    {4, 2, 2, 1, 0, 0}, // R
+  };
   private void splitCube(int layer) {
     for (int i = 0; i < 6; i++) { // for all faces
       topBlocks[i] = topBlockTable[topBlockFaceDim[layer][i]];
       botBlocks[i] = topBlockTable[botBlockFaceDim[layer][i]];
       midBlocks[i] = midBlockTable[midBlockFaceDim[layer][i]];
+      midBlocks2[i] = midBlockTable[midBlockFaceDim2[layer][i]];
     }
     natural = false;
   }
@@ -1020,11 +1045,19 @@ public final class AnimCube implements EntryPoint {
   private void twistLayers(int[][] cube, int layer, int num, int mode) {
     switch (mode) {
      case 3:
+      twistLayer(cube, layer, 4-num, false);
+      twistLayer(cube, layer, 4-num, true);
+      twistLayer(cube, layer ^ 1, num, true);
       twistLayer(cube, layer ^ 1, num, false);
+      break;  
      case 2:
       twistLayer(cube, layer, 4 - num, false);
      case 1:
       twistLayer(cube, layer, 4 - num, true);
+      break;
+     case 6:
+      twistLayer(cube, layer, 4 - num, true);
+      twistLayer(cube, layer ^ 1, num, true);
       break;
      case 5:
       twistLayer(cube, layer ^ 1, 4 - num, false);
@@ -1037,6 +1070,170 @@ public final class AnimCube implements EntryPoint {
     }
   }
 
+  /*             12 13 14 15 
+                 08 09 10 11 
+                 04 05 06 07 
+                 00 01 02 03 
+    03 02 01 00  00 04 08 12  00 04 08 12  00 04 08 12 
+    07 06 05 04  01 05 09 13  01 05 09 13  01 05 09 13 
+    11 10 09 08  02 06 10 14  02 06 10 14  02 06 10 14 
+    15 14 13 12  03 07 11 15  03 07 11 15  03 07 11 15 
+                 00 04 08 12 
+                 01 05 09 13 
+                 02 06 10 14 
+                 03 07 11 15 
+  */
+  // 0=Up  1=Down  2=Front  3=Back  4=Left  5=Right
+  int [][][][] twistArray = {
+    { {{2,0},  {5,0},  {3,0},  {4,3}},  // U 
+      {{2,4},  {5,4},  {3,4},  {4,2}},
+      {{2,8},  {5,8},  {3,8},  {4,1}},
+      {{2,12}, {5,12}, {3,12}, {4,0}},
+      {{0,12}, {0,0},  {0,3},  {0,15}},
+      {{0,8},  {0,1},  {0,7},  {0,14}},
+      {{0,4},  {0,2},  {0,11}, {0,13}},
+      {{0,9},  {0,5},  {0,6},  {0,10}},
+    },
+    { {{2,3},  {4,15}, {3,3},  {5,3}},  // D 
+      {{2,7},  {4,14}, {3,7},  {5,7}},
+      {{2,11}, {4,13}, {3,11}, {5,11}},
+      {{2,15}, {4,12}, {3,15}, {5,15}},
+      {{1,0},  {1,3},  {1,15}, {1,12}},
+      {{1,1},  {1,7},  {1,14}, {1,8}},
+      {{1,2},  {1,11}, {1,13}, {1,4}},
+      {{1,5},  {1,6},  {1,10}, {1,9}},
+    },
+    { {{0,0},  {4,12}, {1,12}, {5,0}},  // F 
+      {{0,1},  {4,8},  {1,8},  {5,1}},
+      {{0,2},  {4,4},  {1,4},  {5,2}},
+      {{0,3},  {4,0},  {1,0},  {5,3}},
+      {{2,0},  {2,3},  {2,15}, {2,12}},
+      {{2,1},  {2,7},  {2,14}, {2,8}},
+      {{2,2},  {2,11}, {2,13}, {2,4}},
+      {{2,5},  {2,6},  {2,10}, {2,9}},
+    },
+    { {{5,12}, {1,15}, {4,15}, {0,12}},  // B 
+      {{5,13}, {1,11}, {4,11}, {0,13}},
+      {{5,14}, {1,7},  {4,7},  {0,14}},
+      {{5,15}, {1,3},  {4,3},  {0,15}},
+      {{3,0},  {3,3},  {3,15}, {3,12}},
+      {{3,1},  {3,7},  {3,14}, {3,8}},
+      {{3,2},  {3,11}, {3,13}, {3,4}},
+      {{3,5},  {3,6},  {3,10}, {3,9}}
+    },
+    { {{2,0},  {0,12}, {3,15}, {1,0}},  // L 
+      {{2,1},  {0,8},  {3,14}, {1,1}},
+      {{2,2},  {0,4},  {3,13}, {1,2}},
+      {{2,3},  {0,0},  {3,12}, {1,3}},
+      {{4,0},  {4,3},  {4,15}, {4,12}},
+      {{4,1},  {4,7},  {4,14}, {4,8}},
+      {{4,2},  {4,11}, {4,13}, {4,4}},
+      {{4,5},  {4,6},  {4,10}, {4,9}},
+    }, 
+    { {{2,12}, {1,12}, {3,3},  {0,15}},  // R
+      {{2,13}, {1,13}, {3,2},  {0,11}},
+      {{2,14}, {1,14}, {3,1},  {0,7}}, 
+      {{2,15}, {1,15}, {3,0},  {0,3}},
+      {{5,0},  {5,3},  {5,15}, {5,12}},
+      {{5,1},  {5,7},  {5,14}, {5,8}},
+      {{5,2},  {5,11}, {5,13}, {5,4}},
+      {{5,5},  {5,6},  {5,10}, {5,9}},
+    },
+    { {{2,1},  {5,1},  {3,1},  {4,7}},  // Um 
+      {{2,5},  {5,5},  {3,5},  {4,6}},
+      {{2,9},  {5,9},  {3,9},  {4,5}},
+      {{2,13}, {5,13}, {3,13}, {4,4}},
+      {{2,2},  {5,2},  {3,2},  {4,11}}, // Dm
+      {{2,6},  {5,6},  {3,6},  {4,10}},
+      {{2,10}, {5,10}, {3,10}, {4,9}},
+      {{2,14}, {5,14}, {3,14}, {4,8}},
+    },
+    { {{0,4},  {4,13}, {1,13}, {5,4}},  // Fm
+      {{0,5},  {4,9},  {1,9},  {5,5}},
+      {{0,6},  {4,5},  {1,5},  {5,6}},
+      {{0,7},  {4,1},  {1,1},  {5,7}},
+      {{0,8},  {4,14}, {1,14}, {5,8}},  // Bm
+      {{0,9},  {4,10}, {1,10}, {5,9}},
+      {{0,10}, {4,6},  {1,6},  {5,10}},
+      {{0,11}, {4,2},  {1,2},  {5,11}},
+    },
+    { {{2,4},  {0,13}, {3,11}, {1,4}},  // Lm
+      {{2,5},  {0,9},  {3,10}, {1,5}},
+      {{2,6},  {0,5},  {3,9},  {1,6}},
+      {{2,7},  {0,1},  {3,8},  {1,7}},
+      {{2,8},  {0,14}, {3,7},  {1,8}},  // Rm
+      {{2,9},  {0,10}, {3,6},  {1,9}},
+      {{2,10}, {0,6},  {3,5},  {1,10}},
+      {{2,11}, {0,2},  {3,4},  {1,11}}
+    } 
+  };
+
+  private void twistLayer(int[][] cube, int layer, int num, boolean middle) {
+    twistLayer2(cube, layer, num, middle);
+    if (superCube == true && num > 0 && num < 4) {
+      twistLayer2(scube, layer, num, middle);
+      twistSuperLayer(layer, num, middle);
+    }
+  }
+
+  private void twistLayer2(int[][] cube, int layer, int num, boolean middle) {
+    // U=0  D=1  F=2  B=3  L=4  R=5  Um=6  Dm=7  Fm=8  Bm=9  Lm=10  Rm=11
+    int [] a = new int[2];
+    int [] b = new int[2];
+    int i = 0;
+    int n = 8;
+    int opp[] = {0,3,2,1};
+    int mv = layer;
+    if (middle) {
+      mv =  6 + layer/2; 
+      if (layer%2 == 1) {
+        i=4;
+        num = opp[num];
+      }
+      else
+        n=4;
+    }
+    if (num == 1) { 
+      for (; i < n; i++) {
+        a = twistArray[mv][i][0];
+        int tmp = cube[a[0]][a[1]];
+        for (int j=2; j >= 0; j--) {
+          b = twistArray[mv][i][j+1];
+          cube[a[0]][a[1]] = cube[b[0]][b[1]]; 
+          a = b;
+        }
+        cube[a[0]][a[1]] = tmp;
+      }
+    }
+    if (num == 2) { 
+      for (; i < n; i++) {
+        a = twistArray[mv][i][0];
+        b = twistArray[mv][i][2];
+        int tmp = cube[a[0]][a[1]];
+        cube[a[0]][a[1]] = cube[b[0]][b[1]]; 
+        cube[b[0]][b[1]] = tmp; 
+        a = twistArray[mv][i][1];
+        b = twistArray[mv][i][3];
+        tmp = cube[a[0]][a[1]];
+        cube[a[0]][a[1]] = cube[b[0]][b[1]]; 
+        cube[b[0]][b[1]] = tmp;
+      } 
+    }
+    if (num == 3) { 
+      for (; i < n; i++) {
+        a = twistArray[mv][i][0];
+        int tmp = cube[a[0]][a[1]];
+        for (int j=0; j < 3; j++) {
+          b = twistArray[mv][i][j+1];
+          cube[a[0]][a[1]] = cube[b[0]][b[1]]; 
+          a = b;
+        }
+        cube[a[0]][a[1]] = tmp;
+      }
+    }
+  }
+
+  /*
   // top facelet cycle
   private static final int[] cycleOrder = {0, 1, 2, 5, 8, 7, 6, 3};
   // side facelet cycle offsets
@@ -1063,14 +1260,6 @@ public final class AnimCube implements EntryPoint {
   private final int[] twistBuffer = new int[12];
 
   private void twistLayer(int[][] cube, int layer, int num, boolean middle) {
-    twistLayer2(cube, layer, num, middle);
-    if (superCube == true && num > 0 && num < 4) {
-      twistLayer2(scube, layer, num, middle);
-      twistSuperLayer(layer, num, middle);
-    }
-  }
-
-  private void twistLayer2(int[][] cube, int layer, int num, boolean middle) {
     if (!middle) {
       // rotate top facelets
       for (int i = 0; i < 8; i++) // to buffer
@@ -1103,61 +1292,61 @@ public final class AnimCube implements EntryPoint {
 	k++;
       }
     }
-  }
+ */
 
   int superTwistArr[][][] = {
-   { { 0, 1, 0 },  // F 
-     { 0, 3, 1 },
-     { 0, 3, 4 },
+   { { 0, 1, 0 },   // F 
+     { 0, 4, 1 },
+     { 0, 4, 4 },
      { 0, 1, 5 },
    },
-   { { 6, 1, 0 },  // B
-     { 2, 3, 1 },
-     { 2, 3, 4 },
-     { 6, 1, 5 },
+   { { 12, 1, 0 },  // B
+     { 3,  4, 1 },
+     { 3,  4, 4 },
+     { 12, 1, 5 },
    },
-   { { 3, 1, 0 },  // F slice
-     { 1, 3, 1 },
-     { 1, 3, 4 },
-     { 3, 1, 5 },
+   { { 4, 1, 0 },   // F slice
+     { 1, 4, 1 },
+     { 1, 4, 4 },
+     { 4, 1, 5 },
    },
-   { { 3, 1, 0 },  // B slice
-     { 2, 3, 1 },
-     { 2, 3, 4 },
-     { 3, 1, 5 },
+   { { 8, 1, 0 },   // B slice
+     { 2, 4, 1 },
+     { 2, 4, 4 },
+     { 8, 1, 5 },
    }
   };
 
   private void twistSuperLayer(int layer, int num, boolean middle) {
     if (middle == false)
-      for (int i=0; i < 9; i++)
+      for (int i=0; i < 16; i++)
         scube[layer][i] = (scube[layer][i] + 4-num) % 4;
     if (layer == 4) {
       if (middle == false) {
-        superTwist(6, 1, 3);
+        superTwist(12, 1, 3);
         if      (num == 1) superTwist(0, 1, 1);
         else if (num == 2) superTwist(0, 1, 2);
-        else if (num == 3) superTwist(0, 3, 0);
+        else if (num == 3) superTwist(0, 4, 0);
       }
       if (middle == true) {
-        superTwist(3, 1, 3);
-        if      (num == 1) superTwist(3, 1, 1);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(1, 3, 0);
+        superTwist(8, 1, 3);
+        if      (num == 1) superTwist(4, 1, 1);
+        else if (num == 2) superTwist(4, 1, 2);
+        else if (num == 3) superTwist(1, 4, 0);
       }
     }
     if (layer == 5) {
       if (middle == false) {
         superTwist(0, 1, 3);
-        if      (num == 1) superTwist(2, 3, 0);
-        else if (num == 2) superTwist(6, 1, 2);
-        else if (num == 3) superTwist(6, 1, 1);
+        if      (num == 1) superTwist(3,  4, 0);
+        else if (num == 2) superTwist(12, 1, 2);
+        else if (num == 3) superTwist(12, 1, 1);
       }
       if (middle == true) {
-        superTwist(3, 1, 3);
-        if      (num == 1) superTwist(1, 3, 0);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(3, 1, 1);
+        superTwist(4, 1, 3);
+        if      (num == 1) superTwist(2, 4, 0);
+        else if (num == 2) superTwist(8, 1, 2);
+        else if (num == 3) superTwist(8, 1, 1);
       }
     }
     if (middle == false) {
@@ -1175,14 +1364,14 @@ public final class AnimCube implements EntryPoint {
   }
 
   private void superTwist(int b, int inc, int face) {
-    for (int i=b, n=0; n < 3; i+=inc, n++)
+    for (int i=b, n=0; n < 4; i+=inc, n++)
       scube[face][i] = (scube[face][i] + 2) % 4;
   }
 
   private void superTwist2(int ix, int tw) {
     for (int i=0; i < 4; i++) {
       int [] v = superTwistArr[ix][i];
-      for (int j=v[0], n=0; n < 3; j+=v[1], n++)
+      for (int j=v[0], n=0; n < 4; j+=v[1], n++)
         scube[v[2]][j] = (scube[v[2]][j] + tw) % 4;
     }
   }
@@ -1197,30 +1386,35 @@ public final class AnimCube implements EntryPoint {
   private int lastDragY;
   // drag areas
   private int dragAreas;
-  private final int[][] dragCornersX = new int[18][4];
-  private final int[][] dragCornersY = new int[18][4];
-  private final double[] dragDirsX = new double[18];
-  private final double[] dragDirsY = new double[18];
+  private final int[][] dragCornersX = new int[24][4];
+  private final int[][] dragCornersY = new int[24][4];
+  private final double[] dragDirsX = new double[24];
+  private final double[] dragDirsY = new double[24];
   private static final int[][][] dragBlocks = {
-    {{0, 0}, {3, 0}, {3, 1}, {0, 1}},
-    {{3, 0}, {3, 3}, {2, 3}, {2, 0}},
-    {{3, 3}, {0, 3}, {0, 2}, {3, 2}},
-    {{0, 3}, {0, 0}, {1, 0}, {1, 3}},
+    {{0, 0}, {4, 0}, {4, 1}, {0, 1}},
+    {{4, 0}, {4, 4}, {3, 4}, {3, 0}},
+    {{4, 4}, {0, 4}, {0, 3}, {4, 3}},
+    {{0, 4}, {0, 0}, {1, 0}, {1, 4}},
     // center slices
-    {{0, 1}, {3, 1}, {3, 2}, {0, 2}},
-    {{2, 0}, {2, 3}, {1, 3}, {1, 0}}
+    {{0, 1}, {4, 1}, {4, 2}, {0, 2}},   
+    {{3, 0}, {3, 4}, {2, 4}, {2, 0}},
+    {{0, 2}, {4, 2}, {4, 3}, {0, 3}},
+    {{2, 0}, {2, 4}, {1, 4}, {1, 0}},
   };
-  private static final int[][] areaDirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+  private static final int[][] areaDirs = {
+    {1, 0}, {0, 1}, {-1, 0}, {0, -1},
+    {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+  };
   private static final int[][] twistDirs = {
-    { 1,  1,  1,  1,  1, -1}, // U
-    { 1,  1,  1,  1,  1, -1}, // D
-    { 1, -1,  1, -1,  1,  1}, // F
-    { 1, -1,  1, -1, -1,  1}, // B
-    {-1,  1, -1,  1, -1, -1}, // L
-    { 1, -1,  1, -1,  1,  1}  // R
+    { 1,  1,  1,  1,  1,  1,  1,  1}, // U
+    { 1,  1,  1,  1,  1,  1,  1,  1}, // D
+    { 1, -1,  1, -1,  1, -1,  1, -1}, // F
+    { 1, -1,  1, -1,  1, -1,  1, -1}, // B
+    {-1,  1, -1,  1, -1,  1, -1,  1}, // L
+    { 1, -1,  1, -1,  1, -1,  1, -1}  // R
   };
-  private int[] dragLayers = new int[18]; // which layers belongs to dragCorners
-  private int[] dragModes = new int[18]; // which layer modes dragCorners
+  private int[] dragLayers = new int[24]; // which layers belongs to dragCorners
+  private int[] dragModes = new int[24]; // which layer modes dragCorners
   // current drag directions
   private double dragX;
   private double dragY;
@@ -1257,11 +1451,30 @@ public final class AnimCube implements EntryPoint {
   private final double[][] eyeArray = new double[3][];
   private final double[][] eyeArrayX = new double[3][];
   private final double[][] eyeArrayY = new double[3][];
-  private final int[][] eyeOrder = {{1, 0, 0}, {0, 1, 0}, {1, 1, 0}, {1, 1, 1}, {1, 0, 1}, {1, 0, 2}};
-  private final int[][][][] blockArray = new int[3][][][];
-  private final int[][] blockMode = {{0, 2, 2}, {2, 1, 2}, {2, 2, 2}, {2, 2, 2}, {2, 2, 2}, {2, 2, 2}};
-  private final int[][] drawOrder = {{0, 1, 2}, {2, 1, 0}, {0, 2, 1}};
-
+  private final int[][] eyeOrder = {
+    {1, 0, 0, 0}, 
+    {0, 1, 0, 0}, // m  modeChar
+    {1, 1, 0, 0}, // t
+    {1, 1, 1, 1}, // c
+    {1, 0, 0, 1}, // s
+    {1, 0, 0, 2}, // a
+    {0, 1, 1, 0}  // w
+  };
+  private final int[][][][] blockArray = new int[4][][][];
+  private final int[][] blockMode = {
+    {0, 2, 2, 2}, 
+    {2, 1, 2, 2},
+    {2, 2, 2, 2},
+    {2, 2, 2, 2}, 
+    {0, 2, 2, 0}, 
+    {0, 2, 2, 0}, 
+    {0, 2, 2, 0}
+  };
+  private final int[][] drawOrder = {
+    {0, 1, 2, 3},  // top facing away, draw it first
+    {3, 2, 1, 0},  // bottom facing away: draw it first
+    {0, 3, 2, 1}   // both top and bottom layer facing away: draw them first
+  };
   public void paint() {
     graphics.save();
     setClip(graphics, 0, 0, width, height);
@@ -1270,7 +1483,7 @@ public final class AnimCube implements EntryPoint {
       dragAreas = 0;
       if (natural) // compact cube
       {
-        fixBlock(eye, eyeX, eyeY, cubeBlocks, 3); // draw cube and fill drag areas
+        fixBlock(eye, eyeX, eyeY, cubeBlocks, 3, 9); // draw cube and fill drag areas
       }
       else { // in twisted state
 	// compute top observer
@@ -1310,10 +1523,11 @@ public final class AnimCube implements EntryPoint {
 	eyeArrayY[2] = tempEyeY2;
 	blockArray[0] = topBlocks;
 	blockArray[1] = midBlocks;
-	blockArray[2] = botBlocks;
+	blockArray[2] = midBlocks2;
+	blockArray[3] = botBlocks;
 	// perspective corrections
-	vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), vScale(vCopy(perspNormal, faceNormals[twistedLayer]), 1.0 / 3.0));
-	vSub(vScale(vCopy(perspEyeI, eye), 5.0 + persp), vScale(vCopy(perspNormal, faceNormals[twistedLayer ^ 1]), 1.0 / 3.0));
+	vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), vScale(vCopy(perspNormal, faceNormals[twistedLayer]), 1.0 / 2.5));
+	vSub(vScale(vCopy(perspEyeI, eye), 5.0 + persp), vScale(vCopy(perspNormal, faceNormals[twistedLayer ^ 1]), 1.0 / 6.0));
 	double topProd = vProd(perspEye, faceNormals[twistedLayer]);
 	double botProd = vProd(perspEyeI, faceNormals[twistedLayer ^ 1]);
 	int orderMode;
@@ -1327,17 +1541,22 @@ public final class AnimCube implements EntryPoint {
 		 eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][0]]],
 		 eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][0]]],
 		 blockArray[drawOrder[orderMode][0]],
-		 blockMode[twistedMode][drawOrder[orderMode][0]]);
+		 blockMode[twistedMode][drawOrder[orderMode][0]], 0);
 	fixBlock(eyeArray[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
 		 eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
 		 eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
 		 blockArray[drawOrder[orderMode][1]],
-		 blockMode[twistedMode][drawOrder[orderMode][1]]);
+		 blockMode[twistedMode][drawOrder[orderMode][1]], 1);
 	fixBlock(eyeArray[eyeOrder[twistedMode][drawOrder[orderMode][2]]],
 		 eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][2]]],
 		 eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][2]]],
 		 blockArray[drawOrder[orderMode][2]],
-		 blockMode[twistedMode][drawOrder[orderMode][2]]);
+		 blockMode[twistedMode][drawOrder[orderMode][2]], 2);
+	fixBlock(eyeArray[eyeOrder[twistedMode][drawOrder[orderMode][3]]],
+		 eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][3]]],
+		 eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][3]]],
+		 blockArray[drawOrder[orderMode][3]],
+		 blockMode[twistedMode][drawOrder[orderMode][3]], 3);
       }
       if (!pushed && !animating) // no button should be deceased
 	buttonPressed = -1;
@@ -1420,7 +1639,7 @@ public final class AnimCube implements EntryPoint {
   private final double[] faceShiftY = new double[6];
   private final double[] tempNormal = new double[3];
 
-  private void fixBlock(double[] eye, double[] eyeX, double[] eyeY, int[][][] blocks, int mode) {
+  private void fixBlock(double[] eye, double[] eyeX, double[] eyeY, int[][][] blocks, int mode, int call) {
     final double v1[] = eye;
     final double v2[] = eyeX;
     final double v3[] = eyeY;
@@ -1471,10 +1690,10 @@ public final class AnimCube implements EntryPoint {
 		}
                 if (superCube == true) {
                   drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
+                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 4 + q], colors[cube[i][p * 4 + q]]);
                 }
                 else
-                  drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
+                  drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 4 + q]]);
 	      }
 	    }
 	  }
@@ -1497,26 +1716,49 @@ public final class AnimCube implements EntryPoint {
         drawPolygon(graphics, fillX, fillY, "green");
       }
     }
-    */ 
+    */
     // find and draw black inner faces
     for (int i = 0; i < 6; i++) { // all faces
       int sideW = blocks[i][0][1] - blocks[i][0][0];
       int sideH = blocks[i][1][1] - blocks[i][1][0];
       if (sideW <= 0 || sideH <= 0) { // this face is inner and only black
-	for (int j = 0; j < 4; j++) { // for all corners
-	  int k = oppositeCorners[i][j];
-	  fillX[j] = (int)(cooX[i][j] + (cooX[i ^ 1][k] - cooX[i][j]) * 2.0 / 3.0);
-	  fillY[j] = (int)(cooY[i][j] + (cooY[i ^ 1][k] - cooY[i][j]) * 2.0 / 3.0);
-	  if (mirrored)
-	    fillX[j] = width - fillX[j];
-	}
-        drawPolygon(graphics, fillX, fillY, "black");
+        // mode = 0, call = 0  twist on outer layers
+        // mode = 1, call = 1  twist on slices (center)
+        // mode = 1, call = 2  twist on slices (outer)
+        // mode = 2, call = 0  fixed on all
+        double v = 0;
+        if (mode == 0 && call == 0) 
+          v = .75;
+        else if (mode == 1 && call == 1) 
+          v = .50;
+        else if (mode == 1 && call == 2 &&  twistedLayer == i)
+          v = .25;
+        else if (mode == 2 && call == 0) 
+          v = (twistedMode == 0) ? .25 : (twistedLayer == i) ? .50 : .75;
+        if (mode == 2 && twistedMode > 3)  // fixed center for modes s & a 
+          v = .50;
+        if (v != 0) {
+          for (int j = 0; j < 4; j++) { // for all corners
+	    int k = oppositeCorners[i][j];
+	    fillX[j] = (int)(cooX[i][j] + (cooX[i ^ 1][k] - cooX[i][j]) * v);
+	    fillY[j] = (int)(cooY[i][j] + (cooY[i ^ 1][k] - cooY[i][j]) * v);
+	    if (mirrored)
+	      fillX[j] = width - fillX[j];
+	  }
+          drawPolygon(graphics, fillX, fillY, "black");
+        }
       }
       else {
 	// draw black face background (do not care about normals and visibility!)
 	for (int j = 0; j < 4; j++) // corner co-ordinates
 	  getCorners(i, j, fillX, fillY, blocks[i][0][factors[j][0]], blocks[i][1][factors[j][1]], mirrored);
-        drawPolygon(graphics, fillX, fillY, "black");
+        if (call < 3)
+          drawPolygon(graphics, fillX, fillY, "black");
+        else { 
+          vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), faceNormals[i]); // perspective correction
+          if (vProd(perspEye, faceNormals[i]) > 0)  // draw only faces towards us
+            drawPolygon(graphics, fillX, fillY, "black");
+        }
       }
     }
     // draw all visible faces and get dragging regions
@@ -1533,10 +1775,10 @@ public final class AnimCube implements EntryPoint {
 		getCorners(i, j, fillX, fillY, q + border[j][0], p + border[j][1], mirrored);
               if (superCube == true) {
                 drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 3 + q], colors[cube[i][p * 3 + q]]);
+                drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 4 + q], colors[cube[i][p * 4 + q]]);
               }
               else
-                drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
+                drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 4 + q]]);
 	    }
 	  }
 	}
@@ -1548,24 +1790,22 @@ public final class AnimCube implements EntryPoint {
 	double dxv = (cooY[i][1] - cooY[i][0] + cooY[i][2] - cooY[i][3]) / 6.0;
 	double dyv = (cooY[i][3] - cooY[i][0] + cooY[i][2] - cooY[i][1]) / 6.0;
 	if (mode == 3) { // just the normal cube
-	  for (int j = 0; j < 6; j++) { // 4 areas 3x1 per face + 2 center slices
+	  for (int j = 0; j < 8; j++) { // 4 areas 3x1 per face + 4 center slices
 	    for (int k = 0; k < 4; k++) // 4 points per area
 	      getCorners(i, k, dragCornersX[dragAreas], dragCornersY[dragAreas],
 			       dragBlocks[j][k][0], dragBlocks[j][k][1], false);
 	    dragDirsX[dragAreas] = (dxh * areaDirs[j][0] + dxv * areaDirs[j][1]) * twistDirs[i][j];
 	    dragDirsY[dragAreas] = (dyh * areaDirs[j][0] + dyv * areaDirs[j][1]) * twistDirs[i][j];
-	    dragLayers[dragAreas] = adjacentFaces[i][j % 4];
-	    if (j >= 4)
-	      dragLayers[dragAreas] &= ~1;
+            dragLayers[dragAreas] = adjacentFaces[i][j % 4];
 	    dragModes[dragAreas] = j / 4;
 	    dragAreas++;
-	    if (dragAreas == 18)
+	    if (dragAreas == 24)
 	      break;
 	  }
 	}
 	else if (mode == 0) { // twistable top layer
-	  if (i != twistedLayer && sideW > 0 && sideH > 0) { // only 3x1 faces
-	    int j = sideW == 3 ? (blocks[i][1][0] == 0 ? 0 : 2) : (blocks[i][0][0] == 0 ? 3 : 1);
+	  if (i != twistedLayer && sideW > 0 && sideH > 0) { // only 4x1 faces
+	    int j = sideW == 4 ? (blocks[i][1][0] == 0 ? 0 : 2) : (blocks[i][0][0] == 0 ? 3 : 1);
 	    for (int k = 0; k < 4; k++)
 	      getCorners(i, k, dragCornersX[dragAreas], dragCornersY[dragAreas],
 			       dragBlocks[j][k][0], dragBlocks[j][k][1], false);
@@ -1577,8 +1817,9 @@ public final class AnimCube implements EntryPoint {
 	  }
 	}
 	else if (mode == 1) { // twistable center layer
-	  if (i != twistedLayer && sideW > 0 && sideH > 0) { // only 3x1 faces
-	    int j = sideW == 3 ? 4 : 5;
+	  if (i != twistedLayer && sideW > 0 && sideH > 0) { // only 4x1 faces
+	    int j = sideW == 4 ? (blocks[i][1][0] == 1 ? 0 : 2) : (blocks[i][0][0] == 1 ? 3 : 1);
+            j += 4;
 	    for (int k = 0; k < 4; k++)
 	      getCorners(i, k, dragCornersX[dragAreas], dragCornersY[dragAreas],
 			       dragBlocks[j][k][0], dragBlocks[j][k][1], false);
@@ -1594,8 +1835,8 @@ public final class AnimCube implements EntryPoint {
   } // fixblock
 
   private void getCorners(int face, int corner, int[] cornersX, int[] cornersY, double factor1, double factor2, boolean mirror) {
-    factor1 /= 3.0;
-    factor2 /= 3.0;
+    factor1 /= 4.0;
+    factor2 /= 4.0;
     double x1 = cooX[face][0] + (cooX[face][1] - cooX[face][0]) * factor1;
     double y1 = cooY[face][0] + (cooY[face][1] - cooY[face][0]) * factor1;
     double x2 = cooX[face][3] + (cooX[face][2] - cooX[face][3]) * factor1;
@@ -1669,6 +1910,29 @@ public final class AnimCube implements EntryPoint {
     }
     return -1;
   }
+
+  private int xselectButton(int x, int y) {
+    if (buttonBar == 0)
+      return -1;
+    if (move.length > 1 && x >= width - buttonHeight && x < width && y >= 0 && y < buttonHeight)
+      return 7;
+    if (buttonBar == 2) { // only clear (rewind) button present
+      if (x >= 0 && x < buttonHeight && y >= height - buttonHeight && y < height)
+        return 0;
+      return -1;
+    }
+    if (y < height)
+      return -1;
+    int buttonX = 0;
+    for (int i = 0; i < 7; i++) {
+      int buttonWidth = (width - buttonX) / (7 - i);
+      if (x >= buttonX && x < buttonX + buttonWidth && y >= height && y < height + buttonHeight)
+        return i;
+      buttonX += buttonWidth;
+    }
+    return -1;
+  }
+  // Mouse event handlers
 
   private final static int[] buttonAction = {-1, 3, 1, -1, 0, 2, 4, -1};
 
@@ -2077,8 +2341,8 @@ public final class AnimCube implements EntryPoint {
           curInfoText = mv[movePos] - 1000;
         else {
           int num = mv[movePos] % 4 + 1;
-          int mode = mv[movePos] / 4 % 6;
-          int layer = mv[movePos] / 24;
+          int mode = mv[movePos] / 4 % 7;
+          int layer = mv[movePos] / 28;
           twistLayers(cube, layer, (num==4)?2:num, mode);
         }
         movePos++;
@@ -2167,7 +2431,7 @@ public final class AnimCube implements EntryPoint {
               spin = true;
             if (spin) {
               num = mv[movePos] % 4 + 1;
-              mode = mv[movePos] / 4 % 6;
+              mode = mv[movePos] / 4 % 7;
               boolean clockwise = num < 3;
               if (num == 4)
                 num = 2;
@@ -2175,7 +2439,7 @@ public final class AnimCube implements EntryPoint {
                 clockwise = !clockwise;
                 num = 4 - num;
               }
-              layer = mv[movePos] / 24;
+              layer = mv[movePos] / 28;
               twisting = false;
               natural = true;
               spinning = true;
@@ -2260,7 +2524,7 @@ public final class AnimCube implements EntryPoint {
                   movePos = 0;
                   initInfoText(mv);
                   for (int i = 0; i < 6; i++)
-                    for (int j = 0; j < 9; j++) {
+                    for (int j = 0; j < 16; j++) {
                       cube[i][j] = initialCube[i][j];
                       scube[i][j] = initialSCube[i][j];
                     }
@@ -2592,14 +2856,12 @@ public final class AnimCube implements EntryPoint {
     RootPanel.get().add(canv);
 
     Event.addNativePreviewHandler(nativePreviewHandler);
-
     RootPanel.get().addDomHandler(new ContextMenuHandler() {
       public void onContextMenu(ContextMenuEvent event) {
         event.preventDefault();
         event.stopPropagation();
       }
     }, ContextMenuEvent.getType());
-
     paint();
   }
 
