@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+ <title> AnimCube Customization </title>
+ <meta name="robots" content="noindex, nofollow">
+ <link rel=icon href=mini_cube.png type=image/png>
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<center>
+<br>
+<font size="+2">AnimCube GWT Build Instructions</font>
+<br><br>
+<p>Here is the version information for what was used to do the build.  
+That is not to say that it is necessary to use these versions but that this
+configuration is known to work.</p>
+<br>
+<style> .tabdata td 
+{
+  text-align:center; 
+  padding-left:10px; 
+  padding-right:10px;
+  border-color:#676767;
+} </style>
+
+<table class=tabdata style=border-collapse:collapse;border-color:black border=2>
+ <tr> <td>Distribution</td><td>Fedora 12</td> </tr>
+ <tr> <td>Kernel</td><td>2.6.32.26-175</td> </tr>
+ <tr> <td>Java Open JDK</td><td>1.6.0</td> </tr>
+ <tr> <td>GWT version</td><td> 2.7.0</td> </tr>
+ <tr> <td>Apache Ant</td><td>1.9.4</td> </tr>
+</table>
+<br>
+</center>
+<pre>
+1. download install files for <a target=_blank href=http://www.gwtproject.org/versions.html>GWT</a> and <a target=_blank href=https://ant.apache.org/bindownload.cgi>Apache Ant</a>
+
+2. mkdir gwt
+   cd gwt
+   unzip gwt-2.7.0.zip
+   tar xf apache-ant-1.9.4-bin.tar.gz
+
+3. cd gwt-2.7.0
+   webAppCreator -out AnimCube com.google.gwt.animcube.AnimCube
+
+4. cd AnimCube
+   ln -s ../../apache-ant-1.9.4/bin/ant
+   ln -s src/com/google/gwt/animcube/client
+   ln -s src/com/google/gwt/animcube/AnimCube.gwt.xml
+
+5. mkdir not_used
+   mv client/* not_used/
+   mv src/com/google/gwt/animcube/server/GreetingServiceImpl.java not_used 
+   mv <a href=AnimCube.java>AnimCube.java</a> client
+   ln -s client/AnimCube.java
+
+6. modify build.xml (see details at bottom):
+   
+7. optional 
+   gwt generates five separate javascript files, one for each of 
+   these user-agents: gecko, safari, ie8, ie9, ie10
+   to restrict to one agent for testing (gecko in this example), 
+   add the following line to AnimCube.gwt.xml in section 
+   "Other module inherits":
+   &lt;set-property name="user.agent" value="gecko1_8"/&gt;
+
+8. optional
+   gwt normally generates minified javascript files, for unminified
+   output modify build.xml:
+   change:
+     &lt;property name="gwt.args" value="" /&gt;
+   to:
+     &lt;property name="gwt.args" value="-style pretty" /&gt;
+
+9. optional
+   gwt normally uses the default theme defined in clean.css 
+   to eliminate the use of clean.css, comment out the following line
+   in AnimCube.gwt.xml:
+   &lt;inherits name='com.google.gwt.user.theme.clean.Clean'/&gt;
+
+10. to build:
+    ant
+
+    if you get error: "Unable to find a javac compiler" then set JAVA_HOME:
+    export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0
+
+    generated javascript files are in subdir: war/animcube/
+
+    the following is an example of the output, the file names change 
+    whenever the java source code is changed, the compilation-mappings 
+    file shows which file is for which user-agent:
+
+    7551EE39E21E6204DAB2374363B779A2.cache.js
+    A6D5F3094E6388396B12A0A9CE8EF2EF.cache.js
+    AE36935EDCF07BC5D3A8A7EB084B5271.cache.js
+    B3E80B04426C0273101CD02501E8B9EA.cache.js
+    E6C667CAF40720B328FF8185FF555CC5.cache.js
+    animcube.nocache.js
+    compilation-mappings.txt
+
+    if clean.css was not eliminated in step 9 then the following directory 
+    tree is also needed (to avoid getting errors in the web log).
+
+    war/animcube/gwt 
+
+
+<b>build.xml:</b>
+&lt;target name="javac" depends="libs" description="Compile java source to bytecode"&gt;
+    &lt;mkdir dir="war/WEB-INF/classes"/&gt;
+    &lt;javac srcdir="src" includes="**" encoding="utf-8"
+        includeantruntime="false"                        <b>&lt;-- added</b>
+        destdir="war/WEB-INF/classes"
+        source="1.6" target="1.6" nowarn="true"          <b>&lt;-- modified</b>
+        debug="true" debuglevel="lines,vars,source"&gt;
+      &lt;classpath refid="project.class.path"/&gt;
+    &lt;/javac&gt;
+    &lt;copy todir="war/WEB-INF/classes"&gt;
+      &lt;fileset dir="src" excludes="**/*.java"/&gt;
+    &lt;/copy&gt;
+  &lt;/target&gt;
+</pre>
+<center>
+<a href="javascript: history.go(-1)">Back</a>
+<br><br>
+</center>
+</body>
+</html>
