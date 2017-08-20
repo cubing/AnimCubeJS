@@ -1,0 +1,32 @@
+162d161
+<   private static boolean isGecko = false;
+275,277d273
+<         // change white to black for default colorscheme
+<         for (int i = 0; i < 25; i++)
+<             cube[0][i] = 22;
+282a279
+>           colors[10] = "#000000";  // W - white -> black
+290a288
+>           colors[10] = "#ffffff";  // W
+2287,2288d2284
+<     if (color == "#ffffff")
+<       return;
+2749,2750d2744
+<         // preventDefault needed for right-click drag in safari (chrome)
+<         event.getNativeEvent().preventDefault();
+2760,2765c2754,2755
+<         if (isGecko == true) {
+<           /* this enables right-click drag (rotate cube) outside of the box in
+<              firefox, in safari (chrome) preventDefault will stop left-mouse
+<              drag from working outside of the box */
+<           event.getNativeEvent().preventDefault();
+<         }
+---
+>         event.getNativeEvent().preventDefault();
+>         event.getNativeEvent().stopPropagation();
+2897,2901d2886
+< 
+<     String userAgent = Window.Navigator.getUserAgent().toLowerCase();
+<     if (userAgent.contains("gecko") && ! userAgent.contains("webkit"))
+<       isGecko = true;
+< 

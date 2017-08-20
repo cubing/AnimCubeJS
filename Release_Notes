@@ -1,0 +1,8 @@
+August 2017 Release
+Modified so that mouse works when scrolling across other cubes (while rotating).
+To make this work with Firefox there are also mods in the cube.html file. 
+
+A minor modification to Supercube is that when specifying the colorscheme or
+facelets parameter the W is no longer automatically translated to black (so
+use K for black).  This allows W to be used to specify blank facelets.
+

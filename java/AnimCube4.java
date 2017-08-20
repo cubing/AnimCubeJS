@@ -159,6 +159,7 @@ public final class AnimCube4 implements EntryPoint {
   private static boolean ww = false;   // waterwheel cube
   private static boolean snap = false;
   private static boolean superCube = false;
+  private static boolean isGecko = false;
   private int cval, ival, mval;
   double vval;
   // transformation tables for compatibility with Lars's applet
@@ -273,12 +274,14 @@ public final class AnimCube4 implements EntryPoint {
       if ("1".equals(param)) {
         superCube = true;
         border = border_gabba;
+        // change white to black for default colorscheme
+        for (int i = 0; i < 16; i++)
+            cube[0][i] = 22;
       }
     param = getParameter("gabbacolors");
     if (param != null) 
       if ("1".equals(param)) {
         if (superCube == true) {
-          colors[10] = "#000000";  // W - white -> black
           colors[11] = "#fdcf00";  // Y - yellow
           colors[12] = "#fd4e0a";  // O - orange
           colors[13] = "#93000d";  // R - red
@@ -287,7 +290,6 @@ public final class AnimCube4 implements EntryPoint {
         }
         else {
           border = border_gabba;
-          colors[10] = "#ffffff";  // W
           colors[11] = "#ffd90a";  // Y
           colors[12] = "#ff4f0b";  // O
           colors[13] = "#9e0b19";  // R
@@ -2236,6 +2238,8 @@ public final class AnimCube4 implements EntryPoint {
     int [] y = new int[4];
     final int [][] rot = {{0,1,2,3}, {3,0,1,2}, {2,3,0,1}, {1,2,3,0}}; 
     final double w = .26;  // arrow width
+    if (color == "#ffffff")
+      return;
     // scale down so there is a margin around the arrow
     for (int i=0; i < 4; i++) {
       x[i] = (int) (xx[i] + (xx[rot[2][i]] - xx[i]) * .05);
@@ -2720,6 +2724,8 @@ public final class AnimCube4 implements EntryPoint {
         mouseDown(event);
       }
       else if (eventType == Event.ONMOUSEMOVE) {
+        // preventDefault needed for right-click drag in safari (chrome)
+        event.getNativeEvent().preventDefault();
         if (mouseIsDown) {
           mouseMove(event);
         }
@@ -2729,8 +2735,12 @@ public final class AnimCube4 implements EntryPoint {
         mouseUp(event);
       }
       else if (eventType == Event.ONMOUSEDOWN) {
-        event.getNativeEvent().preventDefault();
-        event.getNativeEvent().stopPropagation();
+        if (isGecko == true) {
+          /* this enables right-click drag (rotate cube) outside of the box in
+             firefox, in safari (chrome) preventDefault will stop left-mouse
+             drag from working outside of the box */
+          event.getNativeEvent().preventDefault();
+        }
         mouseIsDown = true;
         mouseDown(event);
       }
@@ -2862,6 +2872,11 @@ public final class AnimCube4 implements EntryPoint {
         event.stopPropagation();
       }
     }, ContextMenuEvent.getType());
+
+    String userAgent = Window.Navigator.getUserAgent().toLowerCase();
+    if (userAgent.contains("gecko") && ! userAgent.contains("webkit"))
+      isGecko = true;
+
     paint();
   }
 
