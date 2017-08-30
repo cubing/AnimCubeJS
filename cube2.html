@@ -18,9 +18,14 @@
       // this prevents the context menu from popping up when using right-click to rotate
       // the cube but it also eliminates the context menu altogether via right-click
       // parent.document.addEventListener("contextmenu", function(e){e.preventDefault();}, false);
+      //
+      // for mobile device, this prevents page scrolling while rotating cube
+      // (page still scrolls for tab/address bar autohide)
+      function touchfunc(s) { parent.document.body.style.overflow = s; }
     </script>
   </head>
-  <body onmousedown="mousefunc('none')" onmouseup="mousefunc('auto')">
+  <body onmousedown="mousefunc('none')" onmouseup="mousefunc('auto')"
+        ontouchstart="touchfunc('hidden')" ontouchend="touchfunc('auto')">   
     <noscript style=color:red> JavaScript required for cube display </noscript>
   </body>
 </html>
