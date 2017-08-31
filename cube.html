@@ -8,20 +8,25 @@
       :focus { outline:none; }
       body { padding:0px; margin:0px; overflow:hidden; }
     </style>
-    <script> 
+    <script>
       // for firefox, this makes the mouse work when scrolling across other cubes
       iframes = parent.document.getElementsByTagName("iframe");
       function mousefunc(s) {
         for (i=0; i < iframes.length; i++)
-          iframes[i].style.pointerEvents = s; }
+          iframes[i].style.pointerEvents = s;
+        // this prevents the context menu from popping up when using right-click to rotate
+        parent.document.addEventListener('contextmenu', contextmenu_handler, false);
+      }
       document.addEventListener('mouseup', function(){mousefunc('auto');}, false);
-      // this prevents the context menu from popping up when using right-click to rotate
-      // the cube but it also eliminates the context menu altogether via right-click
-      // parent.document.addEventListener("contextmenu", function(e){e.preventDefault();}, false);
-      //
+
       // for mobile device, this prevents page scrolling while rotating cube
       // (page still scrolls for tab/address bar autohide)
       function touchfunc(s) { parent.document.body.style.overflow = s; }
+
+      function contextmenu_handler(e) {
+        e.preventDefault();
+        parent.document.removeEventListener('contextmenu', contextmenu_handler, false);
+      }
     </script>
   </head>
   <body onmousedown="mousefunc('none')" onmouseup="mousefunc('auto')"
