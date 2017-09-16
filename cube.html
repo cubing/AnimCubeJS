@@ -9,9 +9,11 @@
       body { padding:0px; margin:0px; overflow:hidden; }
     </style>
     <script>
+      var isFirefox = typeof InstallTrigger !== 'undefined';
       // for firefox, this makes the mouse work when scrolling across other cubes
       iframes = parent.document.getElementsByTagName("iframe");
       function mousefunc(s) {
+        if (!isFirefox) return;
         for (i=0; i < iframes.length; i++)
           iframes[i].style.pointerEvents = s;
         // this prevents the context menu from popping up when using right-click to rotate
