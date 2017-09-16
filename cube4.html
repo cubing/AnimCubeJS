@@ -9,13 +9,15 @@
       body { padding:0px; margin:0px; overflow:hidden; }
     </style>
     <script>
-      // for firefox, this makes the mouse work when scrolling across other cubes
+      var isFirefox = typeof InstallTrigger !== 'undefined';
       iframes = parent.document.getElementsByTagName("iframe");
       function mousefunc(s) {
-        for (i=0; i < iframes.length; i++)
-          iframes[i].style.pointerEvents = s;
         // this prevents the context menu from popping up when using right-click to rotate
         parent.document.addEventListener('contextmenu', contextmenu_handler, false);
+        if (!isFirefox) return;
+        // for firefox, this makes the mouse work when scrolling across other cubes
+        for (i=0; i < iframes.length; i++)
+          iframes[i].style.pointerEvents = s;
       }
       document.addEventListener('mouseup', function(){mousefunc('auto');}, false);
 
