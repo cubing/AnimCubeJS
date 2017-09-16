@@ -10,12 +10,12 @@
     </style>
     <script>
       var isFirefox = typeof InstallTrigger !== 'undefined';
-      
+
       if (isFirefox) {
         document.addEventListener('mouseup', function(){mousefunc('auto');}, false);
         iframes = parent.document.getElementsByTagName("iframe");
-      }  
-      
+      }
+
       function mousefunc(s) {
         // for firefox, this makes the mouse work when scrolling across other cubes
         if (isFirefox)
@@ -25,12 +25,12 @@
         // this prevents the context menu from popping up when using right-click to rotate
         parent.document.addEventListener('contextmenu', contextmenu_handler, false);
       }
-      
+
       function contextmenu_handler(e) {
         e.preventDefault();
         parent.document.removeEventListener('contextmenu', contextmenu_handler, false);
       }
-      
+
       // for mobile device, this prevents page scrolling while rotating cube
       // (page still scrolls for tab/address bar autohide)
       function touchfunc(s) { parent.document.body.style.overflow = s; }
