@@ -1,3 +1,8 @@
+Oct 2017 Release
+Added scw parameter for supercube
+Added 6x6 cube
+
+
 August 2017 Release
 Modified so that mouse works when scrolling across other cubes (while rotating).
 To make this work with Firefox there are also mods in the cube.html file. 
