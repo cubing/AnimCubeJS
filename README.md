@@ -14,5 +14,5 @@ Make sure to declare parameters as follows: `[name]=[value]`, and separate param
 
 You can add parameters in the .cfg file. Just note that URL parameters are prioritized over .cfg parameters, so if a parameter is declared in both the URL and the .cfg, then the URL parameter value will be read instead of the .cfg parameter value.
 
-NOTE: The port was made by [Michael Feather](https://mfeather1.github.io/3ColorCube/index.html). Here are the [build instructions](http://cubing.github.io/AnimCubeJS/java/build.html) and [unminified code](https://github.com/cubing/AnimCubeJS/tree/gh-pages/unminified).
+The port was made by [Michael Feather](https://mfeather1.github.io/3ColorCube/index.html). Here are the [build instructions](http://cubing.github.io/AnimCubeJS/java/build.html) and [unminified code](https://github.com/cubing/AnimCubeJS/tree/gh-pages/unminified).
 If you want to change the code, you should be using these resources to modify AnimCube.java before porting to Javascript, as opposed to editing the ported Javascript code directly.
