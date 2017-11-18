@@ -3,7 +3,7 @@
 AnimCubeJS is a JavaScript (JS) version of Josef Jelinek's excellent Java applet 
 [AnimCube](http://software.rubikscube.info/AnimCube).
 
-Check out the demo and source code to see how the applet works. Make sure to include `animcube.nocache.js`, `AnimCube.cfg`, and all `[long alphanumeric string].cache.js` in the same directories/folders as cube.html. DO NOT CHANGE THE NAMES OF THE NON-CFG FILES.
+Check out the demo and source code to see how the applet works. Make sure to include `animcube.nocache.js`, `AnimCube.cfg`, and all `[long alphanumeric string].cache.js` in the directory/folder referenced in the cube.html. DO NOT CHANGE THE NAMES OF THE NON-CFG FILES.
 
 Next, in the HTML file where you want your cube to be displayed, create an iframe pointing to:
 
