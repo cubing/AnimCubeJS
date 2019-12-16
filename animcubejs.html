@@ -1,0 +1,2531 @@
+﻿<!DOCTYPE html>
+<html><head>
+
+<meta name="robots" content="noindex,nofollow"> 
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="description" content="Easy to use, highly configurable and nicely looking 2x2x2 - 6x6x6 Rubik's Cube & Supercube interactive 3D simulator.">
+<link rel="icon" href="sources/images/favicon.ico" type="image/x-icon">
+<title>AnimCubeJS - the Rubik's Cube Animation Simulator</title>
+<style>
+pre, code {white-space: pre-wrap; word-wrap: break-word;}
+.td-center td {text-align: center;}
+.td td {padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:5px}
+.responsive-table {max-width: 100%; overflow: auto;}
+.sections {padding:4px; background-color:#CCCCCC;}
+.sections-parameters {padding:4px; background-color:#DDDDDD;}
+.center {text-align:center;}
+.justify {text-align:justify;}
+.left {text-align:left;}
+.overflow {overflow:auto; white-space: pre;}
+.pre-overflow {white-space: pre;}
+ 
+ .btn:active { background-color: #dddddd; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 5%; 
+    margin-right: 5%;
+  } 
+ p {
+    text-align: justify; 
+    text-justify: inter-word;
+  } 
+  a:link {color: #2d0d74; }
+  a:visited {color: #006400; }
+  a:link:hover {color: green; }
+  hr { width: 80%; }
+
+ .showhide {
+    border: 2px solid #bbbbbb;
+    border-radius: 15px;
+    border-style: dashed;
+    margin: 15px 0px 0px;
+    padding: 10px;
+    display: none;
+  }  
+  .btn {
+  	font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-align: left;
+    height: auto;
+    width: 90%;
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 0px;
+    border: 1px solid #bbbbbb;
+    outline: none;
+    padding-top: 6px;
+  	padding-bottom: 6px;
+  }
+  .img {
+    padding: 4px 0 0px;
+    width: 20px;
+  }
+ /* .nowrap { 
+    white-space: nowrap;
+  }*/
+  button::-moz-focus-inner {border: 0;}
+  .button-to-center {text-align:center}
+  .tabdata td {
+  text-align:center; 
+  padding-left:20px; 
+  padding-right:20px;
+  padding-top:10px;
+  padding-bottom:10px;
+  }
+</style>
+</head>
+
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<tbody>
+<tr><td height="1" bgcolor="#E6F4FF"></td></tr>
+<tr><td height="1" bgcolor="#DDEEF8"></td></tr>
+<tr><td height="1" bgcolor="#D6E4F0"></td></tr>
+<tr><td height="3" bgcolor="#CCDDEE"></td></tr>
+<tr><td bgcolor="#CCDDEE" align="center"><font size="+1"><b>Modern 3D JavaScript 
+	Simulator for Animating the Rubik's Cube</b></font></td></tr>
+<tr><td height="3" bgcolor="#CCDDEE"></td></tr>
+<tr><td height="1" bgcolor="#BBCCDD"></td></tr>
+<tr><td height="1" bgcolor="#AABBCC"></td></tr>
+<tr><td height="1" bgcolor="#99AABB"></td></tr>
+<tr><td height="1" bgcolor="#778899"></td></tr>
+</tbody></table>
+
+<p class="center"><b>AnimCubeJS (formerly AnimCube)</b></p>
+<p class="center"><b>AnimCube created by <a href="mailto:gloom@email.cz">Josef Jelínek</a> 
+(2001 - 2004)</b></p>
+<p class="center"><b>AnimCubeJS created by <a href="https://mfeather1.github.io/3ColorCube/" target="_new">Michael Feather</a> (2015 - 2019)</b></p>
+<p class="center">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move={Cube in ...} R U' L F U' {... cube in ...} R2 U2 R U R' {... cube ...} U2 D' L D {... pattern} F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&demo={AnimeCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20"></iframe>
+</p><br>
+
+<div class="sections"><b><i>Introduction</i></b></div>
+<p>Purpose of this simulator:</p>
+<div class="justify"><ul>
+<li>This JavaScript (JS) simulator is aimed at showing animation of Rubik's Cube 
+manipulation.</li>
+<li>The simulator was initially created as Java applet (called <a href="http://software.rubikscube.info/AnimCube/" target="_new">AnimCube</a>) 
+by Josef Jelínek because of the problems with existing applets at that time 
+(2001). Features of AnimCubeJS simulator (the port from AnimCube to AnimCubeJS was made by Michael Feather) try to address and solve some of the 
+problems. However, the simulator evolved much further than its 
+"predecessors" and a user can now choose what fits his/her needs.</li>
+</ul></div>
+<p>Main features of this simulator:</p>
+<div class="justify"><ul>
+<li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
+available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5 and 6x6x6 Rubik's Cubes, as well as 
+2x2x2 - 6x6x6 Supercubes.</li>
+<li>The simulator has very flexible settings specified directly in the web page 
+where the simulator is placed.</li>
+<li>The simulator allows natural and sensitive manipulation with the separate 
+cube layers (even inner ones) as well as the entire cube.</li>
+<li>The 3x3x3 simulator supports many types of single turns: one outer layer or center layer 
+separately, two adjacent or opposite layers simultaneously, and whole-cube rotations.</li>
+<li>The simulator is fully backward compatible with its Java applet predecessor.</li>
+<li>The simulator is displayed in configurable perspective projection in order 
+to display the cube in a more realistic way.</li>
+<li>The perspective projection uses bilinear interpolation to 
+display inner face points for the sake of rendering efficiency/speed.</li>
+<li>The simulator can show even some of normally hidden facelets (stickers) by means of 
+projection of facelets to the planes near the cube.</li>
+<li>The consumption of the processor time is reduced and more simulators can 
+animate simultaneously without noticeable slow-down.</li>
+<li>The simulator is compatible with all modern web browsers.</li>
+<li>The entire simulator consists of 6 JS files (which are generated from 1 relatively lightweight Java file) + 1 short HTML file for each cube size.</li>
+<li>The simulator offers several cube looks. Graphical appearance can be adjusted by the parameters such as <code><a href="#cubecolor">cubecolor</a></code>, 
+<code><a href="#borderwidth">borderwidth</a></code> or <code><a href="#supercube">supercube</a></code>.</li>
+<li>Manipulation &amp; control actions are working on mobile devices. Retina display is supported. 
+Responsive cubes can be easily designed.</li>
+</ul></div>
+ 
+<p><i>Note:</i> The native anti-aliasing wasn't used in the original AnimCube Java applet 
+because it wasn't generally suported by the web browsers back then. Nowadays, modern 
+web browsers are using the native anti-aliasing in order to draw smoother facelet edges.
+</p><p><i>Note:</i> To make this simulator work you need a JavaScript-enabled 
+web browser. The JavaScript in your web browser is currently <a id=a1></a><noscript>disabled (see how to <a href="https://www.computerhope.com/issues/ch000891.htm" target="_new">enable JavaScript</a>).</noscript> 
+</p>
+
+
+<div class="sections"><b><i>Download</i></b></div>
+
+<p>The program is classified as freeware and you can use the cube simulator in your web pages. 
+In order to do so, download one (or more) of the directories/folders below. Supercubes are included by default.</p>
+
+<p><a href="sources/zip/2x2x2-AnimCubeJS.zip">2x2x2 AnimCubeJS simulator 
+<code>.zip</code> file</a> (159 kB)</p>
+<p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
+<code>.zip</code> file</a> (161 kB)</p>
+<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
+<code>.zip</code> file</a> (166 kB)</p>
+<p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
+<code>.zip</code> file</a> (170 kB)</p>
+<p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
+<code>.zip</code> file</a> (174 kB)</p>
+
+
+<p>If you want to change the code then use the build instructions below to modify 
+<code>AnimCubeX.java</code> ("X" substitutes either "2", "3", "4", "5" or "6", depending on wanted cube size) before porting to JavaScript, 
+as opposed to editing the ported JavaScript code directly. However, be aware that the Java code is not designed for 
+legibility - many algorithms are encoded into tables that are fast and flexible but hard to understand.
+</p> 
+
+<p><i>Note</i>: Both the original <code>AnimCube.java</code> file by Josef Jelínek and the latest
+<code>AnimCube3.java</code> file by Michael Feather can be seen in the build instructions for comparison purposes. 
+Java files are not necessary to use AnimCubeJS,
+they are included so that JavaScript files can be generated from the Java source using GWT (for development).</p>
+
+<div class="button-to-center">
+<button id=showHideButton3 onclick="showHideFunc(3,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage3 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading3>Show build instructions for Linux</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText3>
+
+<p>The following table shows the version information currently being used to do the AnimCubeJS build.</p>
+
+<table class=tabdata style="border-collapse:collapse;border-color:black; margin:0 auto" border=2>
+ <tr> <td>Distribution</td><td>Fedora 29</td> </tr>
+ <tr> <td>OpenJDK 8</td><td>1.8.0_232</td> </tr>
+ <tr> <td>GWT</td><td> 2.7.0</td> </tr>
+ <tr> <td>Apache Ant</td><td>1.10.7</td> </tr>
+</table>
+
+<p>In the following instructions, for cube size other than 3x3x3 change 3 to the desired size (4=4x4x4, 5=5x5x5, etc.)
+in each occurrence of AnimCube3 (or animcube3). Root access is only needed for step 1.</p>
+
+<div class="overflow"><pre class="pre-overflow">
+1. As root, install OpenJDK 8 (Java Development Kit).
+   dnf install java-1.8.0-openjdk-devel
+
+2. Download the install files for <a target=_blank href=http://www.gwtproject.org/versions.html>GWT</a> and <a target=_blank href=https://ant.apache.org/bindownload.cgi>Apache Ant</a>.
+
+3. Create a directory named gwt and extract the downloaded files into it.
+
+4. Create the AnimCube3 app in GWT.
+   cd gwt/gwt-2.7.0
+   webAppCreator -out AnimCube3 com.google.gwt.animcube3.AnimCube3
+
+5. Remove the example programs.
+   cd AnimCube3/src/com/google/gwt/animcube3
+   rm */*.java
+
+6. Download the <a href=https://github.com/bcube2/acjs/tree/master/sources/codes/java target="_new">AnimCube3.java</a><!-- edit link from bcube2 to animcubejs --> source code from the AnimCubeJS repository
+   and move it into the client subdirectory.
+
+7. Remove the default theme by commenting out the following line in
+   AnimCube3.gwt.xml:
+   &lt;inherits name='com.google.gwt.user.theme.clean.Clean'/&gt;
+
+8. Change directory to gwt/gwt-2.7.0/AnimCube3 and modify build.xml
+   as shown at bottom.
+
+9. Optional: Make symbolic links for convenience.
+   ln -s ../../apache-ant-1.10.7/bin/ant
+   ln -s src/com/google/gwt/animcube3/client/AnimCube3.java
+   ln -s src/com/google/gwt/animcube3/AnimCube3.gwt.xml
+
+10. Optional: Reduce time to generate.
+    GWT generates five separate JavaScript files, one for each of
+    these user-agents: gecko, safari, ie8, ie9, ie10.
+    To restrict to one agent for testing (gecko in this example),
+    add the following line to AnimCube3.gwt.xml in section
+    "Other module inherits":
+    &lt;set-property name="user.agent" value="gecko1_8"/&gt;
+
+11. Optional: Make unminified files.
+    GWT normally generates minified JavaScript files, for
+    <a href="https://github.com/bcube2/acjs/tree/master/sources/codes/js-unminified" target="_new">unminified output</a><!-- edit link from bcube2 to animcubejs --> modify build.xml:
+    change:
+      &lt;property name="gwt.args" value="" /&gt;
+    to:
+      &lt;property name="gwt.args" value="-style pretty" /&gt;
+
+12. To build, run the ant command while in the gwt/gwt-2.7.0/AnimCube3 directory.
+
+    If symbolic links were not created in step 9 then give the full path to ant:
+    ../../apache-ant-1.10.7/bin/ant
+
+    Generated JavaScript files are in subdirectory: war/animcube3
+
+    The following is an example of the output, the file names change
+    whenever the Java source code is changed:
+
+    7551EE39E21E6204DAB2374363B779A2.cache.js
+    A6D5F3094E6388396B12A0A9CE8EF2EF.cache.js
+    AE36935EDCF07BC5D3A8A7EB084B5271.cache.js
+    B3E80B04426C0273101CD02501E8B9EA.cache.js
+    E6C667CAF40720B328FF8185FF555CC5.cache.js
+    animcube3.nocache.js
+
+    The following files are also generated but are not needed:
+    compilation-mappings.txt
+    clear.cache.gif
+    animcube3.devmode.js
+
+
+<b>build.xml:</b>
+&lt;target name="javac" depends="libs" description="Compile java source to bytecode"&gt;
+  &lt;mkdir dir="war/WEB-INF/classes"/&gt;
+  &lt;javac srcdir="src" includes="**" encoding="utf-8"
+      includeantruntime="false"                        <b>&lt;-- added</b>
+      destdir="war/WEB-INF/classes"
+      source="1.7" target="1.7" nowarn="true"
+      debug="true" debuglevel="lines,vars,source"&gt;
+    &lt;classpath refid="project.class.path"/&gt;
+  &lt;/javac&gt;
+  &lt;copy todir="war/WEB-INF/classes"&gt;
+    &lt;fileset dir="src" excludes="**/*.java"/&gt;
+  &lt;/copy&gt;
+&lt;/target&gt;</pre></div>
+</div><br>
+  
+<div class="button-to-center">
+<button id=showHideButton2 onclick="showHideFunc(2,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage2 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading2>Show build instructions for Windows</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText2>
+<p>The following table shows the version information currently being used to do the AnimCubeJS build. Windows 10 (64-bit)
+is known to be working with this setup as well.</p>
+
+<table class=tabdata style="border-collapse:collapse;border-color:black; margin:0 auto" border=2>
+ <tr> <td>Operating system</td><td>Windows 7</td> </tr>
+ <tr> <td>System type</td><td>32-bit</td> </tr>
+ <tr> <td>JDK 8</td><td>1.8.0_231</td> </tr>
+ <tr> <td>GWT</td><td>2.7.0</td> </tr>
+ <tr> <td>Apache Ant</td><td>1.10.7</td> </tr>
+</table>
+
+<p>In the following instructions, for cube size other than 3x3x3 change 3 to the desired size (4=4x4x4, 5=5x5x5, etc.)
+in each occurrence of AnimCube3 (or animcube3).</p>
+
+<div class="overflow"><pre class="pre-overflow">
+1. Download the install files (.zip archives) for <a target=_blank href=http://www.gwtproject.org/versions.html>GWT</a> and <a target=_blank href=https://ant.apache.org/bindownload.cgi>Apache Ant</a>.
+
+2. Create a new folder, name it gwt and unzip the donwloaded files into it.
+
+3. Install <a target=_blank href=https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>JDK 8</a> (Java SE Development Kit).
+   Add the Java bin directory (...\jdk1.8.0_231\bin) to the
+   PATH environment variable (<a target=_blank href=https://www.java.com/en/download/help/path.xml>details</a>) if it is not already there.
+   Create the JAVA_HOME environment variable if it is not already existing
+   and set it to the Java directory (...\jdk1.8.0_231).
+   Create the ANT_HOME environment variable if it is not already existing
+   and set it to the ant directory (...\apache-ant-1.10.7).
+
+4. Open command prompt window (cmd.exe) and create the AnimCube3 app in GWT.
+   cd gwt\gwt-2.7.0
+   webAppCreator -out AnimCube3 com.google.gwt.animcube3.AnimCube3
+
+5. Delete the example programs.
+   cd AnimCube3\src\com\google\gwt\animcube3
+   del /s *.java
+
+6. Download the <a href=https://github.com/bcube2/acjs/tree/master/sources/codes/java target="_new">AnimCube3.java</a><!-- edit link from bcube2 to animcubejs --> source code from the AnimCubeJS repository
+   and move it into the client subfolder.
+
+7. Remove the default theme by commenting out the following line in
+   AnimCube3.gwt.xml:
+   &lt;inherits name='com.google.gwt.user.theme.clean.Clean'/&gt;
+
+8. Change directory to gwt\gwt-2.7.0\AnimCube3 and modify build.xml
+   as shown at bottom.
+
+9. Optional: Make symbolic links for convenience.
+   Run new cmd.exe as administrator.
+   cd gwt\gwt-2.7.0\AnimCube3
+   mklink AnimCube3.java src\com\google\gwt\animcube3\client\AnimCube3.java
+   mklink AnimCube3.gwt.xml src\com\google\gwt\animcube3\AnimCube3.gwt.xml
+   mklink ant.bat ..\..\apache-ant-1.10.7\bin\ant.bat
+   exit
+
+10. Optional: Reduce time to generate.
+    GWT generates five separate JavaScript files, one for each of
+    these user-agents: gecko, safari, ie8, ie9, ie10.
+    To restrict to one agent for testing (gecko in this example),
+    add the following line to AnimCube3.gwt.xml in section
+    "Other module inherits":
+    &lt;set-property name="user.agent" value="gecko1_8"/&gt;
+
+11. Optional: Make unminified files.
+    GWT normally generates minified JavaScript files, for
+    <a href="https://github.com/bcube2/acjs/tree/master/sources/codes/js-unminified" target="_new">unminified output</a><!-- edit link from bcube2 to animcubejs --> modify build.xml:
+    change:
+      &lt;property name="gwt.args" value="" /&gt;
+    to:
+      &lt;property name="gwt.args" value="-style pretty" /&gt;
+
+12. To build, run the ant command while in the gwt\gwt-2.7.0\AnimCube3 directory.
+
+    If symbolic links were not created in step 9 then give the full path to ant:
+    ..\..\apache-ant-1.10.7\bin\ant.bat
+
+    Generated JavaScript files are in subfolder: war\animcube3
+
+    The following is an example of the output, the file names change
+    whenever the Java source code is changed:
+
+    7551EE39E21E6204DAB2374363B779A2.cache.js
+    A6D5F3094E6388396B12A0A9CE8EF2EF.cache.js
+    AE36935EDCF07BC5D3A8A7EB084B5271.cache.js
+    B3E80B04426C0273101CD02501E8B9EA.cache.js
+    E6C667CAF40720B328FF8185FF555CC5.cache.js
+    animcube3.nocache.js
+    
+    The following files are also generated but are not needed:
+    compilation-mappings.txt
+    clear.cache.gif
+    animcube3.devmode.js
+
+
+<b>build.xml:</b>
+&lt;target name="javac" depends="libs" description="Compile java source to bytecode"&gt;
+  &lt;mkdir dir="war/WEB-INF/classes"/&gt;
+  &lt;javac srcdir="src" includes="**" encoding="utf-8"
+      includeantruntime="false"                        <b>&lt;-- added</b>
+      destdir="war/WEB-INF/classes"
+      source="1.7" target="1.7" nowarn="true"
+      debug="true" debuglevel="lines,vars,source"&gt;
+    &lt;classpath refid="project.class.path"/&gt;
+  &lt;/javac&gt;
+  &lt;copy todir="war/WEB-INF/classes"&gt;
+    &lt;fileset dir="src" excludes="**/*.java"/&gt;
+  &lt;/copy&gt;
+&lt;/target&gt;</pre></div>
+</div>
+  
+<p><i>Note:</i> The following text refers to the <a href="#usage">Using Simulator in Web Pages</a> section below. If you make a change to <code>AnimCubeX.java</code> - which leads to new 
+modified JS files - then you may need to refresh your web browser to get the new version of JS files. One way to do this is to view the source code on the page, 
+then click on the <code>cubeX.html?<i>parameters</i></code> link (within the source) and when that source comes up, click on the <code>animcubeX.nocache.js</code> link
+then when the minified source comes up click within the page and press F5 key to refresh. If the <code>cubeX.html?<i>parameters</i></code> string within the source code is 
+not clickable (e.g. in the case of using lazy loading technique for simulators) then copy &amp; paste it into the web browser's address bar as a part of the URL.
+</p>
+
+<div class="sections"><b><i>Controls</i></b></div>
+
+<p>Controls of the simulator are quite intuitive. You can rotate the whole cube 
+as well as twist separate layers using the mouse (finger in the case of mobile 
+devices). To twist separated layer, pick one and use dragging in natural direction (with the 
+left mouse button being pressed). To rotate the whole 
+cube, drag from a near point outside the cube image. The possibility to edit the cube can 
+be disabled in a web page. Then only the whole-cube rotation is allowed. You can 
+control the animation by the buttons in the button bar. The animation can be 
+immediately set to any position using the progress bar (if present) just above the 
+button bar. The progress bar consists of two components, namely:</p>
+
+<ol><li>background / trough (with a surrounding border)</li><li>slider (part that moves)</li></ol>
+<p>The animation can be applied more times, as well as interleaved with direct manipulation to allow a user 
+to experiment if he/she wants to. Unless otherwise stated, the first button (Rewind) always clears the current cube rotation, twisted layers, mirroring 
+and executed turns (if applicable) to the simulator's initial configuration.  
+The middle button has two purposes: when the animation is playing, it can stop the 
+animation; when the animation is stopped, it mirrors the cube view to allow a 
+user to experiment with symmetrical cases. The cube can be rotated by mouse / 
+finger even if the animation is started. If you press a button in the middle of 
+an animated layer twist, the twist is finished immediately and the new requested 
+action is started.</p>
+<p>In some cases the button bar can be reduced or totally hidden by a page designer.</p>
+<p>You can try to play with the simulators throughout this page.</p>
+
+
+<a name="usage"></a><div class="sections"><b><i>Using Simulator in Web Pages</i></b></div>
+
+<p>This section describes using the simulator in your own web pages. Add the following code in the HTML file to the place you want the simulator to be displayed.</p>
+
+<pre><code>&lt;iframe src="cubeX.html?<i>parameters</i>" frameborder="0" width="120" height="139"&gt;&lt;/iframe&gt;</code></pre>
+
+<p><i>Note:</i> In the code above, replace "X" by the cube size you downloaded - e.g. <code>cube2.html</code> means a 2x2x2 simulator will be displayed, 
+<code>cube6.html</code> means a 6x6x6 simulator will be displayed. 
+</p>
+
+<p><i>Note:</i> The frameborder attribute is obsolete and could be replaced by 
+<code>iframe { border: 0; }</code> in your CSS. 
+</p>
+
+<p>Make sure to declare parameters as follows: <code>name=value</code>, and separate 
+parameter declarations with <code>&amp;</code> symbol.
+</p>
+
+<p>Extract downloaded <code>.zip</code> file to see 5 <code>long-alphanumeric-string.cache.js</code> files
+as well as <code>animcubeX.nocache.js</code> and <code>cubeX.html</code> files ("X" denotes the cube size you downloaded - 
+e.g. <code>animcube3.nocache.js</code> &amp; <code>cube3.html</code> means you downloaded a 3x3x3 simulator, 
+<code>animcube4.nocache.js</code> &amp; <code>cube4.html</code> means you downloaded a 4x4x4 simulator).
+</p>
+
+<p>Make sure to include <code>animcubeX.nocache.js</code> and all 5 
+<code>long-alphanumeric-string.cache.js</code> files in the directory/folder referenced in <code>cubeX.html</code> file (as the 
+source for <code>animcubeX.nocache.js</code> file). Do not change the names of the JS files!</p>
+
+<p>Cube's (iframe's) <i>width</i> and <i>height</i> are arbitrary and can be flexibly adjusted.  
+For the best appearance the <i>height</i> should be equal to (<i>width + value of the button height + 6</i>) if the button bar is displayed, 
+and <i>width</i> if the button bar is hidden or only the Rewind button is displayed. The button height is configurable, the default value 
+of it is 13 (pixels).</p>
+
+<p>Examples for cubes with the button bar:</p>
+
+<pre>
+       Button
+Width  Height  Height
+-----  ------  ------
+ 181     13     200
+ 200     13     219
+ 277     17     300
+ 300     17     323
+</pre>
+
+<div class="button-to-center">
+<button id=showHideButton4 onclick="showHideFunc(4,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage4 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading4>Show additional comments</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText4>
+<ol>
+<li><p>The "best appearance" recommendation above maximizes the magnification of the cube for a given width which also minimizes the space around the cube inside the iframe 
+(from which a rotation can be initiated).</p></li>
+<li><p>With regard to customizing, increasing the width (from "best appearance" recommendation above) widens the button bar and also the amount
+ of space around the cube inside the iframe, while maintaining the same magnification of the cube.</p></li>
+<li><p>If the width is already wider than the "best appearance" recommendation above (as in width = height for example) then increasing 
+the (iframe's) height will increase the magnification of the cube until height = (width + button height + 6) at which point further increases 
+in height no longer increase the magnification of the cube but instead add space above the cube inside the iframe.</p></li>
+</ol>
+</div>
+
+<p><i>Examples:</i> The following two simulators are showing the intro-simulator 
+(not in demo mode) with different aspect ratios (width and height).</p>
+
+<p>First cube (iframe) has the following attributes: <code>width="250" height="150"</code>, second cube (iframe) has the following attributes: 
+<code>width="150" height="250"</code>.
+</p>
+
+<p>
+<iframe class="b-lazy" width="250" height="150" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="150" height="250" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20"></iframe>
+</p>
+
+<p>
+You can also use percent units to set the iframe's width, which might keep a bigger area of 
+control buttons resulting in more comfortable tapping on mobile devices. The cube (iframe) below has the following 
+attributes: <code>width="100%" height="150"</code>. See a different approaches for implementing fully responsive cubes as outlined in the
+<a href="#enhancement">Enhancement</a> section at the end of the documentation. 
+</p>
+
+<p>
+<iframe class="b-lazy" width="100%" height="150" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20"></iframe>
+</p>
+
+<p>You can use several simulators on a single web page. However, be aware that using too many of them (roughly 10+) has a negative 
+effect on your web page performance metrics. You can improve the performance metrics by using a lazy loading technique (like in the 
+case of this web page).
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton9 onclick="showHideFunc(9,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage9 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading9>Show how to lazy load simulators</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText9>
+<p>There are many ways to lazy load iframes. This web page is using a pure JS script called <a href="http://dinbror.dk/blog/blazy/?ref=demo-page" target="_new">bLazy</a>.
+This is not to say that it is the best choice but that this solution is known to be working.</p>
+<p>As a result of using bLazy, you may notice iframe markup is changed a little bit on this web page (if you view the source code). Instead of
+<code>&lt;iframe src="cubeX.html?parameters" other attributes&gt;&lt;/iframe&gt;</code> as documented above it is
+ <code>&lt;iframe class="b-lazy" data-src="cubeX.html?parameters" other attributes&gt;&lt;/iframe&gt;</code>.</p>
+</div>
+
+<p>The next sections describe all parameters and their possible values. Every parameter 
+is optional so the simplest possible call is made using <code>"src=cubeX.html"</code> 
+(i.e. with no parameters at all).</p>
+
+<p><code>
+<a href="#config">parameter name: config | value: .txt file</a><br>
+<a href="#bgcolor">parameter name: bgcolor | value: hexadecimal color</a><br>
+<a href="#cubecolor">parameter name: cubecolor | value: hexadecimal color</a><br>
+<a href="#butbgcolor">parameter name: butbgcolor | value: hexadecimal color</a><br>
+<a href="#slidercolor">parameter name: slidercolor | value: hexadecimal color</a><br>
+<a href="#troughcolor">parameter name: troughcolor | value: hexadecimal color</a><br>
+<a href="#clickprogress">parameter name: clickprogress | value: 0 or 1</a><br>
+<a href="#snap">parameter name: snap | value: 0 or 1</a><br>
+<a href="#buttonbar">parameter name: buttonbar | value: 0 - 2</a><br>
+<a href="#buttonheight">parameter name: buttonheight | value: 9 - 25</a><br>
+<a href="#repeat">parameter name: repeat | value: 0 or 1</a><br>
+<a href="#edit">parameter name: edit | value: 0 or 1</a><br>
+<a href="#speed">parameter name: speed | value: natural number</a><br>
+<a href="#doublespeed">parameter name: doublespeed | value: natural number</a><br>
+<a href="#position">parameter name: position | value: R, U, F, L, D and/or B string</a><br>
+<a href="#scale">parameter name: scale | value: natural number</a><br>
+<a href="#align">parameter name: align | value: 0 - 2</a><br>
+<a href="#hint">parameter name: hint | value: natural number</a><br>
+<a href="#perspective">parameter name: perspective | value: natural number</a><br>
+<a href="#borderwidth">parameter name: borderwidth | value: 0 - 20</a><br>
+<a href="#move">parameter name: move | value: string from move character set or random</a><br>
+<a href="#movetext">parameter name: movetext | value: 0 - 5</a></code> (for 3x3x3 only, other cube sizes: 0 or 1)<br><code>
+<a href="#yz">parameter name: yz | value: 0 or 1</a><br>
+<a href="#initmove">parameter name: initmove | value: string from move character set, random or %23</a><br>
+<a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or %23</a><br>
+<a href="#demo">parameter name: demo | value: string from move character set, random or %23</a><br>
+<a href="#metric">parameter name: metric | value: 0 - 3</a><br>
+<a href="#fonttype">parameter name: fonttype | value: 0 or 1</a><br>
+<a href="#textsize">parameter name: textsize | value: 5 - 40</a><br>
+<a href="#facelets">parameter name: facelets | value: string of color codes</a><br>
+<a href="#colorscheme">parameter name: colorscheme | value: 6 color codes</a><br>
+<a href="#colors">parameter name: colors | value: hexadecimal color string</a><br>
+<a href="#pos">parameter name: pos | value: string of Lars Petrus' color codes</a><br>
+<a href="#supercube">parameter name: supercube | value: 0 or 1</a><br>
+<a href="#superfacelets">parameter name: superfacelets | value: 0 - 3 string</a><br>
+<a href="#scw">parameter name: scw | value: 0 - 2</a><br>
+<a href="#gabbacolors">parameter name: gabbacolors | value: 0 or 1</a><br>
+<a href="#scramble">parameter name: scramble | value: 0 - 2</a><br>
+<a href="#randmoves">parameter name: randmoves | value: natural number</a></code></p>
+<p>The best way to understand the meaning of parameters is to experiment.</p>
+<div class="sections"><b><i>Parameters</i></b></div>
+<br>
+
+
+<div class="sections-parameters"><a name="config"></a><b><code>config</code> parameter</b></div>
+
+<p>The <code>config</code> parameter takes the file name (with a <code>.txt</code> suffix) as a value. The file 
+location has to be specified relative to the location of the HTML document that 
+uses it. This restriction is set to unify the functionality on both internet and 
+local locations. <!-- Due to browser implementations of the same-origin policy, the config file will not work 
+locally if the web-page (containing AnimCubeJS simulator) is accessed via file://..., use http://... 
+(on local web-server) instead. -->The file format is simple. It consists of lines, each 
+specifying chosen value of a particular parameter. Each line starts with the 
+parameter name followed by the equal sign "<code>=</code>" and the rest of line 
+contains the parameter value. White-space characters can be used to surround the 
+parameter name and value. All values specified in the configuration file can be 
+overwritten by simulator parameters declared in the HTML document (web page). That is, simulator parameters are 
+prioritized over the parameters written in the configuration file.
+</p><p>This parameter may simplify the page maintenance and enables a user to 
+	modify behavior of multiple simulators in a page by the modification of one 
+	configuration file.
+</p><p><i>Example:</i> <code>cube3.html?config=AnimCube3.txt</code> sets all 
+	parameters to the ones found in the file "<code><a href="AnimCube3.txt" target="_new">AnimCube3.txt</a></code>". 
+	The file contents can be of the following form:
+</p><pre><code>    bgcolor=ffffff
+    butbgcolor=99eebb
+    movetext=1</code></pre>
+<p>These settings set some of the background colors and enable text 
+displaying for all simulators with this <code>config</code> parameter. The following first 
+two simulators have only six parameters declared (<code>config</code>, <code><a href="#colorscheme">colorscheme</a></code>, <code><a href="#move">move</a></code>, 
+<code><a href="#initrevmove">initrevmove</a></code>, <code><a href="#snap">snap</a></code> and <code><a href="#buttonheight">buttonheight</a></code>), 
+and differ only in the <code>move</code> parameter values. The third simulator has the same parameters and values as the first one, except for missing the
+ <code>config</code> parameter.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra Fa Ra Fa&initrevmove=%23&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=%23&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=%23&snap=1&buttonheight=20"></iframe>
+</p><p>
+<i>Note:</i> The configuration file name used to have a <code>.cfg</code> suffix in the original AnimCube Java applet documentation.
+For a demonstration purpose a <code>.txt</code> suffix had been chosen as an alternative (there is no requirement that the 
+configuration file extension is <code>.cfg</code>). You should be able to see the contents of the "AnimCube3.txt" file linked 
+above right in the web browser. In this particular case you wouldn't be able to see the contents of the "AnimCube3.cfg" file 
+right in the web browser. Both file types work the same in terms of simulator functionality.</p>
+
+
+<div class="sections-parameters"><a name="bgcolor"></a><b><code>bgcolor</code> parameter</b></div>
+	
+<p>The <code>bgcolor</code> parameter determines the background color of the 
+simulator. This parameter can be set to the background color of your web page in 
+order to omit visual color collisions. The value of the parameter consists of six hex digits and 
+is case insensitive. The meaning of these digits is equal to the RGB color 
+specification in HTML. If this parameter is missing, the color 
+is set to middle gray (the default value is '<code>808080</code>'). The move counter is outlined to allow good visibility for 
+any color.
+</p><p><i>Example:</i> <code>bgcolor=ff0000</code> sets the background color to red. 
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&bgcolor=ff0000&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<div class="sections-parameters"><a name="cubecolor"></a><b><code>cubecolor</code> parameter</b></div>
+	
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Using the <code>cubecolor</code> parameter you can adjust the body color of the cube (the 
+color of plastic on the real cube). It has the same value format as the <code><a href="#bgcolor">bgcolor</a></code> 
+parameter. The default value is '<code>000000</code>' which is black. To avoid possible color collisions between the stickers 
+and the body of the cube, set the <code><a href="#facelets">facelets</a></code>, <code><a href="#colorscheme">colorscheme</a></code> or 
+<code><a href="#colors">colors</a></code> parameter to appropriate value.
+
+</p><p><i>Example:</i> <code>cubecolor=ffffff</code> along with <code>colorscheme=kygbor</code> sets the cube color to white along with black stickers. 
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=kygbor&cubecolor=ffffff&move=M2'E2'S2'&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="butbgcolor"></a><b><code>butbgcolor</code> parameter</b></div>
+
+<p>The <code>butbgcolor</code> parameter determines the color of the control 
+buttons in the button bar. It is very similar to the <code><a href="#bgcolor">bgcolor</a></code> parameter and has the same value
+format. If this parameter is missing, the color of the buttons is set to the value 
+of the <code>bgcolor</code> parameter. The button symbols are outlined to allow good 
+visibility for any color.
+</p><p><i>Example:</i> <code>butbgcolor=00ff00</code> sets the background color 
+of the buttons in the button bar to green.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&butbgcolor=00ff00&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p><p>
+<i>Note:</i> The border color for both the button bar and the progress bar toggles between black and white, depending on the 
+<code>butbgcolor</code> parameter. If the <code>butbgcolor</code> parameter is not set, then it depends on the 
+<code>bgcolor</code> parameter. If neither of these two is set, then border color is black (because the default value of the 
+<code>bgcolor</code> parameter represents a lighter color).</p>
+
+
+<div class="sections-parameters"><a name="slidercolor"></a><b><code>slidercolor</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>The <code>slidercolor</code> parameter determines the color of the slider in the progress bar. 
+The value of the parameter consists of six hex digits and 
+is case insensitive. The meaning of these digits is equal to the RGB color 
+specification in HTML. 
+If this parameter is missing, the color of the slider is set to black or white, depending on the 
+<code><a href="#bgcolor">bgcolor</a></code> parameter.
+</p><p><i>Example:</i> <code>slidercolor=ffff00</code> sets the slider color to yellow.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2 D2' F2 B2' L2 R2'&slidercolor=ffff00&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="troughcolor"></a><b><code>troughcolor</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Using the <code>troughcolor</code> parameter you can adjust the background (trough) color of the progress bar. 
+It has the same value format as the <code><a href="#slidercolor">slidercolor</a></code> parameter. The progress bar background color 
+defaults to a darker shade of the <code><a href="#bgcolor">bgcolor</a></code> parameter. 
+</p><p><i>Example:</i> <code>troughcolor=0000ff</code> sets the background of the progress bar to blue.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&troughcolor=0000ff&move=U2' D2 F2' B2 L2' R2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<p><i>Note:</i> Initially, the name of this parameter was "sliderbgcolor". For 
+setting the progress bar background color either <code>troughcolor</code> 
+or <code>sliderbgcolor</code> can be used.</p>
+
+
+<div class="sections-parameters"><a name="clickprogress"></a><b><code>clickprogress</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>There are two possible values for this parameter: '<code>0</code>' and '<code>1</code>' (the default value is '<code>1</code>'). 
+If set to '<code>0</code>', then clicking on trough of the progress bar will not advance
+through the move sequence, this is to avoid inadvertently messing up the
+playback of a sequence while single-stepping through it.
+The difference can be seen on the following cubes. If you click on trough of the progress
+bar on the first cube, the move sequence will advance (and the second one will not).
+</p><p><i>Examples:</i> <code>clickprogress=1</code> and <code>clickprogress=0</code> have 
+	the following effect on the simulators.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&clickprogress=1&move=U2D2F2B2R2L2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&clickprogress=0&move=U2D2F2B2R2L2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<p><i>Note:</i> To reduce unintentional tappings on trough of the progress bar especially on mobile devices, enlargement of the area of control buttons in the button bar by 
+means of percent usage - as described in the <a href="#usage">Using Simulator in Web Pages</a> section - could be useful. Another option is to increase the value of the 
+<code><a href="#buttonheight">buttonheight</a></code> parameter, if possible.
+</p>
+
+
+<div class="sections-parameters"><a name="snap"></a><b><code>snap</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>There are two possible values for this parameter: '<code>0</code>' and '<code>1</code>' (the default value is '<code>0</code>'). If set to 
+'<code>1</code>', then a partially twisted layer (even middle/inner one) will not remain in a position between two corners. 
+The difference can be seen on the following cubes. If you use the mouse / finger to twist a layer so it is half-way 
+between two corners, then the first cube will remain as is, the second cube will snap to a corner. 
+If the layer is twisted less than half-way to the next corner, then it will snap back to the starting position. 
+If it is twisted more than half-way, then it will snap to the next corner. 
+</p><p><i>Examples:</i> <code>snap=0</code> and <code>snap=1</code> give the following results.
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&edit=1&snap=0&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&edit=1&snap=1&buttonheight=20"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="buttonbar"></a><b><code>buttonbar</code> parameter</b></div>
+
+<p>Using this parameter, the button bar containing animation control buttons can be 
+customized. There are three possible values: '<code>0</code>', '<code>1</code>' and '<code>2</code>'. 
+The '<code>0</code>' value means no buttons at all. The value equal to '<code>1</code>' causes the full 
+button bar to appear. The value equal to '<code>2</code>' shows only one button that is used to 
+clear the cube state to the initial values (unless otherwise stated).
+</p><p>If this parameter is not specified, then there are two default 
+	settings. If the <code><a href="#move">move</a></code> or <code><a href="#scramble">scramble</a></code> parameter is specified, 
+	then the full button bar is	displayed. If the <code>move</code> or <code>scramble</code> parameter is missing, 
+	then only the clear (Rewind) button is shown.
+</p><p><i>Examples:</i> <code>buttonbar=0</code>, <code>buttonbar=2</code> and <code>buttonbar=1</code> give the following results.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&buttonbar=0&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&buttonbar=2&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&buttonbar=1&snap=1&buttonheight=20"></iframe>
+</p><p><i>Note:</i> In the third example you can see that the cube is smaller, 
+	although the window (iframe) has the same size as the first two examples. This is caused by an automatic 
+	adjustment that fits the cube into the available space. If you want to 
+	use the full size of the cube, you should increase the height of the  
+	simulator window by the value of the <code><a href="#buttonheight">buttonheight</a></code> parameter + 6 (the default height of the button bar is 13, as 
+	already mentioned earlier in the <a href="#usage">Using Simulator in Web Pages</a> section).
+</p>
+
+
+<div class="sections-parameters"><a name="buttonheight"></a><b><code>buttonheight</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>With this parameter you can adjust the height of the buttons in the button bar. The 
+range is from '<code>9</code>' to '<code>25</code>' (pixels), the default value is '<code>13</code>'.
+</p><p><i>Examples:</i> <code>buttonheight=9</code> and <code>buttonheight=25</code> give the following results.
+</p><p>
+<iframe class="b-lazy" width="160" height="175" frameborder="0" data-src="cube3.html?colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=%23&snap=1&buttonheight=9&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="191" frameborder="0" data-src="cube3.html?colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=%23&snap=1&buttonheight=25&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="repeat"></a><b><code>repeat</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>There are two possible values for this parameter: '<code>0</code>' and '<code>1</code>' (the default value is '<code>1</code>'). 
+If set to '<code>0</code>', then pressing the Play or Single-Step button will not repeat a move sequence after it has already 
+been played, this is to make it clear that a move sequence is complete. The difference can be seen 
+by single-stepping (second button from right but also second button from left) through the move sequence on the two cubes below. 
+The first allows repeat and the second does not.
+</p><p><i>Examples:</i> <code>repeat=1</code> and <code>repeat=0</code> have 
+	the following effect on the simulators.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&repeat=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&repeat=0&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="edit"></a><b><code>edit</code> parameter</b></div>
+
+<p>This parameter can disable the possibility to twist cube layers with the mouse 
+/ finger. There are two possible values: '<code>0</code>' and '<code>1</code>'.
+The '<code>0</code>' value means that the cube can be only in compact form, and separate 
+layers cannot be twisted. The value equal to '<code>1</code>' enables the editing capability. 
+The cube can be edited by default.
+</p><p><i>Examples:</i> <code>edit=0</code> and <code>edit=1</code> give the following 
+	results.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&edit=0&move=Rs2'Us2'Fs2'&initmove=%23&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&edit=1&move=Rs2'Us2'Fs2'&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="speed"></a><b><code>speed</code> parameter</b></div>
+
+<p>This parameter allows to customize the animation speed. The value should 
+consist only of natural numbers (including 0, however, if equal to '<code>0</code>' then it is equal to the default 
+value which is '<code>10</code>'). The higher the value, the slower is the animation. 
+The default value corresponds to approximately 2/3 seconds for a quarter turn of any layer(s) 
+(including middle/inner ones), and approximately 1 second for a half turn of any layer(s). 
+Twist of any layer(s) by 90 degrees is meant as the quarter turn; twist of any layer(s) by 180 degrees is meant as the half turn in this context.
+The animation speed of the half turn can be adjusted separately by the <code><a href="#doublespeed">doublespeed</a></code> parameter.  
+</p><p><i>Examples:</i> <code>speed=5</code> and <code>speed=20</code> have the following effect on the animation speed.</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&speed=5&move=R U R' U R U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&speed=20&move=R U R' U R U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p><p><i>Note:</i> Here you can try to run both simulators simultaneously to compare the animation speed. 
+	You can also try multiple application of the same move 
+	sequence to the cube by pressing the Play button after animation stops (Play button functionality can be disabled by the
+	<code><a href="#repeat">repeat</a></code> parameter), and see how the top corners are 
+	twisted and moved. Some of the other buttons can be also used this way.
+</p>
+
+
+<div class="sections-parameters"><a name="doublespeed"></a><b><code>doublespeed</code> parameter</b></div>
+
+<p>This parameter allows to customize the speed of a half turn of any layer(s) (including middle/inner ones) separately from 
+quarter turns (twist of any layer(s) by 90 degrees is meant as the quarter turn; twist of any layer(s) by 180 degrees is meant as the half turn in this context).
+The value should consist only of natural numbers (including 0, however, if equal to '<code>0</code>' then it is equal to the default 
+value). The higher the value, the slower is the animation. The animation speed of the quarter turn can be adjusted 
+by the <code><a href="#speed">speed</a></code> parameter. If the parameter <code>doublespeed</code> is missing, its default value 
+is equal to the 3/2 of the value of the <code>speed</code> parameter. 
+</p><p><i>Examples:</i> <code>doublespeed=5</code> and <code>doublespeed=20</code> have 
+	the following effect on the animation speed.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&doublespeed=5&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&doublespeed=20&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="position"></a><b><code>position</code> parameter</b></div>
+
+	<p>This parameter can be used to set the initial position of the cube (its 
+	rotation). The value can be of any length, and can contain letters '<code>u</code>', 
+	'<code>d</code>', '<code>f</code>', '<code>b</code>', '<code>l</code>' and '<code>r</code>' in upper or lower case. The rotation angle is 15 
+	degrees. The default value is '<code>lluu</code>'. The rotation axis and 
+	direction is similar to the turns as described in the <code><a href="#move">move</a></code> parameter section.
+</p><p><i>Example:</i> <code>position=lllluuu</code> rotates the whole cube in the following way.
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&position=lllluuu&snap=1&buttonheight=20"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="scale"></a><b><code>scale</code> parameter</b></div>
+	
+<p>This parameter allows to customize the magnification of the cube. The value should 
+consist only of natural numbers (including 0). The higher the value, the smaller the cube. The exact size is computed as <i>1 / (1 
++ scale / 10)</i>. The default value is '<code>0</code>'. 
+The parameter is useful in combination with the <code><a href="#hint">hint</a></code>, <code><a href="#movetext">movetext</a></code> and/or 
+<code><a href="#textsize">textsize</a></code> parameter.
+</p><p><i>Examples:</i> <code>scale=0</code>, <code>scale=5</code> and <code>scale=10</code> have the following effect on cube magnification.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scale=0&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scale=5&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scale=10&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="align"></a><b><code>align</code> parameter</b></div>
+
+<p>This parameter allows to align the cube vertically. The only permitted 
+values are '<code>0</code>' for top-align, '<code>1</code>' for center-align and '<code>2</code>' 
+for bottom-align. The default value is '<code>1</code>'. The parameter is used in 
+conjunction with the <code><a href="#scale">scale</a></code> parameter (you must set the <code>scale</code> 
+parameter to any natural number (excluding 0) in order to use the <code>align</code> parameter properly).
+</p><p><i>Examples:</i> <code>align=0&amp;scale=4</code>, <code>align=1&amp;scale=4</code> and <code>align=2&amp;scale=4</code> 
+	have the following effect on the cube's vertical aligning.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&align=0&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&align=1&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&align=2&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="hint"></a><b><code>hint</code> parameter</b></div>
+
+<p>This parameter allows to display some of the facelets/stickers that face away from the user. 
+The value should consist only of natural numbers (including 0). The higher the value, the further 
+are the facelets from the cube. The default value is '<code>0</code>' which means no 
+hint at all. Usable values are from '<code>2</code>' to '<code>10</code>', but you can try to experiment. 
+Good visual arrangements can be accomplished in combination with the <code><a href="#scale">scale</a></code> parameter.
+</p><p><i>Examples:</i>
+</p><ul>
+<li><code>hint=2</code></li>
+<li><code>hint=5</code></li>
+<li><code>hint=10</code></li>
+</ul>
+	have the following effect on hint displaying.
+<p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=2&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=5&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=10&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="perspective"></a><b><code>perspective</code> parameter</b></div>
+	
+<p>This parameter allows to customize the perspective deformation of the cube. 
+The value should consist only of natural numbers (including 0). The higher the value, the more the cube is skewed. 
+The default value is '<code>2</code>'.
+</p><p><i>Examples:</i> <code>perspective=0</code>, <code>perspective=2</code>, <code>perspective=10</code> and 
+	<code>perspective=1000000</code> have the following effect on the perspective 
+	projection.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&perspective=0&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&perspective=2&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&perspective=10&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&perspective=1000000&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="borderwidth"></a><b><code>borderwidth</code> parameter</b></div>
+	
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>This parameter allows to change the width of the border among adjacent stickers (facelets) on the cube.
+The range is from '<code>0</code>' to '<code>20</code>' and there are two default settings. If 
+<code><a href="#supercube">supercube</a>=1</code> or <code><a href="#gabbacolors">gabbacolors</a>=1</code> is declared, the default value is
+'<code>6</code>'. Otherwise the default value is '<code>10</code>'. For the value of '<code>0</code>' the look is close to the 
+stickerless cube (the cube having colored plastic instead of stickers/tiles). See the <code><a href="#cubecolor">cubecolor</a></code>
+parameter if you want to change the color of the border among stickers.
+</p><p><i>Examples:</i> <code>borderwidth=0</code>, <code>borderwidth=6</code>, <code>borderwidth=10</code> and 
+	<code>borderwidth=20</code> have the following effect on cube appearance.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&borderwidth=0&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&borderwidth=6&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&borderwidth=10&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&borderwidth=20&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<div class="sections-parameters"><a name="move"></a><b><code>move</code> parameter</b></div>
+
+<p>Move sequence for a 3x3x3 cube is defined in <a href="https://en.wikipedia.org/wiki/Rubik%27s_Cube#Move_notation" target="_new">extended Singmaster notation</a>. 
+The basis for the notation is six move letters of the following meaning:
+</p><ul>
+<li>U - Up (turns top layer)</li>
+<li>D - Down (turns bottom layer)</li>
+<li>F - Front (turns front layer)</li>
+<li>B - Back (turns back layer)</li>
+<li>L - Left (turns left layer)</li>
+<li>R - Right (turns right layer)</li>
+</ul>
+	<p>The letter case is important here, because the same - but lowercase - 
+	letters are used for different types of turns. Modifiers can be appended to the move 
+	letter. Basic modifiers are apostrophe and number two: '<code>'</code>' (you can use '<code>3</code>' instead) and '<code>2</code>'.</p>
+<div class="justify"><ul>
+<li>The meaning of separate move letters is turning the corresponding layer 90 degrees clockwise.</li>
+<li>Appending apostrophe '<code>'</code>' or digit '<code>3</code>' means turning the corresponding layer 90 
+degrees counter-clockwise.</li>
+<li>Appending digit '<code>2</code>' means turning the corresponding layer 180 degrees clockwise.</li>
+<li>You can use a combination '<code>2'</code>' to turn the corresponding layer 180 degrees counter-clockwise. 
+This combination is useful if you want to show the most efficient direction when using finger shortcuts/tricks.</li>
+</ul></div>
+<p>To see the effect of these character sequences, look at the table below 
+(press the Play button to see the move, and the Next sequence button - in the top-right position 
+	- to see another move).
+</p>
+<div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i></code></td>
+<td bgcolor="white" align="center"><code><i>X</i>'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U;D;F;B;L;R&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U';D';F';B';L';R'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2;D2;F2;B2;L2;R2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=U2';D2';F2';B2';L2';R2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+</tbody></table></div>
+<p>There are also some advanced modifiers that are written immediately after 
+	the move letter and right before the basic modifiers already defined. The 
+	possible advanced modifiers, for a 3x3x3 cube, are:
+</p><div class="justify"><ul>
+<li>m - middle layer turn between the specified layer and the opposite one</li> 
+<li>c - whole-cube rotation in the direction of the specified layer</li>
+<li>s - slice turn; two opposite layers are turned simultaneously in the same direction (<code>Rs</code> 
+is equal to <code>R L'</code> or <code>L' R</code>)</li>
+<li>a - anti-slice turn; two opposite layers are turned simultaneously in the opposite 
+direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>
+<li>t - thick turn; two adjacent layers (the specified one and the adjacent one) 
+are turned simultaneously in the same direction</li>
+</ul></div>
+
+<p>Some of these advanced modifiers (<code>m</code>, <code>c</code> and <code>t</code> to be specific) can be omitted using 
+an additional subset of characters from the 3x3x3 move character set. Advanced modifiers were added so as to reflect the agreement of cubists (also known as cubers) 
+on the extended notation. It is quite orthogonal and consistent design. Examples are given in the following table.
+</p><div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i>s</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>s'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>s2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>s2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Us;Ds;Fs;Bs;Ls;Rs&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Us';Ds';Fs';Bs';Ls';Rs'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Us2;Ds2;Fs2;Bs2;Ls2;Rs2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Us2';Ds2';Fs2';Bs2';Ls2';Rs2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center"><code><i>X</i>a</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>a'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>a2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>a2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ua;Da;Fa;Ba;La;Ra&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ua';Da';Fa';Ba';La';Ra'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ua2;Da2;Fa2;Ba2;La2;Ra2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ua2';Da2';Fa2';Ba2';La2';Ra2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center"><code><i>X</i>m</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>m'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>m2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>m2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Um;Dm;Fm;Bm;Lm;Rm&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Um';Dm';Fm';Bm';Lm';Rm'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Um2;Dm2;Fm2;Bm2;Lm2;Rm2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Um2';Dm2';Fm2';Bm2';Lm2';Rm2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center"><code><i>X</i>t</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>t'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>t2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>t2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ut;Dt;Ft;Bt;Lt;Rt&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ut';Dt';Ft';Bt';Lt';Rt'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ut2;Dt2;Ft2;Bt2;Lt2;Rt2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Ut2';Dt2';Ft2';Bt2';Lt2';Rt2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center"><code><i>X</i>c</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>c'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>c2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>c2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Uc;Dc;Fc;Bc;Lc;Rc&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Uc';Dc';Fc';Bc';Lc';Rc'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Uc2;Dc2;Fc2;Bc2;Lc2;Rc2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Uc2';Dc2';Fc2';Bc2';Lc2';Rc2'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+</tbody></table> 
+</div><p>The simulator supports an additional subset of characters to represent specific 
+	turns on a 3x3x3 cube. As an alternative to the <code>m</code> advanced modifier, the center layers can be turned using the following characters in 
+	combination with basic modifiers '<code>'</code>' and '<code>2</code>'.
+</p><div class="justify"><ul>
+<li>E - equator (between <code>U</code> and <code>D</code> layers in the <code>U'/D</code> direction)</li>
+<li>S - standing (between <code>F</code> and <code>B</code> layers in the <code>F/B'</code> direction)</li>
+<li>M - middle (between <code>L</code> and <code>R</code> layers in the <code>L/R'</code> direction)</li>
+</ul></div>
+<p>The following table shows the effect of these characters.
+</p><div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i></code></td>
+<td bgcolor="white" align="center"><code><i>X</i>'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=E;S;M&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=E';S';M'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=E2;S2;M2&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=E2';S2';M2'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+</tbody></table>
+</div><p>The simulator also supports whole-cube rotations. This feature can be 
+	used to rotate the cube in order to show it in the best position/orientation for 
+	the current situation to watch the move sequence. The available characters  
+	to rotate the cube - as an alternative to the <code>c</code> advanced modifier - are shown in the following table. They can be also 
+	combined with basic modifiers '<code>'</code>' and '<code>2</code>'.
+</p><div class="justify"><ul>
+<li>X - rotates around the right-left axis (in the same direction as <code>R/L'</code> moves are 
+executed)</li>
+<li>Y - rotates around the y-axis (in the same direction as <code>F/B'</code> or <code>U/D'</code> moves 
+are executed, depending on the <code><a href="#movetext">movetext</a></code> and/or <code><a href="#yz">yz</a></code> parameter value)</li>
+<li>Z - rotates around the z-axis (in the same direction as <code>U/D'</code> or <code>F/B'</code> moves 
+are executed, depending on the <code>movetext</code> and/or <code>yz</code> parameter value)</li>
+</ul></div>
+<p>The following table shows the effect of these characters (for <code>movetext=3</code> and <code>yz=1</code>).
+</p><div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i></code></td>
+<td bgcolor="white" align="center"><code><i>X</i>'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=X;Y;Z&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=X';Y';Z'&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=X2;Y2;Z2&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=X2';Y2';Z2'&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+</tbody></table>
+</div><p>As an alternative to the <code>t</code> advanced modifier, there is also a possibility to 
+turn two adjacent layers simultaneously on a 3x3x3 cube. 
+	The notation and meaning is similar to the outer layer turns, but the move letters are in lowercase.
+</p><ul>
+<li>u - up (turns two top layers)</li>
+<li>d - down (turns two bottom layers)</li>
+<li>f - front (turns two front layers)</li>
+<li>b - back (turns two back layers)</li>
+<li>l - left (turns two left layers)</li>
+<li>r - right (turns two right layers)</li>
+</ul>
+<p>The following table shows all cases.</p>
+<div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i></code></td>
+<td bgcolor="white" align="center"><code><i>X</i>'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2'</code></td>
+</tr>
+<tr>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=u;d;f;b;l;r&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=u';d';f';b';l';r'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=u2;d2;f2;b2;l2;r2'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=u2';d2';f2';b2';l2';r2'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</td>
+</tr>
+</tbody></table>
+</div><br>
+
+<div class="button-to-center">
+<button id=showHideButton6 onclick="showHideFunc(6,1)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage6 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading6>Show move character set for a cube size other than 3x3x3</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText6>
+</div>
+
+<p>There is yet another character to be used in the parameter value - the 
+	dot '<code>.</code>' character. When a dot is found in the move sequence during 
+	playing the animation, it is delayed for half the time of a quarter turn (i.e. twist of any layer(s) by 90 degrees)
+	execution.
+</p>
+
+<p>It is also possible to use text comments in the parameter value. Such comments 
+	appear at the top of the simulator while the animation is performed. The text 
+	to appear must be enclosed in the brace characters: '<code>{</code>' and '<code>}</code>'. Nevertheless, the braces can be also empty. Text can be specified in both the <code><a href="#demo">demo</a></code> and <code>move</code>
+    parameter. Text can be only on one line, however, there can be as many text passages
+	as necessary to appear at the given place within the animation.</p>
+<p>There can be more move sequences specified in one simulator. However, the 
+initial cube configuration can still be only one. More move sequences can be 
+specified in the <code>move</code> parameter. 
+If you want to use more move sequences, <b>separate</b> them by the semicolon character '<code>;</code>'. 
+</p>
+
+<p>
+The parameter value equal to '<code>random</code>' (this value is not supported in the original AnimCube Java applet) 
+will randomly pick some characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
+</p>
+
+<p><i>Note:</i> To improve readability of your code, white-space characters can be used to surround the characters 
+from the move character set (with the exception 
+of modifiers - don't write e.g. <code>Ra2'</code> as <code>R a2'</code> or <code>Ra 2'</code> or <code>Ra2 '</code>).
+</p>
+
+<p><i>Examples:</i> <code>move=R2' U M U' R2' U M' U'</code> 
+	and <code>move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'</code> 
+	are two different sequences showing one algorithm in different ways (the 
+	second one is more customized to fast finger shortcuts/tricks). 
+	The third example contains both sequences in one <code>move</code> parameter 
+value: 
+	<code>move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'</code>. The move sequence  
+	in the second simulator contains delays (represented by dots) and messages 
+	(enclosed in braces) to show the finger tricks more clearly. The animation is 
+	also speeded-up in this case. 
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&speed=6&move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+</p><p><i>Note:</i> Some of the turns affect center pieces (on 3x3x3 - 6x6x6 
+simulators), and they can be moved to another layer from the user's point of 
+view. Such movements do not affect 
+	the notation from the user's point of view. The characters from the move 
+character set are not fixed to 
+	particular center pieces. There are other approaches for a 3x3x3 cube (e.g. one by <a href="https://lar5.com/cube/index.html" target="_new">Lars Petrus</a>) 
+that use turns relative to the cube centers and if the cube is rotated, the same 
+turn can be executed on different layers from the user's point of view. The 
+center-independent way has been chosen for AnimCubeJS because of consistency and 
+easier maintenance. If an <code>M</code> move followed by an <code>F</code> move 
+is executed on a 3x3x3 simulator, 
+	it should affect the front layer you see in the front position, and not the 
+	bottom layer where the center that was initially in the front position is now placed. 
+	The chosen way is very familiar to the "corners-first" solvers 
+	(solving the cube starting from the corners).
+</p>
+
+
+<div class="sections-parameters"><a name="movetext"></a><b><code>movetext</code> parameter</b></div>
+
+<p>This parameter can enable the textual representation of the move sequence 
+inside the simulator window (iframe). There are six possible parameter values for a 3x3x3 simulator: '<code>0</code>', 
+'<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>' 
+(<i>note:</i> value '<code>5</code>' is not supported in the original AnimCube Java applet). There are two possible values for a cube size other than 
+3x3x3: '<code>0</code>' and '<code>1</code>'. 
+</p><p>The '<code>0</code>' value, which is the default value, means that the textual representation of the turn is not 
+displayed. The value equal to '<code>1</code>' enables displaying the turns in one of the older notation using advanced modifiers 
+(<code>m</code>, <code>c</code>, <code>s</code>, <code>a</code> and <code>t</code> for a 3x3x3 cube) to support various types of turns. 
+The value equal to '<code>2</code>' enables displaying the turns in the 
+shortened notation (using characters <code>M</code>, <code>E</code>, <code>S</code>, <code>X</code>, <code>Y</code>, <code>Z</code>, 
+and lowercase letters <code>r</code>, <code>l</code>, <code>f</code>, <code>b</code>, <code>u</code>, <code>d</code>).  
+See the <code><a href="#move">move</a></code> parameter description for examples (move character set for a cube size other than 3x3x3 is also discussed there).</p> 
+
+<p>To support another widely used standard where the meaning of <code>Y</code> and <code>Z</code> 
+rotations  is 
+interchanged, you can use the parameter value '<code>3</code>'. Other turns are the 
+same as for the parameter value '<code>2</code>'. The value equal to '<code>4</code>' is 
+displaying middle slice turns in lowercase letters, the whole-cube rotations 
+use the prefix Q, and a simultaneous turn of two adjacent layers is expressed by two letters (first of them in uppercase, 
+second of them in lowercase). To display <code>XYZ</code> rotations in lowercase, use a parameter value '<code>5</code>'.</p> 
+
+<p>In order to prevent symbol meaning collisions 
+(<code>Y</code> and <code>Z</code> rotations to be specific, because they mean two different cube rotations depending on set parameter value), 
+use the <code><a href="#yz">yz</a></code> parameter.</p>
+
+<p><i>Examples:</i> <code>movetext=0</code>, <code>movetext=1</code>, <code>movetext=2</code>, <code>movetext=3</code>, <code>movetext=4</code> and <code>movetext=5</code> give 
+the following results for the same values of other parameters.</p> 
+
+<p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=0&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=2&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=3&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=4&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=5&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="yz"></a><b><code>yz</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>There are two possible values for this parameter: '<code>0</code>' and '<code>1</code>' (the default value is '<code>0</code>'). 
+If set to '<code>1</code>', then <code>Y</code> and <code>Z</code> rotations 
+are switched. Examples below have the <code><a href="#move">move</a></code> parameter 
+set to '<code>XYZ</code>', and at the same time the <code><a href="#movetext">movetext</a></code> parameter set to '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>', 
+which shows that while the original method of using <code>movetext=3</code> (or <code>movetext=5</code>) to switch the 
+display of <code>Y</code> and <code>Z</code> works fine, the actual function of the turn (as declared in the <code>move</code> parameter) does not change, an input rotation 
+of <code>Z</code> still rotates around the up-down axis. With <code>yz=1</code> the function of the <code>move</code> parameter changes so 
+that <code>Z</code> rotates around the front-back 
+axis and all <code>movetext</code> parameter values work as expected, except '<code>2</code>' which becomes switched.
+</p><p><i>Examples:</i> <code>movetext=1&amp;yz=1&amp;move=XYZ</code>, <code>movetext=2&amp;yz=1&amp;move=XYZ</code>, <code>movetext=3&amp;yz=1&amp;move=XYZ</code>, 
+<code>movetext=4&amp;yz=1&amp;move=XYZ</code> and <code>movetext=5&amp;yz=1&amp;move=XYZ</code> have the following effect on the simulators.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&movetext=1&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&movetext=2&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&movetext=3&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&movetext=4&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&movetext=5&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="initmove"></a><b><code>initmove</code> parameter</b></div>
+
+<p>This parameter specifies the move sequence to execute on the solved cube before starting the animation. It 
+can be used to setup solved cube to a certain legal state without using the <code><a href="#facelets">facelets</a></code> parameter. 
+The value format is the same as for the <code><a href="#move">move</a></code> parameter.
+</p>
+
+<p> 
+Using the '<code>random</code>' value (<i>note:</i> this value is not supported in the original AnimCube Java applet) 
+will randomly pick some characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
+If the value is equal to '<code>%23</code>' (it's a HTML encoding reference for the hash symbol "&#35;"), then it is 
+equal to the value of the <code>move</code> parameter 
+(the first one if more move sequences are specified). This parameter is mutually exclusive with the <code><a href="#initrevmove">initrevmove</a></code> parameter, 
+and has lower priority.
+</p>
+
+<p><i>Examples:</i><code>initmove=M2E2S2</code> and <code>initmove=%23&amp;move=M2E2S2</code> have the following effect on a 3x3x3 cube.
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&initmove=M2 E2S2&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&initmove=%23&move=M2E2S2&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="initrevmove"></a><b><code>initrevmove</code> parameter</b></div>
+	
+<p>The meaning and possible parameter values are the same as for the <code><a href="#initmove">initmove</a></code> parameter, but the move 
+sequence is executed reversed this time (from end to beginning with opposite turning directions). It is 
+even more useful when the value is equal to '<code>%23</code>' and takes the 
+sequence of moves 
+from the <code><a href="#move">move</a></code> parameter (the first one if more move sequences are specified). See 
+the <code>initmove</code> parameter for more details.
+</p><p>To show the flexibility of the page creation using this 
+	simulator, suppose that we have more move sequences affecting the same part of 
+	the cube. Other parts should remain either unchanged (dark gray) or we do 
+	not care about them (light gray). Instead of creating the
+ <code><a href="#facelets">facelets</a></code> coloring for each configuration, we can create only one 
+	universal, and use it in all corresponding simulators while changing only the 
+	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>%23</code>' creates the cube setup for us.
+</p>
+<p><i>Examples:</i></p> <ul><li><code>facelets=YDYDYDYDY444444444RD7D77RD7OD6D66OD6BDBD9D999GD8D88GD8&amp;initrevmove=%23&amp;move=R2B2'RFR'B2'RF'R</code></li>
+							<li><code>facelets=YDYDYDYDY444444444RD7D77RD7OD6D66OD6BDBD9D999GD8D88GD8&amp;initrevmove=%23&amp;move=FU'BD2B'UBD2F'B'</code></li> 
+					<li><code>facelets=YLYLYLYLY444444444RL7L77RL7OL6L66OL6BLBL9L999GL8L88GL8&amp;initrevmove=%23&amp;move=F2'UL'ULU'F2'U'L'U'L</code> and</li>		
+                    <li><code>facelets=YLYLYLYLY444444444RL7L77RL7OL6L66OL6BLBL9L999GL8L88GL8&amp;initrevmove=%23&amp;move=U'R2DR'URD'R2D'L'U'LD</code></li></ul>
+                    have the following effect on the simulators.
+<p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?facelets=YDYDYDYDY444444444RD7D77RD7OD6D66OD6BDBD9D999GD8D88GD8&initrevmove=%23&move=R2B2'RFR'B2'RF'R&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?facelets=YDYDYDYDY444444444RD7D77RD7OD6D66OD6BDBD9D999GD8D88GD8&initrevmove=%23&move=FU'BD2B'UBD2F'B'&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?facelets=YLYLYLYLY444444444RL7L77RL7OL6L66OL6BLBL9L999GL8L88GL8&initrevmove=%23&move=F2'UL'ULU'F2'U'L'U'L&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?facelets=YLYLYLYLY444444444RL7L77RL7OL6L66OL6BLBL9L999GL8L88GL8&initrevmove=%23&move=U'R2DR'URD'R2D'L'U'LD&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="demo"></a><b><code>demo</code> parameter</b></div>
+
+<p>This parameter can be used as a demonstration of various move sequences. The 
+value format is the same as for the <code><a href="#move">move</a></code> parameter.</p> 
+
+<p>Using the '<code>random</code>' value (<i>note:</i> this value is not supported in the original AnimCube Java applet) 
+will randomly pick some characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+resulting in generating random move sequence. Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter. 
+If the value is equal to '<code>%23</code>' (it's the encoding for the hash symbol "&#35;", as stated in the 
+<code><a href="#initmove">initmove</a></code> parameter section), then it is 
+equal to the value of the <code>move</code>
+ parameter (the first one if more move sequences are specified). The specified 
+move sequence is executed after page load and all the operations are processed in loop from 
+beginning to the end. The demo mode can be interrupted by pressing 
+any control button in the button bar. The cube state and move sequence is then reinitiated, and the 
+simulator is prepared for regular operations.
+</p>
+
+<p><i>Note:</i> Do not overuse this parameter. It is recommended using only 
+one (if any) simulator per page with this parameter set.
+</p>
+<p><i>Example:</i> To see <code>demo={AnimeCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U</code> in action, have a look at the first 
+simulator of this page. Note that the <code>Z</code> rotation as written in the example is defined in terms of <code><a href="#movetext">movetext</a>=2</code> in the demo mode. The string 
+"%2E" is a HTML encoding reference for a dot "." and "%26" translates to an ampersand "&amp;". The "í" character can be substituted by "%C3%AD". 
+</p>
+
+
+<div class="sections-parameters"><a name="metric"></a><b><code>metric</code> parameter</b></div>
+
+	<p>Using this parameter the move count can be adjusted to various turn metrics. 
+	There are four possible values with the following meaning:</p>
+<div class="justify"><ul>
+<li>0 - no metric: each animation step is counted as one move</li>
+<li>1 - Outer Block Quarter Turn Metric (OBQTM), for a 3x3x3 cube it corresponds to the Quarter Turn Metric (QTM)</li>
+<li>2 - Outer Block Turn Metric (OBTM), for a 3x3x3 cube it corresponds to the Half Turn Metric (HTM)</li>
+<li>3 - Block Turn Metric (BTM), for a 3x3x3 cube it corresponds to the Slice Turn Metric (STM)</li>
+</ul></div>
+<p>
+	The default value is '<code>0</code>'. The used metric can be seen as a 
+	character after the move counter.
+</p>
+
+<p><i>Note:</i> HTM is also known as FTM (Face Turn Metric). Letter "f" used to be appended after the move counter for <code>metric=2</code> in the 
+original AnimCube Java applet. It has been changed to "h".</p>
+
+<p><i>Note:</i> Move count for the <code>s</code> and <code>a</code> advanced modifiers in <code>metric=3</code> was 1 for both the quarter turn and half turn 
+ in the original AnimCube Java applet. It has been changed to 2.</p>
+
+<p><i>Examples:</i>
+</p><ul>
+<li><code>metric=0</code></li>
+<li><code>metric=1</code></li>
+<li><code>metric=2</code></li>
+<li><code>metric=3</code></li>
+</ul>
+<p>give the following results for the same values of other parameters.</p>
+<p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=0&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=1&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=2&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=3&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton8 onclick="showHideFunc(8,1)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage8 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading8>Show metrics &amp; move counts for a cube size other than 3x3x3</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText8>
+</div><br>
+
+
+<div class="sections-parameters"><a name="fonttype"></a><b><code>fonttype</code> parameter</b></div>
+	
+<p>This parameter can adjust the appearance of the displayed text inside the simulator window (iframe). There are two 
+possible values: '<code>0</code>' and '<code>1</code>'. The '<code>0</code>' value means that all 
+text passages are displayed in the standard format with the black or white color, 
+depending on the <code><a href="#bgcolor">bgcolor</a></code> parameter. The value equal to '<code>1</code>' enables displaying all 
+text passages with outlined font (black outline around white text), and is used to 
+increase legibility for strange background colors (i.e. strange values of the <code>bgcolor</code> parameter). The used font is outlined by 
+default (the default value is '<code>1</code>').
+</p><p><i>Examples:</i> <code>fonttype=0</code> and <code>fonttype=1</code>
+    give the following results for the same values of other parameters. The next 
+	two examples show the appearance after the background was changed to a darker 
+	color (third simulator is set to <code>fonttype=0</code>, fourth simulator is set to <code>fonttype=1</code>).
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=0&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=1&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=0&bgcolor=224466&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=1&bgcolor=224466&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="textsize"></a><b><code>textsize</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Using this parameter you can adjust the size of the characters displayed 
+inside the simulator window (iframe). The range is from '<code>5</code>'  
+to '<code>40</code>' (pixels), the default value is '<code>12</code>'.
+</p><p><i>Examples:</i> <code>textsize=5</code>, <code>textsize=12</code> and <code>textsize=40</code> have the following effect on the simulators.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&textsize=5&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&textsize=12&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&textsize=40&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20"></iframe>
+</p>
+<p><i>Note:</i> Clearly, the higher the parameter value you use, the higher 
+simulator window (iframe dimensions) you should use for a better appearance.</p>
+
+
+<div class="sections-parameters"><a name="facelets"></a><b><code>facelets</code> parameter</b></div>
+	
+<p>This parameter contains color codes of all cube facelets/stickers. 
+The <code>facelets</code> parameter is mutually exclusive with the parameters <code><a href="#colorscheme">colorscheme</a></code> and <code><a href="#pos">pos</a></code>, 
+and has the highest priority. The value of this parameter must 
+have exactly NxNx6 characters (N for a 2x2x2 cube is equal to 2, N for a 5x5x5 cube equals 5, etc.), resulting 
+in 54 characters for a 3x3x3 cube. Each character 
+determines the used color. All possible colors and the corresponding character 
+codes (which are case insensitive) can be seen in the following table. The characters from '<code>0</code>' to '<code>9</code>' 
+represent adjustable colors that can be set to any color using the <code><a href="#colors">colors</a></code> parameter.
+<table cellspacing="2" cellpadding="4" bgcolor="black" align="center">
+<tbody>
+<tr><td bgcolor="white" align="center">0</td><td bgcolor="#FF8040">light orange</td></tr>
+<tr><td bgcolor="white" align="center">1</td><td bgcolor="#FF0000">pure red</td></tr>
+<tr><td bgcolor="white" align="center">2</td><td bgcolor="#00FF00">pure green</td></tr>
+<tr><td bgcolor="white" align="center">3</td><td bgcolor="#0000FF">pure blue</td></tr>
+<tr><td bgcolor="white" align="center">4</td><td bgcolor="#999999">white-gray</td></tr>
+<tr><td bgcolor="white" align="center">5</td><td bgcolor="#AAAA44">yellow-gray</td></tr>
+<tr><td bgcolor="white" align="center">6</td><td bgcolor="#BB7744">orange-gray</td></tr>
+<tr><td bgcolor="white" align="center">7</td><td bgcolor="#994444">red-gray</td></tr>
+<tr><td bgcolor="white" align="center">8</td><td bgcolor="#447744">green-gray</td></tr>
+<tr><td bgcolor="white" align="center">9</td><td bgcolor="#004477">blue-gray</td></tr>
+<tr><td bgcolor="white" align="center">w</td><td bgcolor="white">white</td></tr>
+<tr><td bgcolor="white" align="center">y</td><td bgcolor="#FFFF00">yellow</td></tr>
+<tr><td bgcolor="white" align="center">o</td><td bgcolor="#FF6020">orange</td></tr>
+<tr><td bgcolor="white" align="center">r</td><td bgcolor="#D00000">red</td></tr>
+<tr><td bgcolor="white" align="center">g</td><td bgcolor="#009000">green</td></tr>
+<tr><td bgcolor="white" align="center">b</td><td bgcolor="#2040D0">blue</td></tr>
+<tr><td bgcolor="white" align="center">l</td><td bgcolor="#B0B0B0">light gray</td></tr>
+<tr><td bgcolor="white" align="center">d</td><td bgcolor="#505050">dark gray</td></tr>
+<tr><td bgcolor="white" align="center">m</td><td bgcolor="#FF00FF">magenta</td></tr>
+<tr><td bgcolor="white" align="center">c</td><td bgcolor="#00FFFF">cyan</td></tr>
+<tr><td bgcolor="white" align="center">p</td><td bgcolor="#FFA0C0">pink</td></tr>
+<tr><td bgcolor="white" align="center">n</td><td bgcolor="#20FF10">light green</td></tr>
+<tr><td bgcolor="white" align="center">k</td><td bgcolor="black"><font color="white">
+	black</font></td></tr>
+<tr><td colspan="2" bgcolor="#808080" align="center">anything else means gray</td></tr>
+</tbody></table>
+</p><p>The following table shows the meaning of all character positions in the <code>facelets</code> 
+	parameter value for a 3x3x3 cube. The parameter value can be divided into six groups, each group 
+	consisting of nine (NxN in general for other cube sizes than 3x3x3) characters determining the facelet colors. To show the position of each 
+	facelet in one of the six groups (actually representing cube faces), each group in the table is set to the following sequence of 
+	characters: '<code>123456789</code>'. The other characters in the parameter value are set to middle gray.
+	The second row in the table shows the affected cube face for each group of characters. The third 
+	row in the table shows character positions in the parameter value for the corresponding group of characters.</p>
+		
+<div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=123456789.............................................&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=.........123456789....................................&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=..................123456789...........................&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=...........................123456789..................&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=....................................123456789.........&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+<td>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=.............................................123456789&hint=5&snap=1&buttonheight=20"></iframe>
+</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center">Up</td>
+<td bgcolor="white" align="center">Down</td>
+<td bgcolor="white" align="center">Front</td>
+<td bgcolor="white" align="center">Back</td>
+<td bgcolor="white" align="center">Left</td>
+<td bgcolor="white" align="center">Right</td>
+</tr>
+<tr>
+<td bgcolor="white" align="center">1-9</td>
+<td bgcolor="white" align="center">10-18</td>
+<td bgcolor="white" align="center">19-27</td>
+<td bgcolor="white" align="center">28-36</td>
+<td bgcolor="white" align="center">37-45</td>
+<td bgcolor="white" align="center">46-54</td>
+</tr>
+</tbody></table></div>
+<p>To clarify the facelet layout for a 3x3x3 simulator, the next picture shows the facelet 
+	positions in the parameter value (starting from 1).
+</p><p class="center"><img class="b-lazy" src="sources/images/placeholder.png" data-src="sources/images/facelets.gif" width="244" height="185" />
+<iframe class="b-lazy" width="185" height="185" frameborder="0" data-src="cube3.html?colorscheme=wygbor&bgcolor=ffffff&hint=5&snap=1&buttonheight=20"></iframe>
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton7 onclick="showHideFunc(7,1)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage7 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading7>Show facelet layout for a cube size other than 3x3x3</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText7>
+</div>
+
+<p><i>Example:</i> <code>facelets=oywoyyoooCMCMYMCMC*dkl*dwl*PNCNCPCPNrgbgbrbrgYNGNNGGGG</code> 
+initializes the cube to the following (weird) configuration. The mixed character case is used only to visually separate the faces.
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?facelets=oywoyyoooCMCMYMCMC*dkl*dwl*PNCNCPCPNrgbgbrbrgYNGNNGGGG&hint=5&snap=1&buttonheight=20"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="colorscheme"></a><b><code>colorscheme</code> parameter</b></div>
+
+<p>This parameter is used to set the color scheme of the solved cube. In 
+combination with the <code><a href="#initmove">initmove</a></code> / <code><a href="#initrevmove">initrevmove</a></code> parameter, it can, in some 
+cases, replace the <code><a href="#facelets">facelets</a></code> or <code><a href="#pos">pos</a></code> parameter. It is mutually exclusive 
+with the <code>facelets</code> and <code>pos</code> parameter, and has the lowest priority.
+</p><p>The value must consist of exactly six characters, each determining the color 
+	of the corresponding cube face. Cube face order is: Up, Down, Front, Back, Left 
+	and Right. The color codes are shown in the table in the <code>facelets</code> 
+	parameter section. The default value is '<code>wyorbg</code>'.
+</p>
+<p><i>Examples:</i> <code>colorscheme=wbgyor</code> sets the color scheme to the 
+"Japanese" style: white opposite to blue. <code>colorscheme=456789</code> sets the color scheme to the grayed default scheme, because the digits <code>4</code> 
+to <code>9</code> represent configurable colors initialized to grayish shades of the colors, and are 
+discussed in the <code>facelets</code> and <code><a href="#colors">colors</a></code> parameter sections. 
+<code>colorscheme=wwrrbb</code> sets the color scheme to the tricolor scheme that uses only three colors 
+with the same colors on opposite faces.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wbgyor&hint=5&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=456789&hint=5&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wwrrbb&hint=5&snap=1&buttonheight=20"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="colors"></a><b><code>colors</code> parameter</b></div>
+
+<p>This parameter can be used to set ten configurable colors to custom 
+colors. Configurable colors are given in the RGB string format: RRGGBB, forming the 
+RGB triple (each component is 2 hex digits). Each RGB triple 
+sets the corresponding configurable color. Configurable colors 
+can be accessed in other parameters (<code><a href="#facelets">facelets</a></code> and <code><a href="#colorscheme">colorscheme</a></code>) 
+by means of the '<code>0</code>', '<code>1</code>', ..., '<code>8</code>', '<code>9</code>' substitutes. 
+All the default colors are shown in the <code>facelets</code> parameter section.
+</p><p><i>Example:</i> <code>colors=ff888888ff888888ff88ffffff88ffffff88</code> in 
+	combination with <code>colorscheme=012345</code> sets the color scheme to light 
+	colors (red, green, blue, cyan, magenta, yellow).
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colors=ff888888ff888888ff88ffffff88ffffff88&colorscheme=012345&hint=5&snap=1&buttonheight=20"></iframe>
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton5 onclick="showHideFunc(5,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage5 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading5>Show an explanation of the example</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText5>
+<p>There are 6 configurable colors in the example above (can have up to 10 configurable colors):</p>
+
+<pre>
+RRGGBB &lt;&#8212;&#8212; RGB triple 
+------
+ff8888 0 
+88ff88 1
+8888ff 2
+88ffff 3
+ff88ff 4
+ffff88 5
+</pre>
+
+<p>The number in the right column is then referenced to use that configurable color in either the <code>colorscheme</code> or <code>facelets</code>
+parameter, so for <code>colorscheme=012345</code> it applies:</p>
+
+<pre>
+ff8888 = Up 
+88ff88 = Down
+8888ff = Front
+88ffff = Back
+ff88ff = Left
+ffff88 = Right
+</pre>
+
+<p>The color scheme in the example above is set to lighter colors because "00" has been replaced by "88" 
+(increasing the number makes it lighter: 000000 = black, ffffff = white).</p> 
+
+<pre>
+RRGGBB &lt;&#8212;&#8212; RGB triple 
+------
+ff0000 red 
+00ff00 green
+0000ff blue
+00ffff cyan
+ff00ff magenta
+ffff00 yellow
+</pre>
+</div>
+<br>
+
+
+<div class="sections-parameters"><a name="pos"></a><b><code>pos</code> parameter</b></div>
+
+<p>This parameter should be considered obsolete, and is supported only because of the compatibility and smooth replacement of 
+the old 3x3x3 Rubik's Cube Java applet made by Lars Petrus (which has been later replaced by his JavaScript simulator 
+called <a href="https://github.com/larspetrus/Roofpig" target="_new">Roofpig</a>).</p>
+
+<p>
+The <code>pos</code> parameter is similar to the <code><a href="#facelets">facelets</a></code> 
+one. Using this parameter, the AnimCubeJS simulator sets other unset parameters to proper values, so as the 
+appearance is as close as possible to the old Lars' Java applet. 
+If this parameter is used, then default implicit parameter settings are:
+</p><ul>
+<li><code><a href="#bgcolor">bgcolor</a>=FFFFFF</code></li>
+<li><code><a href="#position">position</a>=UUUUFF</code></li>
+</ul>
+
+<p>This parameter is mutually exclusive with the parameters <code>facelets</code> 
+and <code><a href="#colorscheme">colorscheme</a></code>. When used simultaneously, <code>facelets</code> has higher 
+priority and <code>colorscheme</code> lower.
+</p><p><i>Examples:</i> First cube below is identical to the code of Lars' old 3x3x3 Java applet. 
+<!-- Josef's original code is following:
+
+<applet code=AnimCube.class archive="AnimCube.jar" width=125 height=145>
+<param name="pos" value="abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd">
+<param name="move" value="L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2">
+</applet>
+
+-->
+The next two cubes come from the newer (yet still old) Lars' 3x3x3 Java applets that use extended notation for whole-cube 
+rotations and two-layer turns. Although the same symbols are used (see the source code if you are interested), the meaning of symbols in 
+the notations is different.</p>
+<!-- Lars' original code for the second cube is following:
+
+<param name="move" value="z2L2D1U2B2L1U3x3F1U3F1U3F3y1U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3r2F1D1R2D3R3D1R1D3R3D1R3D3R2">
+
+and was converted by Josef to:
+
+<param name="move" value="z2R2D1U2F2R1U3y3B1L3B1L3B3x1L3D2L2F2L1D1F3D3F1D3F2D1F3D1F1D3b2U1L1F2L3F3L1F1L3F3L1F3L3F2"> 
+
+-->
+
+<!-- Lars' original code for the third cube is following:
+
+<param name="move" value="R2 F B2 U2 R b' d B' D B' D' y3 B' D2 B2 L2 B D L' D' L D' L2 D L' D L D' L2 D F L2 F' L' F L F' L' F L' F' L2">
+
+and was converted by Josef to:
+
+<param name="move" value="R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2">
+
+-->
+
+<p class="left">
+<iframe class="b-lazy" width="125" height="145" frameborder="0" data-src="cube3.html?pos=abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd&move=L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="115" height="135" frameborder="0" data-src="cube3.html?bgcolor=00aa00&pos=abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd&move=z2R2D1U2F2R1U3y3B1L3B1L3B3x1L3D2L2F2L1D1F3D3F1D3F2D1F3D1F1D3b2U1L1F2L3F3L1F1L3F3L1F3L3F2&metric=2&snap=1&buttonheight=20"></iframe>
+<iframe class="b-lazy" width="160" height="180" frameborder="0" data-src="cube3.html?pos=feedccbeabdbcefcacbfacaeabadbeffddfefadcbdfacdbcadeebf&move=R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2&metric=2&hint=3&snap=1&buttonheight=20"></iframe>
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton10 onclick="showHideFunc(10,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage10 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading10>Show additional comments</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText10>
+<div class="justify"><ol>
+<li>What appears to be the largest face, which one might think is the front face, is actually the right face due to the <code>position=UUUUFF</code> 
+setting.</li><br>
+<li>The <code>pos</code> layout (compare with the facelet layout as described in the <code>facelets</code> parameter section) for a 3x3x3 simulator is:</li>
+<div class="overflow">
+<pre class="pre-overflow">
+          25 26 27
+          22 23 24
+          19 20 21
+
+48 47 46  16 17 18  28 31 34  03 02 01
+51 50 49  13 14 15  29 32 35  06 05 04
+54 53 52  10 11 12  30 33 36  09 08 07
+
+          39 38 37
+          42 41 40
+          45 44 43
+</pre></div>
+<p>The very same principle of ordering applies to other cube sizes.</p> 
+
+<li>You are permitted to use only the following case sensitive color codes:<br><br> 
+<table cellspacing="2" cellpadding="4" bgcolor="black">
+<tr><td bgcolor="white" align="center">a</td><td bgcolor="#009000">green</td></tr>
+<tr><td bgcolor="white" align="center">b</td><td bgcolor="#2040D0">blue</td></tr>
+<tr><td bgcolor="white" align="center">c</td><td bgcolor="#D00000">red</td></tr>
+<tr><td bgcolor="white" align="center">d</td><td bgcolor="white">white</td></tr>
+<tr><td bgcolor="white" align="center">e</td><td bgcolor="#FF6020">orange</td></tr>
+<tr><td bgcolor="white" align="center">f</td><td bgcolor="#FFFF00">yellow</td></tr>
+<tr><td bgcolor="white" align="center">g</td><td bgcolor="#B0B0B0">light gray</td></tr>
+<tr><td bgcolor="white" align="center">h</td><td bgcolor="#505050">dark gray</td></tr>
+<tr><td bgcolor="white" align="center">A</td><td bgcolor="#447744">green-gray</td></tr>
+<tr><td bgcolor="white" align="center">B</td><td bgcolor="#004477">blue-gray</td></tr>
+<tr><td bgcolor="white" align="center">C</td><td bgcolor="#994444">red-gray</td></tr>
+<tr><td bgcolor="white" align="center">D</td><td bgcolor="#999999">white-gray</td></tr>
+<tr><td bgcolor="white" align="center">E</td><td bgcolor="#BB7744">orange-gray</td></tr>
+<tr><td bgcolor="white" align="center">F</td><td bgcolor="#AAAA44">yellow-gray</td></tr>
+</table>
+
+</li><br>
+<li>If you are converting from the old 3x3x3 Rubik's Cube Java applet made by Lars Petrus to the AnimCubeJS (3x3x3 simulator to be specific), be 
+aware that while the AnimCubeJS uses center-independent way to display declared move sequences, Lars' Java applet uses center-dependent way to display declared 
+move sequence. Because of this, you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet, as mentioned within the second Note 
+in the <code><a href="#move">move</a></code> parameter section.</li>
+</ol></div>
+</div><br>
+
+
+<div class="sections-parameters"><a name="supercube"></a><b><code>supercube</code> parameter</b></div>
+	
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>This parameter has two possible values: '<code>0</code>' (which is the 
+default value) and '<code>1</code>'. Set to '<code>1</code>' for Supercube as shown 
+in the example below. The <code>supercube=1</code> setting makes the borders of the simulator thinner (this can be adjusted by the <code><a href="#borderwidth">borderwidth</a></code> 
+parameter).
+</p><p><i>Examples:</i> <code>supercube=1</code> and <code>supercube=0</code> have the following effect on the simulators.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=kygbor&supercube=1&move=R2L2U2D2F2B2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&supercube=0&move=R2L2U2D2F2B2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="superfacelets"></a><b><code>superfacelets</code> parameter</b></div>
+	
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Layout is the same as for the <code><a href="#facelets">facelets</a></code> parameter, values are:</p>
+<ul><li>0: normal twist</li><li>1: clockwise quarter twist</li><li>2: half-twist</li><li>3: counter-clockwise quarter twist</li></ul>
+<p><i>Example:</i> <code>superfacelets=000010000000000000000020000000000000000000000000030000</code> together with <code><a href="#supercube">supercube</a>=1</code> makes the black center piece 
+twisted clockwise (by 90 degrees), green center piece half twisted (by 180 degrees), and red center piece twisted counter-clockwise (by 90 degrees). 
+All the other characters in the parameter value are set to normal twist.
+</p><p>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=kygbor&supercube=1&superfacelets=000010000000000000000020000000000000000000000000030000&snap=1&buttonheight=20"></iframe>
+</p>
+
+
+<div class="sections-parameters"><a name="scw"></a><b><code>scw</code> parameter</b></div>
+	
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Using the <code>scw</code> parameter (it stands for SuperCubeWhite) you can translate the <code>w</code> letters written in the <code><a href="#facelets">facelets</a></code> 
+or <code><a href="#colorscheme">colorscheme</a></code> parameter value, if also <code><a href="#supercube">supercube</a>=1</code> is used. Possible values are:</p>
+<div class="justify"><ul><li>0: to display white arrows (0 is the default value)</li><li>1: to display black arrows</li><li>2: to display without arrows</li></ul></div>
+<p><i>Examples:</i> <code>colorscheme=wygbor&amp;scw=1</code> along with <code>supercube=1</code> gives the result as seen on the first cube, and 
+<code>facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&amp;scw=2</code> along with <code>supercube=1</code> gives the result as seen on the second cube. 
+The third cube has the same parameter values as the first one, except for <code>scw=1</code> is replaced by <code>scw=0</code>.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=1&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=2&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=0&textsize=16"></iframe>
+</p><p><i>Note:</i> The <code>scw</code> parameter is not needed at all if <code>k</code> is used for color (which is black, as described in the <code>facelets</code> 
+parameter section). The <code>scw</code> parameter makes it easy to switch the <code>facelets</code> or <code>colorscheme</code> parameter 
+value between normal cube &amp; Supercube (so you 
+don't have to replace all the <code>w</code>'s with <code>k</code>'s) by using <code>scw=1</code>.</p>
+<p><i>Note:</i> Initially, the parameter values were '<code>black</code>' and '<code>blank</code>'. Their meaning is now equivalent to the values
+'<code>1</code>' and '<code>2</code>'.  
+</p>  
+
+
+<div class="sections-parameters"><a name="gabbacolors"></a><b><code>gabbacolors</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>This parameter has two possible values: '<code>0</code>' (which is the 
+default value) and '<code>1</code>'.  Set to '<code>1</code>' for 
+<a href=http://gabbasoft-cube-demo.software.informer.com/ target="_new">Gabbasoft</a> colors as shown on the first cube below.
+</p><p><i>Examples:</i> <code>gabbacolors=1</code> and <code>gabbacolors=0</code> have the following effect on the simulators.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&gabbacolors=1&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+
+</p><p>As you can see, <code>gabbacolors=1</code> makes the borders of the simulator thinner (this can be adjusted by the <code><a href="#borderwidth">borderwidth</a></code> 
+parameter), and it can be also used for the <a href="#supercube">Supercube</a>, as shown on the first cube below.
+</p><p><i>Examples:</i> <code>gabbacolors=1&amp;supercube=1</code> and <code>gabbacolors=0&amp;supercube=1</code> have the following effect on the simulators.
+</p><p>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=kygbor&gabbacolors=1&supercube=1&move=Ra2Fa2Ua2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=kygbor&supercube=1&move=Ra2Fa2Ua2&initmove=%23&snap=1&buttonheight=20&textsize=16"></iframe>
+</p>
+
+<p><i>Note:</i> You can omit the <code>gabbacolors</code> parameter by combining the <code>borderwidth</code> and <code><a href="#colors">colors</a></code> 
+(white: <code>ffffff</code>, yellow: <code>ffd90a</code>, green: <code>0b7d39</code>, blue: <code>0b4186</code>, orange: <code>ff4f0b</code>, 
+red: <code>9e0b19</code>) parameters.</p>
+
+<div class="sections-parameters"><a name="scramble"></a><b><code>scramble</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>This parameter can be used to generate random move sequence being formed by 
+some characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>.
+There are three possible values: '<code>0</code>' (which is the default value), '<code>1</code>' and '<code>2</code>'. 
+If the value is equal to '<code>1</code>' then the starting cube state will be solved and playing the move sequence will scramble the cube. If 
+the value is equal to '<code>2</code>' then the 
+starting cube state will be scrambled and the move sequence will solve the cube.</p>
+
+<p>
+Each time the clear (Rewind) button is pressed a new random move sequence is generated. The default 
+move count of random sequence of moves generated is the cube size 
+multiplied by 10 (30 for 3x3x3, 40 for 4x4x4, etc.), but it can be changed with the <code><a href="#randmoves">randmoves</a></code> parameter 
+as shown on the second cube below.
+</p>
+
+<p> 
+By default the full button bar is shown (i.e. the <code><a href="#buttonbar">buttonbar</a></code> parameter is set to 
+the value '<code>1</code>'). If <code>buttonbar=2</code> is used then only the Rewind button 
+is shown and pressing it toggles between solved and scrambled (starting cube state depends on the <code>scramble</code> setting). You
+should not use the <code>buttonbar=0</code> setting.
+</p>
+
+<p>
+With <code>buttonbar=1</code>, the same functionality can be achieved using either the <code>scramble</code> parameter or the 
+'<code>random</code>' value (on the <code><a href="#move">move</a></code> parameter) with one difference which is that the <code>scramble</code> 
+parameter generates a new random move sequence when the clear (Rewind) button is pressed on button bar, whereas with the '<code>random</code>' value 
+the web page must be reloaded to get a new random move sequence. You can compare the functionality between the <code>scramble=1</code> and <code>move=random</code>, 
+as well as between the <code>scramble=2</code> and <code>move=random&amp;initrevmove=%23</code> if you want to see the difference.
+</p>
+
+<p>
+With <code>buttonbar=2</code> and <code>scramble=1</code>, the clear (Rewind) button toggles between random and solved states (starting with solved state),
+ the same functionality cannot be achieved with <code>move=random</code> (unless 
+using HTML/JavaScript buttons, see the last Note in the <code>randmoves</code> parameter 
+ description). For <code>scramble=2</code>, which starts with the random state, the same can be achieved with <code>initmove=random</code> and using the 
+ web page reload for a new random move sequence, although there is no option for the solved 
+cube state as with the <code>scramble</code> parameter.
+</p>
+
+<p>
+Use of the <code>scramble</code> parameter is mutually exclusive with the <code>move</code>, <code><a href="#initmove">initmove</a></code>, 
+<code><a href="#initrevmove">initrevmove</a></code>, <code><a href="#demo">demo</a></code>, <code><a href="#facelets">facelets</a></code>, 
+<code><a href="#superfacelets">superfacelets</a></code> and <code><a href="#pos">pos</a></code> parameters (they are ignored if declared).
+</p>
+
+<p><i>Examples:</i> <code>scramble=1</code>, <code>scramble=2&amp;randmoves=18</code>, <code>scramble=1&amp;buttonbar=2</code> and 
+<code>scramble=2&amp;buttonbar=2</code> have the following effect on the simulators.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&speed=3&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&randmoves=18&textsize=16"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&buttonbar=2"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&buttonbar=2"></iframe>
+</p>
+
+<div class="sections-parameters"><a name="randmoves"></a><b><code>randmoves</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>This parameter allows to change the move count of randomly generated move sequence. The value should consist only of natural numbers (including 0, 
+however, if equal to '<code>0</code>' then it is equal to the default value which is the cube size multiplied by 10, i.e. 20 for 2x2x2, 50 for 5x5x5, etc.).</p>
+
+<p>
+Randomly generated move sequence is supported by the <code><a href="#scramble">scramble</a></code> parameter and '<code>random</code>' parameter value 
+of the <code><a href="#move">move</a></code>, <code><a href="#initmove">initmove</a></code>, <code><a href="#initrevmove">initrevmove</a></code> and 
+<code><a href="#demo">demo</a></code> parameters.
+</p>
+
+
+<p><i>Examples:</i> <code>randmoves=1&amp;initmove=random</code>, <code>randmoves=2&amp;initrevmove=random</code> and <code>randmoves=3&amp;move=random</code> 
+have the following effect on the simulators.
+</p><p class="left">
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&randmoves=1&snap=1&buttonheight=20&initmove=random"></iframe>
+<iframe class="b-lazy" width="160" height="160" frameborder="0" data-src="cube3.html?colorscheme=wygbor&randmoves=2&snap=1&buttonheight=20&initrevmove=random"></iframe>
+<iframe class="b-lazy" width="160" height="186" frameborder="0" data-src="cube3.html?colorscheme=wygbor&randmoves=3&snap=1&buttonheight=20&move=random&textsize=16"></iframe>
+</p>
+
+<p><i>Note:</i> Even though the function generating random move sequence takes the characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code> for 
+each cube size, obviously <code>m</code> and <code>n</code> modifiers won't be used to generate a random move sequence for a 2x2x2 cube. 
+Similarly, <code>n</code> modifier won't be used to generate a random move sequence for 
+the 3x3x3 and 4x4x4 cubes, and finally <code>m</code> modifier won't be used 
+to generate a random move sequence for the 3x3x3 and 5x5x5 cubes (the reason for the latter restriction lies in a so-called 
+fixed centers model, which is a Rubik's cube model in which center layers never turn).   
+</p>
+
+<p><i>Note:</i> Use of the <code>randmoves</code> and <code>scramble</code> parameters, as well as '<code>random</code>' parameter value (with 
+<code>move</code> or <code>initmove</code> parameters) can provide much more functionality when used with HTML buttons that call JavaScript 
+functions which pass parameters to the simulator. See the <i>Enhancement</i> section for more.</p>
+
+
+<div class="sections"><a name="enhancement"></a><b><i>Enhancement</i></b></div>
+<p>The AnimCubeJS interface file <code>cubeX.html</code> (where "X" denotes the cube size) prevents the page from scrolling while rotating the cube 
+by setting overflow:hidden for the body of the parent document while the mouse button is pressed. However, some mobile browsers 
+have an autohide feature for the tab/address bar which overrides this setting and allows page scrolling (as it "hides" the 
+tab/address bar) while rotating the cube. This results in a poor user experience.
+</p>
+
+<p>
+One way to fix this is to enclose the entire page contents in a non-scrollable div using the following CSS, the div should be declared with class="wrap":
+</p>
+
+<pre>
+body, html {
+ height:100%;
+ overflow:hidden;
+ margin:0;
+}
+div.wrap {
+ height:100%;
+ overflow:auto;
+ padding:8px 10%;
+}
+</pre>
+
+<p>
+For this to work properly the body must not have any margin, however, it can be set in div.wrap instead by using padding as shown above.
+Also, a slightly modified cube interface file must be used - which is named <code>noscrollX.html</code> instead of <code>cubeX.html</code> 
+in this case. Click on the example links below to see the implementation of this method.
+</p>
+
+<p><i>Note:</i> Unfortunately, the bLazy script (see how to lazy load simulators in the <a href="#usage">Using Simulator in Web Pages</a> section) is not working correctly anymore for above mentioned procedure if there are multiple divs on page.</p>
+
+<p>By adding a bit of extra HTML and/or JS code you can make wide variety of fancy features (such as <a href="sources/codes/enhancement/responsive-cubes.html" target="_new">responsive cubes</a>) which might become handy if 
+you want to cube but don't have a physical cube around:</p> 
+<div class="justify"><ul><li><a href="sources/codes/enhancement/scrambling-button.html" target="_new">Scrambling button with adjustable cube magnification</a></li><br>
+<li><a href="sources/codes/enhancement/scrambler-solver.html" target="_new">Scrambler and solver</a> with adjustable number of scrambling moves</li><br>
+<li><a href="sources/codes/enhancement/cube-parts.html" target="_new">Cube parts scrambling</a> with programmable rules for scrambling sequences</li><br>
+<li>Randomly <a href="sources/codes/enhancement/animating-cube.html" target="_new">animating cube</a> on each page reload</li><br>
+<li>Etc.</li>
+</ul></div>
+
+<p>
+There is also a different way of implementing AnimCubeJS that is designed for making interactive cubes that work even offline - the Alternate Parameter Method (APM). 
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton11 onclick="showHideFunc(11,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage11 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading11>Show APM documentation</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText11>
+<p>This method requires using modified versions of the AnimCubeJS files (see how to 
+<a href=sources/codes/alternate-parameter-method/mod_animcubejs_files.html target="_new">create modified AnimCubeJS files</a>) and is limited
+to one interactive cube per page. Also required is use of a "wrap" div to prevent
+ page scrolling while rotating the cube (see div declaration with class="wrap" above 
+for more info).
+</p>
+
+<p>
+This method is activated by including one or more divs in a web page with
+id=cubeN where N is the cube size (2=2x2x2, ..., 6=6x6x6) and including the
+ corresponding script(s):
+</p>
+
+<pre>&lt;script src="animcubeN.nocache.js"&gt;&lt;/script&gt;</pre>
+
+<p>
+Also include <a href=sources/codes/alternate-parameter-method/apmlib.js target="_new">apmlib.js</a> which has event handlers to
+prevent page scrolling while rotating the cube and to prevent the context
+menu from popping up when using right-click to rotate.
+Include this script at the bottom of the page:
+</p>
+
+<pre>&lt;script src="apmlib.js"&gt;&lt;/script&gt;</pre>
+
+<p>
+Also include the following global variables (in JavaScript):
+</p>
+
+<div class="overflow"><pre class="pre-overflow">
+var cube = cubeN;&nbsp; // replace N with cube size
+var init;
+var init2;&nbsp; // optional - only needed if doing resizing (as in pixels)
+var initStatic;</pre></div>
+
+<p>
+The div width &amp; height style properties are used for the cube size as
+shown by the following example for a 3x3x3 cube, all other parameters are
+declared as separate attributes in the form of parameter=value.
+Cube (div) size must be in pixels.
+</p>
+
+<div class="overflow"><pre class="pre-overflow">
+&lt;div id=cube3 style="width:300px;height:300px" 
+&nbsp;&nbsp; colorscheme=roywgb bgcolor=ffffff&gt;
+&lt;/div&gt;</pre></div>
+
+<p>
+Parameters can be dynamically modified (by JavaScript functions called by
+HTML inputs, buttons, select lists, etc.) by changing the div attributes as
+shown in these examples:
+</p>
+
+<p>Width &amp; Height:<br>
+
+<code>cube.style.width = '200px';
+cube.style.height = '200px';</code></p>
+
+<p>All other parameters:
+
+<code>
+cube.setAttribute('supercube', '1');
+cube.removeAttribute('initmove');</code></p>
+
+<p>
+To  apply the changes and redisplay the cube, do the following command with N
+replaced by the cube size:
+</p>
+
+<pre>Init[N](InitStatic[N]);</pre>
+
+<p>
+To allow changing the cube size (between 3x3x3, 4x4x4, etc.) set the width &amp;
+height to 0 for all but one div initially (so there are not five cubes
+displayed on page load) and then selectively set width &amp; height (to desired
+size) for one div at time based on user input.
+</p>
+
+<p>Examples of how to use this method for a single cube size (3x3x3) are:</p>
+
+<ul><li><a href="sources/codes/alternate-parameter-method/scrambler-solver-offline.html" target="_new">Scrambler and solver</a></li><br>
+<li><a href="sources/codes/alternate-parameter-method/cube-parts-offline.html" target="_new">Cube parts scrambling</a></li><br>
+<li><a href="sources/codes/alternate-parameter-method/animating-cube-offline.html" target="_new">Animating cube</a></li>
+</ul>
+
+<p>An example with all cube sizes is <a href="sources/codes/alternate-parameter-method/scrambling-button-offline.html" target="_new">Scrambling 
+button with adjustable cube magnification</a>.</p>
+</div>
+
+<br><hr>
+<p>If you realize any problem you can contact <a href="https://hlavolam.maweb.eu/contact" target="_new">Tadeáš Miler</a> 
+(he is a co-author of the AnimCubeJS documentation which is still heavily based on the original AnimCube documentation by 
+Josef Jelínek) or you can file an issue to the <a href="https://github.com/cubing/AnimCubeJS" target="_new">AnimCubeJS repository on GitHub</a>.</p><br>
+ 
+<script src="sources/blazy.js"></script>
+    <script>
+        ;(function() {
+            var bLazy = new Blazy();
+        })();
+    </script>
+    
+<script>document.getElementById('a1').innerHTML = 'enabled.'; </script>
+ 
+<script>
+var showHideContents = [];
+function showHideFunc(n, c) {
+  var showHideImage = document.getElementById('showHideImage' + n);
+  var showHideText = document.getElementById('showHideText' + n);
+  var showHideHeading = document.getElementById('showHideHeading' + n);
+  if (showHideText.style.display == "")
+    showHideText.style.display = "none"
+  if (showHideText.style.display == "none") {
+    showHideImage.src = 'sources/images/up.png';
+    if (c == 1)
+      showHideText.innerHTML = showHideContents[n];
+    showHideText.style.display = "block";
+    showHideHeading.innerHTML = showHideHeading.innerHTML.replace('Show','Hide');
+  }
+  else {
+    showHideImage.src = 'sources/images/down.png';
+    if (c == 1)
+      showHideText.innerHTML = '';
+    showHideText.style.display = "none";
+    showHideHeading.innerHTML = showHideHeading.innerHTML.replace('Hide','Show');
+  }
+}
+
+showHideContents[6] = '\
+<p>The meaning of basic modifiers &apos;<code>&apos;</code>&apos; and &apos;<code>2</code>&apos;, as well as uppercase move letters \
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>B</code>, <code>D</code> - as described for a 3x3x3 cube above - applies to \
+all cube sizes. For notation simplicity, the <code><a href="#movetext">movetext</a></code> parameter can be only set to either &apos;<code>0</code>&apos; \
+or &apos;<code>1</code>&apos; on other cube sizes \
+than 3x3x3 (see both <code>movetext=0</code> and <code>movetext=1</code> on the examples below). \
+<p>The following cubes show possible move character set which is divided into two move sequences. \
+These two move sequences differ only in that the second one contains the basic modifier &apos;<code>2</code>&apos;, and the first one does not.</p> \
+<p>For a 2x2x2 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>\
+<div class="justify"><ul>\
+<li>c - whole-cube rotation in the direction of the specified layer</li>\
+<li>a - anti-slice turn; two opposite layers are turned simultaneously in the opposite \
+ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>\
+</ul></div>\
+<p><iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=LL&apos;RR&apos;FF&apos;BB&apos;UU&apos;DD&apos;UcUc&apos;FcFc&apos;LcLc&apos;UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;R2R2&apos;F2F2&apos;B2B2&apos;U2U2&apos;D2D2&apos;Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos;Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=LL&apos;RR&apos;FF&apos;BB&apos;UU&apos;DD&apos;UcUc&apos;FcFc&apos;LcLc&apos;UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;R2R2&apos;F2F2&apos;B2B2&apos;U2U2&apos;D2D2&apos;Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos;Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p> \
+<p>For a 4x4x4 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>\
+<div class="justify"><ul>\
+<li>m - inner layer turn in the direction of specified outer layer</li> \
+<li>c - whole-cube rotation in the direction of the specified outer layer</li>\
+<li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li> \
+<li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code> \
+is equal to <code>R L&apos;</code> or <code>L&apos; R</code>)</li>\
+<li>w - wide turn; two inner layers are turned simultaneously in the same direction (<code>Rw</code> \
+is equal to <code>Rm Lm&apos;</code> or <code>Lm&apos; Rm</code>)</li>\
+<li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite \
+direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>\
+</ul></div>\
+<p><iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=LL&apos;LmLm&apos;Rm&apos;RmR&apos;R FF&apos;FmFm&apos;Bm&apos;BmB&apos;B UU&apos;UmUm&apos;Dm&apos;DmD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRwRs&apos;Rw&apos;FsFwFs&apos;Fw&apos;UsUwUs&apos;Uw&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Lm2Lm2&apos;Rm2&apos;Rm2R2&apos;R2 F2F2&apos;Fm2Fm2&apos;Bm2&apos;Bm2B2&apos;B2 U2U2&apos;Um2Um2&apos;Dm2&apos;Dm2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rw2Rs2&apos;Rw2&apos;Fs2Fw2Fs2&apos;Fw2&apos;Us2Uw2Us2&apos;Uw2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=LL&apos;LmLm&apos;Rm&apos;RmR&apos;R FF&apos;FmFm&apos;Bm&apos;BmB&apos;B UU&apos;UmUm&apos;Dm&apos;DmD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRwRs&apos;Rw&apos;FsFwFs&apos;Fw&apos;UsUwUs&apos;Uw&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Lm2Lm2&apos;Rm2&apos;Rm2R2&apos;R2 F2F2&apos;Fm2Fm2&apos;Bm2&apos;Bm2B2&apos;B2 U2U2&apos;Um2Um2&apos;Dm2&apos;Dm2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rw2Rs2&apos;Rw2&apos;Fs2Fw2Fs2&apos;Fw2&apos;Us2Uw2Us2&apos;Uw2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p> \
+<p>For a 5x5x5 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>\
+<div class="justify"><ul>\
+<li>n - first inner layer turn in the direction of specified outer layer</li> \
+<li>m - middle layer turn in the direction of specified outer layer</li> \
+<li>c - whole-cube rotation in the direction of the specified outer layer</li> \
+<li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li> \
+<li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code> \
+is equal to <code>R L&apos;</code> or <code>L&apos; R</code>)</li> \
+<li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite \
+direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>\
+</ul></div>\
+<p><iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=LL&apos;LnLn&apos;LmLm&apos;Rn&apos;RnR&apos;R FF&apos;FnFn&apos;FmFm&apos;Bn&apos;BnB&apos;B UU&apos;UnUn&apos;UmUm&apos;Dn&apos;DnD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRs&apos;FsFs&apos;UsUs&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Ln2Ln2&apos;Lm2Lm2&apos;Rn2&apos;Rn2R2&apos;R2 F2F2&apos;Fn2Fn2&apos;Fm2Fm2&apos;Bn2&apos;Bn2B2&apos;B2 U2U2&apos;Un2Un2&apos;Um2Um2&apos;Dn2&apos;Dn2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rs2&apos;Fs2Fs2&apos;Us2Us2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=LL&apos;LnLn&apos;LmLm&apos;Rn&apos;RnR&apos;R FF&apos;FnFn&apos;FmFm&apos;Bn&apos;BnB&apos;B UU&apos;UnUn&apos;UmUm&apos;Dn&apos;DnD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRs&apos;FsFs&apos;UsUs&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Ln2Ln2&apos;Lm2Lm2&apos;Rn2&apos;Rn2R2&apos;R2 F2F2&apos;Fn2Fn2&apos;Fm2Fm2&apos;Bn2&apos;Bn2B2&apos;B2 U2U2&apos;Un2Un2&apos;Um2Um2&apos;Dn2&apos;Dn2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rs2&apos;Fs2Fs2&apos;Us2Us2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p> \
+<p>For a 6x6x6 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>\
+<div class="justify"><ul>\
+<li>n - first inner layer turn in the direction of specified outer layer</li> \
+<li>m - second inner layer turn in the direction of specified outer layer</li> \
+<li>c - whole-cube rotation in the direction of the specified outer layer</li> \
+<li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li> \
+<li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code> \
+is equal to <code>R L&apos;</code> or <code>L&apos; R</code>)</li> \
+<li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite \
+direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>\
+</ul></div>\
+<p><iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=LL&apos;LnLn&apos;LmLm&apos;Rm&apos;RmRn&apos;RnR&apos;R FF&apos;FnFn&apos;FmFm&apos;Bm&apos;BmBn&apos;BnB&apos;B UU&apos;UnUn&apos;UmUm&apos;Dm&apos;DmDn&apos;DnD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRs&apos;FsFs&apos;UsUs&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Ln2Ln2&apos;Lm2Lm2&apos;Rm2&apos;Rm2Rn2&apos;Rn2R2&apos;R2 F2F2&apos;Fn2Fn2&apos;Fm2Fm2&apos;Bm2&apos;Bm2Bn2&apos;Bn2B2&apos;B2 U2U2&apos;Un2Un2&apos;Um2Um2&apos;Dm2&apos;Dm2Dn2&apos;Dn2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rs2&apos;Fs2Fs2&apos;Us2Us2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=LL&apos;LnLn&apos;LmLm&apos;Rm&apos;RmRn&apos;RnR&apos;R FF&apos;FnFn&apos;FmFm&apos;Bm&apos;BmBn&apos;BnB&apos;B UU&apos;UnUn&apos;UmUm&apos;Dm&apos;DmDn&apos;DnD&apos;D UcUc&apos;FcFc&apos;LcLc&apos; UtUt&apos;DtDt&apos;FtFt&apos;BtBt&apos;RtRt&apos;LtLt&apos; RsRs&apos;FsFs&apos;UsUs&apos; UaFaRaRa&apos;Fa&apos;Ua&apos;.{ pause};L2L2&apos;Ln2Ln2&apos;Lm2Lm2&apos;Rm2&apos;Rm2Rn2&apos;Rn2R2&apos;R2 F2F2&apos;Fn2Fn2&apos;Fm2Fm2&apos;Bm2&apos;Bm2Bn2&apos;Bn2B2&apos;B2 U2U2&apos;Un2Un2&apos;Um2Um2&apos;Dm2&apos;Dm2Dn2&apos;Dn2D2&apos;D2 Uc2Uc2&apos;Fc2Fc2&apos;Lc2Lc2&apos; Ut2Ut2&apos;Dt2Dt2&apos;Ft2Ft2&apos;Bt2Bt2&apos;Rt2Rt2&apos;Lt2Lt2&apos; Rs2Rs2&apos;Fs2Fs2&apos;Us2Us2&apos; Ua2Fa2Ra2Ra2&apos;Fa2&apos;Ua2&apos;.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p>\
+';
+
+showHideContents[7] = '\
+<p>To clarify the facelet layout for a 2x2x2 simulator, the next picture shows the facelet\
+	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
+<div class="responsive-table"><table class="td" style="border-collapse:collapse">\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="2">&nbsp;</td>\
+  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">3</td>\
+  <td align="center" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">4</td>\
+  <td colspan="4">&nbsp;</td>\
+ </tr>\
+  <tr bgcolor=#FFFFFF>\
+  <td colspan="2">&nbsp;</td>\
+  <td align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">1</td>\
+  <td align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">2</td>\
+  <td colspan="4">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">18</td>\
+  <td style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">17</td>\
+  <td bgcolor=#009000 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">9</td>\
+  <td bgcolor=#009000 style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">11</td>\
+  <td bgcolor=#D00000 style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">21</td>\
+  <td bgcolor=#D00000 style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">23</td>\
+  <td bgcolor=#2040D0 style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">13</td>\
+  <td bgcolor=#2040D0 style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">15</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:6px solid">20</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">19</td>\
+  <td bgcolor=#009000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">10</td>\
+  <td bgcolor=#009000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">12</td>\
+  <td bgcolor=#D00000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">22</td>\
+  <td bgcolor=#D00000 style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">24</td>\
+  <td bgcolor=#2040D0 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">14</td>\
+  <td bgcolor=#2040D0 style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">16</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="2">&nbsp;</td>\
+  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">5</td>\
+  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">7</td>\
+  <td colspan="4">&nbsp;</td>\
+ </tr>\
+  <tr bgcolor=#FFFFFF>\
+  <td colspan="2">&nbsp;</td>\
+  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">6</td>\
+  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">8</td>\
+  <td colspan="4">&nbsp;</td>\
+ </tr>\
+</table></div>\
+<p>To clarify the facelet layout for a 4x4x4 simulator, the next picture shows the facelet \
+	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
+<div class="responsive-table">	\
+<table class="td" style="border-collapse:collapse">\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">13</td>\
+  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">14</td>\
+  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">15</td>\
+  <td align="center" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">16</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">9</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">10</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">11</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">12</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">5</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">6</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">7</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid" align="center">8</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">1</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">2</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">3</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid" align="center">4</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">68</td>\
+  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">67</td>\
+  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">66</td>\
+  <td style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">65</td>\
+  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">33</td>\
+  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">37</td>\
+  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">41</td>\
+  <td bgcolor="#009000" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">45</td>\
+  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">81</td>\
+  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">85</td>\
+  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">89</td>\
+  <td bgcolor="#D00000" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">93</td>\
+  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">49</td>\
+  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">53</td>\
+  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">57</td>\
+  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">61</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">72</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">71</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">70</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">69</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">34</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">38</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">42</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">46</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">82</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">86</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">90</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">94</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">50</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">54</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">58</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">62</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">76</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">75</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">74</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">73</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">35</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">39</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">43</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">47</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">83</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">87</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">91</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">95</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">51</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">55</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">59</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">63</td>\
+ </tr>\
+ <tr bgcolor=#FF6020>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:6px solid">80</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">79</td>\
+  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">78</td>\
+  <td style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">77</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">36</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">40</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">44</td>\
+  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">48</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">84</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">88</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">92</td>\
+  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">96</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">52</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">56</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">60</td>\
+  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">64</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">17</td>\
+  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">21</td>\
+  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">25</td>\
+  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">29</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">18</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">22</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">26</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">30</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">19</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">23</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">27</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">31</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+ <tr bgcolor=#FFFFFF>\
+  <td colspan="4">&nbsp;</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">20</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">24</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">28</td>\
+  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">32</td>\
+  <td colspan="8">&nbsp;</td>\
+ </tr>\
+</table>\
+</div>\
+<p>To clarify the facelet layout for a 5x5x5 simulator, the next picture shows the facelet \
+	positions in the parameter value (starting from 1) schematically.</p>\
+<div class="responsive-table">\
+<table><tr><td><img src="sources/images/5x5x5-layout.gif" width="614" height="302" /></td></tr></table>\
+</div> \
+<p>To clarify the facelet layout for a 6x6x6 simulator, the next picture shows the facelet \
+	positions in the parameter value (starting from 1) schematically.</p>\
+<div class="responsive-table">\
+<table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>\
+</div>\
+';
+
+showHideContents[8] = '\
+<p>Below you can see all possible types of turns and their move counts for all 4 metrics (from <code>metric=0</code> to <code>metric=3</code>).</p> \
+<pre>\
+metric=0: \n\n\
+    X m t c s a w n \n\
+ q: 1 1 1 1 1 1 1 1 \n\
+ h: 1 1 1 1 1 1 1 1 \n\
+ \n\
+metric=1: \n\n\
+    X m t c s a w n \n\
+ q: 1 2 1 0 2 2 2 2 \n\
+ h: 2 4 2 0 4 4 4 4 \n\
+ \n\
+metric=2: \n\n\
+    X m t c s a w n \n\
+ q: 1 2 1 0 2 2 2 2 \n\
+ h: 1 2 1 0 2 2 2 2 \n\
+ \n\
+metric=3: \n\n\
+    X m t c s a w n \n\
+ q: 1 1 1 0 2 2 1 1 \n\
+ h: 1 1 1 0 2 2 1 1</pre> \
+<div class="justify">Legend for the above used characters:<br>\
+q = quarter turn<br> \
+h = half turn<br> \
+X = outer layer turn<br> \
+m, t, c, s, a, w, n = advanced modifiers as described in the <code><a href="#move">move</a></code> parameter section<br> \
+number (0, 1, 2, or 4) = move count</div> \
+<p class="left"><iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="140" height="166" frameborder="0" src="cube2.html?colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p> \
+<p class="left"><iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="180" height="206" frameborder="0" src="cube4.html?colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> </p> \
+<p class="left"><iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="200" height="226" frameborder="0" src="cube5.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<p class="left"><iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe> \
+<iframe width="220" height="246" frameborder="0" src="cube6.html?colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16"></iframe></p> \
+';
+</script>      
+</body></html>
