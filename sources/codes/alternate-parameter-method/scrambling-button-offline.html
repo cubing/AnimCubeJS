@@ -1,0 +1,193 @@
+<!doctype html> 
+<html>
+<head>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <title>Scrambling Button Offline</title>
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src="2x2x2/animcube2.nocache.js"></script>
+ <script src="3x3x3/animcube3.nocache.js"></script>
+ <script src="4x4x4/animcube4.nocache.js"></script>
+ <script src="5x5x5/animcube5.nocache.js"></script>
+ <script src="6x6x6/animcube6.nocache.js"></script>
+ <style> 
+  .btn {
+    width: 110px;
+    height: 30px;
+    padding: 0;
+    border-radius: 15px;
+    background-color: #eeeeee;
+  }
+  .select {
+    height: 32px;
+    border-radius: 15px;
+    padding: 0 10px 0;
+    margin: 10px 0 2px;
+    background-color: #f5f5f5;
+  }
+  body, html {
+   height: 100%;
+   overflow: hidden;
+   margin: 0; 
+  }
+  div.wrap {
+   height: 100%;
+   overflow: auto;
+   padding: 8px 1%; 
+  }
+  .btn:active { background-color: #aaaaaa; }
+  :focus { outline:none; }
+ </style>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>Scrambling Button</font>
+<br>
+<select id=cubeType class=select onchange=newCube()>
+ <option value=2>2x2x2 Regular</option>
+ <option value=3>3x3x3 Regular</option>
+ <option value=4>4x4x4 Regular</option>
+ <option value=5>5x5x5 Regular</option>
+ <option value=6>6x6x6 Regular</option>
+ <option value=7>2x2x2 Supercube</option>
+ <option value=8>3x3x3 Supercube</option>
+ <option value=9>4x4x4 Supercube</option>
+ <option value=10>5x5x5 Supercube</option>
+ <option value=11>6x6x6 Supercube</option>
+</select>
+<br>
+<div id=cube2 style="width:0;height:0"></div>
+<div id=cube3 style="width:0;height:0"></div>
+<div id=cube4 style="width:0;height:0"></div>
+<div id=cube5 style="width:0;height:0"></div>
+<div id=cube6 style="width:0;height:0"></div>
+<table>
+ <tr height=5></tr>
+ <tr>
+  <td><button class=btn onclick="random()">Random</button></td>
+  <td width=10>
+  <td><button class=btn onclick="reset()">Reset</button></td>
+ </tr>
+ <tr height=10>
+ <tr>
+  <td><button class=btn onclick="smaller()">Smaller</button></td>
+  <td>
+  <td><button class=btn onclick="larger()">Larger</button></td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+"use strict";
+var cubeSize = 3;
+var minPixels = 80;
+var pixIncr = 1.15;
+var pixDecr = 1/pixIncr;
+var cube;
+var init;
+var init2;
+var initStatic;
+var prevType = cubeSize;
+var Cube = [];
+// These are set by the modified AnimCubeJS files:
+var Init = [];
+var Init2 = [];
+var InitStatic = [];
+onload();
+function onload() {
+  document.getElementById('cubeType').value = cubeSize;
+  for (var i=2; i < 7; i++) {
+    cube = document.getElementById('cube'+i);
+    setCubeParams(cube);
+    Cube[i] = cube;
+  }
+  cube = Cube[cubeSize];
+  var size = getSize();
+  cube.style.width = size + 'px';
+  cube.style.height = size + 'px';
+  setInit();
+}
+function newCube(sc, cs) {
+  var type = document.getElementById('cubeType').value; 
+  var supercube = (type < 7) ? 0 : 1;
+  var colorscheme = (type < 7) ? 'wygbor' : 'kygbor';
+  var newType = (type != prevType) ? true : false;
+  if (newType) {
+    cubeSize = (type > 6) ? type-5 : type;
+    cube.style.width = 0;
+    cube.style.height = 0;
+    init(initStatic);
+    setCubeSize();
+  }
+  cube.setAttribute('supercube', supercube);
+  cube.setAttribute('colorscheme', colorscheme);
+  cube.removeAttribute('initmove', '');
+  if (newType) {
+    var size = getSize();
+    cube.style.width = size + 'px';
+    cube.style.height = size + 'px';
+    prevType = type;
+  }
+  init(initStatic);
+}
+function setCubeParams(cube) {
+  cube.setAttribute('buttonheight', '18');
+  cube.setAttribute('buttonbar', '0');
+  cube.setAttribute('colorscheme', 'wygbor');
+  cube.setAttribute('snap', '1');
+  cube.setAttribute('bgcolor', 'ffffff');
+}
+function random() {
+  cube.setAttribute('initmove', 'random');
+  init(initStatic);
+}
+function reset() {
+  cube.removeAttribute('initmove');
+  cube.removeAttribute('move', '');
+  init(initStatic);
+}
+function larger() {
+  cube.style.width = Math.round(parseInt(cube.style.width)*pixIncr) + 'px';
+  cube.style.height = Math.round(parseInt(cube.style.height)*pixIncr) + 'px';
+  init2(initStatic);
+}
+function smaller() {
+  if (Math.round(parseInt(cube.style.width)*pixDecr) < minPixels)
+    return;
+  cube.style.width = Math.round(parseInt(cube.style.width)*pixDecr) + 'px';
+  cube.style.height = Math.round(parseInt(cube.style.height)*pixDecr) + 'px';
+  init2(initStatic);
+}
+function setCubeSize() {
+  var n = cubeSize;
+  cube = Cube[n];
+  init = Init[n];
+  init2 = Init2[n];
+  initStatic = InitStatic[n]
+}
+function getSize() {
+  return(180*(1+.15*cubeSize));
+}
+// animcube script load is asynchronous so poll with half-second intervals
+// until Init is set or cancel if max attempts is reached
+var maxInitAttempts = 10;
+var setInitAttempts = 0;
+function setInit() {
+  if (Init[cubeSize] == null) {
+    if (setInitAttempts++ > maxInitAttempts) {
+      console.log('init not set for cube size ' + cubeSize);
+      return;
+    }
+    setTimeout(setInit, 500);
+  }
+  else
+    setCubeSize();
+}
+</script>
+<script src="apmlib.js"></script>
+</center>
+</div>
+</body>
+</html>
