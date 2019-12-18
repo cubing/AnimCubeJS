@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>AnimCube</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="../js-minified/4x4x4/animcube4.nocache.js"></script>
+    <style> 
+      :focus { outline:none; }
+      html, body { padding:0px; margin:0px; overflow:hidden; height:100% }
+      /* for some browsers such as ie11 or edge the following line is to prevent the canvas from moving while rotating the cube */
+      canvas { display:block; }
+    </style>
+    <script>
+      var isFirefox = typeof InstallTrigger !== 'undefined';
+      if (isFirefox) {
+        document.addEventListener('mouseup', function(){mousefunc('auto');}, false);
+        iframes = parent.document.getElementsByTagName("iframe");
+      }
+      function mousefunc(s) {
+        // for firefox, this makes the mouse work when scrolling across other cubes
+        if (isFirefox)
+          for (i=0; i < iframes.length; i++)
+            iframes[i].style.pointerEvents = s;
+        // this prevents the context menu from popping up when using right-click to rotate
+        parent.document.addEventListener('contextmenu', contextmenu_handler, false);
+      }
+      function contextmenu_handler(e) {
+        e.preventDefault();
+        parent.document.removeEventListener('contextmenu', contextmenu_handler, false);
+      }
+      // for mobile device, the following code prevents page scrolling while rotating the cube,
+      // for it to work the contents of calling web page must be within <div class=wrap> </div>
+      // and it must have css as described in the documentation at
+      // https://cubing.github.io/AnimCubeJS/animcubejs.html#enhancement
+      divs = parent.document.getElementsByTagName("div");
+      function touchfunc(s) { divs[0].style.overflow = s; }
+    </script>
+  </head>
+  <body onmousedown="mousefunc('none')" onmouseup="mousefunc('auto')"
+        ontouchstart="touchfunc('hidden')" ontouchend="touchfunc('auto')">
+    <noscript style=color:red> JavaScript required for cube display </noscript>
+  </body>
+</html>
