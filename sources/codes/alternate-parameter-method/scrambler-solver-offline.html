@@ -88,7 +88,7 @@ var InitStatic = [];
 function newCube(cmd) {
   var inp = document.getElementById('inp');
   var v = inp.value;
-  if (isNaN(v) || v == '' || v < 1 || !Number.isInteger(parseFloat(v)))
+  if (isNaN(v) || v == '' || v < 1)
     inp.value = 5;
   if (v > 20)
     inp.value = 20;

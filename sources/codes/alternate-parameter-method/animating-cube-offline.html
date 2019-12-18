@@ -86,7 +86,7 @@ document.getElementById('inp').value = default_speed;
 function newCube(cmd) {
   var inp = document.getElementById('inp');
   var v = inp.value
-  if (isNaN(v) || v == '' || v < 1 || !Number.isInteger(parseFloat(v)))
+  if (isNaN(v) || v == '' || v < 1)
     inp.value = default_speed;
   cube.setAttribute('speed', inp.value);
   Init[3](InitStatic[3]);
