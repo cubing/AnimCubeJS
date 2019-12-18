@@ -1,3 +1,0 @@
-These files are not necessary to use AnimCubeJS, they are here so that the JS 
-files can be generated from the Java source using GWT (for development), 
-see build.html for instructions.
