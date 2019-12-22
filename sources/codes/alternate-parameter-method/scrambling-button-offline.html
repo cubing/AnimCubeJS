@@ -11,20 +11,6 @@
  <script src="5x5x5/animcube5.nocache.js"></script>
  <script src="6x6x6/animcube6.nocache.js"></script>
  <style> 
-  .btn {
-    width: 110px;
-    height: 30px;
-    padding: 0;
-    border-radius: 15px;
-    background-color: #eeeeee;
-  }
-  .select {
-    height: 32px;
-    border-radius: 15px;
-    padding: 0 10px 0;
-    margin: 10px 0 2px;
-    background-color: #f5f5f5;
-  }
   body, html {
    height: 100%;
    overflow: hidden;
@@ -35,8 +21,27 @@
    overflow: auto;
    padding: 8px 1%; 
   }
-  .btn:active { background-color: #aaaaaa; }
+  .btn {
+   width: 110px;
+   height: 30px;
+   padding: 0;
+   border-radius: 15px;
+   background-color: #eeeeee;
+  }
+  .btn2 {
+   padding:0px;
+   border-radius:12px;
+   height:28px;
+   width:60px;
+  }
+  .checkbox {
+   width:20px;
+   height:20px;
+   margin:0;
+  }
   :focus { outline:none; }
+  .btn:active { background-color: #aaaaaa; }
+  .btn2:active { background-color: #aaaaaa; }
  </style>
 </head>
 <body>
@@ -44,26 +49,38 @@
 <center>
 <font size=+2>Scrambling Button</font>
 <br>
-<select id=cubeType class=select onchange=newCube()>
- <option value=2>2x2x2 Regular</option>
- <option value=3>3x3x3 Regular</option>
- <option value=4>4x4x4 Regular</option>
- <option value=5>5x5x5 Regular</option>
- <option value=6>6x6x6 Regular</option>
- <option value=7>2x2x2 Supercube</option>
- <option value=8>3x3x3 Supercube</option>
- <option value=9>4x4x4 Supercube</option>
- <option value=10>5x5x5 Supercube</option>
- <option value=11>6x6x6 Supercube</option>
-</select>
-<br>
 <div id=cube2 style="width:100px; height:100px; display:none" ></div>
 <div id=cube3 style="width:100px; height:100px; display:none" ></div>
 <div id=cube4 style="width:100px; height:100px; display:none" ></div>
 <div id=cube5 style="width:100px; height:100px; display:none" ></div>
 <div id=cube6 style="width:100px; height:100px; display:none" ></div>
 <table>
- <tr height=5></tr>
+ <tr height=6>
+ <tr>
+  <td> <button class=btn2 onclick=newCube(2)>2x2x2</button></td>
+  <td width=5>
+  <td> <button class=btn2 onclick=newCube(3)>3x3x3</button></td>
+  <td width=5>
+  <td> <button class=btn2 onclick=newCube(4)>4x4x4</button></td>
+  <td width=5>
+  <td> <button class=btn2 onclick=newCube(5)>5x5x5</button></td>
+  <td width=5>
+  <td> <button class=btn2 onclick=newCube(6)>6x6x6</button></td>
+ </tr>
+ <tr height=4>
+ <tr>
+  <td colspan=9 align=center>
+   <table><tr> 
+   <td><font size=+1>Supercube</font></td>
+   <td width=2>
+   <td> <input type=checkbox class=checkbox id=checkbox 
+               onchange=newCube(0) autocomplete=off></input></td>
+   </tr></table>
+  </td>
+ </tr>
+ <tr height=2>
+</table>
+<table>
  <tr>
   <td><button class=btn onclick="random()">Random</button></td>
   <td width=10>
@@ -97,7 +114,6 @@ var Init2 = [];
 var InitStatic = [];
 onload();
 function onload() {
-  document.getElementById('cubeType').value = cubeSize;
   for (var i=2; i < 7; i++) {
     cube = document.getElementById('cube'+i);
     setCubeParams(cube);
@@ -110,10 +126,12 @@ function onload() {
   cube.style.display= 'block';
   setInit();
 }
-function newCube(sc, cs) {
-  var type = document.getElementById('cubeType').value; 
-  var supercube = (type < 7) ? 0 : 1;
-  var colorscheme = (type < 7) ? 'wygbor' : 'kygbor';
+function newCube(type) {
+  if (type == 0)
+    type = cubeSize;
+  var checkbox = document.getElementById('checkbox');
+  var supercube = (checkbox.checked == true) ? 1 : 0;
+  var colorscheme = (supercube == 0) ? 'wygbor' : 'kygbor';
   var newType = (type != prevType) ? true : false;
   if (newType) {
     cubeSize = (type > 6) ? type-5 : type;
