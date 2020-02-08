@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html><head>
 
+<meta name="robots" content="noindex,nofollow"> 
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="description" content="Easy to use, highly configurable and nicely looking 2x2x2 - 6x6x6 Rubik's Cube & Supercube interactive 3D simulator.">
@@ -32,7 +33,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
   a:link {color: #2d0d74; }
   a:visited {color: #006400; }
   a:link:hover {color: green; }
-  hr { width: 80%; }
+  hr.hr { width: 80%; }
 
  .showhide {
     border: 2px solid #bbbbbb;
@@ -132,7 +133,8 @@ projection of facelets to the planes near the cube.</li>
 <li>The consumption of the processor time is reduced and more simulators can 
 animate simultaneously without noticeable slow-down.</li>
 <li>The simulator is compatible with all modern web browsers.</li>
-<li>The entire simulator consists of 6 JS files (which are generated from 1 relatively lightweight Java file) + 1 short HTML file for each cube size.</li>
+<li>The entire simulator consists of 6 JS files (which are generated from 1 relatively lightweight Java file) + 1 short HTML file 
+(as well as 1 short optional JS file) for each cube size.</li>
 <li>The simulator offers several cube looks. Graphical appearance can be adjusted by the parameters such as <code><a href="#cubecolor">cubecolor</a></code>, 
 <code><a href="#borderwidth">borderwidth</a></code> or <code><a href="#supercube">supercube</a></code>.</li>
 <li>Manipulation &amp; control actions are working on mobile devices. Retina display is supported. 
@@ -153,15 +155,15 @@ web browser. The JavaScript in your web browser is currently <a id=a1></a><noscr
 In order to do so, download one (or more) of the directories/folders below. Supercubes are included by default.</p>
 
 <p><a href="sources/zip/2x2x2-AnimCubeJS.zip">2x2x2 AnimCubeJS simulator 
-<code>.zip</code> file</a> (159 kB)</p>
+<code>.zip</code> file</a> (164 kB)</p>
 <p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
-<code>.zip</code> file</a> (161 kB)</p>
-<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
 <code>.zip</code> file</a> (166 kB)</p>
+<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
+<code>.zip</code> file</a> (171 kB)</p>
 <p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
-<code>.zip</code> file</a> (170 kB)</p>
+<code>.zip</code> file</a> (175 kB)</p>
 <p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
-<code>.zip</code> file</a> (174 kB)</p>
+<code>.zip</code> file</a> (179 kB)</p>
 
 
 <p>If you want to change the code then use the build instructions below to modify 
@@ -192,9 +194,9 @@ they are included so that JavaScript files can be generated from the Java source
 <p>The following table shows the version information currently being used to do the AnimCubeJS build.</p>
 
 <table class=tabdata style="border-collapse:collapse;border-color:black; margin:0 auto" border=2>
- <tr> <td>Distribution</td><td>Fedora 29</td> </tr>
- <tr> <td>OpenJDK 8</td><td>1.8.0_232</td> </tr>
- <tr> <td>GWT</td><td> 2.7.0</td> </tr>
+ <tr> <td>Distribution</td><td>Fedora 31</td> </tr>
+ <tr> <td>OpenJDK 11</td><td>11.0.5</td> </tr>
+ <tr> <td>GWT</td><td> 2.8.2</td> </tr>
  <tr> <td>Apache Ant</td><td>1.10.7</td> </tr>
 </table>
 
@@ -202,15 +204,15 @@ they are included so that JavaScript files can be generated from the Java source
 in each occurrence of AnimCube3 (or animcube3). Root access is only needed for step 1.</p>
 
 <div class="overflow"><pre class="pre-overflow">
-1. As root, install OpenJDK 8 (Java Development Kit).
-   dnf install java-1.8.0-openjdk-devel
+1. As root, install OpenJDK 11 (Java Development Kit).
+   dnf install java-11-openjdk-devel
 
 2. Download the install files for <a target=_blank href=http://www.gwtproject.org/versions.html>GWT</a> and <a target=_blank href=https://ant.apache.org/bindownload.cgi>Apache Ant</a>.
 
 3. Create a directory named gwt and extract the downloaded files into it.
 
 4. Create the AnimCube3 app in GWT.
-   cd gwt/gwt-2.7.0
+   cd gwt/gwt-2.8.2
    webAppCreator -out AnimCube3 com.google.gwt.animcube3.AnimCube3
 
 5. Remove the example programs.
@@ -224,7 +226,7 @@ in each occurrence of AnimCube3 (or animcube3). Root access is only needed for s
    AnimCube3.gwt.xml:
    &lt;inherits name='com.google.gwt.user.theme.clean.Clean'/&gt;
 
-8. Change directory to gwt/gwt-2.7.0/AnimCube3 and modify build.xml
+8. Change directory to gwt/gwt-2.8.2/AnimCube3 and modify build.xml
    as shown at bottom.
 
 9. Optional: Make symbolic links for convenience.
@@ -248,7 +250,7 @@ in each occurrence of AnimCube3 (or animcube3). Root access is only needed for s
     to:
       &lt;property name="gwt.args" value="-style pretty" /&gt;
 
-12. To build, run the ant command while in the gwt/gwt-2.7.0/AnimCube3 directory.
+12. To build, run the ant command while in the gwt/gwt-2.8.2/AnimCube3 directory.
 
     If symbolic links were not created in step 9 then give the full path to ant:
     ../../apache-ant-1.10.7/bin/ant
@@ -300,14 +302,14 @@ in each occurrence of AnimCube3 (or animcube3). Root access is only needed for s
 </div>
 
 <div class=showhide id=showHideText2>
-<p>The following table shows the version information currently being used to do the AnimCubeJS build. Windows 10 (64-bit)
-is known to be working with this setup as well.</p>
+<p>The following table shows the version information currently being used to do the AnimCubeJS build. Windows 7 (32-bit)
+is known to be working with relevant setup as well.</p>
 
 <table class=tabdata style="border-collapse:collapse;border-color:black; margin:0 auto" border=2>
- <tr> <td>Operating system</td><td>Windows 7</td> </tr>
- <tr> <td>System type</td><td>32-bit</td> </tr>
- <tr> <td>JDK 8</td><td>1.8.0_231</td> </tr>
- <tr> <td>GWT</td><td>2.7.0</td> </tr>
+ <tr> <td>Operating system</td><td>Windows 10</td> </tr>
+ <tr> <td>System type</td><td>64-bit</td> </tr>
+ <tr> <td>JDK 11</td><td>11.0.6</td> </tr>
+ <tr> <td>GWT</td><td>2.8.2</td> </tr>
  <tr> <td>Apache Ant</td><td>1.10.7</td> </tr>
 </table>
 
@@ -319,16 +321,16 @@ in each occurrence of AnimCube3 (or animcube3).</p>
 
 2. Create a new folder, name it gwt and unzip the donwloaded files into it.
 
-3. Install <a target=_blank href=https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>JDK 8</a> (Java SE Development Kit).
-   Add the Java bin directory (...\jdk1.8.0_231\bin) to the
+3. Install <a target=_blank href=https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html>JDK 11</a> (Java SE Development Kit).
+   Add the Java bin directory (...\jdk-11.0.6\bin) to the
    PATH environment variable (<a target=_blank href=https://www.java.com/en/download/help/path.xml>details</a>) if it is not already there.
    Create the JAVA_HOME environment variable if it is not already existing
-   and set it to the Java directory (...\jdk1.8.0_231).
+   and set it to the Java directory (...\jdk-11.0.6).
    Create the ANT_HOME environment variable if it is not already existing
    and set it to the ant directory (...\apache-ant-1.10.7).
 
 4. Open command prompt window (cmd.exe) and create the AnimCube3 app in GWT.
-   cd gwt\gwt-2.7.0
+   cd gwt\gwt-2.8.2
    webAppCreator -out AnimCube3 com.google.gwt.animcube3.AnimCube3
 
 5. Delete the example programs.
@@ -342,12 +344,12 @@ in each occurrence of AnimCube3 (or animcube3).</p>
    AnimCube3.gwt.xml:
    &lt;inherits name='com.google.gwt.user.theme.clean.Clean'/&gt;
 
-8. Change directory to gwt\gwt-2.7.0\AnimCube3 and modify build.xml
+8. Change directory to gwt\gwt-2.8.2\AnimCube3 and modify build.xml
    as shown at bottom.
 
 9. Optional: Make symbolic links for convenience.
    Run new cmd.exe as administrator.
-   cd gwt\gwt-2.7.0\AnimCube3
+   cd gwt\gwt-2.8.2\AnimCube3
    mklink AnimCube3.java src\com\google\gwt\animcube3\client\AnimCube3.java
    mklink AnimCube3.gwt.xml src\com\google\gwt\animcube3\AnimCube3.gwt.xml
    mklink ant.bat ..\..\apache-ant-1.10.7\bin\ant.bat
@@ -369,7 +371,7 @@ in each occurrence of AnimCube3 (or animcube3).</p>
     to:
       &lt;property name="gwt.args" value="-style pretty" /&gt;
 
-12. To build, run the ant command while in the gwt\gwt-2.7.0\AnimCube3 directory.
+12. To build, run the ant command while in the gwt\gwt-2.8.2\AnimCube3 directory.
 
     If symbolic links were not created in step 9 then give the full path to ant:
     ..\..\apache-ant-1.10.7\bin\ant.bat
@@ -418,10 +420,11 @@ not clickable (e.g. in the case of using lazy loading technique for simulators) 
 <div class="sections"><b><i>Controls</i></b></div>
 
 <p>Controls of the simulator are quite intuitive. You can rotate the whole cube 
-as well as twist separate layers using the mouse (finger in the case of mobile 
-devices). To twist separated layer, pick one and use dragging in natural direction (with the 
+as well as twist separate layers using the mouse (finger in the case of a touch 
+screen). To twist separated layer, pick one and use dragging in natural direction (with the 
 left mouse button being pressed). To rotate the whole 
-cube, drag from a near point outside the cube image. The possibility to edit the cube can 
+cube, use the right mouse button or drag from a near point outside the cube image 
+(the latter option is also applicable to touch screens). The possibility to edit the cube can 
 be disabled in a web page. Then only the whole-cube rotation is allowed. You can 
 control the animation by the buttons in the button bar. The animation can be 
 immediately set to any position using the progress bar (if present) just above the 
@@ -459,7 +462,7 @@ action is started.</p>
 parameter declarations with <code>&amp;</code> symbol.
 </p>
 
-<p>Extract downloaded <code>.zip</code> file to see 5 <code>long-alphanumeric-string.cache.js</code> files
+<p>Extract downloaded <code>.zip</code> file to see 5 <code>long-alphanumeric-string.cache.js</code> and <code>mouse.js</code> files
 as well as <code>animcubeX.nocache.js</code> and <code>cubeX.html</code> files ("X" denotes the cube size you downloaded - 
 e.g. <code>animcube3.nocache.js</code> &amp; <code>cube3.html</code> means you downloaded a 3x3x3 simulator, 
 <code>animcube4.nocache.js</code> &amp; <code>cube4.html</code> means you downloaded a 4x4x4 simulator).
@@ -468,6 +471,336 @@ e.g. <code>animcube3.nocache.js</code> &amp; <code>cube3.html</code> means you d
 <p>Make sure to include <code>animcubeX.nocache.js</code> and all 5 
 <code>long-alphanumeric-string.cache.js</code> files in the directory/folder referenced in <code>cubeX.html</code> file (as the 
 source for <code>animcubeX.nocache.js</code> file). Do not change the names of the JS files!</p>
+
+<p>
+Each <code>cubeX.html</code> file is referencing to <code>mouse.js</code> file which contains mouse event handlers. 
+Although not mandatory, this short JS file helps to improve the user experience especially when rotating the whole cube using
+either left or right mouse button. Technical details follow.  
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton1 onclick="showHideFunc(1,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage1 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading1>Show mouse event handlers overview</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText1>
+<br>
+<hr>
+Microsoft Windows - Edge Chromium, Chrome, Opera
+<hr>
+<p>
+To eliminate the context-menu from popping up when using right-click mouse 
+rotation, a contextmenu handler is used.  However, if mouseup occurs outside 
+of the iframe then the event is attached to the parent (which is the body
+of the web page in which the cube iframe is embedded) and the iframe listener
+is not notified which leaves AnimCubeJS in a mousedown state which means when
+the mouse is moved back over the cube it rotates even though the mouse button
+is not pressed.
+<br><br>
+This problem can be avoided by adding a contextmenu handler 
+on the parent but that will also prevent the context menu from working anywhere
+on the page.  To allow the context menu to work outside of the cube area(s) the
+parent contextmenu listener can only be active while the button is pressed.  
+This can be accomplished by removing the parent listener in the contextmenu 
+handler but in some browsers it will not get called if mouseup occurs outside
+the browser window.
+<br><br>
+A more reliable way of removing the parent listener is in
+the mouseup handler but that takes effect immediately which means it gets
+removed before the parent contextmenu handler is called hence the context menu
+appears.  To avoid that, a setTimeout is used to delay removal of the parent
+contextmenu listener.
+</p>
+
+<pre>
+document.addEventListener('mousedown', mousedown);
+document.addEventListener('mouseup', mouseup);
+document.addEventListener('contextmenu', contextmenu);
+
+function mousedown(e) {
+  if (e.button == 2)
+    parent.document.addEventListener('contextmenu', contextmenu);
+}
+
+function mouseup(e) {
+  if (e.button == 2)
+    setTimeout(removeParentListener, 100);
+}
+
+function contextmenu(e) {
+  e.preventDefault();
+}
+
+function removeParentListener() {
+  parent.document.removeEventListener('contextmenu', contextmenu);
+}
+</pre>
+<hr>
+Microsoft Windows - Edge (pre-Chromium version)
+<hr>
+<p>
+By default, when the cursor moves across the iframe border with button pressed 
+(as in cube rotation) the x/y coordinate mapping changes from being relative 
+to the upper left corner of the iframe to being relative to the upper left
+corner of page.  In order for AnimCubeJS to work properly, the mapping must
+not change while rotating so pointer event handlers are used to create mouse 
+events that remap the x/y coordinates when the cursor moves outside the iframe. 
+</p>
+
+<pre>
+document.addEventListener('pointerdown', pointerdown);
+document.addEventListener('pointermove', pointermove);
+document.addEventListener('pointerup', pointerup);
+document.addEventListener('contextmenu', contextmenu);
+
+var offsetX, offsetY;
+var dpr = devicePixelRatio;
+var mouseIsDown = false;
+
+function pointerdown(e) { 
+  mouseIsDown = true;
+  e.preventDefault();
+  offsetX = e.screenX/dpr - e.clientX;
+  offsetY = e.screenY/dpr - e.clientY;
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('mousedown', true, false);
+  event.clientX = e.clientX; 
+  event.clientY = e.clientY;
+  document.dispatchEvent(event);
+}
+
+function pointermove(e) {
+  if (mouseIsDown) {
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('mousemove', true, false);
+    event.clientX = e.screenX/dpr - offsetX; 
+    event.clientY = e.screenY/dpr - offsetY;
+    document.dispatchEvent(event);
+  }
+}
+
+function pointerup(e) {
+  mouseIsDown = false;
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('mouseup', true, false);
+  document.dispatchEvent(event);
+}
+
+function contextmenu(e) {
+  e.preventDefault();
+}
+</pre>
+
+<hr>
+Microsoft Windows - Firefox
+<hr>
+<p>
+PointerEvents are used so that rotation works across other cubes and the
+context menu is handled as described above for Edge Chromium.
+</p>
+
+<pre>
+document.addEventListener('mousedown', mousedown);
+document.addEventListener('mouseup', mouseup);
+document.addEventListener('contextmenu', contextmenu);
+
+function mousedown(e) {
+  if (e.button == 2) {
+    e.preventDefault();
+    parent.document.addEventListener('contextmenu', contextmenu);
+  }
+  pointerEventsOtherFrames('none');
+}
+
+function mouseup(e) {
+  if (e.button == 2)
+    setTimeout(removeParentListener, 100);
+  pointerEventsOtherFrames('auto');
+}
+
+function contextmenu(e) {
+  e.preventDefault();
+}
+
+function removeParentListener() {
+  parent.document.removeEventListener('contextmenu', contextmenu);
+}
+
+var iframes = parent.document.getElementsByTagName('iframe');
+
+function pointerEventsOtherFrames(s) {
+  for (i=0; i < iframes.length; i++) 
+    if (window.frameElement != iframes[i])
+      iframes[i].style.pointerEvents = s;
+}
+</pre>
+
+<hr>
+Microsoft Windows - Safari, IE11
+<hr>
+
+<p>
+With these browsers, when the cursor moves outside the iframe while rotating,
+the mousemove events attach to the parent instead of the iframe.  So parent
+event handlers are used to attach the mouse events to the iframe, they also 
+remap the x/y coordinates as describe above (for Edge pre-Chromium).
+<br><br>
+Safari support for devicePixelRatio starts with 
+<a href=https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio#Browser_compatibility target=_blank>version 9.1</a> 
+(not supported in the windows version which is 5.1.7)
+<br><br>
+Safari right-click rotation stops if cursor moves off the page.
+</p>
+
+<pre>
+var offsetX, offsetY;
+var mouseIsDown = false;
+var dpr = devicePixelRatio;
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+document.addEventListener('mousedown', mousedown); 
+document.addEventListener('mouseup', mouseup); 
+document.addEventListener('contextmenu', contextmenu);
+
+if (parent.document != document) {
+  parent.document.addEventListener('mousemove', pmousemove); 
+  parent.document.addEventListener('mouseup', pmouseup); 
+}
+
+function mousedown(e) {
+  mouseIsDown = true;
+  e.preventDefault();
+  pointerEventsOtherFrames('none'); 
+  offsetX = e.screenX/dpr - e.clientX;
+  offsetY = e.screenY/dpr - e.clientY;
+  if (e.button == 2 && isIE)
+    parent.document.addEventListener('contextmenu', contextmenu);
+}
+
+function pmousemove(e) {
+  if (mouseIsDown) {
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('mousemove', true, false);
+    event.clientX = e.screenX/dpr - offsetX;
+    event.clientY = e.screenY/dpr - offsetY;
+    document.dispatchEvent(event);
+  }
+}
+
+function mouseup(e) {
+  mouseIsDown = false;
+  pointerEventsOtherFrames('auto'); 
+  if (e.button == 2 && isIE)
+    removeParentListener();
+}
+
+function pmouseup(e) {
+  mouseIsDown = false;
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('mouseup', true, false);
+  document.dispatchEvent(event);
+  pointerEventsOtherFrames('auto');
+} 
+
+function contextmenu(e) {
+  e.preventDefault();
+  if (e.button == 2 && isIE)
+    removeParentListener();
+}
+
+function removeParentListener() {
+  parent.document.removeEventListener('contextmenu', contextmenu);
+}
+
+var iframes = parent.document.getElementsByTagName('iframe');
+
+function pointerEventsOtherFrames(s) {
+  for (var i=0; i < iframes.length; i++) 
+    if (window.frameElement != iframes[i])
+      iframes[i].style.pointerEvents = s;
+}
+</pre>
+
+<hr>
+Fedora - Firefox
+<hr>
+<p>
+PointerEvents are used so that rotation works across other cubes.
+</p>
+
+<pre>
+document.addEventListener('mousedown', mousedown);
+document.addEventListener('mouseup', mouseup);
+document.addEventListener('contextmenu', contextmenu);
+
+function mousedown(e) {
+  if (e.button == 2)
+    e.preventDefault();
+  pointerEventsOtherFrames('none');
+}
+
+function mouseup(e) {
+  pointerEventsOtherFrames('auto');
+}
+
+function contextmenu(e) {
+  e.preventDefault();
+}
+
+var iframes = parent.document.getElementsByTagName('iframe');
+
+function pointerEventsOtherFrames(s) {
+  for (i=0; i < iframes.length; i++)
+    if (window.frameElement != iframes[i])
+      iframes[i].style.pointerEvents = s;
+}
+</pre>
+
+<hr>
+Fedora - Chromium, Opera
+<hr>
+<p>
+For these browsers, pointer events are used to allow right-click rotation
+outside of the iframe, this also requires preventDefault in the mousemove
+handler.
+</p>
+
+<pre>
+document.addEventListener('mousedown', mousedown);
+document.addEventListener('mousemove', mousemove);
+document.addEventListener('mouseup', mouseup);
+document.addEventListener('contextmenu', contextmenu);
+
+function mousedown(e) {
+  if (e.button == 2) {
+    window.frameElement.style.pointerEvents = 'none';
+    parent.document.addEventListener('contextmenu', contextmenu);
+  }
+}
+
+function mousemove(e) {
+  e.preventDefault();
+}
+
+function mouseup(e) {
+  if (e.button == 2) {
+    window.frameElement.style.pointerEvents = 'auto';
+    parent.document.removeEventListener('contextmenu', contextmenu);
+  }
+}
+
+function contextmenu(e) {
+  e.preventDefault();
+}
+</pre>
+</div>
 
 <p>Cube's (iframe's) <i>width</i> and <i>height</i> are arbitrary and can be flexibly adjusted.  
 For the best appearance the <i>height</i> should be equal to (<i>width + value of the button height + 6</i>) if the button bar is displayed, 
@@ -2182,7 +2515,7 @@ size) for one div at time based on user input.
 button with adjustable cube magnification</a>.</p>
 </div>
 
-<br><hr>
+<br><hr class="hr">
 <p>If you realize any problem you can contact <a href="https://hlavolam.maweb.eu/contact" target="_new">Tadeáš Miler</a> 
 (he is a co-author of the AnimCubeJS documentation which is still heavily based on the original AnimCube documentation by 
 Josef Jelínek) or you can file an issue to the <a href="https://github.com/cubing/AnimCubeJS" target="_new">AnimCubeJS repository on GitHub</a>.</p><br>
