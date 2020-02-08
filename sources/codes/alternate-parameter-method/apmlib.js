@@ -30,11 +30,15 @@ function touchEnd() {
 //
 // Method 2:
 // Allow right-click context menu outside of cube area
-document.addEventListener('contextmenu', contextmenu_handler, false);
+document.addEventListener('contextmenu', contextmenu_handler);
+document.addEventListener('mousedown', mousedown);
+var x, y;
+function mousedown (e) {
+  x = e.clientX;
+  y = e.clientY;
+} 
 function contextmenu_handler(e) {
   // set preventDefault only when mouse is in cube div
-  var x = Math.round(e.clientX);
-  var y = Math.round(e.clientY);
   var width = parseInt(cube.style.width);
   var height = parseInt(cube.style.height);
   var rect = cube.getBoundingClientRect();
