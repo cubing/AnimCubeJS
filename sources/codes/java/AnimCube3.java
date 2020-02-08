@@ -21,8 +21,6 @@ import com.google.gwt.animation.client.AnimationScheduler.AnimationCallback;
 import com.google.gwt.animation.client.AnimationScheduler;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.event.dom.client.ContextMenuEvent;
-import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import java.util.HashMap;
@@ -163,7 +161,6 @@ public final class AnimCube3 implements EntryPoint {
   private static boolean snap = false;
   private static boolean yzAlt = false;
   private static boolean superCube = false;
-  private static boolean isGecko = false;
   private static boolean scrambleToggle = false;
   private static int scramble = 0;
   private static int randMoveCount = 0;
@@ -1471,8 +1468,6 @@ public final class AnimCube3 implements EntryPoint {
           graphics.setFillStyle(sliderBgColor);
           graphics.fillRect(dph, height - progressHeight - dph, width - dpr, progressHeight);
 
-          // graphics.fillRect(1 + progress, height - progressHeight + 1, width - 2 - progress, progressHeight - 2);
-
           // slider
           graphics.setFillStyle(sliderColor);
           graphics.fillRect(dph, height - progressHeight - dph, progress, progressHeight);
@@ -2026,23 +2021,6 @@ public final class AnimCube3 implements EntryPoint {
     }
   }
 
-  /*
-  private static void drawArrow(Context2d g, int x, int y, int dir) {
-    g.setStrokeStyle("black");
-    drawLine(g, x, y - 3, x, y + 3);
-    x += dir;
-    for (int i = 0; i >= -3 && i <= 3; i += dir) {
-      int j = 3 - i * dir;
-      drawLine(g, x + i, y + j, x + i, y - j);
-    }
-    g.setStrokeStyle("white");
-    for (int i = 0; i >= -1 && i <= 1; i += dir) {
-      int j = 1 - i * dir;
-      drawLine(g, x + i, y + j, x + i, y - j);
-    }
-  }
-  */
-
   void drawArrow(Context2d g, double x, double y, int dir) {
     double d3 = 3*dpr;
     double[] fillX = new double[5];
@@ -2080,15 +2058,6 @@ public final class AnimCube3 implements EntryPoint {
     g.setFillStyle("white");
     g.fill();
     g.setStrokeStyle("black");
-    g.stroke();
-  }
-
-  static void drawLine(Context2d g, int x1, int y1, int x2, int y2) {
-    g.setLineWidth(lineWidth);
-    g.beginPath();
-    g.moveTo(x1 + dph, y1 + dph);
-    g.lineTo(x2 + dph, y2 + dph);
-    g.closePath();
     g.stroke();
   }
 
@@ -2611,8 +2580,6 @@ public final class AnimCube3 implements EntryPoint {
         mouseDown(event);
       }
       else if (eventType == Event.ONMOUSEMOVE) {
-        // preventDefault needed for right-click drag in safari (chrome)
-        event.getNativeEvent().preventDefault();
         if (mouseIsDown) {
           mouseMove(event);
         }
@@ -2622,12 +2589,6 @@ public final class AnimCube3 implements EntryPoint {
         mouseUp(event);
       }
       else if (eventType == Event.ONMOUSEDOWN) {
-        if (isGecko == true) {
-          /* this enables right-click drag (rotate cube) outside of the box in
-             firefox, in safari (chrome) preventDefault will stop left-mouse
-             drag from working outside of the box */
-          event.getNativeEvent().preventDefault();
-        }
         mouseIsDown = true;
         mouseDown(event);
       }
@@ -2747,13 +2708,6 @@ public final class AnimCube3 implements EntryPoint {
     RootPanel.get().add(canv);
     Event.addNativePreviewHandler(nativePreviewHandler);
 
-    RootPanel.get().addDomHandler(new ContextMenuHandler() {
-      public void onContextMenu(ContextMenuEvent event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }, ContextMenuEvent.getType());
-
     Window.addResizeHandler(new ResizeHandler() {
       Timer resizeTimer = new Timer() {  
         public void run() {
@@ -2766,11 +2720,6 @@ public final class AnimCube3 implements EntryPoint {
         resizeTimer.schedule(250);
       }
     });
-
-    String userAgent = Window.Navigator.getUserAgent().toLowerCase();
-    if (userAgent.contains("gecko") && ! userAgent.contains("webkit") &&
-        ! userAgent.contains("trident"))
-      isGecko = true;
 
     paint();
   }

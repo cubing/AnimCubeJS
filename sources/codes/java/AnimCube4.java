@@ -21,8 +21,6 @@ import com.google.gwt.animation.client.AnimationScheduler.AnimationCallback;
 import com.google.gwt.animation.client.AnimationScheduler;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.event.dom.client.ContextMenuEvent;
-import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import java.util.HashMap;
@@ -162,7 +160,6 @@ public final class AnimCube4 implements EntryPoint {
   private static boolean ww = false;   // waterwheel cube
   private static boolean snap = false;
   private static boolean superCube = false;
-  private static boolean isGecko = false;
   private static boolean scrambleToggle = false;
   private static int scramble = 0;
   private static int randMoveCount = 0;
@@ -2789,8 +2786,6 @@ public final class AnimCube4 implements EntryPoint {
         mouseDown(event);
       }
       else if (eventType == Event.ONMOUSEMOVE) {
-        // preventDefault needed for right-click drag in safari (chrome)
-        event.getNativeEvent().preventDefault();
         if (mouseIsDown) {
           mouseMove(event);
         }
@@ -2800,12 +2795,6 @@ public final class AnimCube4 implements EntryPoint {
         mouseUp(event);
       }
       else if (eventType == Event.ONMOUSEDOWN) {
-        if (isGecko == true) {
-          /* this enables right-click drag (rotate cube) outside of the box in
-             firefox, in safari (chrome) preventDefault will stop left-mouse
-             drag from working outside of the box */
-          event.getNativeEvent().preventDefault();
-        }
         mouseIsDown = true;
         mouseDown(event);
       }
@@ -2925,13 +2914,6 @@ public final class AnimCube4 implements EntryPoint {
     RootPanel.get().add(canv);
     Event.addNativePreviewHandler(nativePreviewHandler);
 
-    RootPanel.get().addDomHandler(new ContextMenuHandler() {
-      public void onContextMenu(ContextMenuEvent event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }, ContextMenuEvent.getType());
-
     Window.addResizeHandler(new ResizeHandler() {
       Timer resizeTimer = new Timer() {  
         public void run() {
@@ -2944,11 +2926,6 @@ public final class AnimCube4 implements EntryPoint {
         resizeTimer.schedule(250);
       }
     });
-
-    String userAgent = Window.Navigator.getUserAgent().toLowerCase();
-    if (userAgent.contains("gecko") && ! userAgent.contains("webkit") &&
-        ! userAgent.contains("trident"))
-      isGecko = true;
 
     paint();
   }
