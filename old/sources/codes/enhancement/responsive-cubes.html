@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+ <title>Responsive Cubes</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <style>
+  body, html {font-family: Arial, Helvetica, sans-serif; height:100%; overflow:hidden; margin:0;}
+  div.wrap {height:100%; overflow:auto; padding:8px 5%;}
+  p { margin:0; text-align: justify; }
+  td { vertical-align:bottom; }
+  .pct20a { height:20vw; width:20vw; border:0; min-width:80px; min-height:80px;}
+  .pct25a { height:25vw; width:25vw; border:0; min-width:100px; min-height:100px;}
+  /* spaces around "+" are mandatory */
+  .pct20b { height:calc(20vw + 21px); width:20vw; border:0; min-width:80px; min-height:101px; }
+  .pct25b { height:calc(25vw + 26px); width:25vw; border:0; min-width:100px; min-height:126px; }
+  a.link:link {color: #2d0d74; }
+  a.link:visited {color: #006400; }
+  a.link:link:hover {color: green; }
+ </style>
+</head>
+<body onresize="onResize()">
+<div class=wrap>
+<center>
+<font size=+2>Responsive Cubes</font>
+<br><br>
+<p> This page is an example of how cubes can be resized both vertically and
+horizontally based on a percentage of the window width. These cubes are set at
+20 and 25 percent respectively (decimal numbers are also allowed for more
+exact sizing).
+The resizing of first 4 cubes is done by a small bit of JavaScript, see 
+source code of this page for details.
+There is a minimum width defined for window size which is 400, so the first
+cube would always be at least 80 pixels wide.
+</p>
+<br>
+<table>
+ <tr>
+  <td>
+    <iframe id=if1 data-width-pct=20 frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=15&textsize=13">
+    </iframe>
+  </td>
+  <td width=2%>
+  <td>
+    <iframe id=if2 data-width-pct=25 frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=20&textsize=16">
+    </iframe>
+  </td>
+ </tr>
+</table>
+<br>
+<p>Next 2 cubes are a little larger because the height is increased to adjust
+for the button bar and slider (see best appearance recommendation in the <a class="link" href="../../../animcubejs.html#usage">Using Simulator in Web Pages</a> section in AnimCubeJS documentation).
+<br><br>
+<table>
+ <tr>
+  <td> 
+    <iframe id=if3 data-width-pct=20 data-height-add-px=21 frameborder=no 
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=15&textsize=13">
+    </iframe>
+  </td>
+  <td width=2%>
+  <td>
+    <iframe id=if4 data-width-pct=25 data-height-add-px=26 frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=20&textsize=16">
+    </iframe>
+  </td>
+ </tr>
+</table>
+<br><br>
+<p>
+The resizing of next 4 cubes is done by a small bit of CSS (without using JavaScript), see 
+source code of this page for details. There is a minimum width defined for first cube which is 80 pixels.
+</p>
+<br>
+<table>
+ <tr>
+  <td>
+    <iframe class=pct20a frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=15&textsize=13">
+    </iframe>
+  </td>
+  <td width=2%>
+  <td>
+    <iframe class=pct25a frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=20&textsize=16">
+    </iframe>
+  </td>
+ </tr>
+</table>
+<br>
+<p>Next 2 cubes are a little larger because the height is increased to adjust
+for the button bar and slider (see best appearance recommendation in the <a class="link" href="../../../animcubejs.html#usage">Using Simulator in Web Pages</a> section in AnimCubeJS documentation).
+<br><br>
+<table>
+ <tr>
+  <td> 
+    <iframe class=pct20b frameborder=no 
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=15&textsize=13">
+    </iframe>
+  </td>
+  <td width=2%>
+  <td>
+    <iframe class=pct25b frameborder=no
+     src="noscroll3.html?colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&butbgcolor=99AACC&movetext=1&metric=2&snap=1&buttonheight=20&textsize=16">
+    </iframe>
+  </td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+resizeCubes();
+var timer;
+function onResize() {
+  clearTimeout(timer);
+  timer = setTimeout(resizeCubes, 250);
+}
+function resizeCubes() {
+  var add, pct, ifr;
+  var minWidth = 400;
+  var w = innerWidth;
+  if (w < minWidth)
+    w = minWidth;
+  for (var i=1; i <= 4; i++) {
+    ifr = document.getElementById('if' + i);
+    pct = ifr.getAttribute('data-width-pct') / 100;
+    add = ifr.getAttribute('data-height-add-px')
+    if (add == null)
+      add = 0;
+    ifr.height = Math.round(w * pct + parseInt(add));
+    ifr.width = Math.round(w * pct);  
+  }
+}
+</script>
+</center>
+</div>
+</body>
+</html>

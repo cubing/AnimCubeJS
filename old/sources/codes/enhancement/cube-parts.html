@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html>
+<head>
+<title>Cube Parts</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <style>
+  body, html {
+    height:100%;
+    overflow:hidden;
+    margin:0;
+  }
+  div.wrap {
+    height:100%;
+    overflow:auto;
+    padding:8px 10%;
+  }
+  .btn {
+    width:110px;
+    height:30px;
+    padding:0;
+    border:1px solid black;
+    border-radius:15px;
+    background-color:#ffffff;
+    outline:none;
+  } 
+  .btn:active {background-color: #aaaaaa;}
+ </style>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size="+2">Cube Parts</font><br><br>
+<select id=cubeType onchange="newCube('reset')"
+ style="height:32px; border-radius:12px;padding:0 10px 0; 
+        border:1px solid black; outline:none; background-color:#ffffff">
+ <option value=1>Corners</option>
+ <option value=2>Edges</option>
+ <option value=3>Regular</option>
+</select> 
+<br><br>
+<iframe id=cube width=300 height=300 scrolling=no frameborder=0></iframe><br>
+<table>
+ <tr height=8>
+ <tr>
+  <td><button class=btn onclick="newCube('random')">Scramble</button></td>
+  <td width=20>
+  <td><button class=btn onclick="newCube('reset')">Reset</button></td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+var colorScheme = '&colorscheme=wygbor';
+var edges = '&facelets=lwlwwwlwllylyyylyllglggglgllblbbblbllolooolollrlrrrlrl';
+var corners = '&facelets=wlwlwlwlwylylylylyglglglglgblblblblbololololorlrlrlrlr';
+var rand = '&initmove=random';
+var src = "noscroll3.html?buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18";
+newCube('reset');
+function newCube(cmd) {
+  var s = src;
+  var type = document.getElementById('cubeType').value;
+  if (type == 1)
+    s += corners;
+  else if (type == 2)
+    s += edges;
+  else
+    s += colorScheme;
+  if (cmd == 'random')
+     s += rand 
+  document.getElementById('cube').contentWindow.location.replace(s);
+}
+</script>
+</center>
+</div>
+</body>
+</html>

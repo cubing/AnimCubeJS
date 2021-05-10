@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+ <title>Scrambling button</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <style>
+  body, html {
+    height:100%;
+    overflow:hidden;
+    margin:0;
+  }
+  div.wrap {
+    height:100%;
+    overflow:auto;
+    padding:8px 10%;
+  }
+  td {text-align:center}
+  .btn {
+    width:110px;
+    height:30px;
+    padding:0;
+    border:1px solid black;
+    border-radius:15px;
+    background-color:#ffffff;
+    outline:none;
+  } 
+  .inp {
+    border-radius:15px;
+    background-color:white;
+    width:46px;
+    height:26px;
+    padding:0px;
+    padding-left:8px;
+	border:1px solid black;
+    outline:none;
+  }
+  .btn2 {
+    border-radius:15px;
+    background-color:white;
+    border:1px solid black;
+    width:42px;
+    height:26px;
+    outline:none;
+  }
+  .btn:active {background-color: #aaaaaa;}
+  .btn2:active {background-color: #aaaaaa;}
+ </style>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>Scrambling button</font><br>
+<table><tr height=5><td></table>
+<select id=cubeType onchange="newCube('reset')"
+ style="height:32px; border-radius:12px;padding:0 10px 0; 
+        border:1px solid black; outline:none; background-color:#ffffff">
+ <option value=2>2x2x2 Regular</option>
+ <option value=3 selected>3x3x3 Regular</option>
+ <option value=4>4x4x4 Regular</option>
+ <option value=5>5x5x5 Regular</option>
+ <option value=6>6x6x6 Regular</option>
+ <option value=7>2x2x2 Supercube</option>
+ <option value=8>3x3x3 Supercube</option>
+ <option value=9>4x4x4 Supercube</option>
+ <option value=10>5x5x5 Supercube</option>
+ <option value=11>6x6x6 Supercube</option>
+</select> 
+<br><br>
+<iframe id=cubeIframe width=280 height=280 scrolling=no frameborder=0></iframe>
+<table><tr height=1><td></table>
+<br>
+<table border=0>
+ <tr>
+  <td><button class=btn onclick="newCube('random')">Scramble</button></td>
+  <td width=20>
+  <td><button class=btn onclick="newCube('reset')">Reset</button></td>
+ </tr>
+</table>
+<table>
+ <tr height=20>
+ <tr>
+  <td> <button class=btn2 onclick="zoom('in')"> + </button> </td>
+  <td width=5>
+  <td> <button class=btn2 onclick="zoom('out')"> - </button> </td>
+  <td width=5>
+  <td> <input onchange="zoom('change')" class=inp id=cubeHeight> </td>
+  <td width=5>
+  <td> <button style=width:62px class=btn2 onclick="zoom('reset')">reset</button> </td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+
+<script>
+var minHeight = 100;
+var prevType = 0;
+var init = [0, 0, 200, 280, 360, 420, 480];
+var params = '?buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18&colorscheme=WYGBOR';
+var sc = '&supercube=1&gabbacolors=1&scw=1';
+var rand = '&initmove=random';
+newCube('reset');
+function newCube(cmd) {
+  var size;
+  var supercube = 0;
+  var type = document.getElementById('cubeType').value; 
+  var inp = document.getElementById('cubeHeight');
+  var iframe = document.getElementById('cubeIframe');
+  if (type < 7)
+    size = type;
+  else {
+    supercube = 1; 
+    size = type - 5; 
+  }
+  if (type != prevType) {
+    inp.value = init[size]; 
+    iframe.height = inp.value;
+    iframe.width = inp.value;
+  }
+  var src = 'noscroll' + size + '.html' + params;
+  if (supercube)
+    src += sc;
+  if (cmd == 'random')
+    src += rand;
+  iframe.contentWindow.location.replace(src);
+  prevType = type;
+}
+function zoom(cmd) {
+  var iframe = document.getElementById('cubeIframe');
+  var inp = document.getElementById('cubeHeight');
+  if (isNaN(inp.value) || inp.value == '') {
+    inp.value = iframe.height;
+    return;
+  }   
+  var cubeHeight = parseInt(inp.value);
+  if (cubeHeight < minHeight) {
+    cubeHeight = minHeight;
+    inp.value = minHeight;
+  }
+  if (iframe.height == minHeight && cubeHeight <= minHeight)
+    inp.value = minHeight; 
+  if (cmd == 'in')
+    cubeHeight += 20;
+  else if (cmd == 'out') 
+      cubeHeight -= 20;
+  else if (cmd == 'reset') {
+    var size = document.getElementById('cubeType').value;
+    cubeHeight = init[size>6?size-5:size];
+  }
+  if (!(iframe.height == minHeight && cubeHeight <= minHeight)) {
+    inp.value = cubeHeight;
+    iframe.height = cubeHeight;
+    iframe.width = cubeHeight;
+  }
+}
+</script>
+</center>
+</div>
+</body>
+</html>
