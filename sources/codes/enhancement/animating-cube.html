@@ -5,6 +5,7 @@
  <meta name=viewport content="width=device-width, initial-scale=1">
  <meta name="author" content="Michael Feather"> 
  <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
  <style>
   body,html {
     font-family: Arial, Helvetica, sans-serif;
@@ -64,7 +65,7 @@ recognized between each move sequence repetition).</p>
 <table>
  <tr>
   <td> 
-   <iframe id=cubeIframe width=300 height=300 scrolling=no frameborder=0></iframe>
+   <div id=cube style="width:300px;height:300px"></div>
   </td>
  </tr>
  <tr height=10>
@@ -73,23 +74,25 @@ recognized between each move sequence repetition).</p>
  <tr>
   <td> <button class=btn onclick="newCube()">Reload</button> </td>
   <td width=20>
-  <td colspan=3>Speed: <input id=inp class=inp onchange="newCube('random')"> </td>
+  <td colspan=3>Speed: <input id=inp class=inp onchange="newCube()"> </td>
  </tr>
 </table>
 <br>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
+var removeListeners = [];
 var default_speed = 20;
 document.getElementById('inp').value = default_speed;
-newCube();
-function newCube(cmd) {
-  var src = 'noscroll3.html?bgcolor=ffffff&edit=1&snap=1&colorscheme=WYGBOR&buttonheight=18&demo=%23&move=random';
+var params = 'id=cube&bgcolor=ffffff&edit=1&snap=1&colorscheme=WYGBOR&buttonheight=18&demo=%23&move=random';
+AnimCube3(params + '&speed=' + default_speed);
+function newCube() {
   var inp = document.getElementById('inp');
-  var iframe = document.getElementById('cubeIframe');
+  var div = document.getElementById('cube');
   if (isNaN(inp.value) || inp.value == '' || inp.value < 1)
     inp.value = default_speed;
-  iframe.contentWindow.location.replace(src + '&speed=' + inp.value);
+  removeListeners['cube']();
+  AnimCube3(params + '&speed=' + inp.value);
 }
 </script></center>
 </div>

@@ -5,6 +5,7 @@
  <meta name=viewport content="width=device-width, initial-scale=1">
  <meta name="author" content="Michael Feather"> 
  <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
  <style>
   body, html {
     height:100%;
@@ -32,7 +33,7 @@
 <div class=wrap>
 <center>
 <font size="+2">Cube Parts</font><br><br>
-<select id=cubeType onchange="newCube('reset')"
+<select id=cubeType onchange="newCube(0)"
  style="height:32px; border-radius:12px;padding:0 10px 0; 
         border:1px solid black; outline:none; background-color:#ffffff">
  <option value=1>Corners</option>
@@ -40,37 +41,39 @@
  <option value=3>Regular</option>
 </select> 
 <br><br>
-<iframe id=cube width=300 height=300 scrolling=no frameborder=0></iframe><br>
+<div id=cube style="width:300px;height:300px"></div><br>
 <table>
  <tr height=8>
  <tr>
-  <td><button class=btn onclick="newCube('random')">Scramble</button></td>
+  <td><button class=btn onclick="newCube(1)">Scramble</button></td>
   <td width=20>
-  <td><button class=btn onclick="newCube('reset')">Reset</button></td>
+  <td><button class=btn onclick="newCube(0)">Reset</button></td>
  </tr>
 </table>
 <br>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
+var removeListeners = [];
+var params = "id=cube&buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18";
 var colorScheme = '&colorscheme=wygbor';
 var edges = '&facelets=lwlwwwlwllylyyylyllglggglgllblbbblbllolooolollrlrrrlrl';
 var corners = '&facelets=wlwlwlwlwylylylylyglglglglgblblblblbololololorlrlrlrlr';
 var rand = '&initmove=random';
-var src = "noscroll3.html?buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18";
-newCube('reset');
+AnimCube3(params + corners);
 function newCube(cmd) {
-  var s = src;
+  var p = params;
   var type = document.getElementById('cubeType').value;
   if (type == 1)
-    s += corners;
+    p += corners;
   else if (type == 2)
-    s += edges;
+    p += edges;
   else
-    s += colorScheme;
-  if (cmd == 'random')
-     s += rand 
-  document.getElementById('cube').contentWindow.location.replace(s);
+    p += colorScheme;
+  if (cmd == 1)
+     p += rand 
+  removeListeners['cube']();
+  AnimCube3(p);
 }
 </script>
 </center>

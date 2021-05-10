@@ -5,6 +5,7 @@
  <meta name=viewport content="width=device-width, initial-scale=1">
  <meta name="author" content="Michael Feather"> 
  <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
  <style>
   body, html {
     height:100%;
@@ -53,7 +54,8 @@
 <center>
 <font size=+2>Scrambling button</font><br>
 <table><tr height=5><td></table>
-<select id=cubeType onchange="newCube('reset')"
+<!--
+<select id=cubeType onchange="newCube(0)"
  style="height:32px; border-radius:12px;padding:0 10px 0; 
         border:1px solid black; outline:none; background-color:#ffffff">
  <option value=2>2x2x2 Regular</option>
@@ -66,16 +68,23 @@
  <option value=9>4x4x4 Supercube</option>
  <option value=10>5x5x5 Supercube</option>
  <option value=11>6x6x6 Supercube</option>
-</select> 
+</select>
+-->
+<select id=cubeType onchange="newCube(0)"
+ style="height:32px; border-radius:12px;padding:0 10px 0; 
+        border:1px solid black; outline:none; background-color:#ffffff">
+ <option value=3 selected>3x3x3 Regular</option>
+ <option value=8>3x3x3 Supercube</option>
+</select>
 <br><br>
-<iframe id=cubeIframe width=280 height=280 scrolling=no frameborder=0></iframe>
+<div id=cube style="width:280px;height:280px"></div>
 <table><tr height=1><td></table>
 <br>
 <table border=0>
  <tr>
-  <td><button class=btn onclick="newCube('random')">Scramble</button></td>
+  <td><button class=btn onclick="newCube(1)">Scramble</button></td>
   <td width=20>
-  <td><button class=btn onclick="newCube('reset')">Reset</button></td>
+  <td><button class=btn onclick="newCube(0)">Reset</button></td>
  </tr>
 </table>
 <table>
@@ -85,7 +94,7 @@
   <td width=5>
   <td> <button class=btn2 onclick="zoom('out')"> - </button> </td>
   <td width=5>
-  <td> <input onchange="zoom('change')" class=inp id=cubeHeight> </td>
+  <td> <input onchange="zoom('change')" class=inp id=cubeHeight value=280> </td>
   <td width=5>
   <td> <button style=width:62px class=btn2 onclick="zoom('reset')">reset</button> </td>
  </tr>
@@ -95,19 +104,20 @@
 <br><br><br>
 
 <script>
+var removeListeners = [];
 var minHeight = 100;
 var prevType = 0;
 var init = [0, 0, 200, 280, 360, 420, 480];
-var params = '?buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18&colorscheme=WYGBOR';
+var params = 'id=cube&buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18&colorscheme=WYGBOR';
 var sc = '&supercube=1&gabbacolors=1&scw=1';
 var rand = '&initmove=random';
-newCube('reset');
+AnimCube3(params);
 function newCube(cmd) {
   var size;
   var supercube = 0;
-  var type = document.getElementById('cubeType').value; 
+  var type = document.getElementById('cubeType').value;
   var inp = document.getElementById('cubeHeight');
-  var iframe = document.getElementById('cubeIframe');
+  var div = document.getElementById('cube');
   if (type < 7)
     size = type;
   else {
@@ -116,22 +126,23 @@ function newCube(cmd) {
   }
   if (type != prevType) {
     inp.value = init[size]; 
-    iframe.height = inp.value;
-    iframe.width = inp.value;
+    div.height = inp.value;
+    div.width = inp.value;
   }
-  var src = 'noscroll' + size + '.html' + params;
+  var src = params;
   if (supercube)
     src += sc;
-  if (cmd == 'random')
+  if (cmd == 1)
     src += rand;
-  iframe.contentWindow.location.replace(src);
+  removeListeners['cube']();
+  AnimCube3(src);
   prevType = type;
 }
 function zoom(cmd) {
-  var iframe = document.getElementById('cubeIframe');
+  var div = document.getElementById('cube');
   var inp = document.getElementById('cubeHeight');
   if (isNaN(inp.value) || inp.value == '') {
-    inp.value = iframe.height;
+    inp.value = div.height;
     return;
   }   
   var cubeHeight = parseInt(inp.value);
@@ -139,7 +150,7 @@ function zoom(cmd) {
     cubeHeight = minHeight;
     inp.value = minHeight;
   }
-  if (iframe.height == minHeight && cubeHeight <= minHeight)
+  if (div.height == minHeight && cubeHeight <= minHeight)
     inp.value = minHeight; 
   if (cmd == 'in')
     cubeHeight += 20;
@@ -149,11 +160,22 @@ function zoom(cmd) {
     var size = document.getElementById('cubeType').value;
     cubeHeight = init[size>6?size-5:size];
   }
-  if (!(iframe.height == minHeight && cubeHeight <= minHeight)) {
+  if (!(div.height == minHeight && cubeHeight <= minHeight)) {
     inp.value = cubeHeight;
-    iframe.height = cubeHeight;
-    iframe.width = cubeHeight;
+    div.style.height = cubeHeight + 'px';
+    div.style.width = cubeHeight + 'px';
+    div.height = cubeHeight;
+    div.width = cubeHeight;
+    resizeEvent();
   }
+}
+function resizeEvent() {
+  // window.dispatchEvent(new Event('resize'));
+  // the above line works for newer browser but to also support older
+  // browsers use the following code instead
+  var resizeEvent = window.document.createEvent('UIEvents'); 
+  resizeEvent.initUIEvent('resize', true, false, window, 0); 
+  window.dispatchEvent(resizeEvent);
 }
 </script>
 </center>

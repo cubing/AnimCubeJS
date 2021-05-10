@@ -5,6 +5,7 @@
  <meta name=viewport content="width=device-width, initial-scale=1">
  <meta name="author" content="Michael Feather"> 
  <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
  <style>
   body,html {
     font-family: Arial, Helvetica, sans-serif;
@@ -64,37 +65,39 @@ Enter key (or the Scramble button).</p>
 <table>
  <tr>
   <td> 
-   <iframe id=cubeIframe width=300 height=300 scrolling=no frameborder=0></iframe>
+   <div id=cube style="width:300px;height:300px"></div>
   </td>
  </tr>
  <tr height=10>
 </table>
 <table>
  <tr>
-  <td> <button class=btn onclick="newCube('random')">Scramble</button> </td>
+  <td> <button class=btn onclick="newCube(1)">Scramble</button> </td>
   <td width=20>
-  <td> <button class=btn onclick="newCube('reset')">Reset</button> </td>
+  <td> <button class=btn onclick="newCube(0)">Reset</button> </td>
  </tr>
  <tr height=12>
  <tr>
-  <td colspan=3>Scrambling moves: <input id=inp class=inp onchange="newCube('random')" value=5> </td>
+  <td colspan=3>Scrambling moves: <input id=inp class=inp onchange="newCube(1)" value=5> </td>
  </tr>
 </table>
 <br>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
-newCube('reset');
-newCube();
+var removeListeners = [];
+var params = 'id=cube&bgcolor=ffffff&edit=1&snap=1&repeat=0&colorscheme=WYGBOR&buttonheight=18';
+AnimCube3(params);
 function newCube(cmd) {
+  var p = params;
   var n = document.getElementById('inp').value;
-  var src = 'noscroll3.html?bgcolor=ffffff&edit=1&snap=1&repeat=0&colorscheme=WYGBOR&buttonheight=18';
-  var iframe = document.getElementById('cubeIframe');
+  var div = document.getElementById('cube');
   if (isNaN(n))
     n = 5;
-  if (cmd == 'random')
-    src += '&move=random&initrevmove=%23&randmoves=' + n;
-  iframe.contentWindow.location.replace(src);
+  if (cmd == 1)
+    p += '&move=random&initrevmove=%23&randmoves=' + n;
+  removeListeners['cube']();
+  AnimCube3(p);
 }
 </script></center>
 </div>
