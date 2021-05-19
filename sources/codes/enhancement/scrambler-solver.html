@@ -95,7 +95,7 @@ function newCube(cmd) {
   if (isNaN(n))
     n = 5;
   if (cmd == 1)
-    p += '&move=random&initrevmove=%23&randmoves=' + n;
+    p += '&move=random&initrevmove=#&randmoves=' + n;
   removeListeners['cube']();
   AnimCube3(p);
 }
