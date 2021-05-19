@@ -24,7 +24,7 @@ body, html {
 div.wrap {
   height:100%; 
   overflow:auto;
-  padding:8px 10%; 
+  padding:0px 10%; 
 }
 
 .cube {display: inline-block}
@@ -106,6 +106,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 
 <body>
 <div class=wrap>
+<br>
 <table width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr><td height="1" bgcolor="#E6F4FF"></td></tr>
@@ -140,7 +141,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </ul>
 </div>
 </td><td width="33%">
-<center><div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move={Cube in ...} R U' L F U' {... cube in ...} R2 U2 R U R' {... cube ...} U2 D' L D {... pattern} F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&demo={AnimCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div></center>
+<center><div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move={Cube in ...} R U' L F U' {... cube in ...} R2 U2 R U R' {... cube ...} U2 D' L D {... pattern} F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&demo={AnimCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div></center>
 </td>
 <td width="33%">
 </tr></table>
@@ -198,19 +199,16 @@ web browser. JavaScript in your web browser is currently <a id=a1></a><noscript>
 <p>The program is classified as freeware and you can use the cube simulator in your web pages. 
 In order to do so, download one (or more) of the files below. Supercubes are included by default.</p>
 
-<p><a href="AnimCube2.js" download>2x2x2 AnimCubeJS simulator 
-<code>.js</code> file</a> (28 kB)</p>
-<p><a href="AnimCube3.js" download>3x3x3 AnimCubeJS simulator 
-<code>.js</code> file</a> (29 kB)</p>
-<p><a href="AnimCube4.js" download>4x4x4 AnimCubeJS simulator 
-<code>.js</code> file</a> (30 kB)</p>
-<p><a href="AnimCube5.js" download>5x5x5 AnimCubeJS simulator 
-<code>.js</code> file</a> (31 kB)</p>
-<p><a href="AnimCube6.js" download>6x6x6 AnimCubeJS simulator 
-<code>.js</code> file</a> (31 kB)</p>
-
-<p><i>Note:</i> Some web browsers might be showing the compressed file size which differs from the actual file size in their save file pop-ups.
-</p>
+<p><a href="sources/zip/2x2x2-AnimCubeJS.zip">2x2x2 AnimCubeJS simulator 
+<code>.zip</code> file</a> (10 kB)</p>
+<p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
+<code>.zip</code> file</a> (10 kB)</p>
+<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
+<code>.zip</code> file</a> (11 kB)</p>
+<p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
+<code>.zip</code> file</a> (11 kB)</p>
+<p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
+<code>.zip</code> file</a> (11 kB)</p>
 
 <p>
 You can choose from 2 different versions of AnimCubeJS. Click on the button below to see the documentation for the old version.
@@ -478,7 +476,7 @@ control the animation by buttons in the button bar. Animation can be immediately
 any position using the progress bar (if present) 
 just above the button bar (which can be reduced or totally hidden).</p> 
 
-<center><div class="cube" style="width:60%; height:200px"> <script>AnimCube3("colorscheme=wygbor&move=RU'LFU'R2U2RUR'U2D'LDF2L2U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&fonttype=0&snap=1&buttonheight=20&textsize=16")</script></div></center>
+<center><div class="cube" style="width:60%; height:200px"> <script>AnimCube3("colorscheme=wygbor&move=RU'LFU'R2U2RUR'U2D'LDF2L2U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&fonttype=0&snap=1&buttonheight=20&textsize=16")</script></div></center>
 
 <p>The progress bar consists of two components, namely:</p>
 
@@ -497,6 +495,42 @@ an animated layer twist, the twist is finished immediately and the new requested
 
 <div class="sections"><a name="usage"></a><b><i>Using Simulator in Web Pages</i></b></div>
 
+<br>
+<div class="button-to-center">
+<button id=showHideButton12 onclick="showHideFunc(12,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage12 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading12>Show the simplest HTML page using the simulator</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText12>
+
+<pre>
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+   &lt;head&gt;
+    &lt;script src="AnimCube3.js"&gt;&lt;/script&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+
+    &lt;div style="width:200px; height:219px"&gt;
+     &lt;script&gt;AnimCube3("move=RUR'URU2R'U2&amp;initrevmove=#")&lt;/script&gt;
+    &lt;/div&gt;
+
+   &lt;/body&gt;
+  &lt;/html&gt;
+</pre>
+
+<p>
+The result of the code above can be seen <a href="example.html" target="_new">here</a>. Explanation in detail follows below.
+</p>
+</div>
+
 <p>To use the simulator in your own web pages, start by adding the following line to the HTML head section.</p>
 
 <pre><code>&lt;script src="AnimCubeX.js"&gt;&lt;/script&gt;</code></pre>
@@ -507,7 +541,7 @@ an animated layer twist, the twist is finished immediately and the new requested
 
 <p>Next, add the following code in the HTML file to the place where you want the simulator to be displayed. Don't forget to replace "X" there as well.</p>
 
-<pre><code>&lt;div class="cube" style="width:160px; height:186px"&gt;
+<pre><code>&lt;div class="cube" style="width:160px; height:179px"&gt;
  &lt;script&gt;AnimCubeX("parameters")&lt;/script&gt;
 &lt;/div&gt;</code></pre>
 
@@ -517,6 +551,10 @@ Optionally, add the following line to your CSS.</p>
 <pre><code>.cube {display: inline-block;}</code></pre>
 
 <p>Make sure to declare parameters as follows: <code>name=value</code>, and separate parameter declarations with <code>&amp;</code> symbol.
+</p>
+
+<p>
+Extract downloaded <code>.zip</code> file to see the <code>AnimCubeX.js</code> file.
 </p>
 
 <p>Make sure to include the source <code>AnimCubeX.js</code> file in the directory/folder referenced in the HTML head section of your web page.</p>
@@ -570,8 +608,8 @@ in height no longer increase the magnification of the cube but instead add space
 </p>
 
 <div>
-<div class="cube" style="width:250px; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:150px; height:250px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:250px; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:150px; height:250px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
 </div>
 
 <p>
@@ -582,7 +620,7 @@ attribute: <code>style="width:100%; height:150px"</code>. See a different approa
 </p>
 
 <div>
-<div class="cube" style="width:100%; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=%23&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:100%; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
 </div>
 
 <p>Next sections are describing all parameters and their possible values. Every parameter 
@@ -616,9 +654,9 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 <a href="#move">parameter name: move | value: string from move character set or random</a><br>
 <a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1)<br>
 <a href="#yz">parameter name: yz | value: 0 or 1</a><br>
-<a href="#initmove">parameter name: initmove | value: string from move character set, random or %23</a><br>
-<a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or %23</a><br>
-<a href="#demo">parameter name: demo | value: string from move character set, random or %23</a><br>
+<a href="#initmove">parameter name: initmove | value: string from move character set, random or #</a><br>
+<a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
+<a href="#demo">parameter name: demo | value: string from move character set, random or #</a><br>
 <a href="#metric">parameter name: metric | value: 0 - 3</a><br>
 <a href="#fonttype">parameter name: fonttype | value: 0 or 1</a><br>
 <a href="#textsize">parameter name: textsize | value: 5 - 40</a><br>
@@ -663,9 +701,9 @@ and differ only in the <code>move</code> parameter values. The third simulator h
  <code>config</code> parameter.
 </p>
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra Fa Ra Fa&initrevmove=%23&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=%23&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=%23&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra Fa Ra Fa&initrevmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&config=AnimCube3.txt&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=#&snap=1&buttonheight=20")</script></div>
 </div>
 <p>
 <i>Note:</i> The configuration file name used to have a <code>.cfg</code> suffix in the original AnimCube Java applet documentation.
@@ -691,7 +729,7 @@ any color.
 </p><p><i>Example:</i> <code>AnimCube3("bgcolor=ff0000")</code> sets the background color to red. 
 </p>
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&bgcolor=ff0000&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&bgcolor=ff0000&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 <br>
 
@@ -706,7 +744,7 @@ and the body of the cube, set the <code><a href="#facelets">facelets</a></code>,
 
 </p><p><i>Example:</i> <code>AnimCube3("cubecolor=ffffff&amp;colorscheme=kygbor")</code> sets the cube color to white along with black stickers. 
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&cubecolor=ffffff&move=M2'E2'S2'&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&cubecolor=ffffff&move=M2'E2'S2'&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -720,7 +758,7 @@ visibility for any color.
 </p><p><i>Example:</i> <code>AnimCube3("butbgcolor=00ff00")</code> sets the background color 
 of the buttons in the button bar to green.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&butbgcolor=00ff00&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&butbgcolor=00ff00&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><p>
 <i>Note:</i> The border color for both the button bar and the progress bar toggles between black and white, depending on the 
 <code>butbgcolor</code> parameter. If the <code>butbgcolor</code> parameter is not set, then it depends on the 
@@ -739,7 +777,7 @@ If this parameter is missing, the color of the slider is set to black or white, 
 <code><a href="#bgcolor">bgcolor</a></code> parameter.
 </p><p><i>Example:</i> <code>AnimCube3("slidercolor=ffff00")</code> sets the slider color to yellow.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2' F2 B2' L2 R2'&slidercolor=ffff00&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2' F2 B2' L2 R2'&slidercolor=ffff00&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -751,7 +789,7 @@ It has the same value format as the <code><a href="#slidercolor">slidercolor</a>
 defaults to a darker shade of the <code><a href="#bgcolor">bgcolor</a></code> parameter. 
 </p><p><i>Example:</i> <code>AnimCube3("troughcolor=0000ff")</code> sets the background of the progress bar to blue.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&troughcolor=0000ff&move=U2' D2 F2' B2 L2' R2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&troughcolor=0000ff&move=U2' D2 F2' B2 L2' R2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 
 <p><i>Note:</i> Initially, the name of this parameter was "sliderbgcolor". For 
@@ -771,8 +809,8 @@ bar on the first cube, the move sequence will advance (and the second one will n
 </p><p><i>Examples:</i> <code>AnimCube3("clickprogress=1")</code> and <code>AnimCube3("clickprogress=0")</code> have 
 	the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&clickprogress=1&move=U2D2F2B2R2L2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&clickprogress=0&move=U2D2F2B2R2L2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&clickprogress=1&move=U2D2F2B2R2L2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&clickprogress=0&move=U2D2F2B2R2L2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 
 <p><i>Note:</i> To reduce unintentional tapping on trough of the progress bar especially on mobile devices, enlargement of the area of control buttons in the button bar by 
@@ -829,8 +867,8 @@ clear the cube state to the initial values (unless otherwise stated).
 range is from '<code>9</code>' to '<code>25</code>' (pixels), the default value is '<code>13</code>'.
 </p><p><i>Examples:</i> <code>AnimCube3("buttonheight=9")</code> and <code>AnimCube3("buttonheight=25")</code> give the following results.
 </p><div>
-<div class="cube" style="width:160px; height:175px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=%23&snap=1&buttonheight=9&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=%23&snap=1&buttonheight=25&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:175px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=9&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=25&textsize=16")</script></div>
 </div><br>
 
 
@@ -845,8 +883,8 @@ The first allows repeat and the second does not.
 </p><p><i>Examples:</i> <code>AnimCube3("repeat=1")</code> and <code>AnimCube3("repeat=0")</code> have 
 	the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&repeat=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&repeat=0&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&repeat=1&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&repeat=0&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -860,8 +898,8 @@ The cube can be edited by default.
 </p><p><i>Examples:</i> <code>AnimCube3("edit=0")</code> and <code>AnimCube3("edit=1")</code> give the following 
 	results.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&edit=0&move=Rs2'Us2'Fs2'&initmove=%23&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&edit=1&move=Rs2'Us2'Fs2'&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&edit=0&move=Rs2'Us2'Fs2'&initmove=#&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&edit=1&move=Rs2'Us2'Fs2'&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -875,8 +913,8 @@ The default value corresponds to approximately 2/3 seconds for a quarter turn of
 Twist of any layer(s) by 90 degrees is meant as the quarter turn; twist of any layer(s) by 180 degrees is meant as the half turn in this context.
 The animation speed of the half turn can be adjusted separately by the <code><a href="#doublespeed">doublespeed</a></code> parameter.  
 </p><p><i>Examples:</i> <code>AnimCube3("speed=5")</code> and <code>AnimCube3("speed=20")</code> have the following effect on the animation speed.</p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=5&move=R U R' U R U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=20&move=R U R' U R U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=5&move=R U R' U R U2 R'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=20&move=R U R' U R U2 R'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><p><i>Note:</i> Here you can try to run both simulators simultaneously to compare the animation speed. 
 	You can also try multiple application of the same move 
 	sequence to the cube by pressing the Play button after animation stops (Play button functionality can be disabled by the
@@ -896,8 +934,8 @@ is equal to the 3/2 of the value of the <code>speed</code> parameter.
 </p><p><i>Examples:</i> <code>AnimCube3("doublespeed=5")</code> and <code>AnimCube3("doublespeed=20")</code> have 
 	the following effect on the animation speed.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&doublespeed=5&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&doublespeed=20&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&doublespeed=5&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&doublespeed=20&move=R' U2 R2' U R2' U R2' U2 R'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -923,9 +961,9 @@ The parameter is useful in combination with the <code><a href="#hint">hint</a></
 <code><a href="#textsize">textsize</a></code> parameter.
 </p><p><i>Examples:</i> <code>AnimCube3("scale=0")</code>, <code>AnimCube3("scale=5")</code> and <code>AnimCube3("scale=10")</code> have the following effect on cube magnification.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=0&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=5&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=10&move=Ua2 Fa2 La2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=0&move=Ua2 Fa2 La2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=5&move=Ua2 Fa2 La2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scale=10&move=Ua2 Fa2 La2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -939,9 +977,9 @@ parameter to any natural number (excluding 0) in order to use the <code>align</c
 </p><p><i>Examples:</i> <code>AnimCube3("align=0&amp;scale=4")</code>, <code>AnimCube3("align=1&amp;scale=4")</code> and <code>AnimCube3("align=2&amp;scale=4")</code> 
 	have the following effect on the cube's vertical aligning.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=0&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=1&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=2&scale=4&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=0&scale=4&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=1&scale=4&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&align=2&scale=4&move=M2E2S2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -960,9 +998,9 @@ Good visual arrangements can be accomplished in combination with the <code><a hr
 </ul>
 	<p>have the following effect on hint displaying.</p>
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=5&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=%23&scale=3&hint=10&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=#&scale=3&hint=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=#&scale=3&hint=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2 D2 R2 L2 F2 B2&initmove=#&scale=3&hint=10&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -975,10 +1013,10 @@ The default value is '<code>2</code>'.
 	<code>AnimCube3("perspective=1000000")</code> have the following effect on the perspective 
 	projection.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=0&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=2&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=10&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=1000000&move=Rs2' Us2' Fs2'&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=0&move=Rs2' Us2' Fs2'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=2&move=Rs2' Us2' Fs2'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=10&move=Rs2' Us2' Fs2'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&perspective=1000000&move=Rs2' Us2' Fs2'&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -994,10 +1032,10 @@ parameter if you want to change the color of the border among stickers.
 </p><p><i>Examples:</i> <code>AnimCube3("borderwidth=0")</code>, <code>AnimCube3("borderwidth=6")</code>, <code>AnimCube3("borderwidth=10")</code> and 
 	<code>AnimCube3("borderwidth=20")</code> have the following effect on cube appearance.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=0&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=6&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=10&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=20&move=Ra2 Ua2 Fa2&initrevmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=0&move=Ra2 Ua2 Fa2&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=6&move=Ra2 Ua2 Fa2&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=10&move=Ra2 Ua2 Fa2&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&borderwidth=20&move=Ra2 Ua2 Fa2&initrevmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 <div class="sections-parameters"><a name="move"></a><b><code>move</code> parameter</b></div>
@@ -1390,9 +1428,9 @@ value:
 	(enclosed in braces) to show the finger tricks more clearly. The animation is 
 	also speeded-up in this case. 
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=6&move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'&initrevmove=%23&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=6&move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1471,16 +1509,15 @@ Using the '<code>random</code>' value (<i>note:</i> this value is not supported 
 will randomly pick some characters from the following move character subset:
 <code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
 resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
-If the value is equal to '<code>%23</code>' (it's a HTML encoding reference for the hash symbol "&#35;"), then it is 
-equal to the value of the <code>move</code> parameter 
+If set to the hash symbol '<code>#</code>' then it is equal to the value of the <code>move</code> parameter 
 (the first one if more move sequences are specified). This parameter is mutually exclusive with the <code><a href="#initrevmove">initrevmove</a></code> parameter, 
 and has lower priority.
 </p>
 
-<p><i>Examples:</i> <code>AnimCube3("initmove=M2E2S2")</code> and <code>AnimCube3("initmove=%23&amp;move=M2E2S2")</code> have the following effect on a 3x3x3 cube.
+<p><i>Examples:</i> <code>AnimCube3("initmove=M2E2S2")</code> and <code>AnimCube3("initmove=#&amp;move=M2E2S2")</code> have the following effect on a 3x3x3 cube.
 </p><div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&initmove=M2 E2S2&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&initmove=%23&move=M2E2S2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&initmove=#&move=M2E2S2&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1488,8 +1525,7 @@ and has lower priority.
 	
 <p>The meaning and possible parameter values are the same as for the <code><a href="#initmove">initmove</a></code> parameter, but the move 
 sequence is executed reversed this time (from end to beginning with opposite turning directions). It is 
-even more useful when the value is equal to '<code>%23</code>' and takes the 
-sequence of moves 
+even more useful when the value is equal to '<code>#</code>' and takes the sequence of moves 
 from the <code><a href="#move">move</a></code> parameter (the first one if more move sequences are specified). See 
 the <code>initmove</code> parameter for more details.
 </p><p>To show the flexibility of the page creation using this 
@@ -1498,18 +1534,18 @@ the <code>initmove</code> parameter for more details.
 	not care about them (light gray). Instead of creating the
  <code><a href="#facelets">facelets</a></code> coloring for each configuration, we can create only one 
 	universal, and use it in all corresponding simulators while changing only the 
-	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>%23</code>' creates the cube setup for us.
+	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>#</code>' creates the cube setup for us.
 </p>
-<p><i>Examples:</i></p> <ul><li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=%23&amp;move=R2B2'RFR'B2'RF'R")</code></li>
-							<li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=%23&amp;move=FU'BD2B'UBD2F'B'")</code></li> 
-					<li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=%23&amp;move=F2'UL'ULU'F2'U'L'U'L")</code> and</li>		
-                    <li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=%23&amp;move=U'R2DR'URD'R2D'L'U'LD")</code></li></ul>
+<p><i>Examples:</i></p> <ul><li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=#&amp;move=R2B2'RFR'B2'RF'R")</code></li>
+							<li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=#&amp;move=FU'BD2B'UBD2F'B'")</code></li> 
+					<li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=F2'UL'ULU'F2'U'L'U'L")</code> and</li>		
+                    <li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=U'R2DR'URD'R2D'L'U'LD")</code></li></ul>
                     <p>have the following effect on the simulators.</p>
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=%23&move=R2B2'RFR'B2'RF'R&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=%23&move=FU'BD2B'UBD2F'B'&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=%23&move=F2'UL'ULU'F2'U'L'U'L&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=%23&move=U'R2DR'URD'R2D'L'U'LD&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=#&move=R2B2'RFR'B2'RF'R&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=#&move=FU'BD2B'UBD2F'B'&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=#&move=F2'UL'ULU'F2'U'L'U'L&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=#&move=U'R2DR'URD'R2D'L'U'LD&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1522,10 +1558,7 @@ value format is the same as for the <code><a href="#move">move</a></code> parame
 will randomly pick some characters from the following move character subset:
 <code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
 resulting in generating random move sequence. Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter. 
-If the value is equal to '<code>%23</code>' (it's the encoding for the hash symbol "&#35;", as stated in the 
-<code><a href="#initmove">initmove</a></code> parameter section), then it is 
-equal to the value of the <code>move</code>
- parameter (the first one if more move sequences are specified). The specified 
+If set to '<code>#</code>' then it is equal to the value of the <code>move</code> parameter (the first one if more move sequences are specified). The specified 
 move sequence is executed after page load and all the operations are processed in loop from 
 beginning to the end. The demo mode can be interrupted by pressing 
 any control button in the button bar. The cube state and move sequence is then reinitiated, and the 
@@ -1537,7 +1570,7 @@ one (if any) simulator per page with this parameter set.
 </p>
 <p><i>Example:</i> To see <code>AnimCube3("demo={AnimeCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U")</code> in action, have a look at the first 
 simulator of this page. Note that the <code>Z</code> rotation as written in the example is defined in terms of <code><a href="#movetext">movetext</a>=2</code> in the demo mode. The string 
-"%2E" is a HTML encoding reference for a dot "." and "%26" translates to an ampersand "&amp;". The "í" character can be substituted by "%C3%AD" sequence. 
+"%2E" is a HTML encoding reference for a dot "." and "%26" translates to an ampersand "&amp;". The "í" character can be substituted by the "%C3%AD" sequence. 
 </p>
 
 
@@ -1663,10 +1696,10 @@ default (the default value is '<code>1</code>').
 	two examples show the appearance after the background was changed to a darker 
 	color (third simulator represents <code>AnimCube3("fonttype=0")</code>, fourth simulator represents <code>AnimCube3("fonttype=1")</code>).
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=0&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=1&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=0&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=%23&movetext=1&fonttype=1&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=0&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=1&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=0&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=1&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1678,9 +1711,9 @@ inside the simulator window (div). The range is from '<code>5</code>'
 to '<code>40</code>' (pixels), the default value is '<code>12</code>'.
 </p><p><i>Examples:</i> <code>AnimCube3("textsize=5")</code>, <code>AnimCube3("textsize=12")</code> and <code>AnimCube3("textsize=40")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=5&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=12&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=40&movetext=3&move=R2L2F2B2U2D2&initmove=%23&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=5&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=12&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=40&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
 </div>
 <p><i>Note:</i> Clearly, the higher the parameter value you use, the higher 
 simulator window (div dimensions) you should use for a better appearance.</p>
@@ -2018,8 +2051,8 @@ in the example below. The <code>supercube=1</code> setting makes the borders of 
 parameter).
 </p><p><i>Examples:</i> <code>AnimCube3("supercube=1")</code> and <code>AnimCube3("supercube=0")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&supercube=1&move=R2L2U2D2F2B2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=0&move=R2L2U2D2F2B2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&supercube=1&move=R2L2U2D2F2B2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=0&move=R2L2U2D2F2B2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -2046,9 +2079,9 @@ or <code><a href="#colorscheme">colorscheme</a></code> parameter value, if also 
 <code>AnimCube3("facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&amp;scw=2&amp;supercube=1</code> gives the result as seen on the second cube. 
 The third cube has the same parameter values as the first one, except for <code>scw=1</code> is replaced by <code>scw=0</code>.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=1&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=2&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=%23&snap=1&buttonheight=20&scw=0&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=#&snap=1&buttonheight=20&scw=1&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&supercube=1&move=M2E2S2&initmove=#&snap=1&buttonheight=20&scw=2&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&supercube=1&move=M2E2S2&initmove=#&snap=1&buttonheight=20&scw=0&textsize=16")</script></div>
 </div><p><i>Note:</i> The <code>scw</code> parameter is not needed at all if <code>k</code> is used for color (which is black, as described in the <code>facelets</code> 
 parameter section). The <code>scw</code> parameter makes it easy to switch the <code>facelets</code> or <code>colorscheme</code> parameter 
 value between normal cube &amp; Supercube (so you 
@@ -2066,15 +2099,15 @@ default value) and '<code>1</code>'.  Set to '<code>1</code>' for
 <a href=http://gabbasoft-cube-demo.software.informer.com/ target="_new">Gabbasoft</a> colors as shown on the first cube below.
 </p><p><i>Examples:</i> <code>AnimCube3("gabbacolors=1")</code> and <code>AnimCube3("gabbacolors=0")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&gabbacolors=1&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&gabbacolors=1&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 <p>As you can see, <code>gabbacolors=1</code> makes the borders of the simulator thinner (this can be adjusted by the <code><a href="#borderwidth">borderwidth</a></code> 
 parameter), and it can be also used together with the <code><a href="#supercube">supercube</a></code> parameter, as shown on the first cube below.
 </p><p><i>Examples:</i> <code>AnimCube3("gabbacolors=1&amp;supercube=1")</code> and <code>AnimCube3("gabbacolors=0&amp;supercube=1")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&gabbacolors=1&supercube=1&move=Ra2Fa2Ua2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&supercube=1&move=Ra2Fa2Ua2&initmove=%23&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&gabbacolors=1&supercube=1&move=Ra2Fa2Ua2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&supercube=1&move=Ra2Fa2Ua2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 
 <p><i>Note:</i> You can omit the <code>gabbacolors</code> parameter by combining the <code>borderwidth</code> and <code><a href="#colors">colors</a></code> 
@@ -2111,7 +2144,7 @@ With <code>buttonbar=1</code>, the same functionality can be achieved using eith
 '<code>random</code>' value (on the <code><a href="#move">move</a></code> parameter) with one difference which is that the <code>scramble</code> 
 parameter generates a new random move sequence when the clear (Rewind) button is pressed on button bar, whereas with the '<code>random</code>' value 
 the web page must be reloaded to get a new random move sequence. You can compare the functionality between the <code>scramble=1</code> and <code>move=random</code>, 
-as well as between the <code>scramble=2</code> and <code>move=random&amp;initrevmove=%23</code> if you want to see the difference.
+as well as between the <code>scramble=2</code> and <code>move=random&amp;initrevmove=#</code> if you want to see the difference.
 </p>
 
 <p>
@@ -2193,12 +2226,13 @@ body, html {
 div.wrap {
   height: 100%;
   overflow: auto;
-  padding: 8px 10%;
+  padding: 0px 10%;
 }
 </pre>
 
 <p>
-For this to work properly the body must not have any margin, however, it can be set in div.wrap instead by using padding as shown above.
+For this to work properly the body must not have any margin, however, it can be set in div.wrap instead by using padding as shown above. If the top/bottom padding 
+on the wrap div is not 0px then you may notice a slightly differently looking scrollbar (see example pages below). If that's an issue for you, modify your HTML and/or CSS code.  
 </p>
 
 <p>By adding a bit of extra HTML and/or JS code you can make a wide variety of fancy features (such as <a href="sources/codes/enhancement/responsive-cubes.html" target="_new">responsive cubes</a>) which might become handy if 
