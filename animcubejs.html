@@ -105,7 +105,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </head>
 
 <body>
-<div class=wrap>
+<div class="wrap">
 <br>
 <table width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
@@ -2233,7 +2233,13 @@ div.wrap {
 <p>
 For this to work properly the body must not have any margin, however, it can be set in div.wrap instead by using padding as shown above. If the top/bottom padding 
 on the wrap div is not 0px then you may notice a slightly differently looking scrollbar (see example pages below). If that's an issue for you, modify your HTML and/or CSS code.  
+If you want to scroll down/up using the keyboard arrow keys on page load, set focus to the div wrap:
 </p>
+
+<pre>
+&lt;body onload="document.getElementById('wrap').focus()"&gt;
+&lt;div class="wrap" id="wrap" tabindex="0"&gt;
+</pre>
 
 <p>By adding a bit of extra HTML and/or JS code you can make a wide variety of fancy features (such as <a href="sources/codes/enhancement/responsive-cubes.html" target="_new">responsive cubes</a>) which might become handy if 
 you want to cube but don't have a physical cube around:</p> 
