@@ -13,18 +13,18 @@
 <script src="AnimCube6.js" async></script>
 
 <style>
-
 body, html {
   font-family: Arial, Helvetica, sans-serif;
-  height:100%;
-  overflow:hidden;
-  margin:0; 
+  height: 100%;
+  overflow: hidden;
+  margin: 0; 
 }
 
 div.wrap {
-  height:100%; 
-  overflow:auto;
-  padding:0px 10%; 
+  height: 100%; 
+  overflow: auto;
+  outline: none;
+  padding: 0px 10%;
 }
 
 .cube {display: inline-block}
@@ -104,8 +104,8 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </style>
 </head>
 
-<body>
-<div class="wrap">
+<body onload="document.getElementById('wrap').focus()">
+<div class="wrap" id="wrap" tabindex="0">
 <br>
 <table width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
@@ -2226,6 +2226,7 @@ body, html {
 div.wrap {
   height: 100%;
   overflow: auto;
+  outline: none;
   padding: 0px 10%;
 }
 </pre>
