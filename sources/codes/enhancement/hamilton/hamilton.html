@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+ <title>2x2x2 Hamiltonian Circuit</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../../images/favicon.ico" type="image/x-icon">
+ <script src=AnimCube2_long.js></script>
+ <script src="lzma.js"></script>
+ <script src="readBinaryFile.js"></script>
+ <style>
+  body, html {height:100%; overflow:hidden; margin:0; font-family: Arial, Helvetica, sans-serif;}
+  div.wrap {height:100%; overflow:auto; padding:8px 10%;}
+  p {margin:0; text-align: justify;}
+ </style>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>2x2x2 Hamiltonian Circuit</a></font><br><br>
+<p>The move sequence below visits every possible 2x2x2 state exactly once and is also 
+returning to the starting state, thus forming a <a href="https://www.speedsolving.com/threads/hamiltonian-circuit-for-the-entire-2x2x2-cube-group.34318/" target="_new">Hamiltonian Circuit</a> 
+(which some people call the Devil's Algorithm).</p>
+<div id=cube style="width:300px; height:300px"></div>
+<br>
+Speed: 
+<input onclick=speed(0) type=radio name=hs>
+<input onclick=speed(1) type=radio name=hs>
+<input onclick=speed(2) type=radio name=hs>
+<input onclick=speed(3) type=radio name=hs>
+<input id=r5 onclick=speed(4) type=radio name=hs>
+<input onclick=speed(5) type=radio name=hs>
+<input onclick=speed(6) type=radio name=hs>
+<input onclick=speed(7) type=radio name=hs>
+<input onclick=speed(8) type=radio name=hs>
+<br><br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+/*
+  Steps to make the compressed hamilton.lzma file:
+
+  1. download and unzip http://bruce.cubing.net/hamilton222.zip
+
+  2  download and unzip LZMA-JS-master.zip from https://github.com/LZMA-JS/LZMA-JS
+
+  3. remove line breaks:
+     cat Hamilton222.txt | tr -d '\r\n' > hamilton
+     (file size is now 3674160 bytes)
+
+  4. compress file:
+     lzma -1 hamilton 
+
+     notes:
+     a. lzma (lzma.js) is in bin dir of LZMA-JS-master
+
+     b. command produces the following error which can be ignored:
+        TypeError [ERR_INVALID_CALLBACK]: Callback must be a function. ...
+
+     c. compressed file size (hamilton.lzma) is 3125 bytes
+
+  File hamilton2.lzma was also created using compression level 8 (8 and 9 make
+  same size file which is 1577 bytes), it is not used by default because it
+  takes longer to decompress but it can be used with url param use_alt_lzma=1.
+  The decompress time can be seen in the console log (F12 to view).
+*/
+var hs = 0;
+var use_alt_lzma = 0;
+var move, time0;
+var changeSpeed;
+getParams();
+<!-- 10,000 in 5:34 with highspeed=2 -->
+var p1='id=cube&align=35&bgcolor=ffffff&buttonheight=18&colorscheme=wygbor';
+var p2='&fonttype=0&hint=10&hintborder=1&hinthoriz=3.0&position=lluuu';
+var p3='&movetext=1&movetextspace=0&scale=12&textsize=12&snap=1';
+var params = p1 + p2 + p3;
+var lzma = new LZMA("lzma_worker.js");
+document.getElementById('r5').checked = true;
+if (use_alt_lzma == 0)
+  readBinaryFile('hamilton.lzma', decomp);
+else
+  readBinaryFile('hamilton2.lzma', decomp);
+function decomp(r) {
+  time0 = Date.now();
+  lzma.decompress(r, decompDone);
+}
+function decompDone(r) {
+    console.log('Decompress: ' + (Date.now() - time0) + 'ms');
+    move = r.replace(/G/g, 'F\'').replace(/S/g, 'R\'').replace(/V/g, 'U\'');
+    AnimCube2(params + '&speed=3&highspeed=0&move=' + move);
+}
+function getParams() {
+  var params = location.search.substr(1).split('&');
+  for (var i=0; i < params.length; i++) {
+    var p = params[i].split('=');
+    if (typeof(p[1]) != 'undefined')
+      window[p[0]] = p[1];
+  }
+}
+function speed(n) {
+  var sp = [15,11,8,5,3,2,1,1,1];
+  var hs = [0,0,0,0,0,0,0,1,2];
+  changeSpeed(sp[n], hs[n]);
+}
+</script>
+</center>
+</div>
+</body>
+</html>
