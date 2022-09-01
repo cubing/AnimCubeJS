@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+ <title>Save & restore cube configuration</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <style>
+  body, html {height:100%; overflow:hidden; margin:0; font-family: Arial, Helvetica, sans-serif;}
+  div.wrap {height:100%; overflow:auto; padding:8px 10%;}
+  p {margin:0; text-align: justify;}
+ </style>
+ <script src=AnimCube3mod2.js></script>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>Save & restore cube configuration</font>
+<br><br>
+<p> To save & restore a cube configuration, declare these variables in a web page:
+<br><br>
+<code>var save_cube, restore_cube, config;</code><br>
+<br>
+The commands to save and restore a cube configuration are:
+<br><br>
+<code>config = save_cube();</code><br>
+<code>restore_cube(config);</code>
+<br><br>
+The following is an example of using save & restore to add a move sequence
+without changing the configuration or rotation of the cube.
+Make some moves to the cube with the mouse (or touch) and also rotate the
+whole cube, then press Add Moves.</p>
+<div id=cube style="width:200px; height:200px"> 
+</div>
+<br>
+<button onclick=reload()>Add Moves</button>&nbsp;
+<button onclick=reset()>Reset</button>
+<br><br>
+<p>Use of save & restore requires some minor modifications to AnimCubeJS, see
+the code at the bottom of AnimCube3mod2.js which defines these two functions:
+<br><br>
+<code>acjs_save_cube</code><br>
+<code>acjs_restore_cube</code><br>
+<br>
+and these two lines which make those functions accessible from the web page:
+<br><br>
+<code>save_cube = acjs_save_cube;</code><br>
+<code>restore_cube = acjs_restore_cube;</code></p>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+
+var save_cube, restore_cube;
+var config;
+var removeListeners = [];
+var params='id=cube&bgcolor=ffffff&buttonheight=20&colorscheme=WYGBOR&snap=1';
+
+AnimCube3(params);
+
+function reload() {
+  config = save_cube();
+  removeListeners['cube']();
+  AnimCube3(params + '&move=RUFLDB');
+  restore_cube(config);
+}
+
+function reset() {
+  removeListeners['cube']();
+  AnimCube3(params);
+}
+</script>
+</center>
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+ <title>Using AnimCube with JavaScript</title>
+ <link rel=icon href=../mini_cube.png type=image/png>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <style>
+  body, html {height:100%; overflow:hidden; margin:0; font-family: Arial, Helvetica, sans-serif;}
+  div.wrap {height:100%; overflow:auto; padding:8px 10%;}
+  td {text-align:center}
+ </style>
+ <script src=../../../AnimCube3.js></script>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>Using AnimCube with JavaScript</font>
+<table>
+ <tr>
+  <td><div id=c1 style="width:200px;height:200px"></div></td>
+  <td width=50>
+  <td><div id=c2 style="width:200px;height:200px"></div></td>
+ </tr>
+ <tr height=5>
+ <tr>
+  <td>
+   <button onclick="newCube('c1', 1)">Scramble</button> &nbsp;
+   <button onclick="newCube('c1', 0)">Reset</button>
+  </td>
+  <td>
+  <td>
+   <button onclick="newCube('c2', 1)">Scramble</button> &nbsp;
+   <button onclick="newCube('c2', 0)">Reset</button>
+  </td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br><br>
+<script>
+var removeListeners = [];
+var p1 = 'id=c1&buttonbar=0&bgcolor=ffffff&snap=1&facelets=wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr';
+var p2 = 'id=c2&buttonbar=0&bgcolor=ffffff&snap=1&colorscheme=wygbor';
+AnimCube3(p1);
+AnimCube3(p2);
+function newCube(id, cmd) {
+  var params = (id == 'c1') ? p1 : p2;
+  if (cmd == 1)
+    params += '&initmove=random';
+  removeListeners[id]();
+  AnimCube3(params);
+}
+</script>
+</center>
+</div>
+</body>
+</html>
