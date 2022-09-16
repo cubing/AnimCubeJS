@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+ <title>JS Minifier</title>
+ <meta name=viewport content="width=device-width, initial-scale=1"> 
+ <meta name="author" content="Michael Feather"> 
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src="https://cdn.jsdelivr.net/npm/terser/dist/bundle.min.js"></script>
+ <style>
+  body,html { font-family: Arial, Helvetica, sans-serif; }
+  .btn {
+    width:100px;
+    height:28px;
+    border-radius:15px;
+    background-color:#ffffff;
+    border:1px solid black;
+    padding:0px;
+  }
+  .btn:active { background-color: #aaaaaa; }
+  a.link:link {color: #2d0d74; }
+  a.link:visited {color: #006400; }
+  a.link:link:hover {color: green; }
+  p {margin:0; text-align: justify;}
+  div.wrap {padding:8px 10%;}
+ </style>
+</head>
+<body>
+<div class=wrap>
+<center>
+<font size=+2>JS Minifier 
+  (<a class=link target=_blank href=https://github.com/terser/terser>terser</a>
+  <a id=ver></a>)</font>
+<br><br><p>
+Insert the unminified JS code into the box below and press the Minify button to generate the 
+minified output. If you want to get back the original unminified input, press the Revert button. 
+</p>
+<br>
+<textarea id=t1 style=width:600px;height:300px spellcheck=false></textarea>
+<br><br>
+<table>
+ <tr>
+  <td><button class=btn onclick=minify() id=min>Minify</button></td>
+  <td width=5>
+  <td><button class=btn onclick=clr()>Clear</button></td>
+  <td width=5>
+  <td><button class=btn onclick=revert()>Revert</button></td>
+  <td width=5>
+  <td><button class=btn onclick=sample()>Sample</button></td>
+ </tr>
+</table>
+<br>
+<div id=status></div>
+<a href="javascript:window.close()">Close</a>
+<br><br>
+<script>
+var code_revert = '';
+var btn_bg = document.getElementById('min').style.backgroundColor;
+var sample_code = 'function add(first, second) { return first + second; }';
+// document.getElementById('t1').value = sample_code;
+getVersion('https://cdn.jsdelivr.net/npm/terser/package.json');
+function minify() {
+  var code = document.getElementById('t1').value;
+  if (code.length == 0)
+    return;
+  document.getElementById('status').innerHTML = 'Processing';
+  document.getElementById('min').style.backgroundColor = '#aaaaaa'; 
+  setTimeout(minify2, 100);
+}
+async function minify2() {
+  var code = document.getElementById('t1').value;
+  code_revert = code;
+  var result = await Terser.minify(code);
+  var l1 = code.length;
+  var l2 = result.code.length;
+  document.getElementById('t1').value = result.code;
+  var r = ((l2/l1)*100).toFixed(1) + '%';
+  var s = 'Size: ' + l1 + ' -> ' + l2 + ' (' + r + ')<br><br>';
+  document.getElementById('status').innerHTML = s;
+  document.getElementById('min').style.backgroundColor = btn_bg;
+}
+function clr() {
+  document.getElementById('t1').value = '';
+  clearStatus();
+}
+function revert() {
+  document.getElementById('t1').value = code_revert;
+  clearStatus();
+}
+function sample() {
+  document.getElementById('t1').value = sample_code;
+  clearStatus();
+}
+function clearStatus() {
+  document.getElementById('status').innerHTML = '';
+}
+async function getVersion(url) {
+  var obj = await (await fetch(url)).json();
+  document.getElementById('ver').innerHTML = 'v' + obj.version;
+}
+</script>
+</center>
+</div>
+</body>
+</html>
