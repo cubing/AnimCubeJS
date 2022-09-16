@@ -466,7 +466,7 @@ requestAnimationFrame.js
 
 <p>
 Developers can download the <a href="https://github.com/cubing/AnimCubeJS" target="_new">GitHub repository</a> 
-containing both minified and unminified JS files (minification was done using <a href="https://codebeautify.org/minify-js" target="_new">this tool</a>, 
+containing both minified and unminified JS files (minification was done using <a href="sources/codes/js-minification/minifier.html" target="_new">this tool</a>, 
 terser v5.15.0 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
 </p>
   
@@ -669,6 +669,7 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 <a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
 <a href="#demo">parameter name: demo | value: string from move character set, random or #</a><br>
 <a href="#metric">parameter name: metric | value: 0 - 3</a><br>
+<a href="#counter">parameter name: counter | value: 0 or 1</a><br>
 <a href="#fonttype">parameter name: fonttype | value: 0 or 1</a><br>
 <a href="#textsize">parameter name: textsize | value: 5 - 40</a><br>
 <a href="#facelets">parameter name: facelets | value: string of color codes</a><br>
@@ -737,7 +738,7 @@ order to avoid visual color collisions. The value of the parameter consists of s
 is case insensitive. The meaning of these digits is equal to the RGB color 
 specification in HTML. If this parameter is missing, the color 
 is set to middle gray (the default value is '<code>808080</code>'). The move counter is outlined to allow good visibility for 
-any color.
+any color. You can also hide it using the <code><a href="#counter">counter</a></code> parameter.
 </p><p><i>Examples:</i> <code>AnimCube3("bgcolor=ff0000")</code> sets the background color to red. The second simulator is an 
 example of the default <code>bgcolor</code> parameter value.
 </p>
@@ -1095,7 +1096,7 @@ from '<code>2</code>' to '<code>10</code>'. The higher the value, the closer are
 
 <p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
 <p>With this parameter you can avoid visual color collisions between the <code><a href="#bgcolor">bgcolor</a></code> and <code><a href="#hint">hint</a></code> 
-parameters. There are two parameter values: '<code>0</code>' (which is the default value) and '<code>1</code>'. If set to '<code>1</code>', it is possible to show hint 
+parameters. There are two parameter values: '<code>0</code>' (which is the default value) and '<code>1</code>'. If set to '<code>1</code>' then it is possible to show hint 
 facelets that are the same color as the background.
 </p><p><i>Examples:</i>
 <code>AnimCube3("hintborder=0&amp;bgcolor=ffff00&amp;hint=10")</code> and <code>AnimCube3("hintborder=1&amp;bgcolor=ffff00&amp;hint=10")</code> 
@@ -1130,7 +1131,7 @@ The range is from '<code>0</code>' to '<code>20</code>' and there are two defaul
 <code><a href="#supercube">supercube</a>=1</code> or <code><a href="#gabbacolors">gabbacolors</a>=1</code> is declared, the default value is
 '<code>6</code>'. Otherwise the default value is '<code>10</code>'. For the parameter value of '<code>0</code>' the look is close to the 
 stickerless cube (the cube having colored plastic instead of stickers/tiles). See the <code><a href="#cubecolor">cubecolor</a></code>
-parameter if you want to change the color of the border among stickers.
+parameter section if you want to change the color of the border among stickers.
 </p><p><i>Examples:</i> <code>AnimCube3("borderwidth=0")</code>, <code>AnimCube3("borderwidth=6")</code>, <code>AnimCube3("borderwidth=10")</code> and 
 	<code>AnimCube3("borderwidth=20")</code> have the following effect on cube appearance.
 </p><div>
@@ -1545,7 +1546,8 @@ inside the simulator window (div). There are six possible parameter values for a
 (<i>note:</i> value '<code>5</code>' is not supported in the original AnimCube Java applet). There are two possible values for a cube size other than 
 3x3x3: '<code>0</code>' and '<code>1</code>'. 
 </p><p>The '<code>0</code>' value, which is the default value, means that the textual representation of the turn is not 
-displayed. The value equal to '<code>1</code>' enables displaying the turns in one of the older notation using advanced modifiers 
+displayed (if you want to hide the move counter as well, use the <code><a href="#counter">counter</a></code> 
+parameter). The value equal to '<code>1</code>' enables displaying the turns in one of the older notation using advanced modifiers 
 (<code>m</code>, <code>c</code>, <code>s</code>, <code>a</code> and <code>t</code> for a 3x3x3 cube) to support various types of turns. 
 The value equal to '<code>2</code>' enables displaying the turns in the 
 shortened notation (using characters <code>M</code>, <code>E</code>, <code>S</code>, <code>X</code>, <code>Y</code>, <code>Z</code>, 
@@ -1800,6 +1802,28 @@ number (0, 1, 2, or 4) = move count</div><br>
 <div class="cube" id=s8c15 style="width:220px; height:246px"></div>
 <div class="cube" id=s8c16 style="width:220px; height:246px"></div>
 </div><br>
+</div><br>
+
+
+<div class="sections-parameters"><a name="counter"></a><b><code>counter</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>With this parameter you can hide the move counter being normally displayed 
+as the numerous representation of the move sequence to be played. There are two possible parameter 
+values: '<code>0</code>' and '<code>1</code>' (which is the default value). If set to '<code>0</code>' 
+then the move counter is hidden.
+</p>
+<p>
+When other parameters are set to proper values, the full button bar (see the 
+<code><a href="#buttonbar">buttonbar</a></code> parameter section) being displayed means the move 
+counter will be shown by default, while reduced or hidden button bar means the 
+move counter will be hidden by default.
+</p>
+<p><i>Examples:</i> <code>AnimCube3("counter=0")</code> and <code>AnimCube3("counter=1")</code> 
+give the following results.
+</p><div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Ra2Fa2Ua2&initmove=#&snap=1&buttonheight=20&textsize=16&counter=0")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Ra2Fa2Ua2&initmove=#&snap=1&buttonheight=20&textsize=16&counter=1")</script></div>
 </div><br>
 
 
@@ -2294,8 +2318,8 @@ Use of the <code>scramble</code> parameter is mutually exclusive with the <code>
 <p><i>Examples:</i> <code>AnimCube3("scramble=1")</code>, <code>AnimCube3("scramble=2&amp;randmoves=18")</code>, <code>AnimCube3("scramble=1&amp;buttonbar=2")</code> and 
 <code>AnimCube3("scramble=2&amp;buttonbar=2")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&speed=3&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&randmoves=18&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=1&colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&speed=3&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=1&colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&randmoves=18&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&buttonbar=2")</script></div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&buttonbar=2")</script></div>
 </div><br>
