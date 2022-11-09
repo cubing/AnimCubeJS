@@ -115,6 +115,8 @@ function AnimCube2(params) {
   // move sequence data
   var move = [];
   var demoMove = [];
+  var initialMove = [];
+  var initialReversedMove = [];
   var curMove;
   var movePos;
   var moveDir;
@@ -135,6 +137,8 @@ function AnimCube2(params) {
   var moveTextSpace;
   var outlined = true;
   var snap = false;
+  var signNotation;
+  var yzAlt;
   var superCube = false;
   var scrambleToggle = false;
   var scramble = 0;
@@ -377,6 +381,22 @@ function AnimCube2(params) {
         }
       }
     }
+    moveText = 0;
+    yzAlt = false;
+    signNotation = false;
+    param = getParameter("sign");
+    if (param != null)
+      if ("1" == param) {
+        signNotation = true;
+        moveText = 5;
+        yzAlt = true;
+      }
+    param = getParameter("yz");
+    if (param != null)
+      if ("0" == param)
+        yzAlt = false;
+      else if ("1" == param)
+        yzAlt = true;
     param = getParameter("randmoves");
     if (param != null) {
       var rm = 0;
@@ -390,7 +410,7 @@ function AnimCube2(params) {
     param = getParameter("move");
     if ("random" == (param) || scramble > 0)
       param = randMoves(2, randMoveCount);
-    move = (param == null ? [] : getMove(param, true));
+    move = ((param == null || param.length == 0) ? [] : getMove(param, true));
     movePos = 0;
     curInfoText = -1;
     // setup initial move sequence
@@ -399,26 +419,16 @@ function AnimCube2(params) {
       if (param != null) {
         if ("random" == (param))
           param = randMoves(2, randMoveCount);
-        var initialMove = param == ("#") ? move : getMove(param, false);
-        if (initialMove.length > 0)
-          doMove(cube, initialMove[0], 0, initialMove[0].length, false);
+        initialMove = param == ("#") ? move : getMove(param, false);
       }
-    }
-    // setup initial reversed move sequence
-    param = getParameter("initrevmove");
-    if (scramble == 1)
-      param = null;
-    else if (scramble == 2)
-      param = "#";
-    if (param != null) {
-      if ("random" == (param))
-        param = randMoves(2, randMoveCount);
-      var initialReversedMove = param == ("#") ? move : getMove(param, false);
-      if (initialReversedMove.length > 0)
-        doMove(cube, initialReversedMove[0], 0, initialReversedMove[0].length, true);
-    }
-    // setup demo move sequence
-    if (scramble == 0) {
+      // setup initial reversed move sequence
+      param = getParameter("initrevmove");
+      if (param != null) {
+        if ("random" == (param))
+          param = randMoves(2, randMoveCount);
+        initialReversedMove = param == ("#") ? move : getMove(param, false);
+      }
+      // setup demo move sequence
       param = getParameter("demo");
       if (param != null) {
         if ("random" == (param))
@@ -569,8 +579,8 @@ function AnimCube2(params) {
     param = getParameter("movetext");
     if ("1" == (param))
       moveText = 1;
-    else
-      moveText = 0;
+    else if ("5" == (param))
+      moveText = 5;
     moveTextSpace = 1;
     param = getParameter("movetextspace");
     if ("0" == (param))
@@ -613,13 +623,17 @@ function AnimCube2(params) {
       if ("1" == (param))
         snap = true;
     // setup initial values
-    if (scramble != 2) {
-      for (var i = 0; i < 6; i++)
-        for (var j = 0; j < 4; j++) {
-          initialCube[i][j] = cube[i][j];
-          initialSCube[i][j] = scube[i][j];
-        }
-    }
+    for (var i = 0; i < 6; i++)
+      for (var j = 0; j < 4; j++) {
+        initialCube[i][j] = cube[i][j];
+        initialSCube[i][j] = scube[i][j];
+      }
+    if (initialMove.length > 0)
+      doMove(cube, initialMove[0], 0, initialMove[0].length, false);
+    if (initialReversedMove.length > 0)
+      doMove(cube, initialReversedMove[0], 0, initialReversedMove[0].length, true);
+    if (scramble == 2)
+      doMove(cube, move[0], 0, move[0].length, true);
     for (var i = 0; i < 3; i++) {
       initialEye[i] = eye[i];
       initialEyeX[i] = eyeX[i];
@@ -720,28 +734,33 @@ function AnimCube2(params) {
       num++;
       pos = sequence.indexOf(';', pos + 1);
     }
-    var move = [];
+    var mv = [];
     var lastPos = 0;
     pos = sequence.indexOf(';');
     num = 0;
     while (pos != -1) {
-      move[num++] = getMovePart(sequence.substring(lastPos, pos), info);
+      mv[num] = getMovePart(sequence.substring(lastPos, pos), info, num++);
       lastPos = pos + 1;
       pos = sequence.indexOf(';', lastPos);
     }
-    move[num] = getMovePart(sequence.substring(lastPos), info);
-    return move;
+    mv[num] = getMovePart(sequence.substring(lastPos), info, num);
+    return mv;
   }
 
   var modeChar = ['m', 't', 'c', 's', 'a'];
 
-  function getMovePart(sequence, info) {
+  function getMovePart(sequence, info, num) {
+    if (sequence.trim() == '#')
+      if (typeof move[num] != 'undefined')
+        return(move[num]);
     var length = 0;
-    var move = [];
+    var mv = [];
     var moveCodeString = "UDFBLRESMXYZxyzudfblr";
+    if (yzAlt == true)
+      moveCodeString = "UDFBLRESMXZYxzyudfblr";
     for (var i = 0; i < sequence.length; i++) {
       if (sequence.charAt(i) == '.') {
-        move[length] = -1;
+        mv[length] = -1;
         length++;
       }
       else if (sequence.charAt(i) == '{') {
@@ -756,7 +775,7 @@ function AnimCube2(params) {
         }
         if (info) {
           infoText[curInfoText] = s;
-          move[length] = 1000 + curInfoText;
+          mv[length] = 1000 + curInfoText;
           curInfoText++;
           length++;
         }
@@ -767,7 +786,7 @@ function AnimCube2(params) {
           if (sequence.charAt(i) == moveCodeString.charAt(j)) {
             i++;
             var mode = moveModes[j];
-            move[length] = moveCodes[j] * 24;
+            mv[length] = moveCodes[j] * 24;
             if (i < sequence.length) {
               if (moveModes[j] == 0) { // modifiers for basic characters UDFBLR
                 for (var k = 0; k < modeChar.length; k++) {
@@ -779,22 +798,22 @@ function AnimCube2(params) {
                 }
               }
             }
-            move[length] += mode * 4;
+            mv[length] += mode * 4;
             if (i < sequence.length) {
               if (sequence.charAt(i) == '1')
                 i++;
               else if (sequence.charAt(i) == '\'' || sequence.charAt(i) == '3') {
-                move[length] += 2;
+                mv[length] += 2;
                 i++;
               }
               else if (sequence.charAt(i) == '2') {
                 i++;
                 if (i < sequence.length && sequence.charAt(i) == '\'') {
-                  move[length] += 3;
+                  mv[length] += 3;
                   i++;
                 }
                 else
-                  move[length] += 1;
+                  mv[length] += 1;
               }
             }
             length++;
@@ -804,10 +823,7 @@ function AnimCube2(params) {
         }
       }
     }
-    var returnMove = [];
-    for (var i = 0; i < length; i++)
-      returnMove[i] = move[i];
-    return returnMove;
+    return mv;
   }
 
   function moveTextFunc(move, start, end) {
@@ -856,13 +872,13 @@ function AnimCube2(params) {
       ["UD", "DU", "FB", "BF", "LR", "RL"]
     ],
     [ // swapped Y and Z, lowercase rotation
-       ["U", "D", "F", "B", "L", "R"],
-       ["~E", "E", "S", "~S", "M", "~M"],
-       ["u", "d", "f", "b", "l", "r"],
-       ["y", "~y", "z", "~z", "~x", "x"],
-       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
-       ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
-     ]
+      ["U", "D", "F", "B", "L", "R"],
+      ["~E", "E", "S", "~S", "M", "~M"],
+      ["u", "d", "f", "b", "l", "r"],
+      ["y", "~y", "z", "~z", "~x", "x"],
+      ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
+      ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
+    ]
   ];
   var modifierStrings = ["", "2", "'", "2'"];
 
@@ -1016,8 +1032,6 @@ function AnimCube2(params) {
 
   function clear() {
     movePos = 0;
-    if (move.length > 0)
-      initInfoText(move[curMove]);
     natural = true;
     mirrored = false;
     for (var i = 0; i < 6; i++)
@@ -1025,6 +1039,12 @@ function AnimCube2(params) {
         cube[i][j] = initialCube[i][j];
         scube[i][j] = initialSCube[i][j];
       }
+    if (initialMove.length > 0 && typeof initialMove[curMove] != 'undefined')
+      doMove(cube, initialMove[curMove], 0, initialMove[curMove].length, false);
+    if (initialReversedMove.length > 0 && typeof initialReversedMove[curMove] != 'undefined')
+      doMove(cube, initialReversedMove[curMove], 0, initialReversedMove[curMove].length, true);
+    if (move.length > 0)
+      initInfoText(move[curMove]);
     if (scramble > 0)
       move = getMove(randMoves(2, randMoveCount), false);
     if (scramble == 2)
@@ -1034,6 +1054,7 @@ function AnimCube2(params) {
       eyeX[i] = initialEyeX[i];
       eyeY[i] = initialEyeY[i];
     }
+    setTimeout(paint, 0);
   }
 
   // cube dimensions in number of facelets (mincol, maxcol, minrow, maxrow) for compact cube
@@ -1151,16 +1172,8 @@ function AnimCube2(params) {
   }
 
   var superTwistArr = [
-   [ [ 0, 1, 0 ],  // F
-     [ 0, 2, 1 ],
-     [ 0, 2, 4 ],
-     [ 0, 1, 5 ],
-   ],
-   [ [ 2, 1, 0 ],  // B
-     [ 1, 2, 1 ],
-     [ 1, 2, 4 ],
-     [ 2, 1, 5 ],
-   ],
+    [[0, 1, 0], [0, 2, 1], [0, 2, 4], [0, 1, 5]], // F
+    [[2, 1, 0], [1, 2, 1], [1, 2, 4], [2, 1, 5]], // B
   ];
 
   function twistSuperLayer(layer, num) {
@@ -1335,16 +1348,12 @@ function AnimCube2(params) {
         orderMode = 1;
       else // both top and bottom layer facing away: draw them first
         orderMode = 2;
-      fixBlock(eyeArray[eyeOrder[twistedMode][drawOrder[orderMode][0]]],
-        eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][0]]],
-        eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][0]]],
-        blockArray[drawOrder[orderMode][0]],
-        blockMode[twistedMode][drawOrder[orderMode][0]]);
-      fixBlock(eyeArray[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
-        eyeArrayX[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
-        eyeArrayY[eyeOrder[twistedMode][drawOrder[orderMode][1]]],
-        blockArray[drawOrder[orderMode][1]],
-        blockMode[twistedMode][drawOrder[orderMode][1]]);
+      for (var i=0; i < 2; i++) {
+        var j = drawOrder[orderMode][i];
+        var k = eyeOrder[twistedMode][j];
+        fixBlock(eyeArray[k], eyeArrayX[k], eyeArrayY[k], blockArray[j],
+          blockMode[twistedMode][j]);
+      }
     }
     if (!pushed && !animating) // no button should be deceased
       buttonPressed = -1;
@@ -1391,9 +1400,10 @@ function AnimCube2(params) {
         if (move.length > 1) { // more sequences
           var s = "" + (curMove + 1) + "/" + move.length;
           var w = graphics.measureText(s).width;
-          var x = width - w - buttonHeight - Math.floor(5 * dpr);
+          var x = width - w - buttonHeight*2 - Math.floor(5 * dpr);
           drawString(graphics, s, x, adjTextHeight());
-          drawButton(graphics, 7, width - buttonHeight / 2, buttonHeight / 2);
+          drawButton(graphics, 7, width - buttonHeight*2, 0);
+          drawButton(graphics, 8, width - buttonHeight, 0);
         }
       }
       if (curInfoText >= 0) {
@@ -1654,8 +1664,10 @@ function AnimCube2(params) {
   function selectButton(x, y) {
     if (buttonBar == 0)
       return -1;
-    if (move.length > 1 && x >= width - buttonHeight && x < width && y >= 0 && y < buttonHeight)
+    if (move.length > 1 && x >= width - buttonHeight*2 && x < width-buttonHeight && y >= 0 && y < buttonHeight)
       return 7;
+    if (move.length > 1 && x >= width - buttonHeight && x < width && y >= 0 && y < buttonHeight)
+      return 8;
     if (buttonBar == 2) { // only clear (rewind) button present
       if (x >= 0 && x < buttonHeight && y >= height - buttonHeight && y < height)
         return 0;
@@ -1872,21 +1884,15 @@ function AnimCube2(params) {
         drawRect(g, x + ds[1], y - ds[3], ds[3], ds[6] + 1);
         drawArrow(g, x - ds[4], y, 1); // right
         break;
-      case 7: // next sequence
-        if (buttonPressed == 7)
-          g.fillStyle = darker(buttonBgColor);
-        else
-          g.fillStyle = buttonBgColor;
-        g.fillRect(width - buttonHeight - ds[1] - dph, ds[1] + dph, buttonHeight, buttonHeight);
-        g.lineWidth = lineWidth;
-        g.strokeStyle = buttonBorderColor;
-        g.beginPath();
-        if (dpr % 2 == 0)
-          g.rect(width - buttonHeight - ds[1], ds[1], buttonHeight, buttonHeight);
-        else
-          g.rect(width - buttonHeight - ds[1] - dph, ds[1] + dph, buttonHeight, buttonHeight);
-        g.stroke();
-        drawArrow(g, x - ds[3], y + ds[1], 1); // right
+      case 7: // prev sequence
+        var c = (buttonPressed == 7) ? darker(buttonBgColor) : buttonBgColor;
+        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
+        drawArrow(g, x+dpr*2 + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, -1);
+        break;
+      case 8: // next sequence
+        var c = (buttonPressed == 8) ? darker(buttonBgColor) : buttonBgColor;
+        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
+        drawArrow(g, x-dpr + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, 1);
         break;
     }
   }
@@ -1926,6 +1932,16 @@ function AnimCube2(params) {
     g.beginPath();
     g.rect(x + dph, y + dph, width - 1, height - 1);
     g.fillStyle = "white";
+    g.fill();
+    g.strokeStyle = "black";
+    g.stroke();
+  }
+
+  function drawRect2(g, x, y, width, height, color) {
+    g.lineWidth = lineWidth;
+    g.beginPath();
+    g.rect(x + dph, y + dph, width - 1, height - 1);
+    g.fillStyle = color;
     g.fill();
     g.strokeStyle = "black";
     g.stroke();
@@ -2216,15 +2232,8 @@ function AnimCube2(params) {
             if (movePos == mv.length) {
               if (!demo)
                 outerLoopBot = true;
-              else {
-                movePos = 0;
-                initInfoText(mv);
-                for (var i = 0; i < 6; i++)
-                  for (var j = 0; j < 4; j++) {
-                    cube[i][j] = initialCube[i][j];
-                    scube[i][j] = initialSCube[i][j];
-                  }
-              }
+              else
+                clearDemo(mv);
             }
           }
           else
@@ -2255,6 +2264,20 @@ function AnimCube2(params) {
       }
       requestAnimationFrame(callback);
     }
+  }
+
+  function clearDemo(mv) {
+    movePos = 0;
+    for (var i = 0; i < 6; i++)
+      for (var j = 0; j < 4; j++) {
+        cube[i][j] = initialCube[i][j];
+        scube[i][j] = initialSCube[i][j];
+       }
+    if (initialMove.length > 0 && typeof initialMove[curMove] != 'undefined')
+      doMove(cube, initialMove[curMove], 0, initialMove[curMove].length, false);
+    if (initialReversedMove.length > 0 && typeof initialReversedMove[curMove] != 'undefined')
+       doMove(cube, initialReversedMove[curMove], 0, initialReversedMove[curMove].length, true);
+    initInfoText(mv);
   }
 
   document.addEventListener('touchstart', mousedown);
@@ -2369,10 +2392,13 @@ function AnimCube2(params) {
           clear();
         }
       }
-      else if (buttonPressed == 7) { // next sequence
+      else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
         stopAnimation();
-        setTimeout(clear, 10);
-        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+        setTimeout(clear, 20);
+        if (buttonPressed == 7)
+          curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+        else
+          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
       }
       else
         startAnimation(buttonAction[buttonPressed]);
