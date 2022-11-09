@@ -141,7 +141,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </ul>
 </div>
 </td><td width="33%">
-<center><div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move={Cube in ...} R U' L F U' {... cube in ...} R2 U2 R U R' {... cube ...} U2 D' L D {... pattern} F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&demo={AnimCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div></center>
+<center><div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move={Cube in ...} R U' L F U' {... cube in ...} R2 U2 R U R' {... cube ...} U2 D' L D {... pattern} F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&demo={AnimCubeJS}zzUuzz{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U&movetext=5&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div></center>
 </td>
 <td width="33%">
 </tr></table>
@@ -187,8 +187,8 @@ animate simultaneously without noticeable slow-down.</li>
 <li>Manipulation &amp; control actions are working on mobile devices. Retina display is supported. Responsive-layout cubes can be easily designed.</li>
 </ul></div>
  
-<p><i>Note:</i> Native anti-aliasing wasn't used in the original AnimCube Java applet 
-because it wasn't generally supported by the web browsers back then. Nowadays, modern 
+<p><i>Note:</i> Native anti-aliasing was not used in the original AnimCube Java applet 
+because it was not generally supported by the web browsers back then. Nowadays, modern 
 web browsers are using native anti-aliasing in order to draw smoother facelet edges.
 </p><p><i>Note:</i> To make this simulator work you need a JavaScript-enabled 
 web browser. JavaScript in your web browser is currently <a id=a1></a><noscript>disabled (see how to <a href="https://www.computerhope.com/issues/ch000891.htm" target="_new">enable JavaScript</a>).</noscript> 
@@ -238,7 +238,7 @@ Notable differences between the current and <a href="old/animcubejs.html" target
 <li>Div &amp; script are used to display a cube in the current version, iframe is used to display a cube in the old version.</li><br>
 <li>No cube.html or mouse.js files are needed in the current version, cube.html is needed (mouse.js is optional) in the old version.</li><br>
 <li>Simulators work offline by default when using HTML buttons to manipulate the cube as long as configuration file is not used in the current version, 
-simulators don't work offline by default when using HTML buttons to manipulate the cube in the old version (regardless of whether configuration file is used or not).</li><br>
+simulators do not work offline by default when using HTML buttons to manipulate the cube in the old version (regardless of whether configuration file is used or not).</li><br>
 <li>Not all parameters and parameter values are supported in the old version as opposed to the current version.</li>
 </ol>
 
@@ -467,7 +467,7 @@ requestAnimationFrame.js
 <p>
 Developers can download the <a href="https://github.com/cubing/AnimCubeJS" target="_new">GitHub repository</a> 
 containing both minified and unminified JS files (minification was done using <a href="sources/codes/js-minification/minifier.html" target="_new">this tool</a>, 
-terser v5.15.0 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
+terser v5.15.1 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
 </p>
   
 <div class="sections"><a name="controls"></a><b><i>Controls</i></b></div>
@@ -542,11 +542,11 @@ The result of the code above can be seen <a href="example.html" target="_new">he
 
 <pre><code>&lt;script src="AnimCubeX.js"&gt;&lt;/script&gt;</code></pre>
 
-<p><i>Note:</i> In the code above, replace "X" by the cube size you downloaded - e.g. <code>AnimCube2.js</code> means a 2x2x2 simulator will be displayed, 
-<code>AnimCube6.js</code> means a 6x6x6 simulator will be displayed. 
+<p><i>Note:</i> In the code above, replace "X" by the cube size you downloaded - e.g. <code>AnimCube2.js</code> means the 2x2x2 simulator will be displayed, 
+<code>AnimCube6.js</code> means the 6x6x6 simulator will be displayed. 
 </p>
 
-<p>Next, add the following code in the HTML file to the place where you want the simulator to be displayed. Don't forget to replace "X" there as well.</p>
+<p>Next, add the following code in the HTML file to the place where you want the simulator to be displayed. Do not forget to replace "X" there as well.</p>
 
 <pre><code>&lt;div class="cube" style="width:160px; height:179px"&gt;
  &lt;script&gt;AnimCubeX("parameters")&lt;/script&gt;
@@ -615,8 +615,8 @@ in height no longer increase the magnification of the cube but instead add space
 </p>
 
 <div>
-<div class="cube" style="width:250px; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:150px; height:250px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:250px; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=5&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:150px; height:250px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=5&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
 </div>
 
 <p>
@@ -627,7 +627,7 @@ attribute: <code>style="width:100%; height:150px"</code>. See a different approa
 </p>
 
 <div>
-<div class="cube" style="width:100%; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=1&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:100%; height:150px"> <script>AnimCube3("colorscheme=wygbor&move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U&initrevmove=#&bgcolor=FFFFFF&butbgcolor=99AACC&movetext=5&metric=2&fonttype=0&snap=1&buttonheight=20")</script></div>
 </div>
 
 <p>Next sections are describing all parameters and their possible values. Every parameter 
@@ -635,7 +635,70 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 (i.e. with no parameters at all).</p>
 
 <div class="sections"><a name="parameters"></a><b><i>Parameters</i></b></div>
-<p>The best way to understand the meaning of parameters is to experiment.</p>
+<p>There are 45 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
+documentation. The best way to understand their meaning is to experiment with example simulators provided in the 
+description of each parameter.</p>
+
+<div class="button-to-center">
+<button id=showHideButton13 onclick="showHideFunc(13,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage13 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading13>Show parameters in alphabetical order</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText13>
+<p>
+<code><a href="#align">parameter name: align | value: 0 - 99</a><br>
+<a href="#bgcolor">parameter name: bgcolor | value: hexadecimal color</a><br>
+<a href="#borderwidth">parameter name: borderwidth | value: 0 - 20</a><br>
+<a href="#butbgcolor">parameter name: butbgcolor | value: hexadecimal color</a><br>
+<a href="#buttonbar">parameter name: buttonbar | value: 0 - 2</a><br>
+<a href="#buttonheight">parameter name: buttonheight | value: 9 - 25</a><br>
+<a href="#clickprogress">parameter name: clickprogress | value: 0 or 1</a><br>
+<a href="#colors">parameter name: colors | value: hexadecimal color string</a><br>
+<a href="#colorscheme">parameter name: colorscheme | value: 6 color codes</a><br>
+<a href="#config">parameter name: config | value: .txt file</a><br>
+<a href="#counter">parameter name: counter | value: 0 or 1</a><br>
+<a href="#cubecolor">parameter name: cubecolor | value: hexadecimal color</a><br>
+<a href="#demo">parameter name: demo | value: string from move character set, random or #</a><br>
+<a href="#doublespeed">parameter name: doublespeed | value: natural number</a><br>
+<a href="#edit">parameter name: edit | value: 0 or 1</a><br>
+<a href="#facelets">parameter name: facelets | value: string of color codes</a><br>
+<a href="#fonttype">parameter name: fonttype | value: 0 or 1</a><br>
+<a href="#gabbacolors">parameter name: gabbacolors | value: 0 or 1</a><br>
+<a href="#hint">parameter name: hint | value: natural number</a><br>
+<a href="#hintborder">parameter name: hintborder | value: 0 or 1</a><br>
+<a href="#hinthoriz">parameter name: hinthoriz | value: decimal number greater than 0</a><br>
+<a href="#hintvert">parameter name: hintvert | value: decimal number greater than 0</a><br>
+<a href="#initmove">parameter name: initmove | value: string from move character set, random or #</a><br>
+<a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
+<a href="#metric">parameter name: metric | value: 0 - 3</a><br>
+<a href="#move">parameter name: move | value: string from move character set or random</a><br>
+<a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5)<br>
+<a href="#movetextspace">parameter name: movetextspace | value: 0 or 1</a><br>
+<a href="#perspective">parameter name: perspective | value: natural number</a><br>
+<a href="#pos">parameter name: pos | value: string of Lars Petrus' color codes</a><br>
+<a href="#position">parameter name: position | value: R, U, F, L, D and/or B string</a><br>
+<a href="#randmoves">parameter name: randmoves | value: natural number</a><br>
+<a href="#repeat">parameter name: repeat | value: 0 or 1</a><br>
+<a href="#scale">parameter name: scale | value: natural number</a><br>
+<a href="#scramble">parameter name: scramble | value: 0 - 2</a><br>
+<a href="#scw">parameter name: scw | value: 0 - 2</a><br>
+<a href="#sign">parameter name: sign | value: 0 or 1</a><br>
+<a href="#slidercolor">parameter name: slidercolor | value: hexadecimal color</a><br>
+<a href="#snap">parameter name: snap | value: 0 or 1</a><br>
+<a href="#speed">parameter name: speed | value: natural number</a><br>
+<a href="#supercube">parameter name: supercube | value: 0 or 1</a><br>
+<a href="#superfacelets">parameter name: superfacelets | value: 0 - 3 string</a><br>
+<a href="#textsize">parameter name: textsize | value: 5 - 40</a><br>
+<a href="#troughcolor">parameter name: troughcolor | value: hexadecimal color</a><br>
+<a href="#yz">parameter name: yz | value: 0 or 1</a></code></p>
+</div>
 
 <p>
 <code><a href="#config">parameter name: config | value: .txt file</a><br>
@@ -662,9 +725,10 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 <a href="#perspective">parameter name: perspective | value: natural number</a><br>
 <a href="#borderwidth">parameter name: borderwidth | value: 0 - 20</a><br>
 <a href="#move">parameter name: move | value: string from move character set or random</a><br>
-<a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1)<br>
+<a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5)<br>
 <a href="#movetextspace">parameter name: movetextspace | value: 0 or 1</a><br>
 <a href="#yz">parameter name: yz | value: 0 or 1</a><br>
+<a href="#sign">parameter name: sign | value: 0 or 1</a><br>
 <a href="#initmove">parameter name: initmove | value: string from move character set, random or #</a><br>
 <a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
 <a href="#demo">parameter name: demo | value: string from move character set, random or #</a><br>
@@ -720,9 +784,9 @@ and differ only in the <code>move</code> parameter values. The third simulator h
 </div>
 <p>
 <i>Note:</i> The configuration file name used to have a <code>.cfg</code> suffix in the original AnimCube Java applet documentation.
-For a demonstration purpose a <code>.txt</code> suffix had been chosen as an alternative (there is no requirement that the 
-configuration file extension is <code>.cfg</code>). You should be able to see the contents of the "AnimCube3.txt" file linked 
-above right in the web browser. In this particular case you wouldn't be able to see the contents of the "AnimCube3.cfg" file 
+Here, the <code>.txt</code> suffix has been chosen as an alternative to demonstrate that there is no requirement that the 
+configuration file extension must be <code>.cfg</code>. You should be able to see the contents of the "AnimCube3.txt" file linked 
+above right in the web browser. In this particular case you would not be able to see the contents of the "AnimCube3.cfg" file 
 right in the web browser. Both file types work the same in terms of simulator functionality.</p>
 <p>
 <i>Note:</i> Due to browser implementations of the same-origin policy, the configuration file will not work 
@@ -1144,7 +1208,7 @@ parameter section if you want to change the color of the border among stickers.
 
 <div class="sections-parameters"><a name="move"></a><b><code>move</code> parameter</b></div>
 
-<p>Move sequence for a 3x3x3 cube is defined in <a href="https://en.wikipedia.org/wiki/Rubik%27s_Cube#Move_notation" target="_new">extended Singmaster notation</a>. 
+<p>Move sequence for the 3x3x3 cube is defined in <a href="https://en.wikipedia.org/wiki/Rubik%27s_Cube#Move_notation" target="_new">extended Singmaster notation</a>. 
 The basis for the notation is six move letters of the following meaning:
 </p><ul>
 <li>U - Up (turns top layer)</li>
@@ -1165,9 +1229,9 @@ degrees counter-clockwise.</li>
 <li>You can use a combination '<code>2'</code>' to turn the corresponding layer 180 degrees counter-clockwise. 
 This combination is useful if you want to show the most efficient direction when using finger shortcuts/tricks.</li>
 </ul></div>
-<p>To see the effect of these character sequences, look at the table below 
-(press the Play button to see the move, and the Next sequence button - in the top-right position 
-	- to see another move).
+<p>To see the effect of these character sequences, look at the table below. 
+Press the Play button to see the move, and the Next sequence button - in the top-right position 
+	- to see another move (<i>note:</i> the Previous sequence button is not supported in the original AnimCube Java applet).
 </p>
 <div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
 <tbody><tr>
@@ -1178,22 +1242,22 @@ This combination is useful if you want to show the most efficient direction when
 </tr>
 <tr>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U;D;F;B;L;R&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U;D;F;B;L;R&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U';D';F';B';L';R'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U';D';F';B';L';R'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2;D2;F2;B2;L2;R2&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2;D2;F2;B2;L2;R2&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2';D2';F2';B2';L2';R2'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=U2';D2';F2';B2';L2';R2'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 </tr>
 </tbody></table></div>
 <p>There are also some advanced modifiers that are written immediately after 
 	the move letter and right before the basic modifiers already defined. The 
-	possible advanced modifiers, for a 3x3x3 cube, are:
+	possible advanced modifiers, for the 3x3x3 cube, are:
 </p><div class="justify"><ul>
 <li>m - middle layer turn between the specified layer and the opposite one</li> 
 <li>c - whole-cube rotation in the direction of the specified layer</li>
@@ -1328,16 +1392,16 @@ on the extended notation. It is quite orthogonal and consistent design. Examples
 </tr>
 <tr>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E;S;M&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E;S;M&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E';S';M'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E';S';M'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E2;S2;M2&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E2;S2;M2&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E2';S2';M2'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=E2';S2';M2'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 </tr>
 </tbody></table>
@@ -1347,14 +1411,16 @@ on the extended notation. It is quite orthogonal and consistent design. Examples
 	to rotate the cube - as an alternative to the <code>c</code> advanced modifier - are shown in the following table. They can be also 
 	combined with basic modifiers '<code>'</code>' and '<code>2</code>'.
 </p><div class="justify"><ul>
-<li>X - rotates around the right-left axis (in the same direction as <code>R/L'</code> moves are 
+<li>X or x - rotates around the right-left axis (in the same direction as <code>R/L'</code> moves are 
 executed)</li>
-<li>Y - rotates around the y-axis (in the same direction as <code>F/B'</code> or <code>U/D'</code> moves 
-are executed, depending on the <code><a href="#movetext">movetext</a></code> and/or <code><a href="#yz">yz</a></code> parameter value)</li>
-<li>Z - rotates around the z-axis (in the same direction as <code>U/D'</code> or <code>F/B'</code> moves 
-are executed, depending on the <code>movetext</code> and/or <code>yz</code> parameter value)</li>
+<li>Y or y - rotates around the y-axis (in the same direction as <code>F/B'</code> or <code>U/D'</code> moves 
+are executed, depending on the <code><a href="#sign">sign</a></code> and/or <code><a href="#movetext">movetext</a></code> 
+and/or <code><a href="#yz">yz</a></code> parameter value)</li>
+<li>Z or z - rotates around the z-axis (in the same direction as <code>U/D'</code> or <code>F/B'</code> moves 
+are executed, depending on the <code>sign</code> and/or <code>movetext</code> and/or 
+<code>yz</code> parameter value)</li>
 </ul></div>
-<p>The following table shows the effect of these characters (for <code>movetext=3</code> and <code>yz=1</code>).
+<p>The following table shows the effect of these characters (for <code>sign=1</code>). 
 </p><div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
 <tbody><tr>
 <td bgcolor="white" align="center"><code><i>X</i></code></td>
@@ -1364,16 +1430,16 @@ are executed, depending on the <code>movetext</code> and/or <code>yz</code> para
 </tr>
 <tr>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=X;Y;Z&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x;y;z&sign=1&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=X';Y';Z'&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x';y';z'&sign=1&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=X2;Y2;Z2&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x2;y2;z2&sign=1&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=X2';Y2';Z2'&movetext=3&yz=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x2';y2';z2'&sign=1&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 </tr>
 </tbody></table>
@@ -1398,16 +1464,16 @@ turn two adjacent layers simultaneously on a 3x3x3 cube.
 </tr>
 <tr>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u;d;f;b;l;r&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u;d;f;b;l;r&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u';d';f';b';l';r'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u';d';f';b';l';r'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u2;d2;f2;b2;l2;r2'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u2;d2;f2;b2;l2;r2'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 <td>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u2';d2';f2';b2';l2';r2'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=u2';d2';f2';b2';l2';r2'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </td>
 </tr>
 </tbody></table>
@@ -1418,7 +1484,7 @@ turn two adjacent layers simultaneously on a 3x3x3 cube.
   <table border=0 class=nowrap width=100%>
    <tr>
     <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage6 src=sources/images/down.png class=img></td>
-    <td width=60% style=text-align:center><a id=showHideHeading6>Show move character set for a cube size other than 3x3x3</a></td>
+    <td width=60% style=text-align:center><a id=showHideHeading6>Show move character sets for cube sizes other than 3x3x3</a></td>
     <td width=20%></td>
    </tr>
   </table>
@@ -1427,14 +1493,17 @@ turn two adjacent layers simultaneously on a 3x3x3 cube.
 
 <div class=showhide id=showHideText6>
 
-<p>The meaning of basic modifiers '<code>'</code>' and '<code>2</code>', as well as uppercase move letters
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>B</code>, <code>D</code> - as described for a 3x3x3 cube above - applies to
-all cube sizes. For notation simplicity, the <code><a href="#movetext">movetext</a></code> parameter can be only set to either '<code>0</code>'
-or '<code>1</code>' on other cube sizes
-than 3x3x3 (see both <code>movetext=0</code> and <code>movetext=1</code> settings on the examples below).
+<p>The meaning of basic modifiers '<code>'</code>' and '<code>2</code>', as well as uppercase move letters 
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code> and whole-cube rotations 
+<code>x</code>, <code>y</code>, <code>z</code> - as described for the 3x3x3 cube above - applies to 
+all cube sizes. For notation simplicity, the <code><a href="#movetext">movetext</a></code> parameter can be only set to either '<code>0</code>' 
+or '<code>1</code>' or '<code>5</code>' on other cube sizes 
+than 3x3x3 (see both <code>movetext=0</code> and <code>movetext=1</code> settings on the first and second examples below). To support a 
+widely used notation among speedcubers, the third example below uses the <code><a href="#sign">sign</a>=1</code> setting which automatically sets the 
+<code>movetext</code> parameter value to '<code>5</code>'. 
 <p>The following cubes show possible move character set which is divided into two move sequences.
 These two move sequences differ only in that the second one contains the basic modifier '<code>2</code>', and the first one does not.</p>
-<p>For a 2x2x2 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
+<p>For the 2x2x2 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
 <li>c - whole-cube rotation in the direction of the specified layer</li>
 <li>a - anti-slice turn; two opposite layers are turned simultaneously in the opposite
@@ -1443,8 +1512,9 @@ These two move sequences differ only in that the second one contains the basic m
 <div>
 <div id=s6c1 class="cube" style="width:140px; height:166px"></div>
 <div id=s6c2 class="cube" style="width:140px; height:166px"></div>
+<div id=s6c3 class="cube" style="width:140px; height:166px"></div>
 </div>
-<p>For a 4x4x4 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
+<p>For the 4x4x4 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
 <li>m - inner layer turn in the direction of the specified outer layer</li>
 <li>c - whole-cube rotation in the direction of the specified outer layer</li>
@@ -1457,10 +1527,11 @@ is equal to <code>Rm Lm'</code> or <code>Lm' Rm</code>)</li>
 direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>
 </ul></div>
 <div>
-<div id=s6c3 class="cube" style="width:180px; height:206px"></div>
 <div id=s6c4 class="cube" style="width:180px; height:206px"></div>
+<div id=s6c5 class="cube" style="width:180px; height:206px"></div>
+<div id=s6c6 class="cube" style="width:180px; height:206px"></div>
 </div>
-<p>For a 5x5x5 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
+<p>For the 5x5x5 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
 <li>n - first inner layer turn in the direction of the specified outer layer</li>
 <li>m - middle layer turn in the direction of the specified outer layer</li>
@@ -1472,10 +1543,11 @@ is equal to <code>R L'</code> or <code>L' R</code>)</li>
 direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>
 </ul></div>
 <div>
-<div id=s6c5 class="cube" style="width:200px; height:226px"></div>
-<div id=s6c6 class="cube" style="width:200px; height:226px"></div>
+<div id=s6c7 class="cube" style="width:200px; height:226px"></div>
+<div id=s6c8 class="cube" style="width:200px; height:226px"></div>
+<div id=s6c9 class="cube" style="width:200px; height:226px"></div>
 </div>
-<p>For a 6x6x6 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
+<p>For the 6x6x6 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
 <li>n - first inner layer turn in the direction of the specified outer layer</li>
 <li>m - second inner layer turn in the direction of the specified outer layer</li>
@@ -1487,8 +1559,9 @@ is equal to <code>R L'</code> or <code>L' R</code>)</li>
 direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>
 </ul></div>
 <div>
-<div id=s6c7 class="cube" style="width:220px; height:246px"></div>
-<div id=s6c8 class="cube" style="width:220px; height:246px"></div>
+<div id=s6c10 class="cube" style="width:220px; height:246px"></div>
+<div id=s6c11 class="cube" style="width:220px; height:246px"></div>
+<div id=s6c12 class="cube" style="width:220px; height:246px"></div>
 </div><br>
 </div>
 
@@ -1498,15 +1571,25 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 	execution.
 </p>
 
-<p>It is also possible to use text comments in the parameter value. Such comments 
-	appear at the top of the simulator while the animation is performed. The text 
-	to appear must be enclosed in the brace characters: '<code>{</code>' and '<code>}</code>'. Nevertheless, the braces can be also empty. Text can be specified in both the <code><a href="#demo">demo</a></code> and <code>move</code>
-    parameter. Text can be only on one line, however, there can be as many text passages
-	as necessary to appear at the given place within the animation.</p>
-<p>There can be more move sequences specified in one simulator. However, the 
-initial cube configuration can still be only one. More move sequences can be 
-specified in the <code>move</code> parameter. 
+<p>It is also possible to use text comments in the parameter value, and such comments 
+	appear at the top of the simulator. The text 
+	to appear must be enclosed in the brace characters: '<code>{</code>' and '<code>}</code>'. To remove the currently displayed 
+comment, empty braces can be used: '<code>{}</code>'. 
+Text can be only on one line, however, you can divide long text passage into more smaller ones 
+and then display them sequentially within the animation. Much more text can be made to fit by increasing the simulator width 
+(see the examples in the <a href="#usage">Using Simulator in Web Pages</a> section)
+or reducing text size using the <code><a href="#textsize">textsize</a></code> parameter. Text can be specified in both 
+the <code><a href="#demo">demo</a></code> and <code>move</code> parameter.
+</p>
+
+<p>There can be more move sequences with different initial cube configurations specified in one simulator 
+(<i>note:</i> different initial cube configurations specified in one simulator are not supported in the original AnimCube Java applet). 
 If you want to use more move sequences, separate them by the semicolon character '<code>;</code>'. 
+If you want to use different initial cube configurations, use the <code>move</code> parameter along 
+with the <code><a href="#initmove">initmove</a></code> or <code><a href="#initrevmove">initrevmove</a></code> parameter. 
+The functionality described above allows using the simulator as a speedcubing reconstruction tool - you can 
+customize multiple text comments as well as multiple solve reconstructions using only one simulator instead of 
+using multiple simulators (one for each solve reconstruction).
 </p>
 
 <p>
@@ -1518,10 +1601,18 @@ resulting in generating random move sequence (compare with the <code><a href="#s
 
 <p><i>Note:</i> To improve readability of your code, white-space characters can be used to surround the characters 
 from the move character set (with the exception 
-of modifiers - don't write e.g. <code>Ra2'</code> as <code>R a2'</code> or <code>Ra 2'</code> or <code>Ra2 '</code>).
-</p>
+of modifiers - do not write e.g. <code>Ra2'</code> as <code>R a2'</code> or <code>Ra 2'</code> or <code>Ra2 '</code>). 
+For best readability of multiple move sequences in your code you can break a code line with a single backslash character:
 
-<p><i>Examples:</i> <code>AnimCube3("move=R2' U M U' R2' U M' U'")</code> 
+</p><pre><code>    AnimCube3("move=\
+    sequence1;\
+    sequence2;\
+    sequence3;\
+    sequence4;\
+    sequence5")</code></pre>
+<p>
+
+<i>Examples:</i> <code>AnimCube3("move=R2' U M U' R2' U M' U'")</code> 
 	and <code>AnimCube3("move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'")</code> 
 	are two different sequences showing one algorithm in different ways (the 
 	second one is more customized to fast finger shortcuts/tricks). 
@@ -1532,52 +1623,55 @@ value:
 	(enclosed in braces) to show the finger tricks more clearly. The animation is 
 	also speeded-up in this case. 
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=6&move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'&initrevmove=#&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&speed=6&move={right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'&initrevmove=#&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'&initrevmove=#&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
 <div class="sections-parameters"><a name="movetext"></a><b><code>movetext</code> parameter</b></div>
 
 <p>This parameter can enable textual representation of a move sequence 
-inside the simulator window (div). There are six possible parameter values for a 3x3x3 simulator: '<code>0</code>', 
+inside the simulator window (div). There are six possible parameter values for the 3x3x3 simulator: '<code>0</code>', 
 '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>' 
-(<i>note:</i> value '<code>5</code>' is not supported in the original AnimCube Java applet). There are two possible values for a cube size other than 
-3x3x3: '<code>0</code>' and '<code>1</code>'. 
+(<i>note:</i> value '<code>5</code>' is not supported in the original AnimCube Java applet). There are three possible values for cube sizes other than 
+3x3x3: '<code>0</code>', '<code>1</code>' and '<code>5</code>'. 
 </p><p>The '<code>0</code>' value, which is the default value, means that the textual representation of the turn is not 
 displayed (if you want to hide the move counter as well, use the <code><a href="#counter">counter</a></code> 
 parameter). The value equal to '<code>1</code>' enables displaying the turns in one of the older notation using advanced modifiers 
-(<code>m</code>, <code>c</code>, <code>s</code>, <code>a</code> and <code>t</code> for a 3x3x3 cube) to support various types of turns. 
+(<code>m</code>, <code>c</code>, <code>s</code>, <code>a</code> and <code>t</code> for the 3x3x3 cube) to support various types of turns. 
 The value equal to '<code>2</code>' enables displaying the turns in the 
 shortened notation (using characters <code>M</code>, <code>E</code>, <code>S</code>, <code>X</code>, <code>Y</code>, <code>Z</code>, 
 and lowercase letters <code>r</code>, <code>l</code>, <code>f</code>, <code>b</code>, <code>u</code>, <code>d</code>).  
-See the <code><a href="#move">move</a></code> parameter section for examples (move character set for a cube size other than 3x3x3 is also discussed there).</p> 
+See the <code><a href="#move">move</a></code> parameter section for examples (move character sets for cube sizes other than 3x3x3 are also discussed there).</p> 
 
-<p>To support another widely used standard where the meaning of <code>Y</code> and <code>Z</code> 
+<p>To support another widely used standard where the meaning of <code>y</code> and <code>z</code> 
 rotations  is 
 interchanged, you can use the parameter value '<code>3</code>'. Other turns are the 
 same as for the parameter value '<code>2</code>'. The value equal to '<code>4</code>' is 
 displaying middle slice turns in lowercase letters, whole-cube rotations 
 use the "Q" prefix, and a simultaneous turn of two adjacent layers is expressed by two letters (first of them in uppercase, 
-second of them in lowercase). To display <code>XYZ</code> rotations in lowercase, use the parameter value '<code>5</code>'.</p> 
+second of them in lowercase). To display <code>XYZ</code> rotations in lowercase, use the parameter value '<code>5</code>'. The 
+<code>movetext=5</code> setting is also displaying move sequences in a notation widely used in the speedcubing community.</p> 
 
 <p>In order to prevent symbol meaning collisions 
-(<code>Y</code> and <code>Z</code> rotations to be specific, because they mean two different cube rotations depending on set parameter value), 
-use the <code><a href="#yz">yz</a></code> parameter.</p>
+(<code>y</code> and <code>z</code> rotations to be specific, because they mean two different cube rotations depending on set parameter value), 
+use the <code><a href="#yz">yz</a></code> or <code><a href="#sign">sign</a></code> parameter.</p>
 
 <p>If you want to remove spaces in textual representation of a move sequence, use the <code><a href="#movetextspace">movetextspace</a></code> parameter.</p>
 
 <p><i>Examples:</i> <code>AnimCube3("movetext=0</code>, <code>AnimCube3("movetext=1")</code>, <code>AnimCube3("movetext=2")</code>, <code>AnimCube3("movetext=3")</code>, <code>AnimCube3("movetext=4")</code> and <code>AnimCube3("movetext=5")</code> give 
-the following results for the same values of other parameters.</p> 
+the following results for the same values of other parameters. The move sequence begins with <code>move=xyz</code> which shows 
+the importance of using the <code>sign</code> or <code>yz</code> parameter when dealing with whole-cube rotations.
+</p> 
 
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=0&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=3&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=4&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=LLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'XYZRsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=0&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=3&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=4&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1589,10 +1683,10 @@ When a move sequence is displayed using the <code><a href="#movetext">movetext</
 then you can choose to remove spaces in it by setting the <code>movetextspace</code> parameter to '<code>0</code>'.
 However, the move sequence with spaces tends to be much more readable. The default value is '<code>1</code>' which keeps 
 spaces in a move sequence.
-</p><p><i>Examples:</i> <code>AnimCube3("movetext=3&amp;movetextspace=1")</code> and <code>AnimCube3("movetext=3&amp;movetextspace=0")</code> have the following effect on the simulators.
+</p><p><i>Examples:</i> <code>AnimCube3("movetext=5&amp;movetextspace=1")</code> and <code>AnimCube3("movetext=5&amp;movetextspace=0")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=3&snap=1&buttonheight=20&textsize=16&movetextspace=1")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=3&snap=1&buttonheight=20&textsize=16&movetextspace=0")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=5&snap=1&buttonheight=20&textsize=16&movetextspace=1")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R2' U M U' R2' U M' U'&initrevmove=#&movetext=5&snap=1&buttonheight=20&textsize=16&movetextspace=0")</script></div>
 </div><br>
 
 
@@ -1601,23 +1695,84 @@ spaces in a move sequence.
 <p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
 <p>The <code>yz</code> parameter customizes notation for whole-cube rotations. 
 There are two possible parameter values: '<code>0</code>' and '<code>1</code>' (the default value is '<code>0</code>'). 
-If set to '<code>1</code>' then <code>Y</code> and <code>Z</code> rotations 
+If set to '<code>1</code>' then <code>y</code> and <code>z</code> rotations 
 are switched. Examples below have the <code><a href="#move">move</a></code> parameter 
-set to '<code>XYZ</code>', and at the same time the <code><a href="#movetext">movetext</a></code> parameter set to '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>', 
+set to '<code>xyz</code>', and at the same time the <code><a href="#movetext">movetext</a></code> parameter set to '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>', 
 which shows that while the original method of using <code>movetext=3</code> (or <code>movetext=5</code>) setting to switch the 
-display of <code>Y</code> and <code>Z</code> works fine - the actual function of the turn (as declared in the <code>move</code> parameter) does not change, an input rotation 
-of <code>Z</code> still rotates around the up-down axis. With <code>yz=1</code> setting the function of the <code>move</code> parameter changes so 
-that <code>Z</code> rotates around the front-back 
+display of <code>y</code> and <code>z</code> works fine - the actual function of the turn (as declared in the <code>move</code> parameter) does not change, an input rotation 
+of <code>z</code> still rotates around the up-down axis. With <code>yz=1</code> setting the function of the <code>move</code> parameter changes so 
+that <code>z</code> rotates around the front-back 
 axis and all <code>movetext</code> parameter values work as expected, except '<code>2</code>' which becomes switched.
-</p><p><i>Examples:</i> <code>AnimCube3("movetext=1&amp;yz=1&amp;move=XYZ")</code>, <code>AnimCube3("movetext=2&amp;yz=1&amp;move=XYZ")</code>, <code>AnimCube3("movetext=3&amp;yz=1&amp;move=XYZ")</code>, 
-<code>AnimCube3("movetext=4&amp;yz=1&amp;move=XYZ")</code> and <code>AnimCube3("movetext=5&amp;yz=1&amp;move=XYZ")</code> have the following effect on the simulators.
+</p>
+<p>
+You can also use the <code><a href="#sign">sign</a>=1</code> setting instead.  
+</p>
+<p><i>Examples:</i> <code>AnimCube3("movetext=1&amp;yz=1&amp;move=xyz")</code>, <code>AnimCube3("movetext=2&amp;yz=1&amp;move=xyz")</code>, <code>AnimCube3("movetext=3&amp;yz=1&amp;move=xyz")</code>, 
+<code>AnimCube3("movetext=4&amp;yz=1&amp;move=xyz")</code> and <code>AnimCube3("movetext=5&amp;yz=1&amp;move=xyz")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=1&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=2&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=3&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=4&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=5&yz=1&move=XYZ&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=1&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=2&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=3&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=4&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=5&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
+
+
+<div class="sections-parameters"><a name="sign"></a><b><code>sign</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>The <code>sign</code> parameter supports a widely used notation in the speedcubing 
+community. The supported notation is loosely based on the Simple General Notation 
+(<a href="https://mzrg.com/rubik/nota.shtml" target="_new">SiGN</a>). 
+There are two possible parameter values: '<code>0</code>' and '<code>1</code>' (the default value is '<code>0</code>'). 
+If set to '<code>1</code>' then default implicit parameter settings are:
+</p><ul>
+<li><code><a href="#movetext">movetext</a>=5</code></li>
+<li><code><a href="#yz">yz</a>=1</code></li>
+</ul>
+<p>
+However, the default implicit parameter settings can be overridden by setting the <code>movetext</code> and/or 
+<code>yz</code> parameter to the desired value.
+</p>
+<p>
+The <code>sign=1</code> setting tells the AnimCubeJS program to replace moves prefixed with numbers (see below) 
+with corresponding AnimCubeJS notation. With the <code>sign=0</code> setting the replacement is not done. If 
+<code>sign=1</code> is used, the basis of the move character set for each cube size is:  
+</p><ul>
+<li>2x2x2: <code>R, U, F, L, D, B, x, y, z, 2, ', modifier a</code></li>
+<li>3x3x3: <code>2x2x2 set and r, u, f, l, d, b, M, E, S, modifier s</code></li>
+<li>4x4x4: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, r, u, f, l, d, b, m, e, s, modifier s</code></li>
+<li>5x5x5: <code>3x3x3 set and 2R, 2U, 2F, 2L, 2D, 2B</code></li>
+<li>6x6x6: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, 3R, 3U, 3F, 3L, 3D, 3B, r, u, f, l, d, b, modifier s</code></li>
+</ul>
+<p>
+Make sure to separate moves by space, otherwise the move sequence might be ambiguous (for instance, R2L could mean 
+R2 L or R 2L for the 4x4x4 cube). The meaning of the characters written above is explained in the 
+<code><a href="#move">move</a></code> parameter section.
+</p>
+
+<div class="button-to-center">
+<button id=showHideButton14 onclick="showHideFunc(14,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage14 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading14>Show examples</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText14>
+
+<p><i>Examples:</i> <code>AnimCube6("sign=0&amp;move=xyzLm2Rm2'Fm2Bm2'Um2'Dm2&amp;movetext=5")</code> and <code>AnimCube6("sign=1&amp;move=x y z 3L2 3R2' 3F2 3B2' 3U2' 3D2")</code> have the following effect on the simulators.
+</p>
+<div>
+<div id=s14c1 class="cube" style="width:220px; height:246px"></div>
+<div id=s14c2 class="cube" style="width:220px; height:246px"></div>
+</div><br>
+</div>
+<br>
 
 
 <div class="sections-parameters"><a name="initmove"></a><b><code>initmove</code> parameter</b></div>
@@ -1632,15 +1787,31 @@ The parameter value equal to '<code>random</code>' (<i>note:</i> this parameter 
 will randomly pick some characters from the following move character subset:
 <code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
 resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
-If set to the hash symbol '<code>#</code>' then it is equal to the value of the <code>move</code> parameter 
-(the first one if more move sequences are specified). This parameter is mutually exclusive with the <code><a href="#initrevmove">initrevmove</a></code> parameter, 
-and has lower priority.
+If set only to the hash symbol '<code>#</code>' then it is equal to the value of the <code>move</code> parameter 
+(the whole parameter value if more move sequences are specified). Otherwise the hash symbol is a placeholder for a 
+specific move sequence declared in the <code>move</code> parameter. So for example: <code>initmove=#;sequence;#</code> 
+setting means that the first and third sequences specified in the move parameter will be used as the initializing 
+sequences for the first and third cubes (the second cube will be initialized using a custom sequence).
 </p>
 
-<p><i>Examples:</i> <code>AnimCube3("initmove=M2E2S2")</code> and <code>AnimCube3("initmove=#&amp;move=M2E2S2")</code> have the following effect on a 3x3x3 cube.
+<p>
+Empty sequence declared in the <code>initmove</code> or <code><a href="#initrevmove">initrevmove</a></code> parameter value means there will be no 
+initializing sequence applied for that move sequence, so for example: <code>initmove=seq1;;seq3</code> setting means 
+that move sequence no. 2 will have no initializing sequence. If there are less sequences declared in 
+the <code>initmove</code> or <code>initrevmove</code> parameter value than in the <code>move</code> parameter value, 
+then for those move sequences having no initializing sequence there will not be any initializing sequence applied.
+</p>
+
+<p>
+The last simulator below is an example of 5 different pretty patterns, all of them being displayed using only 1 simulator.
+</p>
+
+<p><i>Examples:</i> <code>AnimCube3("initmove=M2E2S2")</code>, <code>AnimCube3("initmove=#&amp;move=M2E2S2")</code> and
+<code>AnimCube3("yz=1&amp;initmove=R2F2R2E'L2F2L2E; #; L2B2M2F2R2x2; R2L2UD'F2B2UD'y2; URL'FB'UD'L'z'y'&amp;move=M2S2U2M2S2D2; R2U2Rs2U2R2; R2F2Ra2F2L2; M2E'M2E; E'MEM'")</code> have the following effect on a 3x3x3 cube.
 </p><div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&initmove=M2 E2S2&snap=1&buttonheight=20")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&initmove=#&move=M2E2S2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("yz=1&colorscheme=wygbor&initmove=R2F2R2E'L2F2L2E; #; L2B2M2F2R2x2; R2L2UD'F2B2UD'y2; URL'FB'UD'L'z'y'&move=M2S2U2M2S2D2; R2U2Rs2U2R2; R2F2Ra2F2L2; M2E'M2E; E'MEM'&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1649,7 +1820,8 @@ and has lower priority.
 <p>The meaning and possible parameter values are the same as for the <code><a href="#initmove">initmove</a></code> parameter, but the move 
 sequence is executed reversed this time (from end to beginning with opposite turning directions). It is 
 even more useful when the value is equal to '<code>#</code>' and takes the sequence of moves 
-from the <code><a href="#move">move</a></code> parameter (the first one if more move sequences are specified). See 
+from the <code><a href="#move">move</a></code> parameter (the whole parameter value if more move sequences are specified). 
+The hash symbol can be also used as a placeholder for a specific move sequence, see 
 the <code>initmove</code> parameter section for more details.
 </p><p>To show the flexibility of the page creation using this 
 	simulator, suppose that we have more move sequences affecting the same part of 
@@ -1657,18 +1829,23 @@ the <code>initmove</code> parameter section for more details.
 	not care about them (light gray). Instead of creating the
  <code><a href="#facelets">facelets</a></code> coloring for each configuration, we can create only one 
 	universal, and use it in all corresponding simulators while changing only the 
-	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>#</code>' creates the cube setup for us.
+	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>#</code>' creates the cube setup for us. 
+The last simulator below is an example of 5 different pretty patterns, all of them being displayed using only 1 simulator.
 </p>
+
 <p><i>Examples:</i></p> <ul><li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=#&amp;move=R2B2'RFR'B2'RF'R")</code></li>
-							<li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=#&amp;move=FU'BD2B'UBD2F'B'")</code></li> 
-					<li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=F2'UL'ULU'F2'U'L'U'L")</code></li>		
-                    <li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=U'R2DR'URD'R2D'L'U'LD")</code></li></ul>
+			<li><code>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&amp;initrevmove=#&amp;move=FU'BD2B'UBD2F'B'")</code></li> 
+			<li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=F2'UL'ULU'F2'U'L'U'L")</code></li>		
+                    	<li><code>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&amp;initrevmove=#&amp;move=U'R2DR'URD'R2D'L'U'LD")</code></li>
+			<li><code>AnimCube3("initrevmove=#&amp;move=M2S2U2M2S2D2; R2U2Rs2U2R2; R2F2Ra2F2L2; M2E'M2E; E'MEM'")</code></li>
+			</ul>
                     <p>have the following effect on the simulators.</p>
 <div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=#&move=R2B2'RFR'B2'RF'R&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YDYDYDYDYWWWWWWWWWRDRDRRRDRODODOOODOBDBDBDBBBGDGDGGGDG&initrevmove=#&move=FU'BD2B'UBD2F'B'&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=#&move=F2'UL'ULU'F2'U'L'U'L&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("facelets=YLYLYLYLYWWWWWWWWWRLRLRRRLROLOLOOOLOBLBLBLBBBGLGLGGGLG&initrevmove=#&move=U'R2DR'URD'R2D'L'U'LD&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&initrevmove=#&move=M2S2U2M2S2D2; R2U2Rs2U2R2; R2F2Ra2F2L2; M2E'M2E; E'MEM'&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1691,9 +1868,9 @@ simulator is prepared for regular operations.
 <p><i>Note:</i> Do not overuse this parameter. It is recommended using only 
 one (if any) simulator per page with this parameter set.
 </p>
-<p><i>Example:</i> To see <code>AnimCube3("demo={AnimeCubeJS}ZZUuZZ{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U")</code> in action, have a look at the first 
-simulator of this page. Note that the <code>Z</code> rotation as written in the example is defined in terms of <code><a href="#movetext">movetext</a>=2</code> setting in the demo mode. The string 
-"%2E" is a HTML encoding reference for a dot "." and "%26" translates to an ampersand "&amp;". The "í" character can be substituted by the "%C3%AD" sequence. 
+<p><i>Example:</i> To see <code>AnimCube3("demo={AnimeCubeJS}zzUuzz{by M%2E Feather %26 J%2E Jel%C3%ADnek}d'D'UE'D'{}D'E'U")</code> in action, have a look at the first 
+simulator of this page. Note that the <code>z</code> rotation as written in the example is defined in terms of <code><a href="#movetext">movetext</a>=0</code> setting in the demo mode. The string 
+"%2E" is the HTML encoding reference for a dot "." and "%26" translates to an ampersand "&amp;". The "í" character can be substituted by the "%C3%AD" sequence. 
 </p>
 
 
@@ -1703,9 +1880,9 @@ simulator of this page. Note that the <code>Z</code> rotation as written in the 
 	There are four possible parameter values with the following meaning:</p>
 <div class="justify"><ul>
 <li>0 - no metric: each animation step is counted as one move</li>
-<li>1 - Outer Block Quarter Turn Metric (OBQTM), for a 3x3x3 cube it corresponds to the Quarter Turn Metric (QTM)</li>
-<li>2 - Outer Block Turn Metric (OBTM), for a 3x3x3 cube it corresponds to the Half Turn Metric (HTM)</li>
-<li>3 - Block Turn Metric (BTM), for a 3x3x3 cube it corresponds to the Slice Turn Metric (STM)</li>
+<li>1 - Outer Block Quarter Turn Metric (OBQTM), for the 3x3x3 cube it corresponds to the Quarter Turn Metric (QTM)</li>
+<li>2 - Outer Block Turn Metric (OBTM), for the 3x3x3 cube it corresponds to the Half Turn Metric (HTM)</li>
+<li>3 - Block Turn Metric (BTM), for the 3x3x3 cube it corresponds to the Slice Turn Metric (STM)</li>
 </ul></div>
 <p>
 	The default value is '<code>0</code>'. The metric being used is abbreviated as a 
@@ -1727,10 +1904,10 @@ setting in the original AnimCube Java applet. It has been changed to "h".</p>
 </ul>
 <p>give the following results for the same values of other parameters.</p>
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=0&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=1&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&movetext=5&metric=3&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&sign=1&metric=0&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&sign=1&metric=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&sign=1&metric=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=R R2 M' M2' r r2 x x2 Rs Rs2 Ra Ra2&sign=1&metric=3&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 <div class="button-to-center">
@@ -1738,7 +1915,7 @@ setting in the original AnimCube Java applet. It has been changed to "h".</p>
   <table border=0 class=nowrap width=100%>
    <tr>
     <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage8 src=sources/images/down.png class=img></td>
-    <td width=60% style=text-align:center><a id=showHideHeading8>Show metrics &amp; move counts for a cube size other than 3x3x3</a></td>
+    <td width=60% style=text-align:center><a id=showHideHeading8>Show metrics &amp; move counts for cube sizes other than 3x3x3</a></td>
     <td width=20%></td>
    </tr>
   </table>
@@ -1841,10 +2018,10 @@ default (the default value is '<code>1</code>').
 	two examples show the appearance after the background was changed to a darker 
 	color (third simulator represents <code>AnimCube3("fonttype=0")</code>, fourth simulator represents <code>AnimCube3("fonttype=1")</code>).
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=0&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=1&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=0&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=1&fonttype=1&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=5&fonttype=0&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=5&fonttype=1&bgcolor=99bbdd&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=5&fonttype=0&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U&initrevmove=#&movetext=5&fonttype=1&bgcolor=224466&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1856,9 +2033,9 @@ inside the simulator window (div). The range is from '<code>5</code>'
 to '<code>40</code>' (pixels), the default value is '<code>12</code>'.
 </p><p><i>Examples:</i> <code>AnimCube3("textsize=5")</code>, <code>AnimCube3("textsize=12")</code> and <code>AnimCube3("textsize=40")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=5&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=12&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=40&movetext=3&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=5&movetext=5&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=12&movetext=5&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=40&movetext=5&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
 </div>
 <p><i>Note:</i> Clearly, the higher the parameter value you use, the higher 
 simulator window (div dimensions) you should use for a better appearance.</p>
@@ -1869,8 +2046,8 @@ simulator window (div dimensions) you should use for a better appearance.</p>
 <p>This parameter contains color codes of all cube facelets/stickers. 
 The <code>facelets</code> parameter is mutually exclusive with the parameters <code><a href="#colorscheme">colorscheme</a></code> and <code><a href="#pos">pos</a></code>, 
 and has the highest priority. The value of this parameter must 
-have exactly NxNx6 characters (N for a 2x2x2 cube is equal to 2, N for a 5x5x5 cube equals 5, etc.), resulting 
-in 54 characters for a 3x3x3 cube. Each character 
+have exactly NxNx6 characters (N for the 2x2x2 cube is equal to 2, N for the 5x5x5 cube equals 5, etc.), resulting 
+in 54 characters for the 3x3x3 cube. Each character 
 determines the color being used. All possible colors and the corresponding character 
 codes (which are case insensitive) can be seen in the following table. The characters from '<code>0</code>' to '<code>9</code>' 
 represent adjustable colors that can be set to any color using the <code><a href="#colors">colors</a></code> parameter.
@@ -1903,7 +2080,7 @@ represent adjustable colors that can be set to any color using the <code><a href
 <tr><td colspan="2" bgcolor="#808080" align="center">anything else means gray</td></tr>
 </tbody></table>
 </p><p>The following table shows the meaning of all character positions in the <code>facelets</code> 
-	parameter value for a 3x3x3 cube. The parameter value can be divided into six groups, each group 
+	parameter value for the 3x3x3 cube. The parameter value can be divided into six groups, each group 
 	consisting of nine (NxN in general for other cube sizes than 3x3x3) characters determining the facelet colors. To show the position of each 
 	facelet in one of the six groups (actually representing cube faces), each group in the table is set to the following sequence of 
 	characters: '<code>123456789</code>'. The other characters in the parameter value are set to middle gray.
@@ -1948,7 +2125,7 @@ represent adjustable colors that can be set to any color using the <code><a href
 <td bgcolor="white" align="center">46-54</td>
 </tr>
 </tbody></table></div>
-<p>To clarify the facelet layout for a 3x3x3 simulator, the next picture shows the facelet 
+<p>To clarify the facelet layout for the 3x3x3 simulator, the next picture shows the facelet 
 	positions in the parameter value (starting from 1).</p>
 <center><div><img src="sources/images/facelets.gif" width="244" height="185" />
 <div class="cube" style="width:185px; height:185px"> <script>AnimCube3("colorscheme=wygbor&bgcolor=ffffff&hint=5&snap=1&buttonheight=20")</script></div>
@@ -1959,7 +2136,7 @@ represent adjustable colors that can be set to any color using the <code><a href
   <table border=0 class=nowrap width=100%>
    <tr>
     <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage7 src=sources/images/down.png class=img></td>
-    <td width=60% style=text-align:center><a id=showHideHeading7>Show facelet layout for a cube size other than 3x3x3</a></td>
+    <td width=60% style=text-align:center><a id=showHideHeading7>Show facelet layouts for cube sizes other than 3x3x3</a></td>
     <td width=20%></td>
    </tr>
   </table>
@@ -2144,7 +2321,7 @@ and was converted by Josef to:
 <div class="justify"><ol>
 <li>What appears to be the largest face, which one might think is the front face, is actually the right face due to the <code>position=UUUUFF</code> 
 setting.</li><br>
-<li>The <code>pos</code> layout (compare with the facelet layout as described in the <code>facelets</code> parameter section) for a 3x3x3 simulator is:</li>
+<li>The <code>pos</code> layout (compare with the facelet layout as described in the <code>facelets</code> parameter section) for the 3x3x3 simulator is:</li>
 <div class="overflow">
 <pre class="pre-overflow">
           25 26 27
@@ -2236,7 +2413,7 @@ The third cube has the same parameter values as the first one, except for <code>
 </div><p><i>Note:</i> The <code>scw</code> parameter is not needed at all if <code>k</code> is used for color (which is black, as described in the <code>facelets</code> 
 parameter section). The <code>scw</code> parameter makes it easy to switch the <code>facelets</code> or <code>colorscheme</code> parameter 
 value between normal cube &amp; Supercube (so you 
-don't have to replace all the <code>w</code>'s with <code>k</code>'s) by using the <code>scw=1</code> setting.</p>
+do not have to replace all the <code>w</code>'s with <code>k</code>'s) by using the <code>scw=1</code> setting.</p>
 <p><i>Note:</i> Initially, the parameter values were '<code>black</code>' and '<code>blank</code>'. Their meaning is now equivalent to the values
 '<code>1</code>' and '<code>2</code>'.  
 </p>  
@@ -2318,8 +2495,8 @@ Use of the <code>scramble</code> parameter is mutually exclusive with the <code>
 <p><i>Examples:</i> <code>AnimCube3("scramble=1")</code>, <code>AnimCube3("scramble=2&amp;randmoves=18")</code>, <code>AnimCube3("scramble=1&amp;buttonbar=2")</code> and 
 <code>AnimCube3("scramble=2&amp;buttonbar=2")</code> have the following effect on the simulators.
 </p><div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=1&colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&speed=3&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=1&colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&randmoves=18&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=5&colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&speed=3&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("movetext=5&colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&randmoves=18&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&scramble=1&snap=1&buttonheight=20&buttonbar=2")</script></div>
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&scramble=2&snap=1&buttonheight=20&buttonbar=2")</script></div>
 </div><br>
@@ -2348,9 +2525,9 @@ have the following effect on the simulators.
 
 <p><i>Note:</i> Even though the function generating random move sequence takes the characters from the following move character subset:
 <code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code> for 
-each cube size, obviously <code>m</code> and <code>n</code> modifiers won't be used to generate a random move sequence for a 2x2x2 cube. 
-Similarly, <code>n</code> modifier won't be used to generate a random move sequence for 
-the 3x3x3 and 4x4x4 cubes, and finally <code>m</code> modifier won't be used 
+each cube size, obviously <code>m</code> and <code>n</code> modifiers will not be used to generate a random move sequence for the 2x2x2 cube. 
+Similarly, <code>n</code> modifier will not be used to generate a random move sequence for 
+the 3x3x3 and 4x4x4 cubes, and finally <code>m</code> modifier will not be used 
 to generate a random move sequence for the 3x3x3 and 5x5x5 cubes (the reason for the latter restriction lies in a so-called 
 fixed centers model, which is a Rubik's cube model in which center layers never turn).   
 </p>
@@ -2396,7 +2573,7 @@ If you want to scroll down/up using the keyboard arrow keys on page load, set fo
 </pre>
 
 <p>By adding a bit of extra HTML and/or JS code you can make a wide variety of fancy features (such as <a href="sources/codes/enhancement/responsive-cubes.html" target="_new">responsive cubes</a>) 
-which might become handy if you want to cube but don't have a physical cube around:</p> 
+which might become handy if you want to cube but do not have a physical cube around:</p> 
 <div class="justify">
 <ul><li><a href="sources/codes/enhancement/scrambling-button.html" target="_new">Scrambling button with adjustable cube magnification</a></li><br>
 <li><a href="sources/codes/enhancement/scrambler-solver.html" target="_new">Scrambler and solver</a> with adjustable number of scrambling moves</li><br>
@@ -2521,7 +2698,7 @@ function showHideCubes(n, c) {
     if (c)
       showCubes6();
     else 
-      for (var i=1; i <= 8; i++)
+      for (var i=1; i <= 12; i++)
         removeListeners['s6c' + i]();
   }
   if (n == 8) {
@@ -2531,37 +2708,52 @@ function showHideCubes(n, c) {
       for (var i=1; i <= 16; i++)
         removeListeners['s8c' + i]();
   }
+  if (n == 14) {
+    if (c)
+      showCubes14();
+    else 
+      for (var i=1; i <= 2; i++)
+        removeListeners['s14c' + i]();
+  }
 }
 function showCubes6() {
-  AnimCube2("id=s6c1&colorscheme=wygbor&move=LL'RR'FF'BB'UU'DD'UcUc'FcFc'LcLc'UaFaRaRa'Fa'Ua'.{ pause};L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Uc2Uc2'Fc2Fc2'Lc2Lc2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube2("id=s6c2&colorscheme=wygbor&move=LL'RR'FF'BB'UU'DD'UcUc'FcFc'LcLc'UaFaRaRa'Fa'Ua'.{ pause};L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Uc2Uc2'Fc2Fc2'Lc2Lc2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s6c3&colorscheme=wygbor&move=LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s6c4&colorscheme=wygbor&move=LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s6c5&colorscheme=wygbor&move=LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s6c6&colorscheme=wygbor&move=LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s6c7&colorscheme=wygbor&move=LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s6c8&colorscheme=wygbor&move=LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UcUc'FcFc'LcLc' UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Uc2Uc2'Fc2Fc2'Lc2Lc2' Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s6c1&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'RR'FF'BB'UU'DD'UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s6c2&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'RR'FF'BB'UU'DD'UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s6c3&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' R R' F F' B B' U U' D D' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2 R2' F2 F2' B2 B2' U2 U2' D2 D2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s6c4&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s6c5&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s6c6&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 2R' 2R R' R F F' 2F 2F' 2B' 2B B' B U U' 2U 2U' 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs m' Rs' m Fs s Fs' s' Us e' Us' e Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 m2' Rs2' m2 Fs2 s2 Fs2' s2' Us2 e2' Us2' e2 Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s6c7&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s6c8&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s6c9&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' M M' 2R' 2R R' R F F' 2F 2F' S S' 2B' 2B B' B U U' 2U 2U' E' E 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' M2 M2' 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' S2 S2' 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' E2' E2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c10&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c11&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c12&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
 }
 function showCubes8() {
-  AnimCube2("id=s8c1&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube2("id=s8c2&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube2("id=s8c3&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube2("id=s8c4&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s8c5&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s8c6&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s8c7&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube4("id=s8c8&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s8c9&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s8c10&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s8c11&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube5("id=s8c12&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c13&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c14&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c15&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c16&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s8c1&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=0&sign=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s8c2&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=1&sign=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s8c3&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=2&sign=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s8c4&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=3&sign=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s8c5&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s8c6&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s8c7&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s8c8&colorscheme=wygbor&move=R R2 Rm Rm2 Rt Rt2 Rw Rw2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s8c9&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s8c10&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s8c11&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s8c12&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c13&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c14&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c15&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c16&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+}
+function showCubes14() {
+  AnimCube6("id=s14c1&colorscheme=wygbor&sign=0&move=xyzLm2Rm2'Fm2Bm2'Um2'Dm2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s14c2&colorscheme=wygbor&sign=1&move=x y z 3L2 3R2' 3F2 3B2' 3U2' 3D2&movetext=5&snap=1&buttonheight=20&textsize=16");
 }
 showHideContents[7] = '\
-<p>To clarify the facelet layout for a 2x2x2 simulator, the next picture shows the facelet\
+<p>To clarify the facelet layout for the 2x2x2 simulator, the next picture shows the facelet\
 	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
 <div class="responsive-table"><table class="td" style="border-collapse:collapse">\
  <tr bgcolor=#FFFFFF>\
@@ -2609,7 +2801,7 @@ showHideContents[7] = '\
   <td colspan="4">&nbsp;</td>\
  </tr>\
 </table></div>\
-<p>To clarify the facelet layout for a 4x4x4 simulator, the next picture shows the facelet \
+<p>To clarify the facelet layout for the 4x4x4 simulator, the next picture shows the facelet \
 	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
 <div class="responsive-table">	\
 <table class="td" style="border-collapse:collapse">\
@@ -2751,12 +2943,12 @@ showHideContents[7] = '\
  </tr>\
 </table>\
 </div>\
-<p>To clarify the facelet layout for a 5x5x5 simulator, the next picture shows the facelet \
+<p>To clarify the facelet layout for the 5x5x5 simulator, the next picture shows the facelet \
 	positions in the parameter value (starting from 1) schematically.</p>\
 <div class="responsive-table">\
 <table><tr><td><img src="sources/images/5x5x5-layout.gif" width="614" height="302" /></td></tr></table>\
 </div> \
-<p>To clarify the facelet layout for a 6x6x6 simulator, the next picture shows the facelet \
+<p>To clarify the facelet layout for the 6x6x6 simulator, the next picture shows the facelet \
 	positions in the parameter value (starting from 1) schematically.</p>\
 <div class="responsive-table">\
 <table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>\
