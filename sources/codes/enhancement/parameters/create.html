@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+ <title>Creating customized simulators</title>
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../../images/favicon.ico" type="image/x-icon">
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <script src=../../../../AnimCube2.js></script>
+ <script src=../../../../AnimCube3.js></script>
+ <script src=../../../../AnimCube4.js></script>
+ <script src=../../../../AnimCube5.js></script>
+ <script src=../../../../AnimCube6.js></script>
+ <style>
+  body, html {
+    font-family: Arial, Helvetica, sans-serif;
+    margin:8px 4px;
+  }
+  .btn {
+    width:80px;
+    height:30px;
+    padding:0;
+    border:1px solid black;
+    border-radius:15px;
+    background-color:#ffffff;
+    outline:none;
+  } 
+  .btn:active {background-color:#aaaaaa;}
+  .text {
+    margin:0;
+    padding:0;
+    width:300px;
+    height:300px;
+    border:solid black 1px;
+    resize:none;
+    outline:none;
+  }
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Creating Customized Simulators</font><br>
+<table border=0>
+ <tr height=6>
+ <tr>
+  <td>
+   <textarea id=text class=text spellcheck=false></textarea>
+   <table align=center>
+    <tr height=5>
+    <tr>
+     <td><button class=btn onclick="newCube(1)">Apply</button></td>
+     <td width=5>
+     <td><button class=btn onclick="clr()">Clear</button></td>
+     <td width=5>
+     <td><button class=btn onclick="location='create_help.html'">Help</button></td>
+    </tr>
+   </table>
+  </td>
+  <td width=20>
+  <td>
+   <div id=cube style="width:300px; height:300px;"></div>
+   <table align=center>
+    <tr height=12>
+    <tr>
+     <td>
+      <select id=size onchange="newCube(1)"
+       style="height:30px; border-radius:15px;padding:0 10px 0; 
+              border:1px solid black; outline:none; background-color:#ffffff">
+       <option value=2>2x2x2</option>
+       <option value=3 selected>3x3x3</option>
+       <option value=4>4x4x4</option>
+       <option value=5>5x5x5</option>
+       <option value=6>6x6x6</option>
+      </select> 
+     </td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+<table>
+ <tr height=6>
+ <tr> <td><input id=ts readonly style="width:600px; border:1px solid black"></input></td></tr>
+ <tr height=6>
+ <tr> <td><div id=link></div></td></tr>
+</table>
+<a href="javascript:window.close()">Close</a>
+<br><br>
+<script>
+"use strict";
+var removeListeners = [];
+newCube(0);
+function newCube(r) {
+  var s = size.value; 
+  var t = text.value.trim().replace(/\n/g, '');
+  var p = 'id=cube&' + t;
+  if (t.length > 0) {
+    var l = '<a target=_blank href="cube' + s + '.html?';
+    l += t.replace(/#/g, '%23');
+    l += '">Link to your simulator</a>';
+    ts.value = t;
+    link.innerHTML = l;
+  }
+  else {
+    ts.value = '';
+    link.innerHTML = '';
+  }
+  if (r)
+    removeListeners['cube']();
+  if      (s == 2) AnimCube2(p); 
+  else if (s == 3) AnimCube3(p); 
+  else if (s == 4) AnimCube4(p); 
+  else if (s == 5) AnimCube5(p); 
+  else if (s == 6) AnimCube6(p); 
+}
+function clr() {
+  text.value = '';
+  ts.value = '';
+  link.innerHTML = '';
+  newCube(1);
+}
+</script>
+</center>
+</body>
+</html>

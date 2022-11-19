@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+ <title>Creating customized simulators - help</title>
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../../images/favicon.ico" type="image/x-icon">
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <style>
+  body, html {
+    font-family: Arial, Helvetica, sans-serif;
+    margin:8px 5%;
+  }
+  p {
+    margin:0;
+    text-align: justify; 
+  }
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Creating Customized Simulators<br>Help</font>
+<br><br>
+<p>
+Start by selecting a cube size from the drop-down menu, then declare parameters in 
+the text area next to the simulator. 
+</p>
+<br>
+<p>
+The following is an example of how to enter parameters in a user-friendly way,
+use an &amp; prefix for all but the first one:
+</p>
+<br>
+<p>
+move=R U' L F U' R2 U2 R U R' U2 D' L D F2 L2 U<br>
+&amp;initrevmove=#<br>
+&amp;colorscheme=ROYWGB<br>
+&amp;movetext=1<br>
+&amp;textsize=18<br>
+&amp;buttonheight=18<br>
+&amp;bgcolor=dddddd<br>
+&amp;butbgcolor=baffc9<br>
+&amp;fonttype=0<br>
+&amp;align=0<br>
+&amp;scale=1
+<br><br>
+See <a target=_blank href="../../../../animcubejs.html#parameters">
+AnimCubeJS documentation</a> for the complete list of parameters.
+</p>
+<br>
+<p>
+If you press the Apply button then: 
+</p>
+<ol>
+<li><p>Specified parameters from the text area will be applied to the simulator.</p></li>
+<li><p>Entered parameters will be displayed in a computer-friendly form in the read-only 
+field below the buttons.</p></li>
+<li><p>The link to your simulator will be generated. You can directly modify generated URL 
+query string to change the simulator functionality.</p></li>
+</ol>
+<p>
+By pressing the Clear button both text fields will be cleared, and the URL link will be removed. The 
+simulator will also be initialized to its default configuration.
+</p>
+<br>
+<a href="javascript: history.go(-1)">Back</a>
+<br><br>
+<center>
+</body>
