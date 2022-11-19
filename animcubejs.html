@@ -15,16 +15,7 @@
 <style>
 body, html {
   font-family: Arial, Helvetica, sans-serif;
-  height: 100%;
-  overflow: hidden;
-  margin: 0; 
-}
-
-div.wrap {
-  height: 100%; 
-  overflow: auto;
-  outline: none;
-  padding: 0px 10%;
+  margin: 0px 5%; 
 }
 
 .cube {display: inline-block}
@@ -104,8 +95,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </style>
 </head>
 
-<body onload="document.getElementById('wrap').focus()">
-<div class="wrap" id="wrap" tabindex="0">
+<body>
 <br>
 <table width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
@@ -209,7 +199,7 @@ In order to do so, download one (or more) of the files below. Supercubes are inc
 <p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
 <code>.zip</code> file</a> (11 kB)</p>
 <p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
-<code>.zip</code> file</a> (11 kB)</p>
+<code>.zip</code> file</a> (12 kB)</p>
 
 <p>
 You can choose from 2 different versions of AnimCubeJS. Click on the button below for details.
@@ -639,6 +629,11 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 documentation. The best way to understand their meaning is to experiment with example simulators provided in the 
 description of each parameter.</p>
 
+<p>
+By <a href="sources/codes/enhancement/parameters/create.html" target="_new">declaring parameters online</a> (it actually 
+works even offline) you can create your own simulator with the desired functionality, and then share it using a URL link.
+</p>
+
 <div class="button-to-center">
 <button id=showHideButton13 onclick="showHideFunc(13,0)" class=btn>
   <table border=0 class=nowrap width=100%>
@@ -1013,7 +1008,7 @@ The animation speed of a half turn can be adjusted separately by the <code><a hr
 	You can also try multiple applications of the same move 
 	sequence to the cube by pressing the Play button after animation stops (Play button functionality can be disabled by the
 	<code><a href="#repeat">repeat</a></code> parameter), and see how the top corners are 
-	twisted and moved. Some of the other buttons can be also used this way.
+	twisted and moved. Some of the other buttons can also be used this way.
 </p>
 
 
@@ -1408,7 +1403,7 @@ on the extended notation. It is quite orthogonal and consistent design. Examples
 </div><p>The simulator also supports whole-cube rotations. This feature can be 
 	used to rotate the cube in order to show it in the best position/orientation for 
 	the current situation to watch the move sequence. The available characters  
-	to rotate the cube - as an alternative to the <code>c</code> advanced modifier - are shown in the following table. They can be also 
+	to rotate the cube - as an alternative to the <code>c</code> advanced modifier - are shown in the following table. They can also be  
 	combined with basic modifiers '<code>'</code>' and '<code>2</code>'.
 </p><div class="justify"><ul>
 <li>X or x - rotates around the right-left axis (in the same direction as <code>R/L'</code> moves are 
@@ -1821,7 +1816,7 @@ The last simulator below is an example of 5 different pretty patterns, all of th
 sequence is executed reversed this time (from end to beginning with opposite turning directions). It is 
 even more useful when the value is equal to '<code>#</code>' and takes the sequence of moves 
 from the <code><a href="#move">move</a></code> parameter (the whole parameter value if more move sequences are specified). 
-The hash symbol can be also used as a placeholder for a specific move sequence, see 
+The hash symbol can also be used as a placeholder for a specific move sequence, see 
 the <code>initmove</code> parameter section for more details.
 </p><p>To show the flexibility of the page creation using this 
 	simulator, suppose that we have more move sequences affecting the same part of 
@@ -2401,7 +2396,7 @@ parameter value.
 	
 <p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
 <p>Using the <code>scw</code> parameter (it stands for SuperCubeWhite) you can translate the <code>w</code> letters written in the <code><a href="#facelets">facelets</a></code> 
-or <code><a href="#colorscheme">colorscheme</a></code> parameter value, if also the <code><a href="#supercube">supercube</a>=1</code> setting is used. Possible parameter values are:</p>
+or <code><a href="#colorscheme">colorscheme</a></code> parameter value, if the <code><a href="#supercube">supercube</a>=1</code> setting is also used. Possible parameter values are:</p>
 <div class="justify"><ul><li>0: to display white arrows (0 is the default value)</li><li>1: to display black arrows</li><li>2: to display without arrows</li></ul></div>
 <p><i>Examples:</i> <code>AnimCube3("colorscheme=wygbor&amp;scw=1&amp;supercube=1")</code> gives the result as seen on the first cube, and 
 <code>AnimCube3("facelets=wwwwwwwwwyyyyyyyyygggggggggbbbbbbbbbooooooooorrrrrrrrr&amp;scw=2&amp;supercube=1</code> gives the result as seen on the second cube. 
@@ -2432,7 +2427,7 @@ default value) and '<code>1</code>'.  Set to '<code>1</code>' for
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
 </div>
 <p>As you can see, the <code>gabbacolors=1</code> setting makes the borders among adjacent facelets thinner (this can be adjusted by the <code><a href="#borderwidth">borderwidth</a></code> 
-parameter), and it can be also used together with the <code><a href="#supercube">supercube</a></code> parameter, as shown on the first cube below.
+parameter), and it can also be used together with the <code><a href="#supercube">supercube</a></code> parameter, as shown on the first cube below.
 </p><p><i>Examples:</i> <code>AnimCube3("gabbacolors=1&amp;supercube=1")</code> and <code>AnimCube3("gabbacolors=0&amp;supercube=1")</code> have the following effect on the simulators.
 </p><div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=kygbor&gabbacolors=1&supercube=1&move=Ra2Fa2Ua2&initmove=#&snap=1&buttonheight=20&textsize=16")</script></div>
@@ -2538,6 +2533,7 @@ functions which pass parameters to the simulator. See the Enhancement section fo
 
 
 <div class="sections"><a name="enhancement"></a><b><i>Enhancement</i></b></div>
+<!--
 <p>Some mobile browsers have an autohide feature for the tab/address bar which allows web page scrolling (as it "hides" the 
 tab/address bar) while rotating the cube/layer vertically. This results in a poor user experience.
 </p>
@@ -2571,7 +2567,7 @@ If you want to scroll down/up using the keyboard arrow keys on page load, set fo
 &lt;body onload="document.getElementById('wrap').focus()"&gt;
 &lt;div class="wrap" id="wrap" tabindex="0"&gt;
 </pre>
-
+-->
 <p>By adding a bit of extra HTML and/or JS code you can make a wide variety of fancy features (such as <a href="sources/codes/enhancement/responsive-cubes.html" target="_new">responsive cubes</a>) 
 which might become handy if you want to cube but do not have a physical cube around:</p> 
 <div class="justify">
@@ -2955,4 +2951,4 @@ showHideContents[7] = '\
 </div>\
 ';
 </script>       
-</div></body></html>
+</body></html>
