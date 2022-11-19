@@ -410,7 +410,7 @@ function AnimCube4(params) {
     param = getParameter("move");
     if ("random" == (param) || scramble > 0)
       param = randMoves(4, randMoveCount);
-    move = ((param == null || param.length == 0) ? [] : getMove(param, true));
+    move = (param == null ? [] : getMove(param, true));
     movePos = 0;
     curInfoText = -1;
     // setup initial move sequence
@@ -1439,7 +1439,7 @@ function AnimCube4(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo)) {
+    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
       setClip(graphics, 0, 0, width, height - dpr);
       graphics.fillRect(0, 0, width, height - dpr);
     }
@@ -1450,7 +1450,7 @@ function AnimCube4(params) {
     dragAreas = 0;
     if (natural) // compact cube
     {
-      fixBlock(eye, eyeX, eyeY, cubeBlocks, 3, 9); // draw cube and fill drag areas
+      fixBlock(eye, eyeX, eyeY, cubeBlocks, 3, 9, 0); // draw cube and fill drag areas
     }
     else { // in twisted state
       // compute top observer
@@ -1507,8 +1507,9 @@ function AnimCube4(params) {
       for (var i=0; i < 4; i++) {
         var j = drawOrder[orderMode][i];
         var k = eyeOrder[twistedMode][j];
+        var l = (twistedLayer % 2 == 1) ? 3 - j : j;
         fixBlock(eyeArray[k], eyeArrayX[k], eyeArrayY[k], blockArray[j],
-          blockMode[twistedMode][j], i);
+          blockMode[twistedMode][j], i, l);
       }
     }
     if (!pushed && !animating) // no button should be deceased
@@ -1540,8 +1541,8 @@ function AnimCube4(params) {
           }
 
           // display move text
-          var s = "" + moveLength(move[curMove], movePos) + "/" + moveLength(move[curMove], -1) + metricChar[metric];
           graphics.font = "bold " + textHeight + "px helvetica";
+          var s = "" + moveLength(move[curMove], movePos) + "/" + moveLength(move[curMove], -1) + metricChar[metric];
           var w = graphics.measureText(s).width;
           var x = width - w - 2;
           var y = height - progressHeight - Math.floor(4 * dpr);
@@ -1554,6 +1555,7 @@ function AnimCube4(params) {
             drawString(graphics, s, (outlined ? x - dpr : x), y);
         }
         if (move.length > 1) { // more sequences
+          graphics.font = "bold " + textHeight + "px helvetica";
           var s = "" + (curMove + 1) + "/" + move.length;
           var w = graphics.measureText(s).width;
           var x = width - w - buttonHeight*2 - Math.floor(5 * dpr);
@@ -1597,7 +1599,7 @@ function AnimCube4(params) {
   var factors = [[0, 0], [0, 1], [1, 1], [1, 0]];
   var tempNormal = [];
 
-  function fixBlock(eye, eyeX, eyeY, blocks, mode, call) {
+  function fixBlock(eye, eyeX, eyeY, blocks, mode, call, layer) {
     // project 3D co-ordinates into 2D screen ones
     for (var i = 0; i < 8; i++) {
       var min = width < height ? width : height - progressHeight;
@@ -1674,21 +1676,7 @@ function AnimCube4(params) {
       var sideW = blocks[i][0][1] - blocks[i][0][0];
       var sideH = blocks[i][1][1] - blocks[i][1][0];
       if (sideW <= 0 || sideH <= 0) { // this face is inner and only black
-        // mode = 0, call = 0  twist on outer layers
-        // mode = 1, call = 1  twist on slices (center)
-        // mode = 1, call = 2  twist on slices (outer)
-        // mode = 2, call = 0  fixed on all
-        var v = 0;
-        if (mode == 0 && call == 0)
-          v = .75;
-        else if (mode == 1 && call == 1)
-          v = .50;
-        else if (mode == 1 && call == 2 && twistedLayer == i)
-          v = .25;
-        else if (mode == 2 && call == 0)
-          v = (twistedMode == 0) ? .25 : (twistedLayer == i) ? .50 : .75;
-        if (mode == 2 && twistedMode > 3) // fixed center for modes s & a
-          v = .50;
+        var v = innerFacePosition(i, layer);
         if (v != 0) {
           for (var j = 0; j < 4; j++) { // for all corners
             var k = oppositeCorners[i][j];
@@ -1788,6 +1776,37 @@ function AnimCube4(params) {
       }
     }
   } // fixblock
+
+  function innerFacePosition(i, l) {
+    var v = 0;
+    var im = i % 2;
+    var tm = twistedLayer % 2;
+    if (twistedMode == 0)
+      v = (tm == 0) ? fp(0) : fp(3);
+    else if (twistedMode == 1)
+      v = (tm == 0) ? fp(1) : fp(2);
+    else if (twistedMode == 2) {
+      if (i == twistedLayer)
+        ((tm == 0 && l == 1) || (tm == 1 && l == 2)) && (v = 2/4);
+      else
+        ((tm == 0 && l == 2) || (tm == 1 && l == 1)) && (v = 2/4);
+    }
+    else if (twistedMode == 4 || twistedMode == 5 || twistedMode == 6) {
+      ((im == 0 && l == 1) || (im == 1 && l == 2)) && (v = 1/4);
+      ((im == 1 && l == 0) || (im == 0 && l == 3)) && (v = 3/4);
+    }
+    return v;
+
+    function fp(n) {
+      if (im == 0) {
+        if (l == n) return n/4; else if (l == n+1) return (n+1)/4;
+      }
+      else {
+        if (l == n) return (3-n)/4; else if (l == n-1) return (4-n)/4;
+      }
+      return 0;
+    }
+  }
 
   function getCorners(face, corner, cornersX, cornersY, factor1, factor2, mirror) {
     factor1 /= 4.0;
@@ -2253,6 +2272,12 @@ function AnimCube4(params) {
       setTimeout(run, 0, jobNum, dir);
       return;
     }
+    if (!demo && (move.length == 0 || move[curMove].length == 0)) {
+      animating = false;
+      drawButtons = true;
+      paint();
+      return;
+    }
     if (!moveAnimated) { // fast-forward without using animation scheduler
       var mv = move[curMove];
       while (movePos < mv.length) {
@@ -2474,7 +2499,7 @@ function AnimCube4(params) {
   }
 
   document.addEventListener('touchstart', mousedown);
-  document.addEventListener('touchmove', mousemove);
+  document.addEventListener('touchmove', mousemove, {passive: false});
   document.addEventListener('touchend', mouseup);
   document.addEventListener('mousedown', mousedown);
   document.addEventListener('mousemove', mousemove);
@@ -2549,10 +2574,8 @@ function AnimCube4(params) {
     e.preventDefault();
     mouseIsDown = true;
     showContextMenu = false;
-    if (typeof e.touches != 'undefined') {
-      e.preventDefault();
+    if (typeof e.touches != 'undefined')
       touchfunc('hidden');
-    }
     offsetX = left;
     offsetY = top;
     lastDragX = lastX = getX(e);
@@ -2646,6 +2669,8 @@ function AnimCube4(params) {
       return;
     if (pushed)
       return;
+    if (typeof e.touches != 'undefined')
+      e.preventDefault();
     if (dragging) {
       stopAnimation();
       var len = realMoveLength(move[curMove]);
@@ -2836,7 +2861,6 @@ function AnimCube4(params) {
 
   function removeList() {
     stopAnimation();
-    document.removeEventListener('mousedown', mousedown);
     document.removeEventListener('touchstart', mousedown);
     document.removeEventListener('touchmove', mousemove);
     document.removeEventListener('touchend', mouseup);
