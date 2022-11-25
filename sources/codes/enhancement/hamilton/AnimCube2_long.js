@@ -418,7 +418,7 @@ function AnimCube2(params) {
     param = getParameter("move");
     if ("random" == (param) || scramble > 0)
       param = randMoves(2, randMoveCount);
-    move = ((param == null || param.length == 0) ? [] : getMove(param, false));
+    move = (param == null ? [] : getMove(param, true));
     movePos = 0;
     curInfoText = -1;
     // setup initial move sequence
@@ -801,6 +801,9 @@ function AnimCube2(params) {
         for (var j = 0; j < 21; j++) {
           // if (sequence.charAt(i) == "UDFBLRESMXYZxyzudfblr".charAt(j)) {
           if (sequence.charAt(i) == moveCodeString.charAt(j)) {
+            var c = sequence.charAt(i);
+            if (c == 'E' || c == 'S' || c == 'M')
+              continue;
             i++;
             var mode = moveModes[j];
             mv[length] = moveCodes[j] * 24;
@@ -1310,7 +1313,7 @@ function AnimCube2(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo)) {
+    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
       setClip(graphics, 0, 0, width, height - dpr);
       graphics.fillRect(0, 0, width, height - dpr);
     }
@@ -1411,8 +1414,8 @@ function AnimCube2(params) {
 
           // display move text
           // var s = "" + moveLength(move[curMove], movePos) + "/" + moveLength(move[curMove], -1) + metricChar[metric];
-          var s = movePos + " / " + move[curMove].length;
           graphics.font = "bold " + textHeight + "px helvetica";
+          var s = movePos + " / " + move[curMove].length;
           var w = graphics.measureText(s).width;
           var x = width - w - 2;
           var y = height - progressHeight - Math.floor(4 * dpr);
@@ -1425,6 +1428,7 @@ function AnimCube2(params) {
             drawString(graphics, s, (outlined ? x - dpr : x), y);
         }
         if (move.length > 1) { // more sequences
+          graphics.font = "bold " + textHeight + "px helvetica";
           var s = "" + (curMove + 1) + "/" + move.length;
           var w = graphics.measureText(s).width;
           var x = width - w - buttonHeight*2 - Math.floor(5 * dpr);
@@ -2088,6 +2092,12 @@ function AnimCube2(params) {
       setTimeout(run, 0, jobNum, dir);
       return;
     }
+    if (!demo && (move.length == 0 || move[curMove].length == 0)) {
+      animating = false;
+      drawButtons = true;
+      paint();
+      return;
+    }
     if (!moveAnimated) { // fast-forward without using animation scheduler
       var mv = move[curMove];
       while (movePos < mv.length) {
@@ -2309,7 +2319,7 @@ function AnimCube2(params) {
   }
 
   document.addEventListener('touchstart', mousedown);
-  document.addEventListener('touchmove', mousemove);
+  document.addEventListener('touchmove', mousemove, {passive: false});
   document.addEventListener('touchend', mouseup);
   document.addEventListener('mousedown', mousedown);
   document.addEventListener('mousemove', mousemove);
@@ -2384,10 +2394,8 @@ function AnimCube2(params) {
     e.preventDefault();
     mouseIsDown = true;
     showContextMenu = false;
-    if (typeof e.touches != 'undefined') {
-      e.preventDefault();
+    if (typeof e.touches != 'undefined')
       touchfunc('hidden');
-    }
     offsetX = left;
     offsetY = top;
     lastDragX = lastX = getX(e);
@@ -2481,6 +2489,8 @@ function AnimCube2(params) {
       return;
     if (pushed)
       return;
+    if (typeof e.touches != 'undefined')
+      e.preventDefault();
     if (dragging) {
       stopAnimation();
       var len = realMoveLength(move[curMove]);
@@ -2671,7 +2681,6 @@ function AnimCube2(params) {
 
   function removeList() {
     stopAnimation();
-    document.removeEventListener('mousedown', mousedown);
     document.removeEventListener('touchstart', mousedown);
     document.removeEventListener('touchmove', mousemove);
     document.removeEventListener('touchend', mouseup);
