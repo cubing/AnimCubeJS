@@ -7,6 +7,7 @@
 <link rel="icon" href="sources/images/favicon.ico" type="image/x-icon">
 <title>AnimCubeJS - the Rubik's Cube Animation Simulator</title>
 <script src="AnimCube3.js"></script>
+<script src="config.js"></script>
 <script src="AnimCube2.js" async></script>
 <script src="AnimCube4.js" async></script>
 <script src="AnimCube5.js" async></script>
@@ -784,9 +785,54 @@ configuration file extension must be <code>.cfg</code>. You should be able to se
 above right in the web browser. In this particular case you would not be able to see the contents of the "AnimCube3.cfg" file 
 right in the web browser. Both file types work the same in terms of simulator functionality.</p>
 <p>
-<i>Note:</i> Due to browser implementations of the same-origin policy, the configuration file will not work 
+<i>Note:</i> Due to browser implementations of the same-origin policy, the <code>.txt</code> configuration file will not work 
 locally if the web page containing AnimCubeJS simulator is accessed via file://..., use http://... 
-on local web server (such as Apache or IIS) instead.</p>
+on local web server (such as Apache or IIS) instead. However, there is a way to use a configuration file 
+without getting it from the server.</p>
+
+<div class="button-to-center">
+<button id=showHideButton15 onclick="showHideFunc(15,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage15 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading15>Show how to do it</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText15>
+
+<p>
+All that is needed is to define a variable in a web page, and then use it in each call to <code>AnimCubeX</code>. 
+Access the following two simulators via file://..., and compare them with the first two simulators above. 
+</p>
+<div>
+<div id=s15c1 class="cube" style="width:160px; height:186px"></div>
+<div id=s15c2 class="cube" style="width:160px; height:186px"></div>
+</div>
+<p>
+While the first pair of simulators is getting a configuration file ("AnimCube.txt") from the server, 
+the second pair of simulators is getting the "<a href="config.js" target="_new">config.js</a>" file 
+containing the "config" variable from the web client. Note that the file formats are different. 
+</p>
+<p>
+Add the following line to the HTML head section rigth after the <code>&lt;script src="AnimCubeX.js"&gt;&lt;/script&gt;</code>:
+</p>
+<pre><code>&lt;script src="config.js"&gt;&lt;/script&gt;</code></pre>
+<p>Make sure to include the source <code>config.js</code> file in the directory/folder referenced in the HTML 
+head section of your web page. Next, add the following code in the HTML file to the place where you want the simulator to be displayed.</p>
+
+<pre><code>&lt;div...&gt;
+ &lt;script&gt;AnimCubeX(config + "&amp;parameters")&lt;/script&gt;
+&lt;/div&gt;</code></pre>
+
+<p>
+Do not forget to replace "X" by the cube size.
+</p>
+</div>
+<br>
 
 
 <div class="sections-parameters"><a name="bgcolor"></a><b><code>bgcolor</code> parameter</b></div>
@@ -2714,6 +2760,13 @@ function showHideCubes(n, c) {
       for (var i=1; i <= 2; i++)
         removeListeners['s14c' + i]();
   }
+  if (n == 15) {
+    if (c)
+      showCubes15();
+    else 
+      for (var i=1; i <= 2; i++)
+        removeListeners['s15c' + i]();
+  }
 }
 function showCubes6() {
   AnimCube2("id=s6c1&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'RR'FF'BB'UU'DD'UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
@@ -2751,207 +2804,226 @@ function showCubes14() {
   AnimCube6("id=s14c1&colorscheme=wygbor&sign=0&move=xyzLm2Rm2'Fm2Bm2'Um2'Dm2&movetext=5&snap=1&buttonheight=20&textsize=16");
   AnimCube6("id=s14c2&colorscheme=wygbor&sign=1&move=x y z 3L2 3R2' 3F2 3B2' 3U2' 3D2&movetext=5&snap=1&buttonheight=20&textsize=16");
 }
-showHideContents[7] = '\
-<p>To clarify the facelet layout for the 2x2x2 simulator, the next picture shows the facelet\
-	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
-<div class="responsive-table"><table class="td" style="border-collapse:collapse">\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="2">&nbsp;</td>\
-  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">3</td>\
-  <td align="center" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">4</td>\
-  <td colspan="4">&nbsp;</td>\
- </tr>\
-  <tr bgcolor=#FFFFFF>\
-  <td colspan="2">&nbsp;</td>\
-  <td align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">1</td>\
-  <td align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">2</td>\
-  <td colspan="4">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">18</td>\
-  <td style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">17</td>\
-  <td bgcolor=#009000 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">9</td>\
-  <td bgcolor=#009000 style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">11</td>\
-  <td bgcolor=#D00000 style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">21</td>\
-  <td bgcolor=#D00000 style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">23</td>\
-  <td bgcolor=#2040D0 style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">13</td>\
-  <td bgcolor=#2040D0 style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">15</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:6px solid">20</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">19</td>\
-  <td bgcolor=#009000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">10</td>\
-  <td bgcolor=#009000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">12</td>\
-  <td bgcolor=#D00000 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">22</td>\
-  <td bgcolor=#D00000 style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">24</td>\
-  <td bgcolor=#2040D0 style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">14</td>\
-  <td bgcolor=#2040D0 style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">16</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="2">&nbsp;</td>\
-  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">5</td>\
-  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">7</td>\
-  <td colspan="4">&nbsp;</td>\
- </tr>\
-  <tr bgcolor=#FFFFFF>\
-  <td colspan="2">&nbsp;</td>\
-  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">6</td>\
-  <td bgcolor=#FFFF00 align="center" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">8</td>\
-  <td colspan="4">&nbsp;</td>\
- </tr>\
-</table></div>\
-<p>To clarify the facelet layout for the 4x4x4 simulator, the next picture shows the facelet \
-	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>\
-<div class="responsive-table">	\
-<table class="td" style="border-collapse:collapse">\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">13</td>\
-  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">14</td>\
-  <td align="center" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">15</td>\
-  <td align="center" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">16</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">9</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">10</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">11</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">12</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">5</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">6</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">7</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid" align="center">8</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid" align="center">1</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">2</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid" align="center">3</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid" align="center">4</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">68</td>\
-  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">67</td>\
-  <td style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">66</td>\
-  <td style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">65</td>\
-  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">33</td>\
-  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">37</td>\
-  <td bgcolor="#009000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">41</td>\
-  <td bgcolor="#009000" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">45</td>\
-  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">81</td>\
-  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">85</td>\
-  <td bgcolor="#D00000" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">89</td>\
-  <td bgcolor="#D00000" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">93</td>\
-  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">49</td>\
-  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">53</td>\
-  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">57</td>\
-  <td bgcolor="#2040D0" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">61</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">72</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">71</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">70</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">69</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">34</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">38</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">42</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">46</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">82</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">86</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">90</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">94</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">50</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">54</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">58</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">62</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid">76</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">75</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">74</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">73</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">35</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">39</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">43</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">47</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">83</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">87</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">91</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">95</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">51</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">55</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">59</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">63</td>\
- </tr>\
- <tr bgcolor=#FF6020>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:6px solid">80</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">79</td>\
-  <td style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">78</td>\
-  <td style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">77</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">36</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">40</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">44</td>\
-  <td bgcolor="#009000" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">48</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">84</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">88</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">92</td>\
-  <td bgcolor="#D00000" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">96</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">52</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">56</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">60</td>\
-  <td bgcolor="#2040D0" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">64</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">17</td>\
-  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">21</td>\
-  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">25</td>\
-  <td bgcolor="#FFFF00" style="border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">29</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">18</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">22</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">26</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">30</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid">19</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">23</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid">27</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid">31</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
- <tr bgcolor=#FFFFFF>\
-  <td colspan="4">&nbsp;</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid">20</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">24</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid">28</td>\
-  <td bgcolor="#FFFF00" style="border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid">32</td>\
-  <td colspan="8">&nbsp;</td>\
- </tr>\
-</table>\
-</div>\
-<p>To clarify the facelet layout for the 5x5x5 simulator, the next picture shows the facelet \
-	positions in the parameter value (starting from 1) schematically.</p>\
-<div class="responsive-table">\
-<table><tr><td><img src="sources/images/5x5x5-layout.gif" width="614" height="302" /></td></tr></table>\
-</div> \
-<p>To clarify the facelet layout for the 6x6x6 simulator, the next picture shows the facelet \
-	positions in the parameter value (starting from 1) schematically.</p>\
-<div class="responsive-table">\
-<table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>\
-</div>\
-';
+function showCubes15() {
+  AnimCube3(config + "&id=s15c1&colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=#&snap=1&buttonheight=20");
+  AnimCube3(config + "&id=s15c2&colorscheme=wygbor&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=#&snap=1&buttonheight=20");
+}
+showHideContents[7] = `
+<p>To clarify the facelet layout for the 2x2x2 simulator, the next picture shows the facelet
+	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>
+<style>
+.c01 {border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid}
+.c02 {border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid}
+.c03 {border-top:1px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid}
+.c04 {border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:1px solid}
+.c05 {border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:3px solid}
+.c06 {border-top:1px solid; border-right:1px solid; border-bottom:3px solid; border-left:6px solid}
+.c07 {border-top:1px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid}
+.c08 {border-top:1px solid; border-right:3px solid; border-bottom:3px solid; border-left:1px solid}
+.c09 {border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:1px solid}
+.c10 {border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:3px solid}
+.c11 {border-top:3px solid; border-right:1px solid; border-bottom:1px solid; border-left:6px solid}
+.c12 {border-top:3px solid; border-right:3px solid; border-bottom:1px solid; border-left:1px solid}
+</style>
+<div class="responsive-table">
+<table class="td" style="border-collapse:collapse">
+ <tr bgcolor=#FFFFFF>
+  <td colspan="2">&nbsp;</td>
+  <td align="center" class="c10">3</td>
+  <td align="center" class="c12">4</td>
+  <td colspan="4">&nbsp;</td>
+ </tr>
+  <tr bgcolor=#FFFFFF>
+  <td colspan="2">&nbsp;</td>
+  <td align="center" class="c05">1</td>
+  <td align="center" class="c08">2</td>
+  <td colspan="4">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c11">18</td>
+  <td class="c12">17</td>
+  <td bgcolor=#009000 align="center" class="c01">9</td>
+  <td bgcolor=#009000 class="c07">11</td>
+  <td bgcolor=#D00000 class="c09">21</td>
+  <td bgcolor=#D00000 class="c12">23</td>
+  <td bgcolor=#2040D0 class="c09">13</td>
+  <td bgcolor=#2040D0 class="c12">15</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c06">20</td>
+  <td class="c04">19</td>
+  <td bgcolor=#009000 class="c05">10</td>
+  <td bgcolor=#009000 class="c04">12</td>
+  <td bgcolor=#D00000 class="c05">22</td>
+  <td bgcolor=#D00000 class="c08">24</td>
+  <td bgcolor=#2040D0 class="c04">14</td>
+  <td bgcolor=#2040D0 class="c08">16</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="2">&nbsp;</td>
+  <td bgcolor=#FFFF00 align="center" class="c02">5</td>
+  <td bgcolor=#FFFF00 align="center" class="c07">7</td>
+  <td colspan="4">&nbsp;</td>
+ </tr>
+  <tr bgcolor=#FFFFFF>
+  <td colspan="2">&nbsp;</td>
+  <td bgcolor=#FFFF00 align="center" class="c05">6</td>
+  <td bgcolor=#FFFF00 align="center" class="c08">8</td>
+  <td colspan="4">&nbsp;</td>
+ </tr>
+</table></div>
+<p>To clarify the facelet layout for the 4x4x4 simulator, the next picture shows the facelet 
+	positions in the parameter value (starting from 1). Green face is on the front, white face is on the top in the example.</p>
+<div class="responsive-table">	
+<table class="td" style="border-collapse:collapse">
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td align="center" class="c10">13</td>
+  <td align="center" class="c09">14</td>
+  <td align="center" class="c09">15</td>
+  <td align="center" class="c12">16</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td class="c02" align="center">9</td>
+  <td class="c01">10</td>
+  <td class="c01">11</td>
+  <td class="c07">12</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td class="c02" align="center">5</td>
+  <td class="c01" align="center">6</td>
+  <td class="c01" align="center">7</td>
+  <td class="c07" align="center">8</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td class="c02" align="center">1</td>
+  <td class="c01" align="center">2</td>
+  <td class="c01" align="center">3</td>
+  <td class="c07" align="center">4</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c11">68</td>
+  <td class="c09">67</td>
+  <td class="c09">66</td>
+  <td class="c12">65</td>
+  <td bgcolor="#009000" class="c09">33</td>
+  <td bgcolor="#009000" class="c09">37</td>
+  <td bgcolor="#009000" class="c09">41</td>
+  <td bgcolor="#009000" class="c12">45</td>
+  <td bgcolor="#D00000" class="c09">81</td>
+  <td bgcolor="#D00000" class="c09">85</td>
+  <td bgcolor="#D00000" class="c09">89</td>
+  <td bgcolor="#D00000" class="c12">93</td>
+  <td bgcolor="#2040D0" class="c09">49</td>
+  <td bgcolor="#2040D0" class="c09">53</td>
+  <td bgcolor="#2040D0" class="c09">57</td>
+  <td bgcolor="#2040D0" class="c12">61</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c03">72</td>
+  <td class="c01">71</td>
+  <td class="c01">70</td>
+  <td class="c07">69</td>
+  <td bgcolor="#009000" class="c01">34</td>
+  <td bgcolor="#009000" class="c01">38</td>
+  <td bgcolor="#009000" class="c01">42</td>
+  <td bgcolor="#009000" class="c07">46</td>
+  <td bgcolor="#D00000" class="c01">82</td>
+  <td bgcolor="#D00000" class="c01">86</td>
+  <td bgcolor="#D00000" class="c01">90</td>
+  <td bgcolor="#D00000" class="c07">94</td>
+  <td bgcolor="#2040D0" class="c01">50</td>
+  <td bgcolor="#2040D0" class="c01">54</td>
+  <td bgcolor="#2040D0" class="c01">58</td>
+  <td bgcolor="#2040D0" class="c07">62</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c03">76</td>
+  <td class="c01">75</td>
+  <td class="c01">74</td>
+  <td class="c07">73</td>
+  <td bgcolor="#009000" class="c01">35</td>
+  <td bgcolor="#009000" class="c01">39</td>
+  <td bgcolor="#009000" class="c01">43</td>
+  <td bgcolor="#009000" class="c07">47</td>
+  <td bgcolor="#D00000" class="c01">83</td>
+  <td bgcolor="#D00000" class="c01">87</td>
+  <td bgcolor="#D00000" class="c01">91</td>
+  <td bgcolor="#D00000" class="c07">95</td>
+  <td bgcolor="#2040D0" class="c01">51</td>
+  <td bgcolor="#2040D0" class="c01">55</td>
+  <td bgcolor="#2040D0" class="c01">59</td>
+  <td bgcolor="#2040D0" class="c07">63</td>
+ </tr>
+ <tr bgcolor=#FF6020>
+  <td class="c06">80</td>
+  <td class="c04">79</td>
+  <td class="c04">78</td>
+  <td class="c08">77</td>
+  <td bgcolor="#009000" class="c04">36</td>
+  <td bgcolor="#009000" class="c04">40</td>
+  <td bgcolor="#009000" class="c04">44</td>
+  <td bgcolor="#009000" class="c08">48</td>
+  <td bgcolor="#D00000" class="c04">84</td>
+  <td bgcolor="#D00000" class="c04">88</td>
+  <td bgcolor="#D00000" class="c04">92</td>
+  <td bgcolor="#D00000" class="c08">96</td>
+  <td bgcolor="#2040D0" class="c04">52</td>
+  <td bgcolor="#2040D0" class="c04">56</td>
+  <td bgcolor="#2040D0" class="c04">60</td>
+  <td bgcolor="#2040D0" class="c08">64</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td bgcolor="#FFFF00" class="c10">17</td>
+  <td bgcolor="#FFFF00" class="c09">21</td>
+  <td bgcolor="#FFFF00" class="c09">25</td>
+  <td bgcolor="#FFFF00" class="c12">29</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td bgcolor="#FFFF00" class="c02">18</td>
+  <td bgcolor="#FFFF00" class="c01">22</td>
+  <td bgcolor="#FFFF00" class="c01">26</td>
+  <td bgcolor="#FFFF00" class="c07">30</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td bgcolor="#FFFF00" class="c02">19</td>
+  <td bgcolor="#FFFF00" class="c01">23</td>
+  <td bgcolor="#FFFF00" class="c01">27</td>
+  <td bgcolor="#FFFF00" class="c07">31</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+ <tr bgcolor=#FFFFFF>
+  <td colspan="4">&nbsp;</td>
+  <td bgcolor="#FFFF00" class="c05">20</td>
+  <td bgcolor="#FFFF00" class="c04">24</td>
+  <td bgcolor="#FFFF00" class="c04">28</td>
+  <td bgcolor="#FFFF00" class="c08">32</td>
+  <td colspan="8">&nbsp;</td>
+ </tr>
+</table>
+</div>
+<p>To clarify the facelet layout for the 5x5x5 simulator, the next picture shows the facelet 
+	positions in the parameter value (starting from 1) schematically.</p>
+<div class="responsive-table">
+<table><tr><td><img src="sources/images/5x5x5-layout.gif" width="614" height="302" /></td></tr></table>
+</div> 
+<p>To clarify the facelet layout for the 6x6x6 simulator, the next picture shows the facelet 
+	positions in the parameter value (starting from 1) schematically.</p>
+<div class="responsive-table">
+<table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>
+</div>
+`;
 </script>       
 </body></html>
