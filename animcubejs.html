@@ -139,7 +139,7 @@ pre, code {white-space: pre-wrap; word-wrap: break-word;}
 </div>
 
 
-<div class="sections"><a name="introduction"></a><b><i>Introduction</i></b></div>
+<div id="introduction" class="sections"><b><i>Introduction</i></b></div>
 <p>Purpose of this simulator:</p>
 <div class="justify"><ul>
 <li>This JavaScript (JS) simulator is aimed at showing animation of Rubik's Cube 
@@ -148,8 +148,25 @@ manipulation.</li>
 by Josef Jelínek because of the problems with existing applets at that time 
 (2001). Features of AnimCubeJS simulator (the port from AnimCube to AnimCubeJS was made by Michael Feather) try to address and solve some of the 
 problems. However, the simulator evolved much further than its 
-"predecessors" and a user can now choose what fits his/her needs.</li>
+predecessors and a user can now choose what fits his/her needs.</li>
 </ul></div>
+
+<div id="evolution" class="button-to-center">
+<button id=showHideButton16 onclick="showHideFunc(16,1)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage16 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading16>Show AnimCubeJS evolution</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText16>
+</div>
+
+
 <p>Main features of this simulator:</p>
 <div class="justify"><ul>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
@@ -172,7 +189,7 @@ projection of facelets to the planes near the cube.</li>
 animate simultaneously without noticeable slow-down.</li>
 <li>The simulator is compatible with all modern web browsers.</li>
 <li>The entire simulator consists of 1 <a href="https://github.com/cubing/AnimCubeJS/tree/gh-pages/sources/codes/js-unminified" target="_new">fully readable plain JavaScript</a> file 
-(which was converted from 1 relatively lightweight Java file and then minified) for each cube size.</li>
+(which has been minified) for each cube size.</li>
 <li>The simulator offers several cube looks. Graphical appearance can be adjusted by the parameters such as <code><a href="#cubecolor">cubecolor</a></code>, 
 <code><a href="#borderwidth">borderwidth</a></code> or <code><a href="#supercube">supercube</a></code>.</li>
 <li>Manipulation &amp; control actions are working on mobile devices. Retina display is supported. Responsive-layout cubes can be easily designed.</li>
@@ -186,7 +203,7 @@ web browser. JavaScript in your web browser is currently <a id=a1></a><noscript>
 </p>
 
 
-<div class="sections"><a name="download"></a><b><i>Download</i></b></div>
+<div id="download" class="sections"><b><i>Download</i></b></div>
 
 <p>The program is classified as freeware and you can use the cube simulator in your web pages. 
 In order to do so, download one (or more) of the files below. Supercubes are included by default.</p>
@@ -461,7 +478,7 @@ containing both minified and unminified JS files (minification was done using <a
 terser v5.15.1 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
 </p>
   
-<div class="sections"><a name="controls"></a><b><i>Controls</i></b></div>
+<div id="controls" class="sections"><b><i>Controls</i></b></div>
 
 <p>Controls of the simulator are quite intuitive. You can rotate the whole cube 
 as well as twist separate layers using mouse (finger in the case of a touch 
@@ -491,7 +508,7 @@ finger even if the animation is started. If you press a button in the middle of
 an animated layer twist, the twist is finished immediately and the new requested action is started.</p>
 
 
-<div class="sections"><a name="usage"></a><b><i>Using Simulator in Web Pages</i></b></div>
+<div id="usage" class="sections"><b><i>Using Simulator in Web Pages</i></b></div>
 
 <br>
 <div class="button-to-center">
@@ -625,7 +642,7 @@ attribute: <code>style="width:100%; height:150px"</code>. See a different approa
 is optional so the simplest possible call is made using <code>&lt;script&gt;AnimCubeX("")&lt;/script&gt;</code> 
 (i.e. with no parameters at all).</p>
 
-<div class="sections"><a name="parameters"></a><b><i>Parameters</i></b></div>
+<div id="parameters" class="sections"><b><i>Parameters</i></b></div>
 <p>There are 45 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
 documentation. The best way to understand their meaning is to experiment with example simulators provided in the 
 description of each parameter.</p>
@@ -1199,7 +1216,8 @@ from '<code>2</code>' to '<code>10</code>'. The higher the value, the closer are
 
 <div class="sections-parameters"><a name="hintborder"></a><b><code>hintborder</code> parameter</b></div>
 
-<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet, however, the functionality of the 
+<code>hintborder=1</code> setting is supported by default.</p>
 <p>With this parameter you can avoid visual color collisions between the <code><a href="#bgcolor">bgcolor</a></code> and <code><a href="#hint">hint</a></code> 
 parameters. There are two parameter values: '<code>0</code>' (which is the default value) and '<code>1</code>'. If set to '<code>1</code>' then it is possible to show hint 
 facelets that are the same color as the background.
@@ -2171,7 +2189,7 @@ represent adjustable colors that can be set to any color using the <code><a href
 <p>To clarify the facelet layout for the 3x3x3 simulator, the next picture shows the facelet 
 	positions in the parameter value (starting from 1).</p>
 <center><div><img src="sources/images/facelets.gif" width="244" height="185" />
-<div class="cube" style="width:185px; height:185px"> <script>AnimCube3("colorscheme=wygbor&bgcolor=ffffff&hint=5&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:185px; height:185px"> <script>AnimCube3("colorscheme=wygbor&bgcolor=ffffff&hint=5&snap=1&buttonheight=20&hintborder=1")</script></div>
 </div></center><br>
 
 <div class="button-to-center">
@@ -2295,12 +2313,13 @@ ffff00 yellow
 <div class="sections-parameters"><a name="pos"></a><b><code>pos</code> parameter</b></div>
 
 <p>This parameter should be considered obsolete, and is supported only because of compatibility and smooth replacement of 
-the old 3x3x3 Rubik's Cube Java applet made by Lars Petrus.</p>
+the old 3x3x3 Rubik's Cube Java applets (called lrubik and Caesar as outlined in the 
+<a href="#introduction">Introduction</a> section under the "Show AnimCubeJS evolution" button) made by Lars Petrus.</p>
 
 <p>
-The <code>pos</code> parameter is similar to the <code><a href="#facelets">facelets</a></code> 
-one. Using this parameter, the AnimCubeJS simulator sets other unset parameters to proper values, so as the 
-appearance is as close as possible to the old Lars' Java applet. 
+The <code>pos</code> parameter is similar to <code><a href="#facelets">facelets</a></code>. 
+Using this parameter, the AnimCubeJS simulator sets other unset parameters to proper values, so the 
+appearance is as close as possible to the old Lars' Java applet (Caesar). 
 If this parameter is used then default implicit parameter settings are:
 </p><ul>
 <li><code><a href="#bgcolor">bgcolor</a>=FFFFFF</code></li>
@@ -2310,7 +2329,7 @@ If this parameter is used then default implicit parameter settings are:
 <p>This parameter is mutually exclusive with the parameters <code>facelets</code> 
 and <code><a href="#colorscheme">colorscheme</a></code>. When used simultaneously, <code>facelets</code> has higher 
 priority and <code>colorscheme</code> lower.
-</p><p><i>Examples:</i> First cube below is identical to the code of Lars' old 3x3x3 Java applet. 
+</p><p><i>Examples:</i> First cube below is identical to the code of Lars' old 3x3x3 Java applet (lrubik). 
 <!-- Josef's original code is following:
 
 <applet code=AnimCube.class archive="AnimCube.jar" width=125 height=145>
@@ -2319,7 +2338,7 @@ priority and <code>colorscheme</code> lower.
 </applet>
 
 -->
-The next two cubes come from the newer (yet still old) Lars' 3x3x3 Java applets that use extended notation for whole-cube 
+The next two cubes come from the newer (yet still old) Lars' 3x3x3 Java applet (Caesar) that uses extended notation for whole-cube 
 rotations and two-layer turns. Although the same symbols are used (see the source code if you are interested), the meaning of symbols in 
 the notations is different.</p>
 <!-- Lars' original code for the second cube is following:
@@ -2343,9 +2362,9 @@ and was converted by Josef to:
 -->
 
 <div>
-<div class="cube" style="width:125px; height:145px"> <script>AnimCube3("pos=abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd&move=L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:125px; height:145px"> <script>AnimCube3("pos=abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd&move=L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2&snap=1&buttonheight=20&fonttype=0")</script></div>
 <div class="cube" style="width:115px; height:135px"> <script>AnimCube3("bgcolor=00aa00&pos=abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd&move=z2R2D1U2F2R1U3y3B1L3B1L3B3x1L3D2L2F2L1D1F3D3F1D3F2D1F3D1F1D3b2U1L1F2L3F3L1F1L3F3L1F3L3F2&metric=2&snap=1&buttonheight=20")</script></div>
-<div class="cube" style="width:160px; height:180px"> <script>AnimCube3("pos=feedccbeabdbcefcacbfacaeabadbeffddfefadcbdfacdbcadeebf&move=R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2&metric=2&hint=3&snap=1&buttonheight=20")</script></div>
+<div class="cube" style="width:160px; height:180px"> <script>AnimCube3("pos=feedccbeabdbcefcacbfacaeabadbeffddfefadcbdfacdbcadeebf&move=R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2&metric=2&hint=3&snap=1&buttonheight=20&hintborder=1&fonttype=0")</script></div>
 </div><br>
 
 <div class="button-to-center">
@@ -2383,28 +2402,28 @@ setting.</li><br>
 
 <li>You are permitted to use only the following case sensitive color codes:<br><br> 
 <table cellspacing="2" cellpadding="4" bgcolor="black">
-<tr><td bgcolor="white" align="center">a</td><td bgcolor="#009000">green</td></tr>
-<tr><td bgcolor="white" align="center">b</td><td bgcolor="#2040D0">blue</td></tr>
-<tr><td bgcolor="white" align="center">c</td><td bgcolor="#D00000">red</td></tr>
+<tr><td bgcolor="white" align="center">a</td><td bgcolor="#00FF00">green</td></tr>
+<tr><td bgcolor="white" align="center">b</td><td bgcolor="#0000FF">blue</td></tr>
+<tr><td bgcolor="white" align="center">c</td><td bgcolor="#FF0000">red</td></tr>
 <tr><td bgcolor="white" align="center">d</td><td bgcolor="white">white</td></tr>
-<tr><td bgcolor="white" align="center">e</td><td bgcolor="#FF6020">orange</td></tr>
+<tr><td bgcolor="white" align="center">e</td><td bgcolor="#FF7F00">orange</td></tr>
 <tr><td bgcolor="white" align="center">f</td><td bgcolor="#FFFF00">yellow</td></tr>
-<tr><td bgcolor="white" align="center">g</td><td bgcolor="#B0B0B0">light gray</td></tr>
-<tr><td bgcolor="white" align="center">h</td><td bgcolor="#505050">dark gray</td></tr>
-<tr><td bgcolor="white" align="center">A</td><td bgcolor="#447744">green-gray</td></tr>
-<tr><td bgcolor="white" align="center">B</td><td bgcolor="#004477">blue-gray</td></tr>
-<tr><td bgcolor="white" align="center">C</td><td bgcolor="#994444">red-gray</td></tr>
-<tr><td bgcolor="white" align="center">D</td><td bgcolor="#999999">white-gray</td></tr>
-<tr><td bgcolor="white" align="center">E</td><td bgcolor="#BB7744">orange-gray</td></tr>
-<tr><td bgcolor="white" align="center">F</td><td bgcolor="#AAAA44">yellow-gray</td></tr>
+<tr><td bgcolor="white" align="center">g</td><td bgcolor="#808080">light gray</td></tr>
+<tr><td bgcolor="white" align="center">h</td><td bgcolor="#404040">dark gray</td></tr>
+<tr><td bgcolor="white" align="center">A or i</td><td bgcolor="#4CB24C">green-gray</td></tr>
+<tr><td bgcolor="white" align="center">B or j</td><td bgcolor="#4C4CB2">blue-gray</td></tr>
+<tr><td bgcolor="white" align="center">C or k</td><td bgcolor="#B24C4C">red-gray</td></tr>
+<tr><td bgcolor="white" align="center">D or l</td><td bgcolor="#B2B2B2">white-gray</td></tr>
+<tr><td bgcolor="white" align="center">E or m</td><td bgcolor="#B27F4C">orange-gray</td></tr>
+<tr><td bgcolor="white" align="center">F or n</td><td bgcolor="#B2B24C">yellow-gray</td></tr>
 </table>
 
 </li><br>
-<li>If you are converting from the old 3x3x3 Rubik's Cube Java applet made by Lars Petrus to AnimCubeJS (3x3x3 simulator to be specific), be 
+<li>If you are converting from the old 3x3x3 Rubik's Cube Java applet (Caesar) made by Lars Petrus to AnimCubeJS (3x3x3 simulator to be specific), be 
 aware that while AnimCubeJS uses center-independent way to display declared move sequences, Lars' Java applet uses center-dependent way to display declared 
-move sequences. It means that if an <code>M</code> move followed by an <code>F</code> move is executed, second turn will affect the front layer you see in the front 
-position in case of AnimCubeJS, and not the bottom layer where the center that was initially in the front position is now placed (which is the case for Lars' approach). 
-Because of this, you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet.</li>
+move sequences. It means that if an <code>r</code> move followed by an <code>F</code> move is executed, second turn will affect the front layer you see in the front 
+position in case of AnimCubeJS, and not the upper layer where the center that was initially in the front position is now placed (which would be the case for Lars' approach). 
+Because of this, you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet (Caesar).</li>
 </ol></div>
 </div><br>
 
@@ -2581,7 +2600,7 @@ fixed centers model, which is a Rubik's cube model in which center layers never 
 functions which pass parameters to the simulator. See the Enhancement section for more.</p>
 
 
-<div class="sections"><a name="enhancement"></a><b><i>Enhancement</i></b></div>
+<div id="enhancement" class="sections"><b><i>Enhancement</i></b></div>
 <!--
 <p>Some mobile browsers have an autohide feature for the tab/address bar which allows web page scrolling (as it "hides" the 
 tab/address bar) while rotating the cube/layer vertically. This results in a poor user experience.
@@ -3024,6 +3043,274 @@ showHideContents[7] = `
 <div class="responsive-table">
 <table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>
 </div>
+`;
+showHideContents[16] = `
+<p>
+This is an attempt to chronologically document the full evolving process (getting from Java applet to JavaScript 
+simulator) related to the AnimCubeJS development. The documentation has been done retrospectively so the below-mentioned 
+dates might be eventually off by 1 or more months due to lack of better information source, but the given years should be 
+correct. The dates are representing either the first software version being published online or the last modification being 
+made, whichever is stated by the information source. In case of Java applets, provided links are meant to be leading to the 
+earliest source code version available.
+</p>
+<p>
+Thanks to Michael Feather you can <a href="https://mfeather1.github.io/ACJS_Evolution/" target="_new">play with all 6 Java applets</a> mentioned 
+below if you meet some prerequisites.
+</p>
+<br>
+<hr>
+Rubik's Cube Java Applet by Michael Schubart
+<hr>
+<p>
+In December 1995, Michael Schubart has released the first version of his Rubik's Cube applet which looks like this:
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/rubiks-cube-java-applet.PNG" width="362" height="342" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+The camera angle is fixed, therefore a free rotation of the cube in space is not supported. Thanks to the hint stickers 
+allowing to see the whole cube in just one look that is not a problem though. By mouse dragging the selected layer is not 
+being twisted, the animation is done by changing colors of the corresponding stickers after each move. An effect of 
+rotating the whole cube at once is supported using the Ctrl key, thus turning all 3 layers one by one is not necessary 
+to achieve the same visual result. Double turns are being executed as two single turns.
+</p>
+<p>
+There is not much resemblance (as in the visual appearance and functionality) between this applet and the programs listed 
+below. However, the Rubik's Cube Java Applet was an inspiration to Karl Hörnell for creating his own animation applet. Check 
+out the source code from June 1997 which is available 
+<a href="http://web.archive.org/web/19990302035045/http://www.best.com/%7Eschubart/rc/RubiksCubeApplet.java" target="_new">here</a>.
+</p>
+<br>
+<hr>
+Rubik Unbound by Karl Hörnell
+<hr>
+<p>
+Rubik Unbound is probably one of the earliest realistically looking online Rubik's Cube Java applets in which the 
+whole-cube rotations as well as manipulations with outer layers are being animated by pressing down a mouse button 
+while dragging in natural directions. Inspired by Sun Microsystems' rotable 3D wireframe cube applet and Michael 
+Schubart's early version of his  applet, Karl Hörnell has written his own animation applet from scratch and published 
+it on the internet in March 1996. It became fairly popular in the cubing community, and looks like this:
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/rubik-unbound.PNG" width="129" height="129" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+Inner layer turns (today commonly denoted as M, E, S) are not supported due to technical difficulties, or rather a 
+design decision because two user input types would be necessary for the program to provide two different responses 
+(i.e. whole-cube rotations and MES turns) to the same input data. 
+If clicked on the cube image of the applet, then the cube can be scrambled by pressing the "s" key and solved/restored 
+by pressing the "r" key. A background color of the applet can be visually adjusted by setting the bgcolor parameter to a 
+hexadecimal RGB value, the color scheme is following: violet opposite white (#6C6CF6 opposite #F7F7F7), light green opposite 
+light brown (#6CF66C opposite #F6C736), light yellow opposite pink (#F6F66C opposite #F65A5A).
+</p>
+<p>
+This pioneering piece of software has later influenced other programmers including Josef Jelínek 
+and Lars Petrus. Download the source code which is available 
+<a href="http://web.archive.org/web/19970805071436/http://www.tdb.uu.se:80/~karl/clueless/rubik.tar.gz" target="_new">here</a>.
+</p>
+<br>
+<hr>
+lrubik by Lars Petrus
+<hr>
+<p>
+While the previous Java cubes served mainly as a playing tool for the end users, Lars Petrus took the Rubik Unbound applet and 
+modified it for the educational purposes on his speed solving web-site. From now on, the cube applet can be used also as 
+a visual demonstration tool. As a result of needed programming modifications, an applet called lrubik has been developed 
+over several years - the changes have been implemented e.g. in November 1997 or in September 2000. This is how it looks: 
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/lrubik.PNG" width="123" height="136" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+A lot of new functionality has been added by Lars. Among others, the VCR-style buttons controlling the animation have been 
+introduced, as well as customizable color codes for cube stickering, or his unconventional move notation. Buttons in the 
+button bar are changing colors depending on where you are at in the move sequence (if they are white they are inactive, 
+otherwise they are active and black). The cube is in a compact form but you can twist outer layers by clicking on cube 
+faces and simultaneously holding down the Shift and/or Ctrl key. Shift key is for a clockwise turn, Ctrl key for a 
+counter-clockwise turn, and Shift + Ctrl combination for a double turn. Download the source code which is available 
+<a href="http://web.archive.org/web/20031002161832/http://lar5.com/cube/LarsCubeCode.zip" target="_new">here</a>.
+</p>
+<br>
+<hr>
+Gloomy Cube by Josef Jelínek
+<hr>
+<p>
+Inspired by both the original Rubik Unbound applet and the derived lrubik applet, Josef Jelínek has written his own 
+Java applet called Gloomy Cube from scratch, and published it online in March 2001. This is how it looks:
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/gloomy-cube.PNG" width="185" height="192" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+It features the following parameters: bgcolor, butbgcolor, facelets and move. A standard Singmaster notation is supported 
+for outer layer turns in the move parameter, which differs from the lrubik applet. Download the source code which is available 
+<a href="https://web.archive.org/web/20010609134018/http://cube.misto.cz/_MAIL_/javacube/cube.html" target="_new">here</a>.
+</p>
+<br>
+<hr>
+Caesar by Lars Petrus &amp; Matthew Smith
+<hr>
+<p>
+Caesar was a collaborative project between Lars Petrus and Matthew Smith based on the lrubik applet. In July 2002, Matthew 
+added the functionality to turn 2 or 3 adjacent layers at once (wide moves and whole-cube rotations), as well as shaded 
+color stickers. In May - June 2003 Lars has published a version in which he reorganized the entire code and added several 
+new features. Finally, in February - April 2004 Lars added even more functionality and finished the work. The applet 
+looks like this:  
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/caesar.PNG" width="186" height="184" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+The cube as well as the buttons can be controlled with both the keyboard and the mouse, yet a separate inner-layer turn 
+is not supported. Download the source code which is available 
+<a href="https://web.archive.org/web/20040415051733/http://lar5.com/cube/Caesar_2.0.zip" target="_new">here</a>.
+</p>
+<br>
+<hr>
+AnimCube by Josef Jelínek
+<hr>
+<p>
+Highly configurable (featuring a total of 26 customizable parameters), beautifully looking and performance-optimized Java 
+applet based on Gloomy Cube. The AnimCube has been published online in March 2004 at the latest, and looks like this:
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/animcube.PNG" width="167" height="193" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+It is a fully functional cube, meaning that all types of turns known from a physical cube can be directly replicated. While 
+writing it, Josef has been inspired not only by the Rubik Unbound, lrubik and Gloomy Cube applets, but also by the Caesar 
+applet. He has been discussing the development with some famous cubers such as Gilles Roux or Ryan Heise. See the 
+documentation and download the available source code 
+<a href="https://web.archive.org/web/20040324091227/http://software.rubikscube.info/AnimCube/" target="_new">here</a>.
+</p>
+<br>
+<hr>
+AnimCube (JavaScript GWT version) by Ryan Heise
+<hr>
+<p>
+With time passing by, cube applets started to be very hard to use on web-sites due to Java security problems and an impossibility 
+to run Java on some devices. Ryan Heise has realized it in March 2012, and ported the AnimCube Java applet to 
+JavaScript using GWT (Google Web Toolkit). Ryan's AnimCube JavaScript simulator looks like this: 
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/animcube-js-gwt.PNG" width="153" height="156" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+Download the minified source code (not suitable for development) which is available 
+<a href="https://www.ryanheise.com/animcube/" target="_new">here</a>.
+</p>
+<br>
+<hr>
+AnimCubeJS (3x3x3 GWT version) by Michael Feather
+<hr>
+<p>
+Independent of Ryan Heise's port of AnimCube to JavaScript using GWT, Michael Feather used the same idea in June 2015. 
+He made his simulator even more customizable, and a lot of new functionality has been added. This is how the simulator looks: 
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/animcubejs-3x3x3-gwt.PNG" width="165" height="151" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+Build instructions and source code are documented in the <a href="old/animcubejs.html" target="_new">old AnimCubeJS version</a>.
+</p>
+<br>
+<hr>
+AnimCubeJS (4x4x4 - 6x6x6 &amp; 2x2x2 GWT versions) by Michael Feather
+<hr>
+<p>
+Michael Feather continued in further development of the program. He has been gradually improving all aspects of the simulator, 
+adding new parameters &amp; cube sizes: 4x4x4 in February 2016, 5x5x5 in May 2016, 2x2x2 in June 2016 and 6x6x6 in October 2017.   
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr>
+<td style="vertical-align:bottom"><img src="sources/images/evolution/animcubejs-4x4x4-gwt.PNG" width="183" height="168" /></td>
+<td style="vertical-align:bottom"><img src="sources/images/evolution/animcubejs-5x5x5-gwt.PNG" width="206" height="188" /></td>
+<td style="vertical-align:bottom"><img src="sources/images/evolution/animcubejs-2x2x2-gwt.PNG" width="145" height="134" /></td>
+<td><img src="sources/images/evolution/animcubejs-6x6x6-gwt.PNG" width="226" height="206" /></td>
+</tr>
+</table>
+</div>
+</center>
+<p>
+Build instructions and source code are documented in the <a href="old/animcubejs.html" target="_new">old AnimCubeJS version</a>.
+</p>
+<br>
+<hr>
+AnimCubeJS (2x2x2 - 6x6x6 plain JavaScript versions) by Michael Feather
+<hr>
+<p>
+There was one problem with the GWT conversion method which was that the 
+generated JavaScript code was machine readable only, so ongoing development 
+continued using Java code and each new version was again converted using GWT. 
+This dependency on GWT was finally eliminated in May 2021 by Michael Feather when he 
+manually converted the Java into human readable JavaScript code. 
+The current version of AnimCubeJS looks like this: 
+</p>
+<center>
+<div class="responsive-table">
+<table>
+<tr><td>
+<img src="sources/images/evolution/animcubejs.PNG" width="204" height="209" />
+</td></tr>
+</table>
+</div>
+</center>
+<p>
+Simulator graphics as well as user experience have been continuously improved. Some new parameters have been added, too. 
+Remarkably, despite all the functionality, source code complexity & effectiveness, and all-around optimization, Michael 
+managed to keep very low system requirements to display the fully functional simulator in a web-page. Unlike some similar 
+Rubik's Cube JavaScript simulators, AnimCubeJS will perfectly run even on very old machines.   
+</p>
 `;
 </script>       
 </body></html>
