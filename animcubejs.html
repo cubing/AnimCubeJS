@@ -2422,7 +2422,7 @@ setting.</li><br>
 <li>If you are converting from the old 3x3x3 Rubik's Cube Java applet (Caesar) made by Lars Petrus to AnimCubeJS (3x3x3 simulator to be specific), be 
 aware that while AnimCubeJS uses center-independent way to display declared move sequences, Lars' Java applet uses center-dependent way to display declared 
 move sequences. It means that if an <code>r</code> move followed by an <code>F</code> move is executed, second turn will affect the front layer you see in the front 
-position in case of AnimCubeJS, and not the upper layer where the center that was initially in the front position is now placed (which would be the case for Lars' approach). 
+position in case of AnimCubeJS, and not the top layer where the center that was initially in the front position is now placed (which would be the case for Lars' approach). 
 Because of this, you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet (Caesar).</li>
 </ol></div>
 </div><br>
@@ -2836,12 +2836,12 @@ function showCubes15() {
 
                        ----------  -----------  ------  --------
 
-  Network friendly         Y            Y          N       N
+  Network friendly         Y            Y          N       Y
 
   Webadmin / code-looking
   friendly                 Y            N          Y       Y
 
-  IE friendly              N            Y          Y       Y
+  IE (IE Mode) friendly    N            Y          Y       Y
 */
 showHideContents[7] = '\
 <p>To clarify the facelet layout for the 2x2x2 simulator, the next picture shows the facelet \
