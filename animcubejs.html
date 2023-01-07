@@ -2419,11 +2419,13 @@ setting.</li><br>
 </table>
 
 </li><br>
-<li>If you are converting from the old 3x3x3 Rubik's Cube Java applet (Caesar) made by Lars Petrus to AnimCubeJS (3x3x3 simulator to be specific), be 
-aware that while AnimCubeJS uses center-independent way to display declared move sequences, Lars' Java applet uses center-dependent way to display declared 
-move sequences. It means that if an <code>r</code> move followed by an <code>F</code> move is executed, second turn will affect the front layer you see in the front 
-position in case of AnimCubeJS, and not the top layer where the center that was initially in the front position is now placed (which would be the case for Lars' approach). 
-Because of this, you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet (Caesar).</li>
+<li>If you are converting from the old 3x3x3 Rubik's Cube Java applet (Caesar) made by Lars Petrus to AnimCubeJS (3x3x3 simulator 
+to be specific), be aware that while AnimCubeJS uses center-independent way to display declared move sequences, Lars' Java applet 
+uses center-dependent way to display them. This means that when the position of centers changes the moves are mapped differently 
+across Caesar and AnimCubeJS. On a physical cube, if you execute an <code>x</code> whole-cube rotation followed by 
+an <code>F</code> move, that move should affect the front layer (which is the case for AnimCubeJS), and not the top layer 
+where the center that was initially in the front position is now placed (which is the case for Lars' approach). Because of this, 
+you might want to convert the move sequence declared in Lars' old 3x3x3 Rubik's Cube Java applet.</li>
 </ol></div>
 </div><br>
 
