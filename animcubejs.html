@@ -2829,21 +2829,27 @@ function showCubes15() {
   AnimCube3(config + "&id=s15c1&colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=#&snap=1&buttonheight=20");
   AnimCube3(config + "&id=s15c2&colorscheme=wygbor&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=#&snap=1&buttonheight=20");
 }
-/*
-                            text in array
+/* Goals for Show/Hide implementation:
 
+                            text in array
                        -----------------------   text    text
 
                        backquotes  backslashes  in div  in files
-
                        ----------  -----------  ------  --------
+  Network friendly
+  (do not load images
+  when page is             Y            Y          N       Y
+  initially loaded, load
+  them when user presses the show button)
 
-  Network friendly         Y            Y          N       Y
+  Webadmin friendly
+  (avoid having to use
+  backslashes on every     Y            N          Y       N
+  line for entire show/hide
+  text and keep all code in one file)
 
-  Webadmin / code-looking
-  friendly                 Y            N          Y       Y
-
-  IE (IE Mode) friendly    N            Y          Y       Y
+  IE (IE Mode) friendly
+  (do not use backquotes)  N            Y          Y       Y
 */
 showHideContents[7] = '\
 <p>To clarify the facelet layout for the 2x2x2 simulator, the next picture shows the facelet \
@@ -3073,7 +3079,7 @@ earliest source code version available.\
 <p>\
 Thanks to Michael Feather you can \
 <a href="https://mfeather1.github.io/ACJS_Evolution/acjs_evolution.html" target="_new">play with all 6 Java applets</a> mentioned \
-below if you meet some prerequisites.\
+below even on modern web browsers and/or mobile devices.\
 </p>\
 <br>\
 <hr>\
