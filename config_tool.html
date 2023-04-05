@@ -52,7 +52,7 @@
                 <option value="7">7x7x7</option>
               </select>
               <hr style="border-style: groove; border-width: 2px;">
-              <a id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
+              <a href="#" id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
               <div id="cubesettings" style="display: none;">
                 <hr>
                 frame width: 
@@ -106,7 +106,7 @@
                 <br> 
               </div>
               <hr style="border-style: groove; border-width: 2px;">
-              <a id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>
+              <a href="#" id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>
               <div id="buttonbarsettings" style="display: none;">
                 <hr>
                 butbgcolor: 
@@ -137,7 +137,7 @@
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
-              <a id='label:hintsettings' onclick="reverse('hintsettings');"><b>Hint &#8631;</b></a>
+              <a href="#" id='label:hintsettings' onclick="reverse('hintsettings');"><b>Hint &#8631;</b></a>
               <div id="hintsettings" style="display: none;">
                 <hr>
                 hint: 
@@ -155,7 +155,7 @@
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
-              <a id='label:movesettings' onclick="reverse('movesettings');"><b>Move &#8631;</b></a>
+              <a href="#" id='label:movesettings' onclick="reverse('movesettings');"><b>Move &#8631;</b></a>
               <div id="movesettings" style="display: none;">
                 <hr>
                 move:
@@ -201,6 +201,9 @@
                 <input type="radio" name="fonttype" checked="yes" onchange="replace_cube()"/>outlined
                 <input type="radio" name="fonttype" id="fonttypeoff" onchange="replace_cube()"/>no outline
                 <br>
+                textsize: 
+                <input type="number" id="textsize" style="width:40px;" step="1" min="5" max="40" value="12" onchange="replace_cube()"/>
+                <br>
                 scramble: 
                 <input type="number" id="scramble" style="width:30px;" step="1" min="0" max="2" value="0" onchange="replace_cube()"/>
                 <br>
@@ -209,7 +212,7 @@
                 <br>
               </div>
               <hr style="border-style: groove; border-width: 2px;">
-              <a id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Facelets &#8631;</b></a>
+              <a href="#" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Facelets &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
                 facelets:
@@ -324,6 +327,7 @@
       var metric = document.getElementById('metric').value;
       var counteroff = document.getElementById('conteroff');
       var fonttypeoff = document.getElementById('fonttypeoff');
+      var textsize = document.getElementById('textsize').value;
       var facelets = document.getElementById('facelets').value;
       var colorscheme = document.getElementById('colorscheme').value;
       var colorsdefault = document.getElementById('colorsdefault');
@@ -447,6 +451,8 @@
         params += '&counter=0';
       if (fonttypeoff.checked)
         params += '&fonttype=0';
+      if (textsize != '12')
+        params += '&textsize='+textsize;
       if (facelets != '' && facelets.length == parseInt(num,10)**2*6)
         params += '&facelets='+facelets;
       if (colorscheme != '' && colorscheme.length == 6)
