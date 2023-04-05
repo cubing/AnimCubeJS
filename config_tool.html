@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="AnimCube2.js"></script>
+  <script src="AnimCube3.js"></script>
+  <script src="AnimCube4.js"></script>
+  <script src="AnimCube5.js"></script>
+  <script src="AnimCube6.js"></script>
+  <script src="AnimCube7.js"></script>
+</head>
+<style>
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+  table, td {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: top;
+  }
+  a:link {
+    color: black;
+    text-decoration: none;
+  }
+  a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    color: blue;
+    text-decoration: none;
+  }
+  a:active {
+    color: green;
+    text-decoration: underline;
+  }
+</style>
+  <body>
+    <center>
+      <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJs Configuration Tool</h1>
+      <table>
+        <tr>
+          <td>
+            <div>
+              <b>Cube:</b>
+              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="replace_cube()">
+                <option value="2">2x2x2</option>
+                <option value="3" selected>3x3x3</option>
+                <option value="4">4x4x4</option>
+                <option value="5">5x5x5</option>
+                <option value="6">6x6x6</option>
+                <option value="7">7x7x7</option>
+              </select>
+              <hr style="border-style: groove; border-width: 2px;">
+              <a id="label:cubesettings" onclick="reverse('cubesettings');"><b>Cube Settings &#8631;</b></a>
+              <div id="cubesettings" style="display: none;">
+                <hr>
+                frame width: 
+                <input type="number" id="width" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                <br>
+                frame height: 
+                <input type="number" id="height" style="width:50px;" value="400" step="1" min="50" max="999" onchange="replace_cube()"/> px
+                <br>
+                bgcolor: 
+                <input type="color" id="bgcolor" value="#808080" onchange="replace_cube()"/>
+                <br>
+                cubecolor:  
+                <input type="color" id="cubecolor" value="#000000" onchange="replace_cube()"/>
+                <br>
+                snap: 
+                <input type="radio" name="snap" id="snapon" onchange="replace_cube()"/>on 
+                <input type="radio" name="snap" checked="yes" onchange="replace_cube()"/>off
+                <br>
+                repeat: 
+                <input type="radio" name="repeat" checked="yes" onchange="replace_cube()"/>on 
+                <input type="radio" name="repeat" id="repeatoff" onchange="replace_cube()"/>off
+                <br>
+                edit: 
+                <input type="radio" name="edit" checked="yes" onchange="replace_cube()"/>on 
+                <input type="radio" name="edit" id="editoff" onchange="replace_cube()"/>off
+                <br>
+                speed: 
+                <input type="number" id="speed" style="width:40px;" step="1" min="1" max="99" value="10" onchange="replace_cube()"/>
+                <br>
+                doublespeed: 
+                <input type="number" id="doublespeed" style="width:40px;" step="1" min="0" max="99" value="0" onchange="replace_cube()"/>
+                <br>
+                position: 
+                <input type="text" id="position" style="width:120px;" value="lluu" onchange="replace_cube()"/>
+                <br>
+                scale: 
+                <input type="number" id="scale" style="width:40px;" step="1" min="0" max="99" value="0" onchange="replace_cube()"/>
+                <br>
+                align: 
+                <input type="number" id="align" style="width:40px;" step="1" min="0" max="99" value="1" onchange="replace_cube()"/>
+                <br>
+                perspective: 
+                <input type="number" id="perspective" style="width:50px;" step="1" min="0" max="999" value="2" onchange="replace_cube()"/>
+                <br>
+                borderwidth: 
+                <input type="number" id="borderwidth" style="width:40px;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
+                <br>
+                supercube: 
+                <input type="radio" name="supercube" id="supercubeon" onchange="document.getElementById('borderwidth').value='6'; document.getElementById('supercubestuff').style.display='block'; replace_cube()"/>on
+                <input type="radio" name="supercube" checked="yes" onchange="document.getElementById('supercubestuff').style.display='none'; replace_cube()"/>off
+                <br> 
+              </div>
+              <hr style="border-style: groove; border-width: 2px;">
+              <a id='label:buttonbarsettings' onclick="reverse('buttonbarsettings');"><b>Buttonbar &#8631;</b></a>
+              <div id="buttonbarsettings" style="display: none;">
+                <hr>
+                butbgcolor: 
+                <input type="color" id="butbgcolor" value="#808080" onchange="replace_cube()"/>
+                <br>
+                slidercolor:
+                <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
+                <input type="checkbox" name="slidercolordefault" id="slidercolordefault" checked="yes" onchange="replace_cube()"/>default
+                <br>
+                troughcolor:
+                <input type="color" id="troughcolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
+                <input type="checkbox" name="troughcolordefault" id="troughcolordefault" checked="yes" onchange="replace_cube()"/>default
+                <br>
+                clickprogress: 
+                <input type="radio" name="clickprogress" checked="yes" onchange="replace_cube()"/>on 
+                <input type="radio" name="clickprogress" id="clickprogressoff" onchange="replace_cube()"/>off
+                <br>
+                buttonbar: 
+                <select id="buttonbar" onchange="replace_cube()">
+                  <option value="default" selected>default</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+                <br>
+                buttonheight: 
+                <input type="number" id="buttonheight" style="width:40px;" step="1" min="9" max="25" value="13" onchange="replace_cube()"/>
+                <br>
+              </div>
+              <hr style="border-style: groove; border-width: 2px;">
+              <a id='label:hintsettings' onclick="reverse('hintsettings');"><b>Hint &#8631;</b></a>
+              <div id="hintsettings" style="display: none;">
+                <hr>
+                hint: 
+                <input type="number" id="hint" style="width:40px;" step="1" min="0" max="99" value="0" onchange="replace_cube()"/>
+                <br>
+                hinthoriz: 
+                <input type="number" id="hinthoriz" style="width:40px;" step="0.1" min="0.1" max="10" value="3.7" onchange="replace_cube()"/>
+                <br>
+                hintvert: 
+                <input type="number" id="hintvert" style="width:40px;" step="0.1" min="0.1" max="10" value="3.7" onchange="replace_cube()"/>
+                <br>
+                hintborder: 
+                <input type="radio" name="hintborder" id="hintborderon" onchange="replace_cube()"/>on
+                <input type="radio" name="hintborder" checked="yes" onchange="replace_cube()"/>off 
+                <br>
+              </div>
+              <hr style="border-style: groove; border-width: 2px;">
+              <a id='label:movesettings' onclick="reverse('movesettings');"><b>Move &#8631;</b></a>
+              <div id="movesettings" style="display: none;">
+                <hr>
+                move:
+                <br> 
+                <textarea id="move" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <br>
+                movetext: 
+                <input type="number" id="movetext" style="width:40px;" step="1" min="0" max="5" value="0" onchange="replace_cube()"/>
+                <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>don't work for this cube</text>
+                <br>
+                movetextspace: 
+                <input type="radio" name="movetextspace" checked="yes" onchange="replace_cube()"/>on
+                <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 
+                <br>
+                switch yz: 
+                <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
+                <input type="radio" name="yz" checked="yes" onchange="replace_cube()"/>off 
+                <br>
+                sign: 
+                <input type="radio" name="sign" id="signon" onchange="document.getElementById('switchyz').checked=true; document.getElementById('movetext').value='5'; replace_cube()"/>on
+                <input type="radio" name="sign" checked="yes" onchange="replace_cube()"/>off 
+                <br>
+                initmove:
+                <br> 
+                <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <br>
+                initrevmove:
+                <br> 
+                <textarea id="initrevmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <br>
+                demo:
+                <br> 
+                <textarea id="demo" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <br>
+                metric: 
+                <input type="number" id="metric" style="width:30px;" step="1" min="0" max="3" value="0" onchange="replace_cube()"/>
+                <br>
+                counter: 
+                <input type="radio" name="counter" checked="yes" onchange="replace_cube()"/>on
+                <input type="radio" name="counter" id="conteroff" onchange="replace_cube()"/>off 
+                <br>
+                fonttype: 
+                <input type="radio" name="fonttype" checked="yes" onchange="replace_cube()"/>outlined
+                <input type="radio" name="fonttype" id="fonttypeoff" onchange="replace_cube()"/>no outline
+                <br>
+                scramble: 
+                <input type="number" id="scramble" style="width:30px;" step="1" min="0" max="2" value="0" onchange="replace_cube()"/>
+                <br>
+                randmoves: 
+                <input type="number" id="randmoves" style="width:30px;" step="1" min="0" value="0" onchange="replace_cube()"/>
+                <br>
+              </div>
+              <hr style="border-style: groove; border-width: 2px;">
+              <a id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Facelets &#8631;</b></a>
+              <div id="faceletssettings" style="display: none;"> 
+                <hr>
+                facelets:
+                <br> 
+                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <br>
+                colorscheme: 
+                <input type="text" id="colorscheme" style="width:60px;" onchange="replace_cube()"/>
+                <br>
+                colors:
+                <input type="checkbox" id="colorsdefault" checked="yes" onchange="replace_cube()"/>default
+                <br>
+                <div id="colortable" style="display: none;">
+                  0: <input type="color" id="color0" value="#FF8040" onchange="replace_cube()"/>&nbsp;
+                  1: <input type="color" id="color1" value="#FF0000" onchange="replace_cube()"/>&nbsp;
+                  2: <input type="color" id="color2" value="#00FF00" onchange="replace_cube()"/>&nbsp;
+                  3: <input type="color" id="color3" value="#0000FF" onchange="replace_cube()"/>&nbsp;
+                  4: <input type="color" id="color4" value="#999999" onchange="replace_cube()"/>
+                  <br>
+                  <br>
+                  5: <input type="color" id="color5" value="#AAAA44" onchange="replace_cube()"/>&nbsp;
+                  6: <input type="color" id="color6" value="#BB7744" onchange="replace_cube()"/>&nbsp;
+                  7: <input type="color" id="color7" value="#994444" onchange="replace_cube()"/>&nbsp;
+                  8: <input type="color" id="color8" value="#447744" onchange="replace_cube()"/>&nbsp;
+                  9: <input type="color" id="color9" value="#004477" onchange="replace_cube()"/>&nbsp;
+                </div>
+                <br>
+                <div id="supercubestuff" style="display: none;">
+                  superfacelets:
+                  <br> 
+                  <textarea id="superfacelets" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                  scw: 
+                  <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="replace_cube()"/>
+                  <br>
+                </div>
+                gabbacolors: 
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="document.getElementById('borderwidth').value='6'; replace_cube()"/>on
+                <input type="radio" name="gabbacolors" checked="yes" onchange="replace_cube()"/>off 
+                <br>
+              </div>
+              <hr style="border-style: groove; border-width: 2px;">
+            </div>
+          </td>
+          <td>
+            <center>
+              <div id="cube" style="width:400px;height:400px"></div>
+            </center>
+            <br>
+            <div id="texto" style="font-family: monospace;font-size: 15px;border: solid;border-width: 1px;padding: 5px;width: 500px;overflow-wrap: break-word;">
+                <b>HTML code:</b><br>
+                <br>
+                &lt;script src="AnimCube3.js">&lt;/script><br>
+                <br>
+                &lt;div id="cube" style="width:400px;height:400px;">&lt;/div><br>
+                <br>
+                &lt;script><br>
+                AnimCube3("id=cube");<br>
+                &lt;/script>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <br>
+        </tr>
+      </table>
+    </center>
+    <script>
+    AnimCube3("id=cube");
+    function replace_cube() {
+      var params="";
+      var cor="";
+      var saida = '<b>HTML code:</b><br><br>'
+      var width = document.getElementById('width').value;
+      var height = document.getElementById('height').value;
+      var cubesize = document.getElementById('cubesize');
+      var num = cubesize.options[cubesize.selectedIndex].value;
+      var bgcolor = document.getElementById('bgcolor').value;
+      var cubecolor = document.getElementById('cubecolor').value;
+      var butbgcolor = document.getElementById('butbgcolor').value;
+      var slidercolordefault = document.getElementById('slidercolordefault');
+      var slidercolor = document.getElementById('slidercolor');
+      var troughcolordefault = document.getElementById('troughcolordefault');
+      var troughcolor = document.getElementById('troughcolor');
+      var clickprogressoff = document.getElementById('clickprogressoff');
+      var snapon = document.getElementById('snapon');
+      var buttonbar = document.getElementById('buttonbar');
+      var buttonbarnum = buttonbar.options[buttonbar.selectedIndex].value;
+      var buttonheight = document.getElementById('buttonheight').value;
+      var repeatoff = document.getElementById('repeatoff');
+      var editoff =  document.getElementById('editoff');
+      var speed =  document.getElementById('speed').value;
+      var doublespeed =  document.getElementById('doublespeed').value;
+      var position = document.getElementById('position').value;
+      var scale =  document.getElementById('scale').value;
+      var align = document.getElementById('align').value;
+      var hint = document.getElementById('hint').value;
+      var hinthoriz = document.getElementById('hinthoriz').value;
+      var hintvert = document.getElementById('hintvert').value;
+      var hinborderon = document.getElementById('hintborderon');
+      var perspective =  document.getElementById('perspective').value;
+      var borderwidth = document.getElementById('borderwidth').value;
+      var move = document.getElementById('move').value;
+      var movetext = document.getElementById('movetext').value;
+      var movetextalert = document.getElementById('movetextalert');
+      var movetextspaceoff = document.getElementById('movetextspaceoff');
+      var switchyz = document.getElementById('switchyz');
+      var signon = document.getElementById('signon');
+      var initmove = document.getElementById('initmove').value;
+      var initrevmove = document.getElementById('initrevmove').value;
+      var demo = document.getElementById('demo').value;
+      var metric = document.getElementById('metric').value;
+      var counteroff = document.getElementById('conteroff');
+      var fonttypeoff = document.getElementById('fonttypeoff');
+      var facelets = document.getElementById('facelets').value;
+      var colorscheme = document.getElementById('colorscheme').value;
+      var colorsdefault = document.getElementById('colorsdefault');
+      var colortable = document.getElementById('colortable');
+      var colors = '';
+      var supercubeon = document.getElementById('supercubeon');
+      var superfacelets = document.getElementById('superfacelets').value;
+      var scw = document.getElementById('scw').value;
+      var gabbacolorson = document.getElementById('gabbacolorson');
+      var scramble = document.getElementById('scramble').value;
+      var randmoves = document.getElementById('randmoves').value;
+      var texto = document.getElementById('texto');
+      
+      document.getElementById('cube').style = 'width:'+width+'px;height:'+height+'px';
+
+      if (bgcolor != '#808080') {
+        cor = bgcolor.replace("#","");
+        params += '&bgcolor='+cor;
+      }
+      if (cubecolor != '#000000') {
+        cubecolor = cubecolor.replace("#","");
+        params += '&cubecolor='+cubecolor;
+      }
+      if (butbgcolor != bgcolor) {
+        cor = butbgcolor.replace("#","");
+        params += '&butbgcolor='+cor;
+      }
+      if (!slidercolordefault.checked) {
+        slidercolor.style.display = "inline";
+        cor = slidercolor.value.replace("#","");
+        params += "&slidercolor="+cor;
+      }
+      else 
+        slidercolor.style.display = "none";
+      if (!troughcolordefault.checked) {
+        troughcolor.style.display = "inline";
+        cor = troughcolor.value.replace("#","");
+        params += "&troughcolor="+cor;
+      }
+      else 
+        troughcolor.style.display = "none";
+      if (clickprogressoff.checked)
+        params += '&clickprogress=0';
+      if (snapon.checked)
+        params += '&snap=1';
+      switch (buttonbarnum) {
+        case '0':
+          params += '&buttonbar=0';
+          break;
+        case '1':
+          params += '&buttonbar=1';
+          break;
+        case '2':
+          params += '&buttonbar=2';
+          break;
+      }
+      if (buttonheight != '13')
+        params += '&buttonheight='+buttonheight;
+      if (repeatoff.checked)
+        params += '&repeat=0';
+      if (editoff.checked)
+        params += '&edit=0';
+      if (speed != '10')
+        params += '&speed='+speed;
+      if (doublespeed != '0')
+        params += '&doublespeed='+doublespeed;
+      if (position.toLowerCase() != 'lluu' && position != '')
+        params += '&position='+position;
+      if (scale != '0')
+        params += '&scale='+scale;
+      if (align != '1')
+        params += '&align='+align;
+      if (hint != '0')
+        params += '&hint='+hint;
+      if (hinthoriz != '3.7')
+        params += '&hinthoriz='+hinthoriz;
+      if (hintvert != '3.7')
+        params += '&hintvert='+hintvert;
+      if (hintborderon.checked)
+        params += '&hintborder=1';
+      if (perspective != '2')
+        params += '&perspective='+perspective;
+      if (borderwidth != '10' && (!supercubeon.checked && !gabbacolorson.checked))
+        params += '&borderwidth='+borderwidth;
+      else if (borderwidth != '6' && (supercubeon.checked || gabbacolorson.checked))
+        params += '&borderwidth='+borderwidth;
+      if (move != '')
+        params += '&move='+move;
+      var movetextint = parseInt(movetext,10);
+      if (movetextint > 0)
+        if ((movetextint > 1 && movetextint < 5) && (num == '3')) {
+          params += '&movetext='+movetext;
+          movetextalert.style.display = 'none';
+        }
+        else if (movetextint > 1 && movetextint < 5) 
+              movetextalert.style.display = 'inline';
+            else {
+              if (movetextint != 5 || !signon.checked) {  
+                params += '&movetext='+movetext;
+                movetextalert.style.display = "none";
+              }
+            } 
+      if (movetextspaceoff.checked)
+        params += '&movetextspace=0';
+      if (switchyz.checked && !signon.checked)
+        params += '&yz=1';
+      else if (!switchyz.checked && signon.checked)
+        params += '&yz=0';
+      if (signon.checked) {
+        params += '&sign=1';
+      }
+      if (initmove != '')
+        params += '&initmove='+initmove;
+      if (initrevmove != '')
+        params += '&initrevmove='+initrevmove;
+      if (demo != '')
+        params += '&demo='+demo;
+      if (metric != '0')
+        params += '&metric='+metric;
+      if (counteroff.checked)
+        params += '&counter=0';
+      if (fonttypeoff.checked)
+        params += '&fonttype=0';
+      if (facelets != '' && facelets.length == parseInt(num,10)**2*6)
+        params += '&facelets='+facelets;
+      if (colorscheme != '' && colorscheme.length == 6)
+        params += '&colorscheme='+colorscheme;
+      if (!colorsdefault.checked) {
+        colortable.style.display='block';
+        for (var i=0; i<10; i++)
+          colors += document.getElementById('color'+i.toString()).value.replace("#","");
+        params += '&colors='+colors;
+      }
+      else
+        colortable.style.display='none';
+      if (supercubeon.checked) 
+        params += '&supercube=1';
+      if (supercubeon.checked && superfacelets != '' && superfacelets.length == parseInt(num,10)**2*6)
+        params += '&superfacelets='+superfacelets;
+      if (supercubeon.checked && scw != '0')
+        params += '&scw='+scw;
+      if (gabbacolorson.checked)
+        params += '&gabbacolors=1';
+      if (scramble != '0')
+        params += '&scramble='+scramble;
+      if (randmoves != '0')
+        params += '&randmoves='+randmoves;
+
+      switch (num) {
+        case '2':
+          AnimCube2("id=cube"+params);
+          break;
+        case '3':
+          AnimCube3("id=cube"+params);
+          break;
+        case '4':
+          AnimCube4("id=cube"+params);
+          break;
+        case '5':
+          AnimCube5("id=cube"+params);
+          break;
+        case '6':
+          AnimCube6("id=cube"+params);
+          break;
+        case '7':
+          AnimCube7("id=cube"+params);
+          break;
+      }
+      texto.innerHTML = saida+'&lt;script src="AnimCube'+num+'.js">&lt;/script><br>\
+                <br>\
+                &lt;div id="cube" style="width:'+width+'px;height:'+height+'px;">&lt;/div><br>\
+                <br>\
+                &lt;script><br>\
+                AnimCube'+num+'("id=cube'+params+'");<br>\
+                &lt;/script>'
+    }
+    function reverse(nome) {
+      var id = document.getElementById(nome);
+      var idlabel = document.getElementById('label:'+nome);
+      var texto = idlabel.innerHTML;
+      if (id.style.display == 'none') {
+        id.style.display = 'inline';
+        texto = texto.replace('↷','↻');
+        idlabel.innerHTML = texto;
+      }
+      else {
+        id.style.display = 'none';
+        texto = texto.replace('↻','↷');
+        idlabel.innerHTML = texto;
+      }
+    }
+  </script>
+  </body>
+</html>
