@@ -281,6 +281,7 @@
       </table>
     </center>
     <script>
+    var removeListeners = [];
     AnimCube3("id=cube");
     function replace_cube() {
       var params="";
@@ -477,7 +478,7 @@
         params += '&scramble='+scramble;
       if (randmoves != '0')
         params += '&randmoves='+randmoves;
-
+      removeListeners['cube']();
       switch (num) {
         case '2':
           AnimCube2("id=cube"+params);
@@ -521,6 +522,6 @@
         idlabel.innerHTML = texto;
       }
     }
-  </script>
+    </script>
   </body>
 </html>
