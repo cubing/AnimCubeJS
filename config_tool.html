@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script src="AnimCube2.js"></script>
-  <script src="AnimCube3.js"></script>
-  <script src="AnimCube4.js"></script>
-  <script src="AnimCube5.js"></script>
-  <script src="AnimCube6.js"></script>
-  <script src="AnimCube7.js"></script>
-</head>
-<style>
-  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-  table, td {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    text-align: left;
-    padding-left: 10px;
-    padding-right: 10px;
-    vertical-align: top;
-  }
-  a:link {
-    color: black;
-    text-decoration: none;
-  }
-  a:visited {
-    color: black;
-    text-decoration: none;
-  }
-  a:hover {
-    color: blue;
-    text-decoration: none;
-  }
-  a:active {
-    color: green;
-    text-decoration: underline;
-  }
-</style>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <title>AnimCubeJs Configuration Tool</title>
+    <meta name="description" content="User friendly configuration tool for AnimCubeJS">
+    <meta name="keywords" content="AnimCubeJS, configuration, tool">
+    <meta name="author" content="Marcelo Falcão de Oliveira">
+    <script src="AnimCube2.js"></script>
+    <script src="AnimCube3.js"></script>
+    <script src="AnimCube4.js"></script>
+    <script src="AnimCube5.js"></script>
+    <script src="AnimCube6.js"></script>
+    <script src="AnimCube7.js"></script>
+  </head>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    table, td {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 10px;
+      vertical-align: top;
+    }
+    a:link {
+      color: black;
+      text-decoration: none;
+    }
+    a:visited {
+      color: black;
+      text-decoration: none;
+    }
+    a:hover {
+      color: blue;
+      text-decoration: none;
+    }
+    a:active {
+      color: green;
+      text-decoration: underline;
+    }
+  </style>
   <body>
     <center>
       <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJs Configuration Tool</h1>
@@ -281,247 +288,251 @@
       </table>
     </center>
     <script>
-    var removeListeners = [];
-    AnimCube3("id=cube");
-    function replace_cube() {
-      var params="";
-      var cor="";
-      var saida = '<b>HTML code:</b><br><br>'
-      var width = document.getElementById('width').value;
-      var height = document.getElementById('height').value;
-      var cubesize = document.getElementById('cubesize');
-      var num = cubesize.options[cubesize.selectedIndex].value;
-      var bgcolor = document.getElementById('bgcolor').value;
-      var cubecolor = document.getElementById('cubecolor').value;
-      var butbgcolor = document.getElementById('butbgcolor').value;
-      var slidercolordefault = document.getElementById('slidercolordefault');
-      var slidercolor = document.getElementById('slidercolor');
-      var troughcolordefault = document.getElementById('troughcolordefault');
-      var troughcolor = document.getElementById('troughcolor');
-      var clickprogressoff = document.getElementById('clickprogressoff');
-      var snapon = document.getElementById('snapon');
-      var buttonbar = document.getElementById('buttonbar');
-      var buttonbarnum = buttonbar.options[buttonbar.selectedIndex].value;
-      var buttonheight = document.getElementById('buttonheight').value;
-      var repeatoff = document.getElementById('repeatoff');
-      var editoff =  document.getElementById('editoff');
-      var speed =  document.getElementById('speed').value;
-      var doublespeed =  document.getElementById('doublespeed').value;
-      var position = document.getElementById('position').value;
-      var scale =  document.getElementById('scale').value;
-      var align = document.getElementById('align').value;
-      var hint = document.getElementById('hint').value;
-      var hinthoriz = document.getElementById('hinthoriz').value;
-      var hintvert = document.getElementById('hintvert').value;
-      var hinborderon = document.getElementById('hintborderon');
-      var perspective =  document.getElementById('perspective').value;
-      var borderwidth = document.getElementById('borderwidth').value;
-      var move = document.getElementById('move').value;
-      var movetext = document.getElementById('movetext').value;
-      var movetextalert = document.getElementById('movetextalert');
-      var movetextspaceoff = document.getElementById('movetextspaceoff');
-      var switchyz = document.getElementById('switchyz');
-      var signon = document.getElementById('signon');
-      var initmove = document.getElementById('initmove').value;
-      var initrevmove = document.getElementById('initrevmove').value;
-      var demo = document.getElementById('demo').value;
-      var metric = document.getElementById('metric').value;
-      var counteroff = document.getElementById('conteroff');
-      var fonttypeoff = document.getElementById('fonttypeoff');
-      var textsize = document.getElementById('textsize').value;
-      var facelets = document.getElementById('facelets').value;
-      var colorscheme = document.getElementById('colorscheme').value;
-      var colorsdefault = document.getElementById('colorsdefault');
-      var colortable = document.getElementById('colortable');
-      var colors = '';
-      var supercubeon = document.getElementById('supercubeon');
-      var superfacelets = document.getElementById('superfacelets').value;
-      var scw = document.getElementById('scw').value;
-      var gabbacolorson = document.getElementById('gabbacolorson');
-      var scramble = document.getElementById('scramble').value;
-      var randmoves = document.getElementById('randmoves').value;
-      var texto = document.getElementById('texto');
-      
-      document.getElementById('cube').style = 'width:'+width+'px;height:'+height+'px';
+      var removeListeners = [];
+      AnimCube3("id=cube");
 
-      if (bgcolor != '#808080') {
-        cor = bgcolor.replace("#","");
-        params += '&bgcolor='+cor;
-      }
-      if (cubecolor != '#000000') {
-        cubecolor = cubecolor.replace("#","");
-        params += '&cubecolor='+cubecolor;
-      }
-      if (butbgcolor != bgcolor) {
-        cor = butbgcolor.replace("#","");
-        params += '&butbgcolor='+cor;
-      }
-      if (!slidercolordefault.checked) {
-        slidercolor.style.display = "inline";
-        cor = slidercolor.value.replace("#","");
-        params += "&slidercolor="+cor;
-      }
-      else 
-        slidercolor.style.display = "none";
-      if (!troughcolordefault.checked) {
-        troughcolor.style.display = "inline";
-        cor = troughcolor.value.replace("#","");
-        params += "&troughcolor="+cor;
-      }
-      else 
-        troughcolor.style.display = "none";
-      if (clickprogressoff.checked)
-        params += '&clickprogress=0';
-      if (snapon.checked)
-        params += '&snap=1';
-      switch (buttonbarnum) {
-        case '0':
-          params += '&buttonbar=0';
-          break;
-        case '1':
-          params += '&buttonbar=1';
-          break;
-        case '2':
-          params += '&buttonbar=2';
-          break;
-      }
-      if (buttonheight != '13')
-        params += '&buttonheight='+buttonheight;
-      if (repeatoff.checked)
-        params += '&repeat=0';
-      if (editoff.checked)
-        params += '&edit=0';
-      if (speed != '10')
-        params += '&speed='+speed;
-      if (doublespeed != '0')
-        params += '&doublespeed='+doublespeed;
-      if (position.toLowerCase() != 'lluu' && position != '')
-        params += '&position='+position;
-      if (scale != '0')
-        params += '&scale='+scale;
-      if (align != '1')
-        params += '&align='+align;
-      if (hint != '0')
-        params += '&hint='+hint;
-      if (hinthoriz != '3.7')
-        params += '&hinthoriz='+hinthoriz;
-      if (hintvert != '3.7')
-        params += '&hintvert='+hintvert;
-      if (hintborderon.checked)
-        params += '&hintborder=1';
-      if (perspective != '2')
-        params += '&perspective='+perspective;
-      if (borderwidth != '10' && (!supercubeon.checked && !gabbacolorson.checked))
-        params += '&borderwidth='+borderwidth;
-      else if (borderwidth != '6' && (supercubeon.checked || gabbacolorson.checked))
-        params += '&borderwidth='+borderwidth;
-      if (move != '')
-        params += '&move='+move;
-      var movetextint = parseInt(movetext,10);
-      if (movetextint > 0)
-        if ((movetextint > 1 && movetextint < 5) && (num == '3')) {
-          params += '&movetext='+movetext;
-          movetextalert.style.display = 'none';
+      function replace_cube() {
+        var params="";
+        var cor="";
+        var saida = '<b>HTML code:</b><br><br>'
+        var width = document.getElementById('width').value;
+        var height = document.getElementById('height').value;
+        var cubesize = document.getElementById('cubesize');
+        var num = cubesize.options[cubesize.selectedIndex].value;
+        var bgcolor = document.getElementById('bgcolor').value;
+        var cubecolor = document.getElementById('cubecolor').value;
+        var butbgcolor = document.getElementById('butbgcolor').value;
+        var slidercolordefault = document.getElementById('slidercolordefault');
+        var slidercolor = document.getElementById('slidercolor');
+        var troughcolordefault = document.getElementById('troughcolordefault');
+        var troughcolor = document.getElementById('troughcolor');
+        var clickprogressoff = document.getElementById('clickprogressoff');
+        var snapon = document.getElementById('snapon');
+        var buttonbar = document.getElementById('buttonbar');
+        var buttonbarnum = buttonbar.options[buttonbar.selectedIndex].value;
+        var buttonheight = document.getElementById('buttonheight').value;
+        var repeatoff = document.getElementById('repeatoff');
+        var editoff =  document.getElementById('editoff');
+        var speed =  document.getElementById('speed').value;
+        var doublespeed =  document.getElementById('doublespeed').value;
+        var position = document.getElementById('position').value;
+        var scale =  document.getElementById('scale').value;
+        var align = document.getElementById('align').value;
+        var hint = document.getElementById('hint').value;
+        var hinthoriz = document.getElementById('hinthoriz').value;
+        var hintvert = document.getElementById('hintvert').value;
+        var hinborderon = document.getElementById('hintborderon');
+        var perspective =  document.getElementById('perspective').value;
+        var borderwidth = document.getElementById('borderwidth').value;
+        var move = document.getElementById('move').value;
+        var movetext = document.getElementById('movetext').value;
+        var movetextalert = document.getElementById('movetextalert');
+        var movetextspaceoff = document.getElementById('movetextspaceoff');
+        var switchyz = document.getElementById('switchyz');
+        var signon = document.getElementById('signon');
+        var initmove = document.getElementById('initmove').value;
+        var initrevmove = document.getElementById('initrevmove').value;
+        var demo = document.getElementById('demo').value;
+        var metric = document.getElementById('metric').value;
+        var counteroff = document.getElementById('conteroff');
+        var fonttypeoff = document.getElementById('fonttypeoff');
+        var textsize = document.getElementById('textsize').value;
+        var facelets = document.getElementById('facelets').value;
+        var colorscheme = document.getElementById('colorscheme').value;
+        var colorsdefault = document.getElementById('colorsdefault');
+        var colortable = document.getElementById('colortable');
+        var colors = '';
+        var supercubeon = document.getElementById('supercubeon');
+        var superfacelets = document.getElementById('superfacelets').value;
+        var scw = document.getElementById('scw').value;
+        var gabbacolorson = document.getElementById('gabbacolorson');
+        var scramble = document.getElementById('scramble').value;
+        var randmoves = document.getElementById('randmoves').value;
+        var texto = document.getElementById('texto');
+        
+        document.getElementById('cube').style = 'width:'+width+'px;height:'+height+'px';
+
+        if (bgcolor != '#808080') {
+          cor = bgcolor.replace("#","");
+          params += '&bgcolor='+cor;
         }
-        else if (movetextint > 1 && movetextint < 5) 
-              movetextalert.style.display = 'inline';
-            else {
-              if (movetextint != 5 || !signon.checked) {  
-                params += '&movetext='+movetext;
-                movetextalert.style.display = "none";
-              }
-            } 
-      if (movetextspaceoff.checked)
-        params += '&movetextspace=0';
-      if (switchyz.checked && !signon.checked)
-        params += '&yz=1';
-      else if (!switchyz.checked && signon.checked)
-        params += '&yz=0';
-      if (signon.checked) {
-        params += '&sign=1';
+        if (cubecolor != '#000000') {
+          cubecolor = cubecolor.replace("#","");
+          params += '&cubecolor='+cubecolor;
+        }
+        if (butbgcolor != bgcolor) {
+          cor = butbgcolor.replace("#","");
+          params += '&butbgcolor='+cor;
+        }
+        if (!slidercolordefault.checked) {
+          slidercolor.style.display = "inline";
+          cor = slidercolor.value.replace("#","");
+          params += "&slidercolor="+cor;
+        }
+        else 
+          slidercolor.style.display = "none";
+        if (!troughcolordefault.checked) {
+          troughcolor.style.display = "inline";
+          cor = troughcolor.value.replace("#","");
+          params += "&troughcolor="+cor;
+        }
+        else 
+          troughcolor.style.display = "none";
+        if (clickprogressoff.checked)
+          params += '&clickprogress=0';
+        if (snapon.checked)
+          params += '&snap=1';
+        switch (buttonbarnum) {
+          case '0':
+            params += '&buttonbar=0';
+            break;
+          case '1':
+            params += '&buttonbar=1';
+            break;
+          case '2':
+            params += '&buttonbar=2';
+            break;
+        }
+        if (buttonheight != '13')
+          params += '&buttonheight='+buttonheight;
+        if (repeatoff.checked)
+          params += '&repeat=0';
+        if (editoff.checked)
+          params += '&edit=0';
+        if (speed != '10')
+          params += '&speed='+speed;
+        if (doublespeed != '0')
+          params += '&doublespeed='+doublespeed;
+        if (position.toLowerCase() != 'lluu' && position != '')
+          params += '&position='+position;
+        if (scale != '0')
+          params += '&scale='+scale;
+        if (align != '1')
+          params += '&align='+align;
+        if (hint != '0')
+          params += '&hint='+hint;
+        if (hinthoriz != '3.7')
+          params += '&hinthoriz='+hinthoriz;
+        if (hintvert != '3.7')
+          params += '&hintvert='+hintvert;
+        if (hintborderon.checked)
+          params += '&hintborder=1';
+        if (perspective != '2')
+          params += '&perspective='+perspective;
+        if (borderwidth != '10' && (!supercubeon.checked && !gabbacolorson.checked))
+          params += '&borderwidth='+borderwidth;
+        else if (borderwidth != '6' && (supercubeon.checked || gabbacolorson.checked))
+          params += '&borderwidth='+borderwidth;
+        if (move != '')
+          params += '&move='+move;
+        var movetextint = parseInt(movetext,10);
+        if (movetextint > 0)
+          if ((movetextint > 1 && movetextint < 5) && (num == '3')) {
+            params += '&movetext='+movetext;
+            movetextalert.style.display = 'none';
+          }
+          else if (movetextint > 1 && movetextint < 5) 
+                movetextalert.style.display = 'inline';
+              else {
+                if (movetextint != 5 || !signon.checked) {  
+                  params += '&movetext='+movetext;
+                  movetextalert.style.display = "none";
+                }
+              } 
+        if (movetextspaceoff.checked)
+          params += '&movetextspace=0';
+        if (switchyz.checked && !signon.checked)
+          params += '&yz=1';
+        else if (!switchyz.checked && signon.checked)
+          params += '&yz=0';
+        if (signon.checked) {
+          params += '&sign=1';
+        }
+        if (initmove != '')
+          params += '&initmove='+initmove;
+        if (initrevmove != '')
+          params += '&initrevmove='+initrevmove;
+        if (demo != '')
+          params += '&demo='+demo;
+        if (metric != '0')
+          params += '&metric='+metric;
+        if (counteroff.checked)
+          params += '&counter=0';
+        if (fonttypeoff.checked)
+          params += '&fonttype=0';
+        if (textsize != '12')
+          params += '&textsize='+textsize;
+        if (facelets != '' && facelets.length == parseInt(num,10)**2*6)
+          params += '&facelets='+facelets;
+        if (colorscheme != '' && colorscheme.length == 6)
+          params += '&colorscheme='+colorscheme;
+        if (!colorsdefault.checked) {
+          colortable.style.display='block';
+          for (var i=0; i<10; i++)
+            colors += document.getElementById('color'+i.toString()).value.replace("#","");
+          params += '&colors='+colors;
+        }
+        else
+          colortable.style.display='none';
+        if (supercubeon.checked) 
+          params += '&supercube=1';
+        if (supercubeon.checked && superfacelets != '' && superfacelets.length == parseInt(num,10)**2*6)
+          params += '&superfacelets='+superfacelets;
+        if (supercubeon.checked && scw != '0')
+          params += '&scw='+scw;
+        if (gabbacolorson.checked)
+          params += '&gabbacolors=1';
+        if (scramble != '0')
+          params += '&scramble='+scramble;
+        if (randmoves != '0')
+          params += '&randmoves='+randmoves;
+
+        removeListeners['cube']();
+        switch (num) {
+          case '2':
+            AnimCube2("id=cube"+params);
+            break;
+          case '3':
+            AnimCube3("id=cube"+params);
+            break;
+          case '4':
+            AnimCube4("id=cube"+params);
+            break;
+          case '5':
+            AnimCube5("id=cube"+params);
+            break;
+          case '6':
+            AnimCube6("id=cube"+params);
+            break;
+          case '7':
+            AnimCube7("id=cube"+params);
+            break;
+        }
+
+        texto.innerHTML = saida+'&lt;script src="AnimCube'+num+'.js">&lt;/script><br>\
+                  <br>\
+                  &lt;div id="cube" style="width:'+width+'px;height:'+height+'px;">&lt;/div><br>\
+                  <br>\
+                  &lt;script><br>\
+                  AnimCube'+num+'("id=cube'+params+'");<br>\
+                  &lt;/script>'
       }
-      if (initmove != '')
-        params += '&initmove='+initmove;
-      if (initrevmove != '')
-        params += '&initrevmove='+initrevmove;
-      if (demo != '')
-        params += '&demo='+demo;
-      if (metric != '0')
-        params += '&metric='+metric;
-      if (counteroff.checked)
-        params += '&counter=0';
-      if (fonttypeoff.checked)
-        params += '&fonttype=0';
-      if (textsize != '12')
-        params += '&textsize='+textsize;
-      if (facelets != '' && facelets.length == parseInt(num,10)**2*6)
-        params += '&facelets='+facelets;
-      if (colorscheme != '' && colorscheme.length == 6)
-        params += '&colorscheme='+colorscheme;
-      if (!colorsdefault.checked) {
-        colortable.style.display='block';
-        for (var i=0; i<10; i++)
-          colors += document.getElementById('color'+i.toString()).value.replace("#","");
-        params += '&colors='+colors;
+      
+      function reverse(nome) {
+        var id = document.getElementById(nome);
+        var idlabel = document.getElementById('label:'+nome);
+        var texto = idlabel.innerHTML;
+        if (id.style.display == 'none') {
+          id.style.display = 'inline';
+          texto = texto.replace('↷','↻');
+          idlabel.innerHTML = texto;
+        }
+        else {
+          id.style.display = 'none';
+          texto = texto.replace('↻','↷');
+          idlabel.innerHTML = texto;
+        }
       }
-      else
-        colortable.style.display='none';
-      if (supercubeon.checked) 
-        params += '&supercube=1';
-      if (supercubeon.checked && superfacelets != '' && superfacelets.length == parseInt(num,10)**2*6)
-        params += '&superfacelets='+superfacelets;
-      if (supercubeon.checked && scw != '0')
-        params += '&scw='+scw;
-      if (gabbacolorson.checked)
-        params += '&gabbacolors=1';
-      if (scramble != '0')
-        params += '&scramble='+scramble;
-      if (randmoves != '0')
-        params += '&randmoves='+randmoves;
-      removeListeners['cube']();
-      switch (num) {
-        case '2':
-          AnimCube2("id=cube"+params);
-          break;
-        case '3':
-          AnimCube3("id=cube"+params);
-          break;
-        case '4':
-          AnimCube4("id=cube"+params);
-          break;
-        case '5':
-          AnimCube5("id=cube"+params);
-          break;
-        case '6':
-          AnimCube6("id=cube"+params);
-          break;
-        case '7':
-          AnimCube7("id=cube"+params);
-          break;
-      }
-      texto.innerHTML = saida+'&lt;script src="AnimCube'+num+'.js">&lt;/script><br>\
-                <br>\
-                &lt;div id="cube" style="width:'+width+'px;height:'+height+'px;">&lt;/div><br>\
-                <br>\
-                &lt;script><br>\
-                AnimCube'+num+'("id=cube'+params+'");<br>\
-                &lt;/script>'
-    }
-    function reverse(nome) {
-      var id = document.getElementById(nome);
-      var idlabel = document.getElementById('label:'+nome);
-      var texto = idlabel.innerHTML;
-      if (id.style.display == 'none') {
-        id.style.display = 'inline';
-        texto = texto.replace('↷','↻');
-        idlabel.innerHTML = texto;
-      }
-      else {
-        id.style.display = 'none';
-        texto = texto.replace('↻','↷');
-        idlabel.innerHTML = texto;
-      }
-    }
     </script>
   </body>
 </html>
