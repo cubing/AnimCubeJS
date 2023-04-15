@@ -57,7 +57,6 @@
       border-spacing: 0px;
     }
     .position {
-      table-layout: fixed;
       padding: 0px;
       border-collapse: 0px;
       border-spacing: 0px;
@@ -75,12 +74,12 @@
   <body>
     <center>
       <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJs Configuration Tool</h1>
-      <table>
+      <table width='800px'>
         <tr>
           <td>
             <div>
               <b>Cube:</b>
-              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="document.getElementById('faceletsdefault').checked = 'yes'; unfold_cube(); unfold_supercube(); replace_cube();">
+              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="document.getElementById('faceletsdefault').checked='yes'; document.getElementById('showcolorscheme').style.display='block'; unfold_cube(); unfold_supercube(); replace_cube();">
                 <option value="2">2x2x2</option>
                 <option value="3" selected>3x3x3</option>
                 <option value="4">4x4x4</option>
@@ -123,7 +122,7 @@
                 <input type="number" id="doublespeed" style="width:40px;" step="1" min="0" max="99" value="0" onchange="replace_cube()"/>
                 <br>
                 position:
-                <input id='positiondefault' type="checkbox" checked="yes" onchange="changeposition(); replace_cube();"/>default
+                <input id='positiondefault' type="checkbox" checked="yes" onchange="changeposition(''); replace_cube();"/>default
                 <br> 
                 <textarea id="position" style="width:120px; display: none;">lluu</textarea>
                 <div id="changeposition" style="display: none;">
@@ -184,11 +183,11 @@
                 <br>
                 slidercolor:
                 <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" name="slidercolordefault" id="slidercolordefault" checked="yes" onchange="replace_cube()"/>default
+                <input type="checkbox" id="slidercolordefault" checked="yes" onchange="document.getElementById('slidercolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
                 <br>
                 troughcolor:
                 <input type="color" id="troughcolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" name="troughcolordefault" id="troughcolordefault" checked="yes" onchange="replace_cube()"/>default
+                <input type="checkbox" id="troughcolordefault" checked="yes" onchange="document.getElementById('troughcolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
                 <br>
                 clickprogress: 
                 <input type="radio" name="clickprogress" checked="yes" onchange="replace_cube()"/>on 
@@ -228,7 +227,7 @@
               <a href="javascript:void(0)" id='label:movesettings' onclick="reverse('movesettings');"><b>Move &#8631;</b></a>
               <div id="movesettings" style="display: none;">
                 <hr>
-                move:
+                move
                 <br> 
                 <textarea id="move" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
                 <br>
@@ -248,18 +247,24 @@
                 <input type="radio" name="sign" id="signon" onchange="document.getElementById('switchyz').checked=true; document.getElementById('movetext').value='5'; replace_cube()"/>on
                 <input type="radio" name="sign" checked="yes" onchange="replace_cube()"/>off 
                 <br>
-                initmove:
-                <br> 
-                <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');">initmove &#8631;</a>
                 <br>
-                initrevmove:
-                <br> 
-                <textarea id="initrevmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <div id='showinitmove' style='display: none;'> 
+                  <textarea id="initmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
+                <a href="javascript:void(0)" id="label:showinitrevmove" onclick="reverse('showinitrevmove');">initrevmove &#8631;</a>
                 <br>
-                demo:
-                <br> 
-                <textarea id="demo" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                <div id='showinitrevmove' style='display: none;'> 
+                  <textarea id="initrevmove" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
+                <a href="javascript:void(0)" id="label:showdemo" onclick="reverse('showdemo');">demo &#8631;</a>
                 <br>
+                <div id='showdemo' style='display: none;'> 
+                  <textarea id="demo" rows="5" cols="40" autocomplete="off" style="resize: none" onchange="replace_cube()"></textarea>
+                  <br>
+                </div>
                 metric: 
                 <input type="number" id="metric" style="width:30px;" step="1" min="0" max="3" value="0" onchange="replace_cube()"/>
                 <br>
@@ -286,9 +291,9 @@
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
                 facelets:
-                <input id='faceletsdefault' type="checkbox" checked="yes" onchange="unfold_cube(); replace_cube();"/>default
+                <input id='faceletsdefault' type="checkbox" checked="yes" onchange="document.getElementById('showcolorscheme').style.display = this.checked ? 'block' : 'none'; unfold_cube(); replace_cube();"/>default
                 <br> 
-                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;" onchange="replace_cube()"></textarea>
+                <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 <div id='setfacelets' style='display: none;'>
                   <br>
                   <table class='opencube'>
@@ -331,7 +336,7 @@
                   colorscheme:
                   <input id='colorschemedefault' type="checkbox" checked="yes" onchange="unfold_colorscheme(); replace_cube();"/>default
                   <br>
-                  <input type="text" id="colorscheme" style="width:60px; display: none;"/>
+                  <input type="text" id="colorscheme" value='wyorgb' style="width:60px; display: none;"/>
                   <div id='setcolorscheme' style='display: none;'>
                     <br>
                     <center>
@@ -386,7 +391,7 @@
                         <td>
                         </td>
                         <td>
-                           Selection:&nbsp;<text id="slectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                           Selection:&nbsp;<text id="selectedindex">k</text>&nbsp;-&nbsp;<text id="selectedcolor" style="font-size: 12px; background: #000000; border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
                         </td>
                       </tr>
                       <tr>
@@ -507,8 +512,7 @@
       dotable();
 
       function replace_cube() {
-        var params="";
-        var cor="";
+        var params='';
         var saida = '<b>HTML code:</b><br><br>'
         var width = document.getElementById('width').value;
         var height = document.getElementById('height').value;
@@ -541,6 +545,7 @@
         var borderwidth = document.getElementById('borderwidth').value;
         var move = document.getElementById('move').value;
         var movetext = document.getElementById('movetext').value;
+        var movetextint = parseInt(movetext,10);
         var movetextalert = document.getElementById('movetextalert');
         var movetextspaceoff = document.getElementById('movetextspaceoff');
         var switchyz = document.getElementById('switchyz');
@@ -569,130 +574,54 @@
         
         document.getElementById('cube').style = 'width:'+width+'px;height:'+height+'px';
 
-        if (bgcolor != '#808080') {
-          cor = bgcolor.replace("#","");
-          params += '&bgcolor='+cor;
-        }
-        if (cubecolor != '#000000') {
-          cubecolor = cubecolor.replace("#","");
-          params += '&cubecolor='+cubecolor;
-        }
-        if (butbgcolor != bgcolor) {
-          cor = butbgcolor.replace("#","");
-          params += '&butbgcolor='+cor;
-        }
-        if (!slidercolordefault.checked) {
-          slidercolor.style.display = "inline";
-          cor = slidercolor.value.replace("#","");
-          params += "&slidercolor="+cor;
-        }
-        else 
-          slidercolor.style.display = "none";
-        if (!troughcolordefault.checked) {
-          troughcolor.style.display = "inline";
-          cor = troughcolor.value.replace("#","");
-          params += "&troughcolor="+cor;
-        }
-        else 
-          troughcolor.style.display = "none";
-        if (clickprogressoff.checked)
-          params += '&clickprogress=0';
-        if (snapon.checked)
-          params += '&snap=1';
-        switch (buttonbarnum) {
-          case '0':
-            params += '&buttonbar=0';
-            break;
-          case '1':
-            params += '&buttonbar=1';
-            break;
-          case '2':
-            params += '&buttonbar=2';
-            break;
-        }
-        if (buttonheight != '13')
-          params += '&buttonheight='+buttonheight;
-        if (repeatoff.checked)
-          params += '&repeat=0';
-        if (editoff.checked)
-          params += '&edit=0';
-        if (speed != '10')
-          params += '&speed='+speed;
-        if (doublespeed != '0')
-          params += '&doublespeed='+doublespeed;
-        if (position.toLowerCase() != 'lluu' && position != '')
-          params += '&position='+position;
-        if (scale != '0')
-          params += '&scale='+scale;
-        if (align != '1')
-          params += '&align='+align;
-        if (hint != '0')
-          params += '&hint='+hint;
-        if (hinthoriz != '3.7')
-          params += '&hinthoriz='+hinthoriz;
-        if (hintvert != '3.7')
-          params += '&hintvert='+hintvert;
-        if (hintborderon.checked)
-          params += '&hintborder=1';
-        if (perspective != '2')
-          params += '&perspective='+perspective;
-        if (borderwidth != '10' && (!supercubeon.checked && !gabbacolorson.checked))
-          params += '&borderwidth='+borderwidth;
-        else if (borderwidth != '6' && (supercubeon.checked || gabbacolorson.checked))
-          params += '&borderwidth='+borderwidth;
-        if (move != '')
-          params += '&move='+move;
-        var movetextint = parseInt(movetext,10);
-        if (movetextint > 0)
-          if ((movetextint > 1 && movetextint < 5) && (num == '3')) {
-            params += '&movetext='+movetext;
-            movetextalert.style.display = 'none';
-          }
-          else if (movetextint > 1 && movetextint < 5) 
-                movetextalert.style.display = 'inline';
-              else {
-                if (movetextint != 5 || !signon.checked) {  
-                  params += '&movetext='+movetext;
-                  movetextalert.style.display = "none";
-                }
-              } 
-        if (movetextspaceoff.checked)
-          params += '&movetextspace=0';
-        if (switchyz.checked && !signon.checked)
-          params += '&yz=1';
-        else if (!switchyz.checked && signon.checked)
-          params += '&yz=0';
-        if (signon.checked) {
-          params += '&sign=1';
-        }
-        if (initmove != '')
-          params += '&initmove='+initmove;
-        if (initrevmove != '')
-          params += '&initrevmove='+initrevmove;
-        if (demo != '')
-          params += '&demo='+demo;
-        if (metric != '0')
-          params += '&metric='+metric;
-        if (counteroff.checked)
-          params += '&counter=0';
-        if (fonttypeoff.checked)
-          params += '&fonttype=0';
-        if (textsize != '12')
-          params += '&textsize='+textsize;
-        if (!faceletsdefault.checked) {
-          showcolorscheme.style.display = 'none';
-          params += '&facelets='+facelets;
-        } else {
-          showcolorscheme.style.display = 'inline';
-        }
-        if (colorscheme != '' && colorscheme.length == 6 && faceletsdefault.checked)
-          params += '&colorscheme='+colorscheme;
+        params += bgcolor!='#808080' ? '&bgcolor='+bgcolor.replace('#','') : '';
+        params += cubecolor!='#000000' ? '&cubecolor='+cubecolor.replace('#','') : '';
+        params += butbgcolor!=bgcolor ? '&butbgcolor='+butbgcolor.replace('#','') : '';
+        params += slidercolordefault.checked ? '' : '&slidercolor='+slidercolor.value.replace('#','');
+        params += troughcolordefault.checked ? '' : '&troughcolor='+troughcolor.value.replace('#','');
+        params += clickprogressoff.checked ? '&clickprogress=0' : '';
+        params += snapon.checked ? '&snap=1' : '';
+        params += buttonbarnum=='0' ? '&buttonbar=0' : '';
+        params += buttonbarnum=='1' ? '&buttonbar=1' : '';
+        params += buttonbarnum=='2' ? '&buttonbar=2' : '';
+        params += buttonheight!='13' ? '&buttonheight='+buttonheight : '';
+        params += repeatoff.checked ? '&repeat=0' : '';
+        params += editoff.checked ? '&edit=0' : '';
+        params += speed!='10' ? '&speed='+speed : '';
+        params += doublespeed!='0' ? '&doublespeed='+doublespeed : '';
+        params += position.toLowerCase()!='lluu' && position!= '' ? '&position='+position : '';
+        params += scale!='0' ? '&scale='+scale : '';
+        params += align!='1' ? '&align='+align : '';
+        params += hint!='0' ? '&hint='+hint : '';
+        params += hinthoriz!='3.7' ? '&hinthoriz='+hinthoriz : '';
+        params += hintvert!= '3.7' ? '&hintvert='+hintvert : '';
+        params += hintborderon.checked ? '&hintborder=1' : '';
+        params += perspective!='2' ? '&perspective='+perspective : '';
+        params += borderwidth!='10' && (!supercubeon.checked && !gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
+        params += borderwidth!='6' && (supercubeon.checked || gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
+        params += move!='' ? '&move='+move : '';
+        params += (movetextint>1 && movetextint<5 && num=='3') || (movetextint!=5 || !signon.checked) ? '&movetext='+movetext : '';
+        movetextalert.style.display = movetextint>1 && movetextint<5 && num!='3' ? 'block' : 'none';
+        params += movetextspaceoff.checked ? '&movetextspace=0' : '';
+        params += switchyz.checked && !signon.checked ? '&yz=1' : '';
+        params += !switchyz.checked && signon.checked ? '&yz=0' : '';
+        params += signon.checked ? '&sign=1' : '';
+        params += initmove!='' ? '&initmove='+initmove : '';
+        params += initrevmove!='' ? '&initrevmove='+initrevmove : '';
+        params += demo!='' ? '&demo='+demo : '';
+        params += metric!='0' ? '&metric='+metric : '';
+        params += counteroff.checked ? '&counter=0' : '';
+        params += fonttypeoff.checked ? '&fonttype=0' : '';
+        params += textsize!='12' ? '&textsize='+textsize : '';
+        params += faceletsdefault.checked ? '' : '&facelets='+facelets; 
+        params += !colorschemedefault.checked && faceletsdefault.checked ? '&colorscheme='+colorscheme : '';
         if (!colorsdefault.checked) {
           colortable.style.display='block';
           for (var i=0; i<10; i++)
-            colors += document.getElementById('color'+i.toString()).value.replace("#","");
+            colors += document.getElementById('color'+i.toString()).value.replace('#','');
           params += '&colors='+colors;
-        } else {
+        } 
+        else {
           for (var i=0; i<10; i++) {
             document.getElementById('color'+i.toString()).value = document.getElementById('color'+i.toString()).getAttribute('data-default');
           }
@@ -701,18 +630,12 @@
           if (!faceletsdefault.checked)
             updatecolor();
         }
-        if (supercubeon.checked) 
-          params += '&supercube=1';
-        if (supercubeon.checked && superfacelets != '' && superfacelets.length == parseInt(num,10)**2*6)
-          params += '&superfacelets='+superfacelets;
-        if (supercubeon.checked && scw != '0')
-          params += '&scw='+scw;
-        if (gabbacolorson.checked)
-          params += '&gabbacolors=1';
-        if (scramble != '0')
-          params += '&scramble='+scramble;
-        if (randmoves != '0')
-          params += '&randmoves='+randmoves;
+        params += supercubeon.checked ? '&supercube=1' : '';
+        params += supercubeon.checked && superfacelets!='' ? '&superfacelets='+superfacelets : '';
+        params += supercubeon.checked && scw!='0' ? '&scw='+scw : '';
+        params += gabbacolorson.checked ? '&gabbacolors=1' : '';
+        params += scramble!='0' ? '&scramble='+scramble : '';
+        params += randmoves!='0' ? '&randmoves='+randmoves : '';
 
         removeListeners['cube']();
         switch (num) {
@@ -750,7 +673,7 @@
         var idlabel = document.getElementById('label:'+nome);
         var texto = idlabel.innerHTML;
         if (id.style.display == 'none') {
-          id.style.display = 'inline';
+          id.style.display = 'block';
           texto = texto.replace('↷','↻');
           idlabel.innerHTML = texto;
         }
@@ -762,17 +685,17 @@
       }
 
       function unfold_cube() {
+        dotable();
         if (!document.getElementById('faceletsdefault').checked) {
           dopallet();
-          dotable();
           setfacelets();
           document.getElementById('setfacelets').style.display = 'block';
           document.getElementById('showpallet').style.display = 'block';
-          } else {
+        } else {
             document.getElementById('setfacelets').style.display = 'none';
             document.getElementById('showpallet').style.display = 'none';
             unfold_colorscheme();
-          }
+        }
       }
 
       function unfold_colorscheme() {
@@ -820,7 +743,7 @@
         } else {
             document.getElementById('setcolorscheme').style.display = 'none';
             document.getElementById('showpallet').style.display = 'none';
-            document.getElementById('colorscheme').value = '';
+            document.getElementById('colorscheme').value = 'wyorgb';
         }
       }
 
@@ -896,12 +819,12 @@
         var faces = ['SC_Uface','SC_Lface','SC_Fface','SC_Rface','SC_Bface','SC_Dface'];
         for (var f=0; f<6;f++) {
           tab = document.getElementById(faces[f]);
-          table = '<table class="opencube" style="table-layout: fixed;">\
+          table = '<table class="opencube">\
                 <tbody>';
           for (var i=1; i<=parseInt(num,10); i++) {
             table += '<tr>';
             for (var j=1; j<=parseInt(num,10); j++) {
-              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; width: '+(16*7/num).toString()+'px; text-align: center; background: grey;"><a href="javascript:void(0)" id="'+faces[f]+'lin'+i+'col'+j+'" data-face="0" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+i+'col'+j+'\'); replace_cube();">⇑</a></td>';
+              table += '<td class="face" style="font-size: '+(12*7/num).toString()+'px; text-align: center; background: grey;"><a href="javascript:void(0)" id="'+faces[f]+'lin'+i+'col'+j+'" data-face="0" style="color: white;" onclick="changearrow(\''+faces[f]+'lin'+i+'col'+j+'\'); replace_cube();">&nbsp;⇑&nbsp;</a></td>';
             }
             table += '</tr>';
           }
@@ -914,7 +837,7 @@
       function changecolor(local) {
         var cell = document.getElementById(local);
         cell.style.background = document.getElementById('selectedcolor').style.background;
-        cell.setAttribute('data-face', document.getElementById('slectedindex').innerHTML);
+        cell.setAttribute('data-face', document.getElementById('selectedindex').innerHTML);
         if (!document.getElementById('faceletsdefault').checked)
           setfacelets();
         setcolorscheme();
@@ -922,7 +845,7 @@
 
       function changearrow(local) {
         var cell = document.getElementById(local);
-        var arrow = ['⇑', '⇒', '⇓', '⇐'];
+        var arrow = ['&nbsp;⇑&nbsp;', '⇒', '&nbsp;⇓&nbsp;', '⇐'];
         var num = parseInt(cell.getAttribute('data-face'),10);
         num = num < 3 ? num += 1 : 0;
         cell.setAttribute('data-face', num);
@@ -939,7 +862,7 @@
         for (var i=0; i<10; i++) {
           colors[i]=document.getElementById('color'+i.toString()).value;
         }
-        colors[10] = '#ffffff';  // W - white
+        colors[10] = document.getElementById('supercubeon').checked && document.getElementById('scw').value == '1' ? '#000000' : '#ffffff';  // W - white or K - black for supercube scw=1
         colors[11] = '#ffff00';  // Y - yellow
         colors[12] = '#ff6020';  // O - orange
         colors[13] = '#d00000';  // R - red
@@ -953,8 +876,6 @@
         colors[21] = '#20ff10';  // N - light green
         colors[22] = '#000000';  // K - black
         colors[23] = '#808080';  // * - gray
-        if (document.getElementById('supercubeon').checked && document.getElementById('scw').value == '1')
-          colors[10] = '#000000';
         if (document.getElementById('gabbacolorson').checked) {
           if (document.getElementById('supercubeon').checked) {
             colors[11] = "#fdcf00"; // Y - yellow
@@ -985,7 +906,7 @@
       }
 
       function selectcolor(index,color) {
-        document.getElementById('slectedindex').innerHTML = index;
+        document.getElementById('selectedindex').innerHTML = index;
         document.getElementById('selectedcolor').style.background = color;
       }
 
@@ -1001,11 +922,11 @@
           for (var i=1; i<=parseInt(num,10); i++) {
             for (var j=1; j<=parseInt(num,10); j++) {
               index = document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).getAttribute('data-face');
-                document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).style.background = document.getElementById('pallet-'+index).style.background;
+              document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).style.background = document.getElementById('pallet-'+index).style.background;
             }
           }
         }
-        index = document.getElementById('slectedindex').innerHTML;
+        index = document.getElementById('selectedindex').innerHTML;
         document.getElementById('selectedcolor').style.background = document.getElementById('pallet-'+index).style.background;
       }
 
@@ -1081,35 +1002,18 @@
       function changeposition(action) {
         var position = document.getElementById('position').value;
         var len = position.length;
+        var last = position[len-1];
+        var sorted = [action,last].sort().join('');
         if (!document.getElementById('positiondefault').checked) {
           document.getElementById('changeposition').style.display = 'block';
-          position = (action != '' && position == '0') ? '' : position;
-          switch (action) {
-            case 'l':
-              position = position[len-1] == 'r' ? position.substr(0, len-1) : position += action;
-              break;
-            case 'r':
-              position = position[len-1] == 'l' ? position.substr(0, len-1) : position += action;
-              break;
-            case 'u':
-              position = position[len-1] == 'd' ? position.substr(0, len-1) : position += action;
-              break;
-            case 'd':
-              position = position[len-1] == 'u' ? position.substr(0, len-1) : position += action;
-              break;
-            case 'f':
-              position = position[len-1] == 'b' ? position.substr(0, len-1) : position += action;
-              break;
-            case 'b':
-              position = position[len-1] == 'f' ? position.substr(0, len-1) : position += action;
-              break;
-          }
-          position = position == '' ? '0' : position;
+          position = action!='' && position=='0' ? '' : position;
+          position = sorted=='lr' || sorted=='du' || sorted=='bf' ? position.substr(0, len-1) : position+action;
+          position = position=='' ? '0' : position;
         } else {
           position = 'lluu';
           document.getElementById('changeposition').style.display = 'none';
         }
-        position = position == '' ? '0' : position;
+        position = position=='' ? '0' : position;
         document.getElementById('position').value = position;
       }
     </script>
