@@ -22,15 +22,15 @@ returning to the starting state, thus forming a <a href="https://www.speedsolvin
 <div id=cube style="width:300px; height:300px"></div>
 <br>
 Speed: 
-<input onclick=speed(0) type=radio name=hs>
-<input onclick=speed(1) type=radio name=hs>
-<input onclick=speed(2) type=radio name=hs>
-<input onclick=speed(3) type=radio name=hs>
-<input id=r5 onclick=speed(4) type=radio name=hs>
-<input onclick=speed(5) type=radio name=hs>
-<input onclick=speed(6) type=radio name=hs>
-<input onclick=speed(7) type=radio name=hs>
-<input onclick=speed(8) type=radio name=hs>
+<input onclick=changeSpeed(0) type=radio name=cs>
+<input onclick=changeSpeed(1) type=radio name=cs>
+<input onclick=changeSpeed(2) type=radio name=cs>
+<input onclick=changeSpeed(3) type=radio name=cs>
+<input id=r5 onclick=changeSpeed(4) type=radio name=cs>
+<input onclick=changeSpeed(5) type=radio name=cs>
+<input onclick=changeSpeed(6) type=radio name=cs>
+<input onclick=changeSpeed(7) type=radio name=cs>
+<input onclick=changeSpeed(8) type=radio name=cs>
 <br><br>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
@@ -62,12 +62,10 @@ Speed:
   takes longer to decompress but it can be used with url param use_alt_lzma=1.
   The decompress time can be seen in the console log (F12 to view).
 */
-var hs = 0;
+var acjs_put_var = [];
 var use_alt_lzma = 0;
 var move, time0;
-var changeSpeed;
 getParams();
-<!-- 10,000 in 5:34 with highspeed=2 -->
 var p1='id=cube&align=35&bgcolor=ffffff&buttonheight=18&colorscheme=wygbor';
 var p2='&fonttype=0&hint=10&hintborder=1&hinthoriz=3.0&position=lluuu';
 var p3='&movetext=1&movetextspace=0&scale=12&textsize=12&snap=1';
@@ -85,7 +83,7 @@ function decomp(r) {
 function decompDone(r) {
     console.log('Decompress: ' + (Date.now() - time0) + 'ms');
     move = r.replace(/G/g, 'F\'').replace(/S/g, 'R\'').replace(/V/g, 'U\'');
-    AnimCube2(params + '&speed=3&highspeed=0&move=' + move);
+    AnimCube2(params + '&speed=3&move=' + move);
 }
 function getParams() {
   var params = location.search.substr(1).split('&');
@@ -95,10 +93,9 @@ function getParams() {
       window[p[0]] = p[1];
   }
 }
-function speed(n) {
-  var sp = [15,11,8,5,3,2,1,1,1];
-  var hs = [0,0,0,0,0,0,0,1,2];
-  changeSpeed(sp[n], hs[n]);
+function changeSpeed(n) {
+  var sp = [15,11,8,5,3,2,1,0.33,0];
+  acjs_put_var['cube']('speed', sp[n], 'n');
 }
 </script>
 </center>

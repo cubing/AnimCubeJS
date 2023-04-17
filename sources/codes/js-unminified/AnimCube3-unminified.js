@@ -6,6 +6,7 @@
 "use strict";
 
 function AnimCube3(params) {
+  var cubeDim = 3;
   // external configuration
   var config = [];
   // background colors
@@ -251,9 +252,10 @@ function AnimCube3(params) {
     // custom colors
     param = getParameter("colors");
     if (param != null) {
-      for (var i = 0; i < 10 && i < param.length / 6; i++) {
-        if (validateColor(param.substring(i * 6, i * 6 + 6)))
-          colors[i] = "#" + param.substring(i * 6, i * 6 + 6);
+      for (var i = 0, j = 0; i < 10 && j < param.length; i++, j+=6) {
+        var s = param.substr(j, 6);
+        if (s.length == 6 && validateColor(s))
+          colors[i] = "#" + s;
       }
     }
     // clean the cube
@@ -1205,61 +1207,55 @@ function AnimCube3(params) {
     }
   }
 
-  var superTwistArr = [
-    [[0, 1 ,0], [0, 3, 1], [0, 3, 4], [0, 1, 5]], // F 
-    [[6, 1, 0], [2, 3, 1], [2, 3, 4], [6, 1, 5]], // B
-    [[3, 1, 0], [1, 3, 1], [1, 3, 4], [3, 1, 5]], // F or B slice
+  /* each superTwistArr element [a, b, c] is used to access a row or column
+     of 3 facelets in the cube layout (shown above) where:
+     a = starting facelet number
+     b = increment
+     c = layer (0=U, 1=D, 2=F, 3=B, 4=L, 5=R)
+  */
+
+  var superTwistArr = [                           // mode layer
+    [[0, 1 ,0], [0, 3, 1], [0, 3, 4], [0, 1, 5]], //  0     2 
+    [[6, 1, 0], [2, 3, 1], [2, 3, 4], [6, 1, 5]], //  0     3
+    [[3, 1, 0], [1, 3, 1], [1, 3, 4], [3, 1, 5]], //  1    2,3
+    [[6, 1, 3], [0, 1, 1], [0, 1, 2], [0, 3, 0]], //  0     4
+    [[0, 1, 3], [2, 3, 0], [6, 1, 2], [6, 1, 1]], //  0     5
+    [[3, 1, 3], [3, 1, 1], [3, 1, 2], [1, 3, 0]], //  1     4
+    [[3, 1, 3], [1, 3, 0], [3, 1, 2], [3, 1, 1]]  //  1     5
   ];
 
-  function twistSuperLayer(layer, num, middle) {
-    if (middle == false)
+  /* for F & B moves, rotate all arrows in the slice in the same direction
+     as the slice is rotated
+
+     for R & L moves, half-twist slice arrows on the back face and on the
+     face where the slice arrows from the back face moved to
+  */
+
+  function twistSuperLayer(layer, num, mode) {
+    if (mode == 0) { // outer
       for (var i = 0; i < 9; i++)
         scube[layer][i] = (scube[layer][i] + 4 - num) % 4;
-    if (layer == 4) {
-      if (middle == false) {
-        superTwist(6, 1, 3);
-        if (num == 1) superTwist(0, 1, 1);
-        else if (num == 2) superTwist(0, 1, 2);
-        else if (num == 3) superTwist(0, 3, 0);
-      }
-      if (middle == true) {
-        superTwist(3, 1, 3);
-        if (num == 1) superTwist(3, 1, 1);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(1, 3, 0);
-      }
+      if (layer == 2) superTwist2(0, 4 - num);
+      if (layer == 3) superTwist2(1, num);
+      if (layer == 4) superTwist(3, num);
+      if (layer == 5) superTwist(4, num);
     }
-    if (layer == 5) {
-      if (middle == false) {
-        superTwist(0, 1, 3);
-        if (num == 1) superTwist(2, 3, 0);
-        else if (num == 2) superTwist(6, 1, 2);
-        else if (num == 3) superTwist(6, 1, 1);
-      }
-      if (middle == true) {
-        superTwist(3, 1, 3);
-        if (num == 1) superTwist(1, 3, 0);
-        else if (num == 2) superTwist(3, 1, 2);
-        else if (num == 3) superTwist(3, 1, 1);
-      }
-    }
-    if (middle == false) {
-      if (layer == 2)
-        superTwist2(0, 4 - num);
-      if (layer == 3)
-        superTwist2(1, num);
-    }
-    if (middle == true) {
-      if (layer == 2)
-        superTwist2(2, 4 - num);
-      if (layer == 3)
-        superTwist2(2, num);
+    if (mode == 1) { // middle (m)
+      if (layer == 2) superTwist2(2, 4 - num);
+      if (layer == 3) superTwist2(2, num);
+      if (layer == 4) superTwist(5, num);
+      if (layer == 5) superTwist(6, num);
     }
   }
 
-  function superTwist(b, inc, face) {
-    for (var i = b, n = 0; n < 3; i += inc, n++)
-      scube[face][i] = (scube[face][i] + 2) % 4;
+  function superTwist(ix, num) {
+    superTwist1(superTwistArr[ix][0]);
+    superTwist1(superTwistArr[ix][num]);
+  }
+
+  function superTwist1(v) {
+    for (var i = v[0], n = 0; n < 3; i += v[1], n++)
+      scube[v[2]][i] = (scube[v[2]][i] + 2) % 4;
   }
 
   function superTwist2(ix, tw) {
@@ -1538,7 +1534,7 @@ function AnimCube3(params) {
     if (hint) { // draw hint hidden facelets
       for (var i = 0; i < 6; i++) { // all faces
         vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), faceNormals[i]); // perspective correction
-        if (vProd(perspEye, faceNormals[i]) < 0) { // draw only hidden faces
+        if (vProd(perspEye, faceNormals[i]) < -(1-scale)) { // draw only hidden faces
           vScale(vCopy(tempNormal, faceNormals[i]), faceShift);
           var min = width < height ? width : height - progressHeight;
           var x = min / hintHoriz * vProd(tempNormal, eyeX);
@@ -1602,7 +1598,7 @@ function AnimCube3(params) {
     // draw all visible faces and get dragging regions
     for (var i = 0; i < 6; i++) { // all faces
       vSub(vScale(vCopy(perspEye, eye), 5.0 + persp), faceNormals[i]); // perspective correction
-      if (vProd(perspEye, faceNormals[i]) > 0) { // draw only faces towards us
+      if (vProd(perspEye, faceNormals[i]) > -(1-scale)) { // draw only faces towards us
         var sideW = blocks[i][0][1] - blocks[i][0][0];
         var sideH = blocks[i][1][1] - blocks[i][1][0];
         if (sideW > 0 && sideH > 0) { // this side is not only black
@@ -1767,8 +1763,6 @@ function AnimCube3(params) {
 
   var buttonAction = [-1, 3, 1, -1, 0, 2, 4, -1];
 
-  var eyeD = [];
-
   // Various useful vector functions
 
   function vCopy(vector, srcVec) {
@@ -1860,18 +1854,18 @@ function AnimCube3(params) {
   }
 
   function validateColor(s) {
+    if (s.length != 6)
+      return false;
     var n = 0;
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 16; j++) {
-        if (s[i].toLowerCase() == "0123456789abcdef".charAt(j)) {
+        if (s.charAt(i).toLowerCase() == "0123456789abcdef".charAt(j)) {
           n++;
           break;
         }
       }
     }
-    if (n == 6)
-      return (true);
-    return (false);
+    return (n == 6) ? true : false;
   }
 
   function setClip(g, x, y, width, height) {
@@ -2728,7 +2722,7 @@ function AnimCube3(params) {
     }
   }
 
-  function removeList() {
+  function removeListeners() {
     stopAnimation();
     document.removeEventListener('touchstart', mousedown);
     document.removeEventListener('touchmove', mousemove);
@@ -2758,8 +2752,6 @@ function AnimCube3(params) {
         parNode = thisScript.parentNode;
       }
     }
-    if (parNode.id != null && typeof removeListeners != 'undefined')
-      removeListeners[parNode.id] = removeList;
     for (var i = 0; i < 6; i++) {
       cube[i] = [];
       scube[i] = [];
@@ -2773,6 +2765,41 @@ function AnimCube3(params) {
     curMove = 0;
     originalAngle = 0;
     onModuleLoad();
+    if (parNode.id != null)
+      init_direct_access(parNode.id);
+  }
+
+  function init_direct_access(id) {
+    for (var s in window)
+      if (s.substr(0, 5) == 'acjs_') {
+        var g = eval(s);     // global
+        var l = s.substr(5); // local
+        if (Array.isArray(g)) {
+          if (exists(l))
+            g[id] = eval(l);
+          else
+            console.log(l + ' does not exist in animcube');
+        }
+        else
+          console.log(s + ' is not an array');
+      }
+  }
+  function get_var(v) {
+    if (exists(v))
+      return eval(v)
+    else
+      console.log(v + ' does not exist in animcube');
+  }
+  function put_var(v, val, type) {
+    if(exists(v)) {
+      if (type == 's')
+        eval(v + "='" + val + "'");
+      else if (type == 'n')
+        eval(v + '=' + Number(val));
+    }
+  }
+  function exists(s){
+    try {return typeof eval(s)} catch {return false}
   }
 
   init0();

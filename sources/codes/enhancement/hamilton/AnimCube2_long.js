@@ -96,7 +96,6 @@ function AnimCube2(params) {
   // animation speed
   var speed;
   var doubleSpeed;
-  var speedMult;
   // current state of the program
   var natural = true; // cube is compact, no layer is twisted
   var toTwist; // layer can be twisted
@@ -493,14 +492,6 @@ function AnimCube2(params) {
       speed = 10;
     if (doubleSpeed == 0)
       doubleSpeed = speed * 3 / 2;
-    speedMult = 67;
-    param = getParameter("highspeed");
-    if (param != null) {
-      if (param == "1")
-        speedMult = 33;
-      if (param == "2")
-        speedMult = 0;
-    }
     // perspective deformation
     persp = 0;
     param = getParameter("perspective");
@@ -2212,10 +2203,10 @@ function AnimCube2(params) {
             if (moveAnimated) {
               phit = Math.PI / 2; // target for currentAngle (default pi/2)
               phis = clockwise ? 1.0 : -1.0; // sign
-              var turnTime = speedMult * speed; // milliseconds to be used for one turn
+              var turnTime = 67 * speed; // milliseconds to be used for one turn
               if (num == 2) {
                 phit = Math.PI;
-                turnTime = speedMult * doubleSpeed; // double turn is usually faster than two quarter turns
+                turnTime = 67 * doubleSpeed; // double turn is usually faster than two quarter turns
               }
               twisting = true;
               twistedLayer = layer;
@@ -2679,7 +2670,7 @@ function AnimCube2(params) {
     }
   }
 
-  function removeList() {
+  function removeListeners() {
     stopAnimation();
     document.removeEventListener('touchstart', mousedown);
     document.removeEventListener('touchmove', mousemove);
@@ -2709,8 +2700,6 @@ function AnimCube2(params) {
         parNode = thisScript.parentNode;
       }
     }
-    if (parNode.id != null && typeof removeListeners != 'undefined')
-      removeListeners[parNode.id] = removeList;
     for (var i = 0; i < 6; i++) {
       cube[i] = [];
       scube[i] = [];
@@ -2724,13 +2713,42 @@ function AnimCube2(params) {
     curMove = 0;
     originalAngle = 0;
     onModuleLoad();
+    if (parNode.id != null)
+      init_direct_access(parNode.id);
+  }
+
+  function init_direct_access(id) {
+    for (var s in window)
+      if (s.substr(0, 5) == 'acjs_') {
+        var g = eval(s);     // global
+        var l = s.substr(5); // local
+        if (Array.isArray(g)) {
+          if (exists(l))
+            g[id] = eval(l);
+          else
+            console.log(l + ' does not exist in animcube');
+        }
+        else
+          console.log(s + ' is not an array');
+      }
+  }
+  function get_var(v) {
+    if (exists(v))
+      return eval(v)
+    else
+      console.log(v + ' does not exist in animcube');
+  }
+  function put_var(v, val, type) {
+    if(exists(v)) {
+      if (type == 's')
+        eval(v + "='" + val + "'");
+      else if (type == 'n')
+        eval(v + '=' + Number(val));
+    }
+  }
+  function exists(s){
+    try {return typeof eval(s)} catch {return false}
   }
 
   init0();
-
-  function acjs_change_speed(sp, hs) {
-    speed = sp;
-    speedMult = (hs == 0) ? 67 : ((hs == 1) ? 33 : 0);
-  }
-  changeSpeed = acjs_change_speed;
 }

@@ -97,7 +97,7 @@
 <br><br><br>
 
 <script>
-var removeListeners = [];
+var acjs_removeListeners = [];
 var minHeight = 100;
 var prevType = 0;
 var init = [0, 0, 200, 280, 360, 420, 480];
@@ -127,7 +127,7 @@ function newCube(cmd) {
     src += sc;
   if (cmd == 1)
     src += rand;
-  removeListeners['cube']();
+  acjs_removeListeners['cube']();
   AnimCube3(src);
   prevType = type;
 }

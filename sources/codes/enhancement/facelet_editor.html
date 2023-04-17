@@ -1,0 +1,546 @@
+<!doctype html>
+<html>
+<head>
+ <title> Facelet Editor </title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <script src=../../../AnimCube2.js></script>
+ <script src=../../../AnimCube3.js></script>
+ <script src=../../../AnimCube4.js></script>
+ <script src=../../../AnimCube5.js></script>
+ <script src=../../../AnimCube6.js></script>
+ <script src=../../../AnimCube7.js></script>
+ <style> 
+   input {height:20px; width:20px;} 
+   .btn {
+     height:30px;
+     width:80px;
+     padding:0px;
+     border-radius:15px;
+     border:solid black 1px;
+   }
+ </style>
+</head>
+<body>
+<center>
+<table>
+ <tr><td height=8></tr>
+ <tr>
+  <td valign=top>
+   <font size=+2> Facelet Editor </font>
+   <div id=layout></div>
+   <table border=0>
+    <tr height=14>
+    <tr>
+     <td> <button class="btn" onclick="home()">Home</button> </td>
+     <td width=10>
+     <td> <button class="btn" onclick="clera()">Clear</button> </td>
+     <td width=10>
+     <td>
+      <select id=dim onchange="newCube()"
+        style="height:32px; border-radius:12px;padding:0 10px 0; 
+              border:1px solid black; outline:none; background-color:#ffffff">
+       <option value=2>2x2</option>
+       <option value=3 selected>3x3</option>
+       <option value=4>4x4</option>
+       <option value=5>5x5</option>
+       <option value=6>6x6</option>
+       <option value=7>7x7</option>
+      </select> 
+     </td>
+    </tr>
+    <tr height=1>
+    <tr>
+     <td colspan=6>
+      <table>
+       <tr>
+        <td colspan=4><input id=sc_cbox type=checkbox onclick=scf()>Supercube
+        <td width=20>
+        <td> <div id=cb2></div></td>
+       </tr>
+      </table>
+     <td>
+    </tr>
+   </table>
+  </td>
+  <td width=3%>
+  <td valign=top>
+   <div id=cube style="width:290px;height:290px"></div>
+  </td>
+ </tr>
+</table>
+<div><input id=facelets style="width:90%;margin-top:15px" readonly></div>
+<div id=sfacelets></div>
+<br>
+<script>
+/*
+This facelet editor supports the following url parameters, see the AnimCubeJS
+Doc for a description of each:
+facelets
+superfacelets
+colors
+scw
+There is one additional parameter "pallet" which is similar to the colorscheme
+parameter, it includes two additional colors for use as blank, these default
+to light & dark gray (L & D) but can be any color.
+The first six colors entered for the pallet parameter are the colorscheme of
+the cube and are displayed in the first three columns, the last two colors are
+the blanks and are in the last column.
+For example, pallet=ROYWGBLD is displayed as:
+[R] [O] [Y] [L]
+[W] [G] [B] [D]
+For custom colors use the colors parameter as described in the AnimCubeJS doc,
+an example is:
+pallet=012345LD&colors=ff0000FFA500ffff00ffffff00ff000000ff
+*/
+
+"use strict";
+var color;
+var facelets;
+var facelets_arr = [];
+var nfacelets;
+var cubeDim;
+var cubeDimSq;
+var cube_home;
+var cube_blank;
+var sfacelets;
+var sfacelets_home;
+var supercube = false;
+var sc_opt = false;
+var id = 'cube';
+var layout_cube_size = [240, 280, 320, 360, 380, 400];
+var layout_facelet_size = [30, 24, 22, 20, 18, 17];
+var first = true;
+var colors = [];
+var colors_param;
+var pcolors; // pallet colors
+
+// acjs direct access
+var acjs_cube = [];
+var acjs_scube = [];
+var acjs_initialCube = [];
+var acjs_initialSCube = [];
+var acjs_paint = [];
+var acjs_removeListeners = [];
+
+main();
+
+function main() {
+  init_colors();
+  var p = params();
+  if (p.dim > 0)
+    parCube(p);
+  else {
+    newCube();
+    sc_cbox.checked = false;
+  }
+}
+function scf() {
+  if (sc_cbox.checked) {
+    supercube = true;
+    document.getElementById('cb2').innerHTML = 
+      '<input id=sc_cbox2 type=checkbox onclick=scf2()>No Color';
+  }
+  else {
+    supercube = false;
+    document.getElementById('cb2').innerHTML = '';
+  }
+  newCube();
+}
+function scf2() {
+  sc_opt = (sc_cbox2.checked) ? true : false;
+}
+function newCube() {
+  var dim = document.getElementById('dim').value;
+  cubeDim = Number(dim);
+  cubeDimSq = cubeDim * cubeDim;
+  nfacelets = cubeDimSq * 6;
+  set_home();
+  layout();
+  if (typeof facelets == 'undefined' || facelets.length != nfacelets)
+    facelets = cube_home;
+  if (supercube)
+    if (typeof sfacelets == 'undefined' || sfacelets.length != nfacelets)
+      sfacelets = sfacelets_home;
+  update_layout();
+  show_cube();
+}
+function set_home() { 
+  cube_home = '';
+  cube_blank = '';
+  for (var i=0; i < 6; i++)
+    for (var j=0; j < cubeDimSq; j++)
+      cube_home += pcolors[i];
+  for (var i=0; i < nfacelets; i++)
+    cube_blank += 'L';
+  if (supercube) {
+    sfacelets_home = '';
+    for (var i=0; i < nfacelets; i++)
+      sfacelets_home += '0';
+  }
+}
+function update_layout() {
+  facelets_arr = facelets.split('');
+  for (var i=0; i < nfacelets; i++) {
+    var s = color_str(facelets_arr[i]);
+    document.getElementById('f' + i).style.backgroundColor = s;
+  }
+}
+function select_color(f) { 
+  color = f.id;
+}
+function set_color(f) {
+  var fn = f.id.substr(1);
+  var ix1 = Math.floor(fn / cubeDimSq);
+  var ix2 = Math.floor(fn % cubeDimSq);
+  if (supercube) {
+    var fc = acjs_cube[id][ix1][ix2];
+    if (sc_opt || fc == color_num(color) || typeof color == 'undefined') {
+      var an = acjs_scube[id][ix1][ix2];
+      var rn = (an + 1) % 4;
+      acjs_scube[id][ix1][ix2] = rn;
+      acjs_initialSCube[id][ix1][ix2] = rn;
+      acjs_paint[id]();
+      var arr = sfacelets.split('');
+      arr[fn] = rn;
+      sfacelets = arr.join('');
+      show_sfacelets();
+    }
+  }
+  if (!sc_opt) {
+    if (typeof(color) != 'undefined') {
+      var c = color_num(color);
+      acjs_cube[id][ix1][ix2] = c;
+      acjs_initialCube[id][ix1][ix2] = c;
+      acjs_paint[id]();
+      facelets_arr[fn] = color;
+      f.style.backgroundColor = color_str(color);
+      facelets = facelets_arr.join('');
+      document.getElementById('facelets').value = facelets;
+    }
+  }
+}
+function home() {
+  facelets = cube_home;
+  if (supercube)
+    sfacelets = sfacelets_home;
+  update_layout();
+  show_cube();
+}
+function clera() {
+  facelets = cube_blank;
+  if (supercube) {
+    if (sfacelets != sfacelets_home) {
+      sfacelets = sfacelets_home;
+      update_layout();
+      show_cube();
+    }
+  }
+  if (cube_blank != facelets_arr.join('')) {
+    update_layout();
+    show_cube();
+  }
+}
+function show_cube() {
+  var par = 'id=cube&bgcolor=bbbbbb&edit=0&buttonheight=18&facelets=' + facelets;
+  if (supercube) {
+    var p = searchParams('scw');
+    if (p != '')
+      par += '&supercube=1&scw=' + p + '&superfacelets=' + sfacelets;
+    else  
+      par += '&supercube=1&superfacelets=' + sfacelets;
+  }
+  if (colors_param != '')
+     par += '&colors=' + colors_param;
+  if (first)
+    first = false;
+  else
+    acjs_removeListeners[id]();
+  if (cubeDim == 2) AnimCube2(par);
+  else if (cubeDim == 3) AnimCube3(par);
+  else if (cubeDim == 4) AnimCube4(par);
+  else if (cubeDim == 5) AnimCube5(par);
+  else if (cubeDim == 6) AnimCube6(par);
+  else if (cubeDim == 7) AnimCube7(par);
+  document.getElementById('facelets').value = facelets;
+  if (supercube)
+    show_sfacelets();
+  else
+    document.getElementById('sfacelets').innerHTML = '';
+}
+function show_sfacelets() {
+  document.getElementById('sfacelets').innerHTML =
+    '<input id=sf style=width:90% readonly>';
+  document.getElementById('sf').value = sfacelets;
+}
+function layout_sequence(dim) {
+  var ix = 0;
+  var layout = [];
+  var ds = dim * dim;
+  var v = [ds*2, ds*5, ds*3]; 
+  for (var i=0, j=dim*(dim-1); i < dim; i++, j-=dim)
+    f1(j, 1, 0);  
+  for (var i=0, j=dim-1; i < dim; i++, j+=dim) {
+    f1(j, -1, ds*4);
+    for (var k=0; k < 3; k++)
+      f1(i, dim, v[k]);
+  }
+  for (var i=0; i < dim; i++)
+    f1(i, dim, ds);
+  return(layout);
+  function f1(n, inc, base) {
+    for (var i=0, j=n; i < dim; i++, j+=inc)
+      layout[ix++] = j + base;
+  }
+}
+function layout() {
+  var n = layout_cube_size[cubeDim - 2];
+  document.getElementById('cube').style.width = n + 'px';
+  document.getElementById('cube').style.height = n + 24 + 'px';
+  var seq = layout_sequence(cubeDim);
+  var n = layout_facelet_size[cubeDim - 2];
+  var s = '<style>input {height:' + n + 'px; width:' + n + 'px}</style>\n';
+  s += '<table border=0 style=line-height:0>\n<tr height=8>\n';
+  face(0);
+  s += '<tr height=10></tr>'
+  slices();
+  s += '<tr height=10></tr>'
+  face(cubeDimSq*5);
+  s = s.replace('</tr>', pallet);
+  s += '</table>\n';
+  document.getElementById('layout').innerHTML = s;
+  pallet_size();
+  function slices() {
+    var n = cubeDimSq;
+    var max = cubeDimSq * 5;
+    for (var i=n; i < max; i+=cubeDim*4)
+     slice(i)
+  }
+  function face(n) {
+    for (var i=n; i < n+cubeDimSq; i+=cubeDim) {
+      s += ' <tr>\n  <td colspan=' + (cubeDim+1) + '></td>\n'
+      facelets(i);
+      s += ' </tr>\n';
+    }
+  }
+  function slice(n) {
+    s += ' <tr>\n';
+    for (var i=n, j=0; j < 3; j++, i+=cubeDim) {
+      facelets(i);
+      s += '  <td width=12></td>\n';
+    }
+    facelets(i);
+    s += ' </tr>\n';
+  }
+  function facelets(n) {
+    for (var i=n; i < n+cubeDim; i++)
+      s += '  <td><input id=f' + seq[i] + ' type=button onclick=set_color(this)></td>\n';
+  }
+  // size of squares in the pallet
+  function pallet_size() {
+    var size = [22, 23, 24, 25, 26, 27];
+    for (var i=0; i < 8; i++) {
+      var a = document.getElementById(pcolors[i]);
+      a.style.width = size[cubeDim-2] + 'px';
+      a.style.height = size[cubeDim-2] + 'px';
+    }
+  }
+  function pallet() {
+    var ws = [5, 5, 6, 6, 7, 7];  // horiz space between squares
+    var wsd = ws[cubeDim-2];
+    var vert_adj = [6, 12, 22, 30, 36, 40];    // vert space above pallet
+    var horiz_adj = [20, 32, 48, 64, 70, 82];  // horiz space before pallet 
+    return `<td>
+  <td colspan=30 rowspan=` + (cubeDim+1) + `align=center style=vertical-align:top>
+   <table border=0 cellspacing=0 cellpadding=0>
+    <tr height=` + vert_adj[cubeDim-2] + `></tr>
+    <tr>
+     <td width=` + horiz_adj[cubeDim-2] + `>
+     <td> <input type=button id=` + pcolors[0] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[0]) + `"> </td>
+     <td width=` + wsd + `>
+     <td> <input type=button id=` + pcolors[1] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[1]) + `"> </td>
+     <td width=` + wsd + `>
+     <td> <input type=button id=` + pcolors[2] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[2]) + `"> </td>
+     <td width=` + wsd + `>
+     <td> <input type=button id=` + pcolors[6] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[6]) + `"> </td>
+    </tr>
+    <tr height=5>  <!-- vertical space between the two rows -->
+    <tr>
+     <td>
+     <td> <input type=button id=` + pcolors[3] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[3]) + `"> </td>
+     <td>
+     <td> <input type=button id=` + pcolors[4] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[4]) + `"> </td>
+     <td>
+     <td> <input type=button id=` + pcolors[5] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[5]) + `"> </td>
+     <td>
+     <td> <input type=button id=` + pcolors[7] + ` onclick=select_color(this) 
+                 style="background-color:` + color_str(pcolors[7]) + `"> </td>
+    </tr>
+   </table>
+  </td>
+ </tr>`;
+  }
+}
+function params() {
+  // pallet
+  var p = searchParams('pallet').toUpperCase();
+  pcolors = (p != '' && p.length == 8 && validate_colors(p)) ? p : 'WYORGBLD';
+  // colors
+  colors_param = '';
+  var p = searchParams('colors').toUpperCase();
+  if (p != '') {
+    for (var i = 0, j = 0; i < 10 && j < p.length; i++, j+=6) {
+      var s = p.substr(j, 6);
+      if (s.length == 6 && validate_hex(s))
+        colors[i] = "#" + s;
+        colors_param += s;
+    }
+  }
+  // facelets
+  var o = {dim:0};
+  var len = [24,54,96,150,216,294];
+  p = searchParams('facelets');
+  if (typeof p != '') {
+    var n = getDim(p);
+    if (n > 0) {
+      o.dim = n;
+      o.facelets = p;
+    }
+  }
+  // superfacelets
+  var p = searchParams('superfacelets');
+  if (typeof p != '') {
+    if (typeof o.facelets != 'undefined') {
+      if (p.length == o.facelets.length)
+        o.superfacelets = p;
+    }
+    else {
+      var n = getDim(p);
+      if (n > 0) {
+        o.dim = n;
+        o.superfacelets = p;
+      }
+    }
+  }
+  return o;
+  function getDim(s) {
+    for (var i=0; i < len.length; i++)
+      if (s.length == len[i])
+        return i+2;
+    return 0;
+  }   
+}
+function parCube(o) {
+  cubeDim = o.dim;
+  document.getElementById('dim').value = cubeDim;
+  cubeDimSq = cubeDim * cubeDim;
+  nfacelets = cubeDimSq * 6;
+  set_home();
+  if (typeof o.facelets != 'undefined')
+    facelets = o.facelets;
+  else
+    facelets = cube_home;
+  if (typeof o.superfacelets != 'undefined') {
+    supercube = 1;
+    set_home();
+    sfacelets = o.superfacelets;
+    sc_cbox.checked = true;
+    document.getElementById('cb2').innerHTML = 
+      '<input id=sc_cbox2 type=checkbox onclick=scf2()>No Color';
+  }
+  else
+    sc_cbox.checked = false;
+  layout();
+  update_layout();
+  show_cube();
+}
+function init_colors() {
+  colors[0]  = "#ff8040";  // 0 - light orange
+  colors[1]  = "#ff0000";  // 1 - pure red
+  colors[2]  = "#00ff00";  // 2 - pure green
+  colors[3]  = "#0000ff";  // 3 - pure blue
+  colors[4]  = "#999999";  // 4 - white grey
+  colors[5]  = "#aaaa44";  // 5 - yellow grey
+  colors[6]  = "#bb7744";  // 6 - orange grey
+  colors[7]  = "#994444";  // 7 - red grey
+  colors[8]  = "#447744";  // 8 - green grey
+  colors[9]  = "#004477";  // 9 - blue grey
+  colors[10] = "white";    // W - white
+  colors[11] = "yellow";   // Y - yellow
+  colors[12] = "orange";   // O - orange
+  colors[13] = "red";      // R - red
+  colors[14] = "green";    // G - green
+  colors[15] = "blue";     // B - blue
+  colors[16] = "#b0b0b0";  // L - light gray
+  colors[17] = "#505050";  // D - dark gray
+  colors[18] = "#ff00ff";  // M - magenta
+  colors[19] = "#00ffff";  // C - cyan
+  colors[20] = "#ffa0c0";  // P - pink
+  colors[21] = "#20ff10";  // N - light green
+  colors[22] = "#000000";  // K - black
+  colors[23] = "#808080";  // * - gray 
+}
+function color_str(c) {
+  return colors[color_num(c)];
+}
+function color_num(c) {
+  if (c >= 0 && c <= 9) return c; 
+  else if (c == 'W') return 10;
+  else if (c == 'Y') return 11;
+  else if (c == 'O') return 12;
+  else if (c == 'R') return 13;
+  else if (c == 'G') return 14;
+  else if (c == 'B') return 15;
+  else if (c == 'L') return 16;
+  else if (c == 'D') return 17;
+  else if (c == 'M') return 18;
+  else if (c == 'C') return 19;
+  else if (c == 'P') return 20;
+  else if (c == 'N') return 21;
+  else if (c == 'K') return 22;
+  else return 23;
+}
+function searchParams(s) {
+  var params = location.search.substr(1).split('&');
+  for (var i=0; i < params.length; i++) {
+    var p = params[i].split('=');
+    if (p[0] == s)
+      if (typeof(p[1]) != 'undefined')
+        return p[1];
+  }
+  return '';
+}
+function validate_colors(s) {
+  var valid_colors = '0123456789WYORGBLDMCPNK';
+  for (var i=0, n=0; i < s.length; i++)
+    for (var j=0; j < valid_colors.length; j++)
+      if (s[i] == valid_colors[j]) {
+        n++;
+        break;
+      }
+  return ((n == s.length) ? true : false);
+}
+function validate_hex(s) {
+  if (s.length != 6)
+    return;
+  var hex = '0123456789abcdef';
+  for (var i=0, n=0; i < 6 && i < s.length; i++) {
+    for (var j = 0; j < 16; j++) {
+      if (s.charAt(i).toLowerCase() == hex[j]) {
+        n++;
+        break;
+      }
+    }
+  }
+  return (n == 6) ? true : false;
+}
+</script>
+</center>
+</body>
+</html>

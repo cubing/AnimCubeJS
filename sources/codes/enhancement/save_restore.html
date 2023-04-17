@@ -1,71 +1,399 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
- <title>Save & restore cube configuration</title>
+ <title>AnimCubeJS Direct Access</title>
  <meta name=viewport content="width=device-width, initial-scale=1">
  <meta name="author" content="Michael Feather"> 
  <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
  <style>
   body, html {margin:8px 5%; font-family: Arial, Helvetica, sans-serif;}
   p {margin:0; text-align: justify;}
+  .btn {
+    height:30px;
+    width:80px;
+    padding:0px;
+    border-radius:15px;
+    border:solid black 1px;
+  }
  </style>
- <script src=AnimCube3mod2.js></script>
+ <script src=../../../AnimCube3.js></script>
 </head>
 <body>
 <center>
-<font size=+2>Save & restore cube configuration</font>
+<font size=+2>AnimCubeJS Direct Access</font>
 <br><br>
-<p> To save & restore a cube configuration, declare these variables in a web page:
+<p>The cube configuration (facelets) can be accessed directly in the simulator
+by declaring the following in a web page:
 <br><br>
-<code>var save_cube, restore_cube, config;</code><br>
+var acjs_cube = [];
+<br><br>
+The facelets are stored as a two dimensional array.
+The first dimension is the face number which is 0-5 for up, down, front,
+back, left &amp; right respectively.
+The second dimension is the facelet number as shown in the layout in
+the facelets section of the documentation (adjust the numbers so they start
+from zero on each face).
+The colors are stored as the numbers 10-15 for white, yellow, orange, red, 
+green &amp; blue respectively (see the colors array in the init function of
+AnimCube3.js for the complete list).
+The following simple example changes the center facelet on the front face to
+blue on a cube displayed in div c1.
+The acjs_paint function is used to update the cube display after the change
+is made.
 <br>
-The commands to save and restore a cube configuration are:
-<br><br>
-<code>config = save_cube();</code><br>
-<code>restore_cube(config);</code>
-<br><br>
-The following is an example of using save & restore to add a move sequence
-without changing the configuration or rotation of the cube.
-Make some moves to the cube with the mouse (or touch) and also rotate the
-whole cube, then press Add Moves.</p>
-<div id=cube style="width:200px; height:200px"> 
-</div>
+<p>
+<code style="white-space:pre">
+&lt;html&gt;
+&lt;script src=AnimCube3.js&gt;&lt;/script&gt
+&lt;div id=c1 style="width:200px; height:219px"&gt;&lt;/div&gt;
+&lt;button onclick="update_facelet()"&gt;Update&lt;/button&gt;
+&lt;script&gt;
+var acjs_cube = [];
+var acjs_paint = [];
+AnimCube3('id=c1');
+function update_facelet() {
+  // 2=front face, 4=center facelet, 15=blue
+  acjs_cube['c1'][2][4] = 15;
+  acjs_paint['c1']();
+}
+&lt;/script&gt;
+&lt;/html&gt;
+</code>
 <br>
-<button onclick=reload()>Add Moves</button>&nbsp;
-<button onclick=reset()>Reset</button>
-<br><br>
-<p>Use of save & restore requires some minor modifications to AnimCubeJS, see
-the code at the bottom of AnimCube3mod2.js which defines these two functions:
-<br><br>
-<code>acjs_save_cube</code><br>
-<code>acjs_restore_cube</code><br>
+<p>The first cube below does the above update but the change is lost when
+the reset button (in cube area) is pressed.
+The second cube also updates acjs_initialCube so that the change is not
+lost by resetting, this is the same functionality as passing a new facelets
+parameter to AnimCube.</p>
 <br>
-and these two lines which make those functions accessible from the web page:
+<table>
+ <tr style=text-align:center>
+  <td>
+   <div id=c0 style="width:200px; height:219px"></div>
+   <button class=btn style=margin-top:13px onclick="update_facelet('c0', 0)">Update</button>
+  </td>
+  <td width=50>
+  <td>
+   <div id=c1 style="width:200px; height:219px"></div>
+   <button class=btn style=margin-top:13px onclick="update_facelet('c1', 1)">Update</button>
+  </td>
+ </tr>
+</table>
 <br><br>
-<code>save_cube = acjs_save_cube;</code><br>
-<code>restore_cube = acjs_restore_cube;</code></p>
+<p>The following examples show how to save and restore both the 
+configuration (facelets) and position of the cube.
+To see how it works, make some random twists to layers and also rotate the
+whole cube, then press Save.
+Press the reset button in the cube area and then press Restore which will
+return the cube to the position and configuration that was saved.
+</p>
 <br>
+<table>
+ <tr>
+  <td>
+   <div id=c2 style="width:200px; height:219px"></div>
+   <table align=center>
+    <tr height=8>
+    <tr>
+     <td><button class=btn onclick=save('c2')>Save</button></td>
+     <td width=10>
+     <td><button class=btn onclick=restore('c2')>Restore</button></td>
+    <tr>
+   </table> 
+  </td>
+  <td width=50>
+  <td>
+   <div id=c3 style="width:200px; height:219px"></div>
+   <table align=center>
+    <tr height=8>
+    <tr>
+     <td><button class=btn onclick=save('c3')>Save</button></td>
+     <td width=10>
+     <td><button class=btn onclick=restore('c3')>Restore</button></td>
+    <tr>
+   </table> 
+  </td>
+ </tr>
+</table>
+<div style="width:90%;text-align:left">Cube 1</div>
+<input id=c2d1 style=width:90%>
+<input id=c2d2 style=width:90%>
+<div style="width:90%;text-align:left;margin-top:10px">Cube 2</div>
+<input id=c3d1 style=width:90%>
+<input id=c3d2 style=width:90%>
+<input id=c3d3 style=width:90%>
+<table>
+ <tr height=12>
+ <tr>
+  <td>
+   <button class=btn onclick="clera('c2')" style="width:180px">Clear Cube 1 Info</button>
+  </td>
+  <td width=20px>
+  <td>
+   <button class=btn onclick="clera('c3')" style="width:180px">Clear Cube 2 Info</button>
+  </td>
+</table>
+<br><br>
+<p>The following code shows how the above save &amp; restore is done.
+<br>
+<code style=white-space:pre>
+var acjs_cube = [];   // cube facelets array
+var acjs_scube = [];  // supercube facelets array
+var acjs_paint = [];  // paint function (redisplay cube)
+
+var acjs_eye = [];    // observer co-ordinate axes (view)
+var acjs_eyeX = [];
+var acjs_eyeY = [];
+
+var tmp_cube = [];    // temp storage for saved info
+var tmp_scube = [];         
+var tmp_pos = {eye:[], eyeX:[], eyeY:[]};
+
+function save(id) {
+  save_pos(id);                            // save cube position
+  copy_cube(tmp_cube, acjs_cube[id]);      // save cube facelets
+  if (id == 'c3')                          // id c3 is the supercube
+    copy_cube(tmp_scube, acjs_scube[id]);  // save supercube facelets
+}
+
+function restore(id) {
+  restore_pos(id);                         // restore cube position
+  copy_cube(acjs_cube[id], tmp_cube);      // restore cube facelets
+  if (id == 'c3')
+    copy_cube(acjs_scube[id], tmp_scube);  // restore supercube facelets
+  acjs_paint[id]();                        // redisplay cube
+}
+function save_pos(id) {
+  vCopy(tmp_pos.eye, acjs_eye[id]);
+  vCopy(tmp_pos.eyeX, acjs_eyeX[id]);
+  vCopy(tmp_pos.eyeY, acjs_eyeY[id]);
+}
+function restore_pos(id) {
+  vCopy(acjs_eye[id], tmp_pos.eye);
+  vCopy(acjs_eyeX[id], tmp_pos.eyeX);
+  vCopy(acjs_eyeY[id], tmp_pos.eyeY);
+  acjs_paint[id]();
+}
+function copy_cube(dest, src) {            // copy 6x9 array of 54 facelets
+  for (var i=0; i < src.length; i++)
+    dest[i] = src[i].slice();
+}
+</code>
+<br>
+<p>The above code can be combined with a call to AnimCube such than any 
+parameter can be changed without affecting the cube position &amp; config
+which would normally be reset.
+With the following two cubes, pressing Update will change the background 
+color.
+The first one does not restore the position/config so the cube will be reset,
+the second one does the restore so it will not reset.
+Make some twists and rotate the cube before pressing the button and compare
+the results between the two cubes.</p>
+<br>
+<table>
+ <tr style=text-align:center>
+  <td>
+   <div id=c4 style="width:200px; height:219px"></div>
+   <button class=btn onclick="change_bgcolor('c4')" style=margin-top:13px>Update</button>
+  </td>
+  <td width=50>
+  <td>
+   <div id=c5 style="width:200px; height:219px"></div>
+   <button class=btn onclick="change_bgcolor2('c5')" style=margin-top:13px>Update</button>
+  </td>
+ </tr>
+</table>
+<br><br>
+<p> The following code shows how to apply params to a cube and keep the 
+position and config unchanged.
+New listeners are created each time AnimCube is called so they are removed
+as shown.
+<br>
+<code style=white-space:pre>
+var acjs_removeListeners = [];
+
+function change_params(id, params) {
+  var tmp_cube = [];
+  save_pos(id);
+  copy_cube(tmp_cube, acjs_cube[id]);
+  acjs_removeListeners[id]();
+  AnimCube3('id=' + id + params);
+  restore_pos(id);
+  copy_cube(acjs_cube[id], tmp_cube);
+  acjs_paint[id]();
+}
+</code>
+<br>
+Another way to make the change is to use the acjs_get_var &amp; acjs_put_var
+functions as shown in the following example.
+<br>
+<code style=white-space:pre>
+var color1 = '#cccccc';
+var color2 = '#888888';
+
+function change_bgcolor(id) {
+  var color = toggle_color(acjs_get_var[id]('bgColor'));
+  acjs_put_var[id]('bgColor', color, 's'); 
+  acjs_paint[id]();
+}
+function toggle_color(c) {
+  return ((c == color1) ? color2 : color1);
+}
+</code>
+<br>
+</p>
+<div id=c6 style="width:200px; height:219px"></div>
+<button class=btn onclick="change_bgcolor3('c6')" style=margin-top:13px>Update</button>
+
+<br><br>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
+var acjs_cube = [];
+var acjs_scube = [];
+var acjs_initialCube = [];
+var acjs_paint = [];
+var acjs_removeListeners = [];
+var acjs_eye = [];
+var acjs_eyeX = [];
+var acjs_eyeY = [];
+var acjs_get_var = [];
+var acjs_put_var = [];
+var tmp_cube = [];
+var tmp_scube = [];
+var tmp_pos = {eye:[], eyeX:[], eyeY:[]};
+var bg1, bg2; 
+var color1 = 'cccccc';
+var color2 = '888888';
 
-var save_cube, restore_cube;
-var config;
-var removeListeners = [];
-var params='id=cube&bgcolor=ffffff&buttonheight=20&colorscheme=WYGBOR&snap=1';
+main();
 
-AnimCube3(params);
-
-function reload() {
-  config = save_cube();
-  removeListeners['cube']();
-  AnimCube3(params + '&move=RUFLDB');
-  restore_cube(config);
+function main() {
+  init();
+  var params = '&colorscheme=ROYWGB&bgcolor=cccccc&buttonheight=20&snap=1';
+  AnimCube3('id=c0' + params);
+  AnimCube3('id=c1' + params);
+  AnimCube3('id=c2' + params);
+  AnimCube3('id=c3&supercube=1' + params);
+  AnimCube3('id=c4' + params);
+  AnimCube3('id=c5' + params);
+  AnimCube3('id=c6' + params);
+}
+function save(id) {
+  save_pos(id);                            // save cube position
+  copy_cube(tmp_cube, acjs_cube[id]);      // save cube facelets
+  if (id == 'c3')
+    copy_cube(tmp_scube, acjs_scube[id]);  // save supercube facelets
+  show(id);
+}
+function restore(id) {
+  if (typeof tmp_pos.eye == 'undefined')   // save not done yet
+    return;
+  restore_pos(id);                         // restore cube position
+  copy_cube(acjs_cube[id], tmp_cube);      // restore cube facelets
+  if (id == 'c3')
+    copy_cube(acjs_scube[id], tmp_scube);  // restore supercube facelets
+  acjs_paint[id]();                        // redisplay cube
 }
 
-function reset() {
-  removeListeners['cube']();
-  AnimCube3(params);
+function copy_cube(dest, src) {            // copy 6x9 array of 54 facelets
+  for (var i=0; i < src.length; i++)
+    dest[i] = src[i].slice();
+}
+function show(id) {
+  s = 'Position: ' +  format(tmp_pos.eye) + ', ';
+  s += format(tmp_pos.eyeX) + ', ';
+  s += format(tmp_pos.eyeY);
+  document.getElementById(id + 'd1').value = s;
+  var s = 'Facelets: ' + facelets(tmp_cube);
+  document.getElementById(id + 'd2').value = s; 
+  if (id == 'c3') {
+    s = 'Superfacelets: ' + sfacelets(tmp_scube);
+    document.getElementById(id + 'd3').value = s; 
+  }
+}
+var colors = 'WYORGBLDMCPNK';
+function facelets() {
+  for (var i=0, s=''; i < 6; i++)
+    for (var j=0; j < 9; j++)
+      s += colors[tmp_cube[i][j]-10];
+  return(s);
+}
+function sfacelets() {
+  for (var i=0, s=''; i < 6; i++)
+    s += tmp_scube[i].join('');
+  return(s);
+}
+function format(v) {
+  var s = '[';
+  s += v[0].toFixed(4) + ', ';
+  s += v[1].toFixed(4) + ', ';
+  s += v[2].toFixed(4) + ']';
+  return(s);
+}
+function init() {
+  for (var i=0; i < 6; i++) {
+    tmp_cube[i] = [];
+    tmp_scube[i] = [];
+  }
+  clera('c2');
+  clera('c3');
+  bg1 = 'cccccc';
+  bg2 = bg1;
+}
+function clera(id) {
+  document.getElementById(id + 'd1').value = '';
+  document.getElementById(id + 'd2').value = '';
+  if (id == 'c3')
+    document.getElementById(id + 'd3').value = '';
+}
+function update_facelet(id, n) {
+  acjs_cube[id][2][4] = 15; 
+  if (n == 1)
+    acjs_initialCube[id][2][4] = 15; 
+  acjs_paint[id]();
+}
+function change_bgcolor(id) {
+  var params = 'id=' + id + '&buttonheight=20&colorscheme=ROYWGB&snap=1';
+  acjs_removeListeners[id]();
+  bg1 = toggle_color(bg1);
+  AnimCube3(params + '&bgcolor=' + bg1);
+}
+function change_bgcolor2(id) {
+  var params = 'id=' + id + '&buttonheight=20&colorscheme=ROYWGB&snap=1';
+  save_pos(id);
+  copy_cube(tmp_cube, acjs_cube[id]);
+  acjs_removeListeners[id]();
+  bg2 = toggle_color(bg2);
+  AnimCube3(params + '&bgcolor=' + bg2);
+  restore_pos(id);
+  copy_cube(acjs_cube[id], tmp_cube);
+  acjs_paint[id]();
+}
+function change_bgcolor3(id) {
+  var color = toggle_color(acjs_get_var[id]('bgColor').replace('#',''));
+  acjs_put_var[id]('bgColor', '#' + color, 's'); 
+  acjs_paint[id]();
+}
+function toggle_color(c) {
+  return ((c == color1) ? color2 : color1);
+}
+function save_pos(id) {
+  vCopy(tmp_pos.eye, acjs_eye[id]);
+  vCopy(tmp_pos.eyeX, acjs_eyeX[id]);
+  vCopy(tmp_pos.eyeY, acjs_eyeY[id]);
+}
+function restore_pos(id) {
+  vCopy(acjs_eye[id], tmp_pos.eye);
+  vCopy(acjs_eyeX[id], tmp_pos.eyeX);
+  vCopy(acjs_eyeY[id], tmp_pos.eyeY);
+  acjs_paint[id]();
+}
+function vCopy(vector, srcVec) {
+  vector[0] = srcVec[0];
+  vector[1] = srcVec[1];
+  vector[2] = srcVec[2];
+  return vector;
 }
 </script>
 </center>

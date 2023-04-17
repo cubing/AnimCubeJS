@@ -38,7 +38,7 @@
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
-// var removeListeners = [];
+// var acjs_removeListeners = [];
 var p1 = 'id=c1&buttonbar=0&bgcolor=ffffff&snap=1&facelets=wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr';
 var p2 = 'id=c2&buttonbar=0&bgcolor=ffffff&snap=1&colorscheme=wygbor';
 AnimCube3(p1);
@@ -47,7 +47,7 @@ function newCube(id, cmd) {
   var params = (id == 'c1') ? p1 : p2;
   if (cmd == 1)
     params += '&initmove=random';
-  // removeListeners[id]();
+  // acjs_removeListeners[id]();
   AnimCube3(params);
 }
 </script>

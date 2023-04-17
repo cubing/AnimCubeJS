@@ -3,7 +3,7 @@
  
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="description" content="Easy to use, highly configurable and nicely looking 2x2x2 - 6x6x6 Rubik's Cube & Supercube interactive 3D simulator.">
+<meta name="description" content="Easy to use, highly configurable and nicely looking 2x2x2 - 7x7x7 Rubik's Cube & Supercube interactive 3D simulator.">
 <link rel="icon" href="sources/images/favicon.ico" type="image/x-icon">
 <title>AnimCubeJS - the Rubik's Cube Animation Simulator</title>
 <script src="AnimCube3.js"></script>
@@ -12,6 +12,7 @@
 <script src="AnimCube4.js" async></script>
 <script src="AnimCube5.js" async></script>
 <script src="AnimCube6.js" async></script>
+<script src="AnimCube7.js" async></script>
 
 <style>
 body, html {
@@ -170,8 +171,10 @@ predecessors and a user can now choose what fits his/her needs.</li>
 <p>Main features of this simulator:</p>
 <div class="justify"><ul>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
-available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5 and 6x6x6 Rubik's Cubes, as well as 
-2x2x2 - 6x6x6 Supercubes.</li>
+available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5, 6x6x6 and 7x7x7 Rubik's Cubes,
+as well as 2x2x2 - 7x7x7 Supercubes. The 7x7x7 cube was contributed by 
+Marcelo Falcão de Oliveira.</li>
+</li>
 <li>The simulator has very flexible settings specified directly in the web page 
 where the simulator is placed.</li>
 <li>The simulator allows natural and sensitive manipulation with the separate 
@@ -209,15 +212,17 @@ web browser. JavaScript in your web browser is currently <a id=a1></a><noscript>
 In order to do so, download one (or more) of the files below. Supercubes are included by default.</p>
 
 <p><a href="sources/zip/2x2x2-AnimCubeJS.zip">2x2x2 AnimCubeJS simulator 
-<code>.zip</code> file</a> (10 kB)</p>
-<p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
-<code>.zip</code> file</a> (11 kB)</p>
-<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
-<code>.zip</code> file</a> (11 kB)</p>
-<p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
-<code>.zip</code> file</a> (11 kB)</p>
-<p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
 <code>.zip</code> file</a> (12 kB)</p>
+<p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
+<code>.zip</code> file</a> (13 kB)</p>
+<p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
+<code>.zip</code> file</a> (13 kB)</p>
+<p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
+<code>.zip</code> file</a> (13 kB)</p>
+<p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
+<code>.zip</code> file</a> (14 kB)</p>
+<p><a href="sources/zip/7x7x7-AnimCubeJS.zip">7x7x7 AnimCubeJS simulator 
+<code>.zip</code> file</a> (14 kB)</p>
 
 <p>
 You can choose from 2 different versions of AnimCubeJS. Click on the button below for details.
@@ -475,7 +480,7 @@ requestAnimationFrame.js
 <p>
 Developers can download the <a href="https://github.com/cubing/AnimCubeJS" target="_new">GitHub repository</a> 
 containing both minified and unminified JS files (minification was done using <a href="sources/codes/js-minification/minifier.html" target="_new">this tool</a>, 
-terser v5.15.1 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
+terser v5.16.8 to be specific) as well as the source code and documentation for both AnimCubeJS versions.
 </p>
   
 <div id="controls" class="sections"><b><i>Controls</i></b></div>
@@ -551,7 +556,7 @@ The result of the code above can be seen <a href="example.html" target="_new">he
 <pre><code>&lt;script src="AnimCubeX.js"&gt;&lt;/script&gt;</code></pre>
 
 <p><i>Note:</i> In the code above, replace "X" by the cube size you downloaded - e.g. <code>AnimCube2.js</code> means the 2x2x2 simulator will be displayed, 
-<code>AnimCube6.js</code> means the 6x6x6 simulator will be displayed. 
+<code>AnimCube7.js</code> means the 7x7x7 simulator will be displayed. 
 </p>
 
 <p>Next, add the following code in the HTML file to the place where you want the simulator to be displayed. Do not forget to replace "X" there as well.</p>
@@ -650,6 +655,8 @@ description of each parameter.</p>
 <p>
 By <a href="sources/codes/enhancement/parameters/create.html" target="_new">declaring parameters online</a> (it actually 
 works even offline) you can create your own simulator with the desired functionality, and then share it using a URL link.
+Another way to create simulators is with the
+<a href="config_tool.html" target="_new">AnimCubeJS Configuration Tool</a>.
 </p>
 
 <div class="button-to-center">
@@ -1623,6 +1630,23 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <div id=s6c10 class="cube" style="width:220px; height:246px"></div>
 <div id=s6c11 class="cube" style="width:220px; height:246px"></div>
 <div id=s6c12 class="cube" style="width:220px; height:246px"></div>
+</div>
+<p>For the 7x7x7 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
+<div class="justify"><ul>
+<li>n - first inner layer turn in the direction of the specified outer layer</li>
+<li>o - second inner layer turn in the direction of the specified outer layer</li>
+<li>m - middle layer turn in the direction of the specified outer layer</li>
+<li>c - whole-cube rotation in the direction of the specified outer layer</li>
+<li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li>
+<li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code>
+is equal to <code>R L'</code> or <code>L' R</code>)</li>
+<li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite
+direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li>
+</ul></div>
+<div>
+<div id=s6c13 class="cube" style="width:240px; height:266px"></div>
+<div id=s6c14 class="cube" style="width:240px; height:266px"></div>
+<div id=s6c15 class="cube" style="width:240px; height:266px"></div>
 </div><br>
 </div>
 
@@ -1805,6 +1829,7 @@ with corresponding AnimCubeJS notation. With the <code>sign=0</code> setting the
 <li>4x4x4: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, r, u, f, l, d, b, m, e, s, modifier s</code></li>
 <li>5x5x5: <code>3x3x3 set and 2R, 2U, 2F, 2L, 2D, 2B</code></li>
 <li>6x6x6: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, 3R, 3U, 3F, 3L, 3D, 3B, r, u, f, l, d, b, modifier s</code></li>
+<li>7x7x7: <code>6x6x6 set and M, E, S</code></li>
 </ul>
 <p>
 Make sure to separate moves by space, otherwise the move sequence might be ambiguous (for instance, R2L could mean 
@@ -2039,6 +2064,12 @@ number (0, 1, 2, or 4) = move count</div><br>
 <div class="cube" id=s8c14 style="width:220px; height:246px"></div>
 <div class="cube" id=s8c15 style="width:220px; height:246px"></div>
 <div class="cube" id=s8c16 style="width:220px; height:246px"></div>
+</div><br>
+<div>
+<div class="cube" id=s8c17 style="width:240px; height:266px"></div>
+<div class="cube" id=s8c18 style="width:240px; height:266px"></div>
+<div class="cube" id=s8c19 style="width:240px; height:266px"></div>
+<div class="cube" id=s8c20 style="width:240px; height:266px"></div>
 </div><br>
 </div><br>
 
@@ -2680,13 +2711,13 @@ will accumulate.
 To avoid that, declare the following global array prior to any calls to
 AnimCube:
 <br><br>
-<code>var removeListeners = [];</code>
+<code>var acjs_removeListeners = [];</code>
 <br><br>
-After the first call to AnimCube(id), removeListeners[id]() can
+After the first call to AnimCube(id), acjs_removeListeners[id]() can
 be used to remove listeners prior to subsequent calls as shown:
 <br><br>
-<code>removeListeners['cube1']();</code><br>
-<code>removeListeners['cube2']();</code>
+<code>acjs_removeListeners['cube1']();</code><br>
+<code>acjs_removeListeners['cube2']();</code>
 <br><br>
 See an <a href="sources/codes/enhancement/using_with_js_ex.html" target="_new">example implementation</a> 
 that uses buttons to update the cube display.
@@ -2698,34 +2729,82 @@ With use of the above described method there will be no increase in the
 number of "document" lines under each listener when a cube is redisplayed via
 JavaScript.
 <br><br>
-A copy of the example implementation without removeListeners can be seen 
+A copy of the example implementation without acjs_removeListeners can be seen 
 <a href="sources/codes/enhancement/using_with_js_ex2.html" target="_new">here</a>, 
 use Dev Tools to see the listeners
 accumulating after each button press (click the Refresh icon in the Event
 Listeners subtab to update).
-<br><br>
-Another reason to use removeListeners is that it calls stopAnimation which
-is normally done by the buttons in the button bar.
-If an HTML/JS user interface to AnimCube is used while a sequence is playing
-and removeListeners is not used, then the animation will continue to
-completion even though it is no longer visible on the screen.</p>
+</p>
+</div>
+<br>
+<div class="button-to-center">
+<button id=showHideButton17 onclick="showHideFunc(17,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage17 src=sources/images/down.png class=img></td>
+    <td width=60% style=text-align:center><a id=showHideHeading17>Direct access to AnimCubeJS with Javascript</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
 </div>
 
-<p>More advanced use of JavaScript to access and update variables directly in
-AnimCube can be done with minor modifications to the program.
-There are two methods, the first is to declare the variable in the web-page
-and comment it out of AnimCube, an example of that can be seen in the first
-link below. 
-The second method is to define a function within the AnimCube program that
-reads or updates variables and then link it back to the web-page, an example 
-of that can be seen in the second and third links below.</p>
-<div class="justify">
-<ul><li><a href="sources/codes/enhancement/cube_var.html" target="_new">Accessing the cube configuration</a></li><br>
-<li><a href="sources/codes/enhancement/save_restore.html" target="_new">Saving & restoring cube configuration</a></li><br>
-<li><a href="sources/codes/enhancement/hamilton/hamilton.html" target="_new">2x2x2 Devil's algorithm</a></li>
-</ul>
+<div class=showhide id=showHideText17>
+<p>AnimCubeJS internals can be accessed directly from a web page using
+Javascript by declaring global array varables prefixed with "acjs_" as shown
+below (replace "name" with the actual name of an array or function in
+AnimCube).<br>
+<code style=white-space:pre>
+var acjs_name = [];
+</code><br>
+To activate declared variables, call AnimCube with the id of the div where
+it is displayed on the web page, c1 for example:<br>
+<code style=white-space:pre>
+AnimCube('id=c1');
+</code><br>
+AnimCube then links each variable as shown:<br>
+<code style=white-space:pre>
+acjs_name[id] = name;
+</code><br>
+After the call, the array or function within AnimCube can be directly
+accessed in the web page by referencing as shown.<br>
+<code style=white-space:pre>
+acjs_name[id];    // array
+acjs_name[id]();  // function
+</code><br>
+In Javascript, arrays and functions are linked by reference (acjs_name[id]
+is assigned a pointer to "name" within AnimCube) which allows direct access
+but other variable types such as number or string are not linked this way
+(the assignment to acjs_name[id] would not be a pointer, it would receive
+a copy of the value in "name" instead) so a different method is needed.
+To read and update number or string variables, declare the following which
+link to the internal functions designed for that purpose:<br>
+<code style=white-space:pre>
+var acjs_get_var = [];
+var acjs_put_var = [];
+</code><br>
+After a call to AnimCube to make the links, the functions can then be used 
+to read or update number or string variables.
+In the following examples, "name" would be replaced with the actual name of
+a number or string variable in AnimCube.  The type parameter would be set
+to 'n' for number or 's' for string (in second example).<br>
+<code style=white-space:pre>
+var value = acjs_get_var[id]('name');   // read
+acjs_put_var[id]('name', value, type);  // update
+</code><br>
+An example to update speed is:<br>
+<code style=white-space:pre>
+acjs_put_var[id]('speed', 5, 'n');
+</code><br>
+See more examples in the documentation for 
+<a href="sources/codes/enhancement/save_restore.html" target="_new">AnimCubeJS Direct Access</a>,
+other examples of usage are in the 
+<a href="sources/codes/enhancement/facelet_editor.html?pallet=roywgbld" target="_new">Facelet Editor</a> and the
+<a href="sources/codes/enhancement/hamilton/hamilton.html" target="_new">2x2x2 Devil's algorithm</a>.
+</p>
 </div>
 
+<br>
 <hr class="hr">
 <p>If you realize any problem you can contact <a href="https://hlavolam.maweb.eu/contact" target="_new">Tadeáš Miler</a> 
 (he is a co-author of the AnimCubeJS documentation which is still heavily based on the original AnimCube documentation by 
@@ -2735,7 +2814,7 @@ Josef Jelínek) or you can file an issue to the <a href="https://github.com/cubi
  
 <script>
 var showHideContents = [];
-var removeListeners = [];
+var acjs_removeListeners = [];
 function showHideFunc(n, c) {
   var showHideImage = document.getElementById('showHideImage' + n);
   var showHideText = document.getElementById('showHideText' + n);
@@ -2765,28 +2844,28 @@ function showHideCubes(n, c) {
       showCubes6();
     else 
       for (var i=1; i <= 12; i++)
-        removeListeners['s6c' + i]();
+        acjs_removeListeners['s6c' + i]();
   }
   if (n == 8) {
     if (c)
       showCubes8();
     else 
       for (var i=1; i <= 16; i++)
-        removeListeners['s8c' + i]();
+        acjs_removeListeners['s8c' + i]();
   }
   if (n == 14) {
     if (c)
       showCubes14();
     else 
       for (var i=1; i <= 2; i++)
-        removeListeners['s14c' + i]();
+        acjs_removeListeners['s14c' + i]();
   }
   if (n == 15) {
     if (c)
       showCubes15();
     else 
       for (var i=1; i <= 2; i++)
-        removeListeners['s15c' + i]();
+        acjs_removeListeners['s15c' + i]();
   }
 }
 function showCubes6() {
@@ -2802,6 +2881,9 @@ function showCubes6() {
   AnimCube6("id=s6c10&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
   AnimCube6("id=s6c11&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
   AnimCube6("id=s6c12&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c13&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c14&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c15&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' M M' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' S S' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' E' E 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' M2 M2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' S2 S2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' E2' E2 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
 }
 function showCubes8() {
   AnimCube2("id=s8c1&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=0&sign=1&snap=1&buttonheight=20&textsize=16");
@@ -2820,6 +2902,10 @@ function showCubes8() {
   AnimCube6("id=s8c14&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
   AnimCube6("id=s8c15&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
   AnimCube6("id=s8c16&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c17&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c18&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c19&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c20&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
 }
 function showCubes14() {
   AnimCube6("id=s14c1&colorscheme=wygbor&sign=0&move=xyzLm2Rm2'Fm2Bm2'Um2'Dm2&movetext=5&snap=1&buttonheight=20&textsize=16");
@@ -3068,6 +3154,11 @@ positions in the parameter value (starting from 1) schematically.</p>\
 positions in the parameter value (starting from 1) schematically.</p>\
 <div class="responsive-table">\
 <table><tr><td><img src="sources/images/6x6x6-layout.gif" width="808" height="340" /></td></tr></table>\
+</div>\
+<p>To clarify the facelet layout for the 7x7x7 simulator, the next picture shows the facelet \
+positions in the parameter value (starting from 1) schematically.</p>\
+<div class="responsive-table">\
+<table><tr><td><img src="sources/images/7x7x7-layout.gif" width="808" height="356" /></td></tr></table>\
 </div>';
 showHideContents[16] = '\
 <p>\

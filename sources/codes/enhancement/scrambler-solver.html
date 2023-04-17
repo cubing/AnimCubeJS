@@ -77,7 +77,7 @@ Enter key (or the Scramble button).</p>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
-var removeListeners = [];
+var acjs_removeListeners = [];
 var params = 'id=cube&bgcolor=ffffff&edit=1&snap=1&repeat=0&colorscheme=WYGBOR&buttonheight=18';
 AnimCube3(params);
 function newCube(cmd) {
@@ -88,7 +88,7 @@ function newCube(cmd) {
     n = 5;
   if (cmd == 1)
     p += '&move=random&initrevmove=#&randmoves=' + n;
-  removeListeners['cube']();
+  acjs_removeListeners['cube']();
   AnimCube3(p);
 }
 </script></center>

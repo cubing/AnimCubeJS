@@ -47,7 +47,7 @@
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
-var removeListeners = [];
+var acjs_removeListeners = [];
 var params = "id=cube&buttonbar=0&bgcolor=ffffff&edit=1&snap=1&buttonheight=18";
 var colorScheme = '&colorscheme=wygbor';
 var edges = '&facelets=lwlwwwlwllylyyylyllglggglgllblbbblbllolooolollrlrrrlrl';
@@ -65,7 +65,7 @@ function newCube(cmd) {
     p += colorScheme;
   if (cmd == 1)
      p += rand 
-  removeListeners['cube']();
+  acjs_removeListeners['cube']();
   AnimCube3(p);
 }
 </script>

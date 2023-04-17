@@ -87,7 +87,7 @@
 <br><br>
 <script>
 "use strict";
-var removeListeners = [];
+var acjs_removeListeners = [];
 newCube(0);
 function newCube(r) {
   var s = size.value; 
@@ -105,7 +105,7 @@ function newCube(r) {
     link.innerHTML = '';
   }
   if (r)
-    removeListeners['cube']();
+    acjs_removeListeners['cube']();
   if      (s == 2) AnimCube2(p); 
   else if (s == 3) AnimCube3(p); 
   else if (s == 4) AnimCube4(p); 

@@ -73,7 +73,7 @@ recognized between each move sequence repetition).</p>
 <a href="javascript:window.close()">Close</a>
 <br><br><br>
 <script>
-var removeListeners = [];
+var acjs_removeListeners = [];
 var default_speed = 20;
 document.getElementById('inp').value = default_speed;
 var params = 'id=cube&bgcolor=ffffff&edit=1&snap=1&colorscheme=WYGBOR&buttonheight=18&demo=#&move=random';
@@ -83,7 +83,7 @@ function newCube() {
   var div = document.getElementById('cube');
   if (isNaN(inp.value) || inp.value == '' || inp.value < 1)
     inp.value = default_speed;
-  removeListeners['cube']();
+  acjs_removeListeners['cube']();
   AnimCube3(params + '&speed=' + inp.value);
 }
 </script></center>
