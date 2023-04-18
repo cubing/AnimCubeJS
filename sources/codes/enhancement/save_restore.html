@@ -152,14 +152,14 @@ var tmp_pos = {eye:[], eyeX:[], eyeY:[]};
 function save(id) {
   save_pos(id);                            // save cube position
   copy_cube(tmp_cube, acjs_cube[id]);      // save cube facelets
-  if (id == 'c3')                          // id c3 is the supercube
+  if (id == 'c2')                          // id c2 is the supercube
     copy_cube(tmp_scube, acjs_scube[id]);  // save supercube facelets
 }
 
 function restore(id) {
   restore_pos(id);                         // restore cube position
   copy_cube(acjs_cube[id], tmp_cube);      // restore cube facelets
-  if (id == 'c3')
+  if (id == 'c2')
     copy_cube(acjs_scube[id], tmp_scube);  // restore supercube facelets
   acjs_paint[id]();                        // redisplay cube
 }
