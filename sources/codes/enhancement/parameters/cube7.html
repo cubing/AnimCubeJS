@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+ <title>AnimCubeJS Demo</title>
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../../images/favicon.ico" type="image/x-icon">
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <script src="../../../../AnimCube7.js"></script>
+ <style> body {margin: 10vh 10% 10%} </style>
+</head>
+<body>
+<center>
+<div id=cube style="max-width:500px; max-height:500px"></div>
+<script>
+  window.addEventListener('resize', resizet);
+  resize();
+  AnimCube7('id=cube&' + window.location.search.replace('?',''));
+  function resize() {
+    cube.style.width = document.body.clientWidth + 'px'; 
+    cube.style.height = document.documentElement.clientHeight * 0.80 + 'px'; 
+  }
+  function resizet() {
+    clearTimeout(timer);
+    var timer = setTimeout(resize, 20);
+  }
+</script>
+</center>
+</body>
+</html>

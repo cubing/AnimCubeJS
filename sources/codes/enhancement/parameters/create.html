@@ -10,6 +10,7 @@
  <script src=../../../../AnimCube4.js></script>
  <script src=../../../../AnimCube5.js></script>
  <script src=../../../../AnimCube6.js></script>
+ <script src=../../../../AnimCube7.js></script>
  <style>
   body, html {
     font-family: Arial, Helvetica, sans-serif;
@@ -70,6 +71,7 @@
        <option value=4>4x4x4</option>
        <option value=5>5x5x5</option>
        <option value=6>6x6x6</option>
+       <option value=7>7x7x7</option>
       </select> 
      </td>
     </tr>
@@ -111,6 +113,7 @@ function newCube(r) {
   else if (s == 4) AnimCube4(p); 
   else if (s == 5) AnimCube5(p); 
   else if (s == 6) AnimCube6(p); 
+  else if (s == 7) AnimCube7(p); 
 }
 function clr() {
   text.value = '';
