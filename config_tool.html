@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="sources/images/favicon.ico" type="image/x-icon">
+    <title>AnimCubeJS Configuration Tool</title>
     <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
-    <title>AnimCubeJs Configuration Tool</title>
     <meta name="description" content="User friendly configuration tool for AnimCubeJS">
     <meta name="keywords" content="AnimCubeJS, configuration, tool">
     <meta name="author" content="Marcelo Falcão de Oliveira">
@@ -74,13 +73,13 @@
   </style>
   <body>
     <center>
-      <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJs Configuration Tool</h1>
+      <h1 style="font-family: 'Open Sans', sans-serif;">AnimCubeJS Configuration Tool</h1>
       <table width='800px'>
         <tr>
           <td>
             <div>
               <b>Cube:</b>
-              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="document.getElementById('faceletsdefault').checked=true; document.getElementById('showcolorscheme').style.display='block'; unfold_cube(); unfold_supercube(); replace_cube();">
+              <select id="cubesize" style="font-family: 'Open Sans', sans-serif; font-size: 15px;" onchange="check('faceletsdefault', true); setdisplay('showcolorscheme','block'); unfold_cube(); unfold_supercube(); replace_cube();">
                 <option value="2">2x2x2</option>
                 <option value="3" selected>3x3x3</option>
                 <option value="4">4x4x4</option>
@@ -100,11 +99,11 @@
                 <br>
                 bgcolor: 
                 <input type="color" id="bgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="document.getElementById('bgcolor').style.display = this.checked ? 'none' : 'inline'; document.getElementById('bgcolor').value='#808080'; replace_cube()"/>default
+                <input type='checkbox' checked onchange="setdisplay('bgcolor', this.checked ? 'none' : 'inline'); setvalue('bgcolor', '#808080'); replace_cube()"/>default
                 <br>
                 cubecolor:  
                 <input type="color" id="cubecolor" value="#000000" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="document.getElementById('cubecolor').style.display = this.checked ? 'none' : 'inline'; document.getElementById('cubecolor').value='#000000'; replace_cube()"/>default
+                <input type='checkbox' checked onchange="setdisplay('cubecolor', this.checked ? 'none' : 'inline'); setvalue('cubecolor', '#000000'); replace_cube()"/>default
                 <br>
                 snap: 
                 <input type="radio" name="snap" id="snapon" onchange="replace_cube()"/>on 
@@ -173,8 +172,8 @@
                 <input type="number" id="borderwidth" style="width:40px;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
                 <br>
                 supercube: 
-                <input type="radio" name="supercube" id="supercubeon" onchange="document.getElementById('borderwidth').value='6'; document.getElementById('supercubestuff').style.display='block'; dopallet(); unfold_colorscheme(); updatecolor(); replace_cube()"/>on
-                <input type="radio" name="supercube" checked onchange="document.getElementById('supercubestuff').style.display='none'; dopallet(); unfold_colorscheme(); updatecolor(); replace_cube();"/>off
+                <input type="radio" name="supercube" id="supercubeon" onchange="setvalue('borderwidth', '6'); setdisplay('supercubestuff', 'block'); dopallet(); unfold_colorscheme(); updatecolor(); replace_cube()"/>on
+                <input type="radio" name="supercube" checked onchange="setdisplay('supercubestuff', 'none'); dopallet(); unfold_colorscheme(); updatecolor(); replace_cube();"/>off
                 <br> 
               </div>
               <hr style="border-style: groove; border-width: 2px;">
@@ -183,15 +182,15 @@
                 <hr>
                 butbgcolor: 
                 <input type="color" id="butbgcolor" value="#808080" style='display: none;' onchange="replace_cube()"/>
-                <input type='checkbox' checked onchange="document.getElementById('butbgcolor').style.display = this.checked ? 'none' : 'inline'; document.getElementById('butbgcolor').value = '#808080'; replace_cube();" />default
+                <input type='checkbox' checked onchange="setdisplay('butbgcolor', this.checked ? 'none' : 'inline'); setvalue('butbgcolor', '#808080'); replace_cube();" />default
                 <br>
                 slidercolor:
                 <input type="color" id="slidercolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" id="slidercolordefault" checked onchange="document.getElementById('slidercolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
+                <input type="checkbox" id="slidercolordefault" checked onchange="setdisplay('slidercolor', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 troughcolor:
                 <input type="color" id="troughcolor" style="display: none;" value="#f0f0f0" onchange="replace_cube()"/>
-                <input type="checkbox" id="troughcolordefault" checked onchange="document.getElementById('troughcolor').style.display = this.checked ? 'none' : 'inline'; replace_cube()"/>default
+                <input type="checkbox" id="troughcolordefault" checked onchange="setdisplay('troughcolor', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 clickprogress: 
                 <input type="radio" name="clickprogress" checked onchange="replace_cube()"/>on 
@@ -248,7 +247,7 @@
                 <input type="radio" name="yz" checked onchange="replace_cube()"/>off 
                 <br>
                 sign: 
-                <input type="radio" name="sign" id="signon" onchange="document.getElementById('switchyz').checked=true; document.getElementById('movetext').value='5'; replace_cube()"/>on
+                <input type="radio" name="sign" id="signon" onchange="check('switchyz',true); setvalue('movetext', '5'); replace_cube()"/>on
                 <input type="radio" name="sign" checked onchange="replace_cube()"/>off 
                 <br>
                 <a href="javascript:void(0)" id="label:showinitmove" onclick="reverse('showinitmove');"><u>initmove &#8631;</u></a>
@@ -274,7 +273,7 @@
                 <br>
                 counter: 
                 <input type="radio" name="counter" checked onchange="replace_cube()"/>on
-                <input type="radio" name="counter" id="conteroff" onchange="replace_cube()"/>off 
+                <input type="radio" name="counter" id="counteroff" onchange="replace_cube()"/>off 
                 <br>
                 fonttype: 
                 <input type="radio" name="fonttype" checked onchange="replace_cube()"/>outlined
@@ -295,7 +294,7 @@
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
                 facelets:
-                <input id='faceletsdefault' type="checkbox" checked onchange="document.getElementById('showcolorscheme').style.display = this.checked ? 'block' : 'none'; unfold_cube(); replace_cube();"/>default
+                <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
                 <br> 
                 <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 <div id='setfacelets' style='display: none;'>
@@ -410,7 +409,7 @@
                   </table>
                 </div>
                 colors:
-                <input type="checkbox" id="colorsdefault" checked onchange="replace_cube()"/>default
+                <input type="checkbox" id="colorsdefault" checked onchange="usercolors(); replace_cube()"/>default
                 <br>
                 <div id="colortable" style="display: none; text-align: left;">
                   <br>
@@ -476,7 +475,7 @@
                   <br>
                 </div>
                 gabbacolors: 
-                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); document.getElementById('borderwidth').value='6'; replace_cube();"/>on
+                <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); setvalue('borderwidth', '6'); replace_cube();"/>on
                 <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
                 <br>
               </div>
@@ -518,131 +517,64 @@
       function replace_cube() {
         var params='';
         var saida = '<b>HTML code:</b><br><br>'
-        var width = document.getElementById('width').value;
-        var height = document.getElementById('height').value;
-        var cubesize = document.getElementById('cubesize');
-        var num = cubesize.options[cubesize.selectedIndex].value;
-        var bgcolor = document.getElementById('bgcolor').value;
-        var cubecolor = document.getElementById('cubecolor').value;
-        var butbgcolor = document.getElementById('butbgcolor').value;
-        var slidercolordefault = document.getElementById('slidercolordefault');
-        var slidercolor = document.getElementById('slidercolor');
-        var troughcolordefault = document.getElementById('troughcolordefault');
-        var troughcolor = document.getElementById('troughcolor');
-        var clickprogressoff = document.getElementById('clickprogressoff');
-        var snapon = document.getElementById('snapon');
-        var buttonbar = document.getElementById('buttonbar');
-        var buttonbarnum = buttonbar.options[buttonbar.selectedIndex].value;
-        var buttonheight = document.getElementById('buttonheight').value;
-        var repeatoff = document.getElementById('repeatoff');
-        var editoff =  document.getElementById('editoff');
-        var speed =  document.getElementById('speed').value;
-        var doublespeed =  document.getElementById('doublespeed').value;
-        var position = document.getElementById('position').value;
-        var scale =  document.getElementById('scale').value;
-        var align = document.getElementById('align').value;
-        var hint = document.getElementById('hint').value;
-        var hinthoriz = document.getElementById('hinthoriz').value;
-        var hintvert = document.getElementById('hintvert').value;
-        var hinborderon = document.getElementById('hintborderon');
-        var perspective =  document.getElementById('perspective').value;
-        var borderwidth = document.getElementById('borderwidth').value;
-        var move = document.getElementById('move').value;
-        var movetext = document.getElementById('movetext').value;
-        var movetextint = parseInt(movetext,10);
-        var movetextalert = document.getElementById('movetextalert');
-        var movetextspaceoff = document.getElementById('movetextspaceoff');
-        var switchyz = document.getElementById('switchyz');
-        var signon = document.getElementById('signon');
-        var initmove = document.getElementById('initmove').value;
-        var initrevmove = document.getElementById('initrevmove').value;
-        var demo = document.getElementById('demo').value;
-        var metric = document.getElementById('metric').value;
-        var counteroff = document.getElementById('conteroff');
-        var fonttypeoff = document.getElementById('fonttypeoff');
-        var textsize = document.getElementById('textsize').value;
-        var faceletsdefault = document.getElementById('faceletsdefault');
-        var facelets = document.getElementById('facelets').value;
-        var showcolorscheme = document.getElementById('showcolorscheme');
-        var colorscheme = document.getElementById('colorscheme').value;
-        var colorsdefault = document.getElementById('colorsdefault');
-        var colortable = document.getElementById('colortable');
-        var colors = '';
-        var supercubeon = document.getElementById('supercubeon');
-        var superfacelets = document.getElementById('superfacelets').value;
-        var scw = document.getElementById('scw').value;
-        var gabbacolorson = document.getElementById('gabbacolorson');
-        var scramble = document.getElementById('scramble').value;
-        var randmoves = document.getElementById('randmoves').value;
-        var texto = document.getElementById('texto');
-        
-        document.getElementById('cube').style = 'width:'+width+'px;height:'+height+'px';
+        var movetextint = parseInt(getvalue('movetext'),10);
+                        
+        document.getElementById('cube').style = 'width:'+getvalue('width')+'px;height:'+getvalue('height')+'px';
 
-        params += bgcolor!='#808080' ? '&bgcolor='+bgcolor.replace('#','') : '';
-        params += cubecolor!='#000000' ? '&cubecolor='+cubecolor.replace('#','') : '';
-        params += butbgcolor!=bgcolor ? '&butbgcolor='+butbgcolor.replace('#','') : '';
-        params += slidercolordefault.checked ? '' : '&slidercolor='+slidercolor.value.replace('#','');
-        params += troughcolordefault.checked ? '' : '&troughcolor='+troughcolor.value.replace('#','');
-        params += clickprogressoff.checked ? '&clickprogress=0' : '';
-        params += snapon.checked ? '&snap=1' : '';
-        params += buttonbarnum=='0' ? '&buttonbar=0' : '';
-        params += buttonbarnum=='1' ? '&buttonbar=1' : '';
-        params += buttonbarnum=='2' ? '&buttonbar=2' : '';
-        params += buttonheight!='13' ? '&buttonheight='+buttonheight : '';
-        params += repeatoff.checked ? '&repeat=0' : '';
-        params += editoff.checked ? '&edit=0' : '';
-        params += speed!='10' ? '&speed='+speed : '';
-        params += doublespeed!='0' ? '&doublespeed='+doublespeed : '';
-        params += position.toLowerCase()!='lluu' && position!= '' ? '&position='+position : '';
-        params += scale!='0' ? '&scale='+scale : '';
-        params += align!='1' ? '&align='+align : '';
-        params += hint!='0' ? '&hint='+hint : '';
-        params += hinthoriz!='3.7' ? '&hinthoriz='+hinthoriz : '';
-        params += hintvert!= '3.7' ? '&hintvert='+hintvert : '';
-        params += hintborderon.checked ? '&hintborder=1' : '';
-        params += perspective!='2' ? '&perspective='+perspective : '';
-        params += borderwidth!='10' && (!supercubeon.checked && !gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
-        params += borderwidth!='6' && (supercubeon.checked || gabbacolorson.checked) ? '&borderwidth='+borderwidth : '';
-        params += move!='' ? '&move='+move : '';
-        params += (movetextint>1 && movetextint<5 && num=='3') || (movetextint!=5 || !signon.checked) ? '&movetext='+movetext : '';
-        movetextalert.style.display = movetextint>1 && movetextint<5 && num!='3' ? 'block' : 'none';
-        params += movetextspaceoff.checked ? '&movetextspace=0' : '';
-        params += switchyz.checked && !signon.checked ? '&yz=1' : '';
-        params += !switchyz.checked && signon.checked ? '&yz=0' : '';
-        params += signon.checked ? '&sign=1' : '';
-        params += initmove!='' ? '&initmove='+initmove : '';
-        params += initrevmove!='' ? '&initrevmove='+initrevmove : '';
-        params += demo!='' ? '&demo='+demo : '';
-        params += metric!='0' ? '&metric='+metric : '';
-        params += counteroff.checked ? '&counter=0' : '';
-        params += fonttypeoff.checked ? '&fonttype=0' : '';
-        params += textsize!='12' ? '&textsize='+textsize : '';
-        params += faceletsdefault.checked ? '' : '&facelets='+facelets; 
-        params += !colorschemedefault.checked && faceletsdefault.checked ? '&colorscheme='+colorscheme : '';
-        if (!colorsdefault.checked) {
-          colortable.style.display='block';
+        params += getvalue('bgcolor')!='#808080' ? '&bgcolor='+getvalue('bgcolor').replace('#','') : '';
+        console.log(params);
+        params += getvalue('cubecolor')!='#000000' ? '&cubecolor='+getvalue('cubecolor').replace('#','') : '';
+        params += getvalue('butbgcolor')!=getvalue('bgcolor') ? '&butbgcolor='+getvalue('butbgcolor').replace('#','') : '';
+        params += checked('slidercolordefault') ? '' : '&slidercolor='+getvalue('slidercolor').replace('#','');
+        params += checked('troughcolordefault') ? '' : '&troughcolor='+getvalue('troughcolor').replace('#','');
+        params += checked('clickprogressoff') ? '&clickprogress=0' : '';
+        params += checked('snapon') ? '&snap=1' : '';
+        params += getvalue('buttonbar')!='default' ? '&buttonbar='+getvalue('buttonbar') : '';
+        params += getvalue('buttonheight')!='13' ? '&buttonheight='+getvalue('buttonheight') : '';
+        params += checked('repeatoff') ? '&repeat=0' : '';
+        params += checked('editoff') ? '&edit=0' : '';
+        params += getvalue('speed')!='10' ? '&speed='+getvalue('speed') : '';
+        params += getvalue('doublespeed')!='0' ? '&doublespeed='+getvalue('doublespeed') : '';
+        params += getvalue('position').toLowerCase()!='lluu' && getvalue('position')!= '' ? '&position='+getvalue('position') : '';
+        params += getvalue('scale')!='0' ? '&scale='+getvalue('scale') : '';
+        params += getvalue('align')!='1' ? '&align='+getvalue('align') : '';
+        params += getvalue('hint')!='0' ? '&hint='+getvalue('hint') : '';
+        params += getvalue('hinthoriz')!='3.7' ? '&hinthoriz='+getvalue('hinthoriz') : '';
+        params += getvalue('hintvert')!= '3.7' ? '&hintvert='+getvalue('hintvert') : '';
+        params += checked('hintborderon') ? '&hintborder=1' : '';
+        params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
+        params += getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
+        params += getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson')) ? '&borderwidth='+getvalue('borderwidth') : '';
+        params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
+        params += (movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon')) ? '&movetext='+getvalue('movetext') : '';
+        setdisplay('movetextalert', movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
+        params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
+        params += checked('switchyz') && !checked('signon') ? '&yz=1' : '';
+        params += !checked('switchyz') && checked('signon') ? '&yz=0' : '';
+        params += checked('signon') ? '&sign=1' : '';
+        params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
+        params += getvalue('initrevmove')!='' ? '&initrevmove='+getvalue('initrevmove') : '';
+        params += getvalue('demo')!='' ? '&demo='+getvalue('demo') : '';
+        params += getvalue('metric')!='0' ? '&metric='+getvalue('metric') : '';
+        params += checked('counteroff') ? '&counter=0' : '';
+        params += checked('fonttypeoff') ? '&fonttype=0' : '';
+        params += getvalue('textsize')!='12' ? '&textsize='+getvalue('textsize') : '';
+        params += checked('faceletsdefault') ? '' : '&facelets='+getvalue('facelets'); 
+        params += !checked('colorschemedefault') && checked('faceletsdefault') ? '&colorscheme='+getvalue('colorscheme') : '';
+        if (!checked('colorsdefault')) {
+          params += '&colors='
           for (var i=0; i<10; i++)
-            colors += document.getElementById('color'+i.toString()).value.replace('#','');
-          params += '&colors='+colors;
+            params += getvalue('color'+i.toString()).replace('#','');
         } 
-        else {
-          for (var i=0; i<10; i++) {
-            document.getElementById('color'+i.toString()).value = document.getElementById('color'+i.toString()).getAttribute('data-default');
-          }
-          colortable.style.display='none';
-          dopallet();
-          if (!faceletsdefault.checked)
-            updatecolor();
-        }
-        params += supercubeon.checked ? '&supercube=1' : '';
-        params += supercubeon.checked && superfacelets!='' ? '&superfacelets='+superfacelets : '';
-        params += supercubeon.checked && scw!='0' ? '&scw='+scw : '';
-        params += gabbacolorson.checked ? '&gabbacolors=1' : '';
-        params += scramble!='0' ? '&scramble='+scramble : '';
-        params += randmoves!='0' ? '&randmoves='+randmoves : '';
+        params += checked('supercubeon') ? '&supercube=1' : '';
+        params += checked('supercubeon') && getvalue('superfacelets')!='' ? '&superfacelets='+getvalue('superfacelets') : '';
+        params += checked('supercubeon') && getvalue('scw')!='0' ? '&scw='+getvalue('scw') : '';
+        params += checked('gabbacolorson') ? '&gabbacolors=1' : '';
+        params += getvalue('scramble')!='0' ? '&scramble='+getvalue('scramble') : '';
+        params += getvalue('randmoves')!='0' ? '&randmoves='+getvalue('randmoves') : '';
 
         acjs_removeListeners['cube']();
-        switch (num) {
+        switch (getvalue('cubesize')) {
           case '2':
             AnimCube2("id=cube"+params);
             break;
@@ -663,41 +595,36 @@
             break;
         }
 
-        texto.innerHTML = saida+'&lt;script src="AnimCube'+num+'.js">&lt;/script><br>\
+        sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
-                  &lt;div id="cube" style="width:'+width+'px;height:'+height+'px;">&lt;/div><br>\
+                  &lt;div id="cube" style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;">&lt;/div><br>\
                   <br>\
                   &lt;script><br>\
-                  AnimCube'+num+'("id=cube'+params+'");<br>\
-                  &lt;/script>'
+                  AnimCube'+getvalue('cubesize')+'("id=cube'+params+'");<br>\
+                  &lt;/script>');
       }
       
       function reverse(nome) {
-        var id = document.getElementById(nome);
-        var idlabel = document.getElementById('label:'+nome);
-        var texto = idlabel.innerHTML;
-        if (id.style.display == 'none') {
-          id.style.display = 'block';
-          texto = texto.replace('↷','↻');
-          idlabel.innerHTML = texto;
+        if (getdisplay(nome) == 'none') {
+          setdisplay(nome, 'block');
+          sethtml('label:'+nome, gethtml('label:'+nome).replace('↷','↻'));
         }
         else {
-          id.style.display = 'none';
-          texto = texto.replace('↻','↷');
-          idlabel.innerHTML = texto;
+          setdisplay(nome, 'none');
+          sethtml('label:'+nome, gethtml('label:'+nome).replace('↻','↷'));
         }
       }
 
       function unfold_cube() {
         dotable();
-        if (!document.getElementById('faceletsdefault').checked) {
+        if (!checked('faceletsdefault')) {
           dopallet();
           setfacelets();
-          document.getElementById('setfacelets').style.display = 'block';
-          document.getElementById('showpallet').style.display = 'block';
+          setdisplay('setfacelets', 'block');
+          setdisplay('showpallet', 'block');
         } else {
-            document.getElementById('setfacelets').style.display = 'none';
-            document.getElementById('showpallet').style.display = 'none';
+            setdisplay('setfacelets', 'none');
+            setdisplay('showpallet', 'none');
             unfold_colorscheme();
         }
       }
@@ -706,78 +633,70 @@
         var faces = ['CS_Uface','CS_Lface','CS_Fface','CS_Rface','CS_Bface','CS_Dface'];
         var cores = [];
         var index = [];
-        var colorface = '';
-        var colorscheme = document.getElementById('colorscheme').value;
+        var esq =  ['w','g','o','b','r','y'];
+        var colorscheme = getvalue('colorscheme');
         dopallet();
-        if (!document.getElementById('colorschemedefault').checked) {
+        if (!checked('colorschemedefault')) {
           if (colorscheme != '') {
-            cores[0] = document.getElementById('pallet-'+colorscheme[0]).style.background;
-            cores[1] = document.getElementById('pallet-'+colorscheme[4]).style.background;
-            cores[2] = document.getElementById('pallet-'+colorscheme[2]).style.background;
-            cores[3] = document.getElementById('pallet-'+colorscheme[5]).style.background;
-            cores[4] = document.getElementById('pallet-'+colorscheme[3]).style.background;
-            cores[5] = document.getElementById('pallet-'+colorscheme[1]).style.background;
+            cores[0] = getbackground('pallet-'+colorscheme[0]);
+            cores[1] = getbackground('pallet-'+colorscheme[4]);
+            cores[2] = getbackground('pallet-'+colorscheme[2]);
+            cores[3] = getbackground('pallet-'+colorscheme[5]);
+            cores[4] = getbackground('pallet-'+colorscheme[3]);
+            cores[5] = getbackground('pallet-'+colorscheme[1]);
             index[0] = colorscheme[0];
             index[1] = colorscheme[4];
             index[2] = colorscheme[2];
             index[3] = colorscheme[5];
             index[4] = colorscheme[3];
             index[5] = colorscheme[1];
-          } else {
-            cores[0] = document.getElementById('pallet-w').style.background;
-            cores[1] = document.getElementById('pallet-g').style.background;
-            cores[2] = document.getElementById('pallet-o').style.background;
-            cores[3] = document.getElementById('pallet-b').style.background;
-            cores[4] = document.getElementById('pallet-r').style.background;
-            cores[5] = document.getElementById('pallet-y').style.background;
-            index[0] = 'w';
-            index[1] = 'g';
-            index[2] = 'o';
-            index[3] = 'b';
-            index[4] = 'r';
-            index[5] = 'y';
+          } 
+          else {
+            for (var i=0; i<6; i++) {
+              cores[i] = getbackground('pallet-'+esq[i]);
+              index[i] = esq[i];
+            }
           }
           for (var f=0; f<6;f++) {
-            colorface = document.getElementById(faces[f]);
-            colorface.style.background = cores[f];
-            colorface.setAttribute('data-face', index[f]);
+            setbackground(faces[f], cores[f]);
+            setattrib(faces[f], 'data-face', index[f]);
           }
-          document.getElementById('setcolorscheme').style.display = 'block';
-          document.getElementById('showpallet').style.display = 'block';
+          setdisplay('setcolorscheme', 'block');
+          setdisplay('showpallet', 'block');
         } else {
-            document.getElementById('setcolorscheme').style.display = 'none';
-            document.getElementById('showpallet').style.display = 'none';
-            document.getElementById('colorscheme').value = 'wyorgb';
+            setdisplay('setcolorscheme', 'none');
+            setdisplay('showpallet', 'none');
+            setvalue('colorscheme', 'wyorgb');
         }
       }
 
       function unfold_supercube() {
-        if (!document.getElementById('superfaceletsdefault').checked) {
+        if (!checked('superfaceletsdefault')) {
           dosupertable();
           setsuperfacelets();
-          document.getElementById('setsuperfacelets').style.display = 'block';
+          setdisplay('setsuperfacelets', 'block');
           } else {
-            document.getElementById('superfacelets').innerHTML = '';
-            document.getElementById('setsuperfacelets').style.display = 'none';
+            sethtml('superfacelets', '');
+            setdisplay('setsuperfacelets', 'none');
           }
       }
 
 
       function dotable() {
-        var num = document.getElementById('cubesize').value;
+        var num = getvalue('cubesize');
         var table ='';
-        var tab = '';
         var faces = ['Uface','Lface','Fface','Rface','Bface','Dface'];
         var cores = [];
         var index = [];
-        var colorscheme = document.getElementById('colorscheme').value;
+        var esq = ['w','g','o','b','r','y'];
+        var colorscheme = getvalue('colorscheme');
         if (colorscheme != '') {
-          cores[0] = document.getElementById('pallet-'+colorscheme[0]).style.background;
-          cores[1] = document.getElementById('pallet-'+colorscheme[4]).style.background;
-          cores[2] = document.getElementById('pallet-'+colorscheme[2]).style.background;
-          cores[3] = document.getElementById('pallet-'+colorscheme[5]).style.background;
-          cores[4] = document.getElementById('pallet-'+colorscheme[3]).style.background;
-          cores[5] = document.getElementById('pallet-'+colorscheme[1]).style.background;
+          cores[0] = getbackground('pallet-'+colorscheme[0]);
+          cores[1] = getbackground('pallet-'+colorscheme[4]);
+          cores[2] = getbackground('pallet-'+colorscheme[2]);
+          cores[3] = getbackground('pallet-'+colorscheme[5]);
+          cores[4] = getbackground('pallet-'+colorscheme[3]);
+          cores[5] = getbackground('pallet-'+colorscheme[1]);
           index[0] = colorscheme[0];
           index[1] = colorscheme[4];
           index[2] = colorscheme[2];
@@ -786,21 +705,12 @@
           index[5] = colorscheme[1];
         }
         else {
-          cores[0] = document.getElementById('pallet-w').style.background;
-          cores[1] = document.getElementById('pallet-g').style.background;
-          cores[2] = document.getElementById('pallet-o').style.background;
-          cores[3] = document.getElementById('pallet-b').style.background;
-          cores[4] = document.getElementById('pallet-r').style.background;
-          cores[5] = document.getElementById('pallet-y').style.background;
-          index[0] = 'w';
-          index[1] = 'g';
-          index[2] = 'o';
-          index[3] = 'b';
-          index[4] = 'r';
-          index[5] = 'y';
+          for (var i=0; i<6; i++) {
+            cores[i] = getbackground('pallet-'+esq[i]);
+            index[i] = esq[i];
+          }
         }
         for (var f=0; f<6;f++) {
-          tab = document.getElementById(faces[f]);
           table = '<table class="opencube">\
                 <tbody>';
           for (var i=1; i<=parseInt(num,10); i++) {
@@ -812,17 +722,16 @@
           }
           table += "</tbody>\
             </table>";
-          tab.innerHTML = table;
+          sethtml(faces[f], table);
         }
       }
 
       function dosupertable() {
-        var num = document.getElementById('cubesize').value;
+        var num = getvalue('cubesize');
         var table ='';
         var tab = '';
         var faces = ['SC_Uface','SC_Lface','SC_Fface','SC_Rface','SC_Bface','SC_Dface'];
         for (var f=0; f<6;f++) {
-          tab = document.getElementById(faces[f]);
           table = '<table class="opencube">\
                 <tbody>';
           for (var i=1; i<=parseInt(num,10); i++) {
@@ -834,39 +743,36 @@
           }
           table += "</tbody>\
             </table>";
-          tab.innerHTML = table;
+          sethtml(faces[f], table);
         }
       }
 
       function changecolor(local) {
-        var cell = document.getElementById(local);
-        cell.style.background = document.getElementById('selectedcolor').style.background;
-        cell.setAttribute('data-face', document.getElementById('selectedindex').innerHTML);
-        if (!document.getElementById('faceletsdefault').checked)
+        setbackground(local, getbackground('selectedcolor'));
+        setattrib(local, 'data-face', gethtml('selectedindex'));
+        if (!checked('faceletsdefault'))
           setfacelets();
         setcolorscheme();
       }
 
       function changearrow(local) {
-        var cell = document.getElementById(local);
         var arrow = ['&nbsp;⇑&nbsp;', '⇒', '&nbsp;⇓&nbsp;', '⇐'];
-        var num = parseInt(cell.getAttribute('data-face'),10);
+        var num = parseInt(getattrib(local, 'data-face'),10);
         num = num < 3 ? num += 1 : 0;
-        cell.setAttribute('data-face', num);
-        cell.innerHTML = arrow[num];
-        if (!document.getElementById('superfaceletsdefault').checked)
+        setattrib(local, 'data-face', num);
+        sethtml(local, arrow[num]);
+        if (!checked('superfaceletsdefault'))
           setsuperfacelets();
       }
 
       function dopallet() {
-        var pallet = document.getElementById('pallet');
         var colors = [];
         var table = '';
         var labels = '0123456789wyorgbldmcpnk*';
         for (var i=0; i<10; i++) {
-          colors[i]=document.getElementById('color'+i.toString()).value;
+          colors[i] = getvalue('color'+i.toString());
         }
-        colors[10] = document.getElementById('supercubeon').checked && document.getElementById('scw').value == '1' ? '#000000' : '#ffffff';  // W - white or K - black for supercube scw=1
+        colors[10] = checked('supercubeon') && getvalue('scw')=='1' ? '#000000' : '#ffffff';  // W - white or K - black for supercube scw=1
         colors[11] = '#ffff00';  // Y - yellow
         colors[12] = '#ff6020';  // O - orange
         colors[13] = '#d00000';  // R - red
@@ -880,8 +786,8 @@
         colors[21] = '#20ff10';  // N - light green
         colors[22] = '#000000';  // K - black
         colors[23] = '#808080';  // * - gray
-        if (document.getElementById('gabbacolorson').checked) {
-          if (document.getElementById('supercubeon').checked) {
+        if (checked('gabbacolorson')) {
+          if (checked('supercubeon')) {
             colors[11] = "#fdcf00"; // Y - yellow
                 colors[12] = "#fd4e0a"; // O - orange
                 colors[13] = "#93000d"; // R - red
@@ -906,120 +812,182 @@
         }
         table += "</tbody>\
           </table>";
-        pallet.innerHTML = table;
+        sethtml('pallet', table);
       }
 
       function selectcolor(index,color) {
-        document.getElementById('selectedindex').innerHTML = index;
-        document.getElementById('selectedcolor').style.background = color;
+        sethtml('selectedindex', index);
+        setbackground('selectedcolor', color);
       }
 
       function updatecolor() {
-        var num = document.getElementById('cubesize').value;
+        var num = getvalue('cubesize');
         var faces = ['Uface','Lface','Fface','Rface','Bface','Dface'];
         var index = '';
         for (var f=0; f<6;f++) {
           //update colorscheme faces
-          index = document.getElementById('CS_'+faces[f]).getAttribute('data-face');
-          document.getElementById('CS_'+faces[f]).style.background = document.getElementById('pallet-'+index).style.background;
+          index = getattrib('CS_'+faces[f], 'data-face');
+          setbackground('CS_'+faces[f], getbackground('pallet-'+index));
           //update facelets
           for (var i=1; i<=parseInt(num,10); i++) {
             for (var j=1; j<=parseInt(num,10); j++) {
-              index = document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).getAttribute('data-face');
-              document.getElementById(faces[f]+'lin'+i.toString()+'col'+j.toString()).style.background = document.getElementById('pallet-'+index).style.background;
+              index = getattrib(faces[f]+'lin'+i.toString()+'col'+j.toString(), 'data-face');
+              setbackground(faces[f]+'lin'+i.toString()+'col'+j.toString(), getbackground('pallet-'+index));
             }
           }
         }
-        index = document.getElementById('selectedindex').innerHTML;
-        document.getElementById('selectedcolor').style.background = document.getElementById('pallet-'+index).style.background;
+        setbackground('selectedcolor', getbackground('pallet-'+gethtml('selectedindex')));
+      }
+
+      function usercolors() {
+        if (!checked('colorsdefault')) {
+          setdisplay('colortable', 'block');
+        } 
+        else {
+          for (var i=0; i<10; i++) {
+            setvalue('color'+i.toString(), getattrib('color'+i.toString(), 'data-default'));
+          }
+          setdisplay('colortable', 'none');
+          dopallet();
+          if (!checked('faceletsdefault') || !checked('colorschemedefault'))
+            updatecolor();
+        }
       }
 
       function setfacelets() {
-        var facelets = document.getElementById('facelets');
-        var num = document.getElementById('cubesize').value;
-        facelets.innerHTML = '';
+        var facelets = '';
+        var num = getvalue('cubesize');
         var f=0;
         for (var l=parseInt(num,10); l>0; l--) {
           for (var c=1; c<(parseInt(num,10)+1); c++) {
-            facelets.innerHTML += document.getElementById('Ufacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            facelets += getattrib('Ufacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
         var dfb=['D','F','B']
         for (var i=0; i<3;i++) {
           for (var c=1; c<(parseInt(num,10)+1); c++) {
             for (var l=1; l<(parseInt(num,10)+1); l++) {
-              facelets.innerHTML += document.getElementById(dfb[i]+'facelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+              facelets += getattrib(dfb[i]+'facelin'+l.toString()+'col'+c.toString(), 'data-face');
             }
           }
         }
         for (var l=1; l<(parseInt(num,10)+1); l++) {
           for (var c=parseInt(num,10); c>0; c--) {
-            facelets.innerHTML += document.getElementById('Lfacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            facelets += getattrib('Lfacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
         for (var c=1; c<(parseInt(num,10)+1); c++) {
           for (var l=1; l<(parseInt(num,10)+1); l++) {
-            facelets.innerHTML += document.getElementById('Rfacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            facelets += getattrib('Rfacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
+        sethtml('facelets', facelets);
       }
 
       function setcolorscheme () {
-        var scheme = document.getElementById('colorscheme');
+        var colorscheme = '';
         var faces = ['CS_Uface', 'CS_Dface', 'CS_Fface', 'CS_Bface', 'CS_Lface', 'CS_Rface'];
-        colorscheme.value = '';
         for (var f=0; f<6; f++) {
-          colorscheme.value += document.getElementById(faces[f]).getAttribute('data-face');
+          colorscheme += getattrib(faces[f], 'data-face');
         }
+        setvalue('colorscheme', colorscheme);
       }
 
       function setsuperfacelets() {
-        var sfacelets = document.getElementById('superfacelets');
-        var num = document.getElementById('cubesize').value;
-        sfacelets.innerHTML = '';
+        var sfacelets = '';
+        var num = getvalue('cubesize');
         var f=0;
         for (var l=parseInt(num,10); l>0; l--) {
           for (var c=1; c<(parseInt(num,10)+1); c++) {
-            sfacelets.innerHTML += document.getElementById('SC_Ufacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            sfacelets += getattrib('SC_Ufacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
         var dfb=['SC_D','SC_F','SC_B']
         for (var i=0; i<3;i++) {
           for (var c=1; c<(parseInt(num,10)+1); c++) {
             for (var l=1; l<(parseInt(num,10)+1); l++) {
-              sfacelets.innerHTML += document.getElementById(dfb[i]+'facelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+              sfacelets += getattrib(dfb[i]+'facelin'+l.toString()+'col'+c.toString(), 'data-face');
             }
           }
         }
         for (var l=1; l<(parseInt(num,10)+1); l++) {
           for (var c=parseInt(num,10); c>0; c--) {
-            sfacelets.innerHTML += document.getElementById('SC_Lfacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            sfacelets += getattrib('SC_Lfacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
         for (var c=1; c<(parseInt(num,10)+1); c++) {
           for (var l=1; l<(parseInt(num,10)+1); l++) {
-            sfacelets.innerHTML += document.getElementById('SC_Rfacelin'+l.toString()+'col'+c.toString()).getAttribute('data-face');
+            sfacelets += getattrib('SC_Rfacelin'+l.toString()+'col'+c.toString(), 'data-face');
           }
         }
+        sethtml('superfacelets', sfacelets);
       }
 
       function changeposition(action) {
-        var position = document.getElementById('position').value;
+        var position = getvalue('position');
         var len = position.length;
         var last = position[len-1];
         var sorted = [action,last].sort().join('');
-        if (!document.getElementById('positiondefault').checked) {
-          document.getElementById('changeposition').style.display = 'block';
+        if (!checked('positiondefault')) {
+          setdisplay('changeposition', 'block');
           position = action!='' && position=='0' ? '' : position;
           position = sorted=='lr' || sorted=='du' || sorted=='bf' ? position.substr(0, len-1) : position+action;
           position = position=='' ? '0' : position;
         } else {
           position = 'lluu';
-          document.getElementById('changeposition').style.display = 'none';
+          setdisplay('changeposition', 'none');
         }
         position = position=='' ? '0' : position;
-        document.getElementById('position').value = position;
+        setvalue('position', position);
       }
+
+      function setdisplay(id,state) {
+        document.getElementById(id).style.display = state;
+      }
+
+      function getdisplay(id) {
+        return document.getElementById(id).style.display;
+      }
+
+      function setvalue(id,value) {
+        document.getElementById(id).value = value;
+      }
+
+      function getvalue(id) {
+        return document.getElementById(id).value;
+      }
+
+      function check(id,argument) {
+        document.getElementById(id).checked = argument;
+      }
+
+      function checked(id) {
+        return document.getElementById(id).checked;
+      }
+
+      function setbackground(id,value) {
+        document.getElementById(id).style.background = value;
+      }
+
+      function getbackground(id) {
+        return document.getElementById(id).style.background;
+      }
+
+      function gethtml(id) {
+        return document.getElementById(id).innerHTML;
+      }
+
+      function sethtml(id,content) {
+        document.getElementById(id).innerHTML = content;
+      }
+
+      function getattrib(id,attrib) {
+        return document.getElementById(id).getAttribute(attrib);
+      }
+
+      function setattrib(id, attrib, value) {
+         document.getElementById(id).setAttribute(attrib, value);
+      } 
     </script>
   </body>
 </html>
