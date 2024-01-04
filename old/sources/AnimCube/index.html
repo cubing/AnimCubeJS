@@ -1,0 +1,1051 @@
+<html>
+<head><title>Jelinek's Java Applet for the Rubik's Cube Animation</title><link rel="icon" href="favicon.ico" type="image/x-icon"></head>
+<body bgcolor=white text=black link=#336699 vlink=#112244>
+<font face="Arial">
+
+<table align=center width=100% cellpadding=0 cellspacing=0>
+<tr><td align=center bgcolor=white><img src="logo.gif"></td></tr>
+<tr><td height=1 bgcolor=#E6F4FF></td></tr>
+<tr><td height=1 bgcolor=#DDEEF8></td></tr>
+<tr><td height=1 bgcolor=#D6E4F0></td></tr>
+<tr><td height=3 bgcolor=#CCDDEE></td></tr>
+<tr><td align=center bgcolor=#CCDDEE><font size=+1><b>Jelinek's Java Applet for Animating the Rubik's Cube</b></font></td></tr>
+<tr><td height=3 bgcolor=#CCDDEE></td></tr>
+<tr><td height=1 bgcolor=#BBCCDD></td></tr>
+<tr><td height=1 bgcolor=#AABBCC></td></tr>
+<tr><td height=1 bgcolor=#99AABB></td></tr>
+<tr><td height=1 bgcolor=#778899></td></tr>
+</table>
+<p align=center><b>version 3.5b</b></p>
+<p align=center><b>Created by <a href="mailto:gloom@email.cz">Josef Jelinek</a> 2001-2004</b></p>
+<p align=center>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="140">
+<param name="move" value="{Cube in ...} F U' B L U' {... cube in ...} F2 U2 F U F' {... cube ...} U2 D' B D {... pattern} L2 B2 U">
+<param name="initrevmove" value="#">
+<param name="position" value="LLLDDD">
+<param name="bgcolor" value="FFFFFF">
+<param name="butbgcolor" value="99AACC">
+<param name="demo" value="{AnimCube 3.5}ZZUuZZ{by Josef Jelinek}d'D'UE'D'{}D'E'U">
+<param name="movetext" value="1">
+<param name="metric" value="2">
+<param name="fonttype" value="0">
+</applet>
+</p><br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Introduction</i></b></td></tr>
+</table>
+<p>Purpose of this applet:</p>
+<ul>
+<li>This applet is aimed at showing animation of Rubik's cube manipulation.</li>
+<li>The applet was initially created because of the problems with existing applets. Features of this applet tries to address and solve some of the problems. However, the applet evolved much further as well as its "predecessors" and a user can now choose what fits his/her needs.</li>
+</ul>
+<p>Main features of this applet:</p>
+<ul>
+<li>The applet has very flexible settings specified directly in the web page where the applet is placed.</li>
+<li>The applet allows natural and sensitive manipulation with the separate cube layers (even center ones) as well as the entire cube.</li>
+<li>The applet supports many types of single moves: One side or center layer separately, two adjacent or opposite layers simultaneously, slice and anti-slice turns and whole cube turns.
+<li>The applet is backward compatible with its predecessors as much as possible.</li>
+<li>The applet simulates antialiasing in order to draw smoother facelet edges compared to another applets.</li>
+<li>The applet is displayed in configurable perspective projection in order to display the cube in a more realistic way.</li>
+<li>The applet can show even some of normally hidden facelets by means of projection of facelets to the planes near the cube.</li>
+<li>The consumption of the processor time is reduced and more applets can animate simultaneously without noticeable slow-down.</li>
+<li>The entire applet consists of one (relatively short) class file.</li>
+<li>The applet is compatible with Java version 1.1 and up.</li>
+</ul>
+<p><i>Note:</i> The native antialiasing is included in Java2 that is not generally supported by web browsers and is not used in this applet. The perspective projection uses bilinear interpolation to display inner face points for the sake of efficiency.
+<p><i>Note:</i> To make this applet work you need a Java-enabled internet browser. If your browser does not contain Java plugin, you have to download one e.g. <a href="http://java.sun.com">here</a> (look for the Java browser plug-in).</p>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Download</i></b></td></tr>
+</table>
+<p>This program is classified as freeware. You can use it in your web pages. When you want to use the applet in your pages, send me an e-mail. You can modify the applet. However, I would like to see any modifications you do. In addition, you can ask me for the modification. It could be easier for me to add it, because code is not designed for legibility - many algorithms are encoded into tables that are fast and flexible but hard to understand.</p>
+<p><a href="AnimCube.jar">Applet class in the <tt>.jar</tt> file (14kB)</a></p>
+<p><a href="AnimCube.class">Applet class (32kB)</a></p>
+<p><a href="AnimCube.java">Source code (67kB)</a></p>
+<p>To use the applet in your web pages downloading the "jar" archive is sufficient.</p>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Changes</i></b></td></tr>
+</table>
+<p><b>version 3.5b</b></p>
+<tt>
+<ul>
+  <li>internal changes to the code</li>
+  <ul>
+    <li>more flexible handling of config URLs</li>
+    <li>optimized thread usage (now only one additional animation thread is created for the the entire life of an applet - not for each animation action)</li>
+  </ul>
+</ul>
+</tt>
+<br>
+<p><b>version 3.5</b></p>
+<tt>
+<ul>
+  <li>extender move paramenter possibilities</li>
+  <ul>
+    <li>added '.' character to the move parameter to specify delay</li>
+    <li>added possibility of textual info. to the move parameter (in '{' and '}')</li>
+  </ul>
+  <li>added two new textual move representations (see movetext parameter)</li>
+  <ul>
+    <li>Y and Z swapped in the mode 3 (compared to mode 2)</li>
+    <li>lowercase letters to specify middle slice moves and 'Q' prefix for cube rotation</li>
+  </ul>
+</ul>
+</tt>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Controls</i></b></td></tr>
+</table>
+<p>Controls of this applet are quite intuitive. You can rotate the whole cube as well as separate layers using the mouse. To rotate separate layers use dragging in natural directions with the left mouse button pressed. To rotate the whole cube use the shift button while dragging or the right mouse button or drag from the point outside the cube image. (Sometimes right mouse button dragging can cause problems - not an applet bug.) The possibility to edit the cube can be disabled in a web page. Then only the whole cube rotation is allowed. You can control the animation by the buttons in the button bar. The animation can be immediately set to any position using progress bar (if present) just above the button bar. The browser status bar shows context help about buttons.</p>
+<p>The animation can be applied more times as well as interleaved with direct manipulation to allow a user experiment if he/she wants to. The first button (rewind) always clears the cube to the initial state - resets facelets, position, twisted layers and mirroring. The middle button has two purposes: When the animation is playing it can stop the animation; when the animation is stopped it mirrors the cube view to allow a user to experiment with symmetric positions. The cube can be rotated by mouse even if the animation is started. If you press button in the middle of animated layer twist, the twist is finished immediately and the new requested action is started.</p>
+<p>In some cases the button bar can be reduced or totally hidden by a page designer.</p>
+<p>You can try to play with the applet at the beginning of the page.</p>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Using Applet in Web Pages</i></b></td></tr>
+</table>
+<p>This section describes using the applet in your own web pages. To use the applet you should add one of the following codes to the place you want in the html file. The tag with archive attribute needs only the "jar" archive to work and saves space and downloading time. The second tag needs only the "class" file to work.</p>
+
+<pre><tt>  &lt;applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=139>
+    <i>parameters</i>
+  &lt;/applet></tt></pre>
+
+ <pre><tt>  &lt;applet code="AnimCube.class" width=120 height=139>
+    <i>parameters</i>
+  &lt;/applet></tt></pre>
+
+<p>The size (<i>width</i> and <i>height</i>) is arbitrary and can be flexibly adjusted. For the best appearance the <i>height</i> should be equal to <i>width + 19</i> if the button bar is displayed and <i>width</i> if the button bar is hidden or only "<i>rewind button</i>" is displayed. The <i>parameters</i> should be substituted with a combination of the following lines with the values changed accordingly.</p>
+
+<p><tt>
+<a href="#config">&lt;param name="config" value="fff..."></a><br>
+<a href="#bgcolor">&lt;param name="bgcolor" value="hhhhhh"></a><br>
+<a href="#butbgcolor">&lt;param name="butbgcolor" value="hhhhhh"></a><br>
+<a href="#colorscheme">&lt;param name="colorscheme" value="cccccc"></a><br>
+<a href="#colors">&lt;param name="colors" value="hhhhhh..."></a><br>
+<a href="#position">&lt;param name="position" value="ppp..."></a><br>
+<a href="#speed">&lt;param name="speed" value="nn..."></a><br>
+<a href="#doublespeed">&lt;param name="doublespeed" value="nn..."></a><br>
+<a href="#perspective">&lt;param name="perspective" value="nn..."></a><br>
+<a href="#scale">&lt;param name="scale" value="nn..."></a><br>
+<a href="#align">&lt;param name="align" value="d"></a><br>
+<a href="#hint">&lt;param name="hint" value="nn..."></a><br>
+<a href="#buttonbar">&lt;param name="buttonbar" value="d"></a><br>
+<a href="#edit">&lt;param name="edit" value="d"></a><br>
+<a href="#movetext">&lt;param name="movetext" value="d"></a><br>
+<a href="#fonttype">&lt;param name="fonttype" value="d"></a><br>
+<a href="#metric">&lt;param name="metric" value="d"></a><br>
+<a href="#move">&lt;param name="move" value="mmmmmmmmm..."></a><br>
+<a href="#initmove">&lt;param name="initmove" value="mmmmmmmmm..."></a><br>
+<a href="#initmove">&lt;param name="initmove" value="#"></a><br>
+<a href="#initrevmove">&lt;param name="initrevmove" value="mmmmmmmmm..."></a><br>
+<a href="#initrevmove">&lt;param name="initrevmove" value="#"></a><br>
+<a href="#demo">&lt;param name="demo" value="mmmmmmmmm..."></a><br>
+<a href="#demo">&lt;param name="demo" value="#"></a><br>
+<a href="#facelets">&lt;param name="facelets" value="xxxxxx...xxxxxx"></a><br>
+<a href="#pos">&lt;param name="pos" value="aaaaaa...aaaaaa"></a></tt></p>
+
+<p><i>Example:</i> The following two applet windows show the intro-applet (not in demo mode) with different aspect ratios (width and height).</p>
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width=250 height=150>
+<param name="move" value="F U' B L U' F2 U2 F U F' U2 D' B D L2 B2 U">
+<param name="initrevmove" value="#">
+<param name="position" value="LLLDDD">
+<param name="bgcolor" value="FFFFFF">
+<param name="butbgcolor" value="99AACC">
+<param name="movetext" value="1">
+<param name="metric" value="2">
+<param name="fonttype" value="0">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width=150 height=250>
+<param name="move" value="F U' B L U' F2 U2 F U F' U2 D' B D L2 B2 U">
+<param name="initrevmove" value="#">
+<param name="position" value="LLLDDD">
+<param name="bgcolor" value="FFFFFF">
+<param name="butbgcolor" value="99AACC">
+<param name="movetext" value="1">
+<param name="metric" value="2">
+<param name="fonttype" value="0">
+</applet>
+<p>The next sections describe all parameters.</p>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Parameters</i></b></td></tr>
+</table>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#DDDDDD><td><a name="config"></a><b><tt>config</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The <tt>config</tt> parameter takes the file name as a value. The file location has to be specified relative to the location of the HTML document that uses it. This restriction is set to unify the functionality on both internet and local locations. The file format is simple. It consists of lines, each specifying a default value of a particular parameter. Each line starts with the parameter name followed by the equal sign '<tt>=</tt>' and the rest of line contains the parameter value. Do not use quotes to surround neither the name nor the value. White-space characters can be used to surround the name and value. All default values specified in the configuration file can be overwritten by applet parameters.
+<p>This parameter simplifies the page maintenance and enables a user to modify behavior of more applets in a page by the modification of one configuration file.
+<p><i>Example:</i> <tt>&lt;param name="config" value="AnimCube.cfg"></tt> sets all parameters to the default ones found in the file "<tt><a href="AnimCube.cfg">AnimCube.cfg</a></tt>". The file contents can be of the following form:
+<pre><tt>    bgcolor=ffffff
+    butbgcolor=99eebb
+    movetext=1</tt></pre>
+<p>These settings sets the default values of background colors and enables text displaying for all applets with this <tt>config</tt> parameter. The following two applets have only three parameters (<tt>config</tt>, <tt>move</tt> and <tt>initrevmove</tt>) and differ only in <tt>move</tt>. The third applet has the same parameters as the first one except for missing <tt>config</tt>.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="config" value="AnimCube.cfg">
+<param name="move" value="Ra Fa Ra Fa Ra Fa">
+<param name="initrevmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="config" value="AnimCube.cfg">
+<param name="move" value="Ra Fa Ra' Fa' Ra Fa">
+<param name="initrevmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="Ra Fa Ra Fa Ra Fa">
+<param name="initrevmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="bgcolor"></a><b><tt>bgcolor</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The <tt>bgcolor</tt> parameter determines the background color of the applet. This parameter can be set to the background color of your page in order to omit visual color collisions. If this parameter is missing, the color is set to middle grey. The value of the parameter consists of six hex digits and is case insensitive. The meaning of these digits is equal to the RGB color specification in HTML. The move counter is outlined to allow good visibility for any color.
+<p><i>Example:</i> <tt>&lt;param name="bgcolor" value="ff0000"></tt> sets the background color to red.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="bgcolor" value="ff0000">
+<param name="move" value="U2 D2' F2 B2' L2 R2'">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="butbgcolor"></a><b><tt>butbgcolor</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The <tt>butbgcolor</tt> parameter determines the color of the control buttons. It is very similar to the <tt>bgcolor</tt> parameter and has the same format. If this parameter is missing, the color of the buttons is set to value of <tt>bgcolor</tt>. The button symbols are outlined to allow good visibility for any color.
+<p><i>Example:</i> <tt>&lt;param name="butbgcolor" value="00ff00"></tt> sets the background color of the button bar to green.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="butbgcolor" value="00ff00">
+<param name="move" value="U2 D2' F2 B2' L2 R2'">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="colorscheme"></a><b><tt>colorscheme</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter is used to set the coloring scheme of the solved cube. In combination with <tt>initmove</tt> / <tt>initrevmove</tt> can in some cases replace <tt>facelets</tt> of <tt>pos</tt>. It is mutually exclusive with <tt>facelets</tt> and <tt>pos</tt> and has the lowest priority.
+<p>The value must consist of exactly six characters that determine the color of the corresponding face. The face order is: Up, Down, Front, Back, Left and Right. The color codes are shown in the table in <tt>facelets</tt> parameter section. The default value is: "<tt>WYORGB</tt>".
+<p><i>Example:</i> <tt>&lt;param name="colorscheme" value="wborgy"></tt> sets the coloring scheme to the "american" style white opposite to blue. <tt>&lt;param name="colorscheme" value="456789"></tt> sets the coloring scheme to the grayed default scheme, because the digits 4 to 9 represent configurable colors initialized to colored greys and are discussed in the <tt>facelets</tt> and <tt>colors</tt> sections. <tt>&lt;param name="colorscheme" value="wwrrbb"></tt> sets the coloring scheme to the tricolor scheme, that uses only three colors with the same colors on opposite faces.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="colorscheme" value="wborgy">
+<param name="hint" value="5">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="colorscheme" value="456789">
+<param name="hint" value="5">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="colorscheme" value="wwrrbb">
+<param name="hint" value="5">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="colors"></a><b><tt>colors</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter can be use to set nine configurable color items to custom colors. The colors are given in the value string in RGB format. The RGB values follows immediately in the sequence "<tt>RGBRGBRGB</tt>...". Each RGB triple sets the corresponding color starting from the color 0 up to color 9. The colors can be accessed in other tags (<tt>facelets</tt> and <tt>colorscheme</tt>) using characters '<tt>0</tt>', '<tt>1</tt>', ..., '<tt>9</tt>'. The default colors contain colored greys that first appeared in the Lars's applet. All the default colors are shown in <tt>facelets</tt> section.
+<p><i>Example:</i> <tt>&lt;param name="colors" value="FF888888FF888888FF88FFFFFF88FFFFFF88"></tt> in combination with <tt>&lt;param name="colorscheme" value="012345"></tt> sets the coloring scheme to bright primary and secondary colors (red, green, blue, cyan, magenta, yellow).
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="colors" value="FF888888FF888888FF88FFFFFF88FFFFFF88">
+<param name="colorscheme" value="012345">
+<param name="hint" value="5">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="position"></a><b><tt>position</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+This parameter can be used to set the initial position of the cube (its rotation). The value can be of any length and can contain characters: 'u', 'd', 'f', 'b', 'l' and 'r' in upper or lower case. The rotation steep is 15 degrees. The default value is "<tt>lluu</tt>". The rotation axis and direction is similar to rotation of layers, etc.
+<p><i>Example:</i> <tt>&lt;param name="position" value="llllluu"></tt> turns the whole cube in the following way.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="position" value="lllluuu">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="speed"></a><b><tt>speed</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to customize the animations speed. The value should consist only of decimal digits. The higher value the slower is the animation. The default value is 10, which corresponds to approximately 1 second for face turn and approximately 2/3 seconds for quarter turn if not specified differently. The face turn speed can be adjusted separately by <tt>doublespeed</tt>.
+<p><i>Example:</i> <tt>&lt;param name="speed" value="5"></tt> and <tt>&lt;param name="speed" value="20"></tt> has the following effect on the animation speed.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="speed" value="5">
+<param name="move" value="R U R' U R U2 R'">
+<param name="initrevmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="speed" value="20">
+<param name="move" value="R U R' U R U2 R'">
+<param name="initrevmove" value="#">
+</applet>
+<p><i>Note:</i> Here you can try run both applets simultaneously without slowing down. You can also try multiple application of the same move sequence to the cube by pressing play button after animation stops and see how the top corners are twisted and moved. Some of the other buttons can be also used this way.
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="doublespeed"></a><b><tt>doublespeed</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to customize the speed of face turns separately from quarter turns. The value should consist only of decimal digits. The higher value the slower is the animation. The default value is 10, which corresponds to approximately 1 second for the face turn. The quarter turn speed can be adjusted by <tt>speed</tt>. If the parameter <tt>doublespeed</tt> is missing, the default is set to the 150% of the value of <tt>speed</tt>.
+<p><i>Example:</i> <tt>&lt;param name="doublespeed" value="10"></tt> and <tt>&lt;param name="doublespeed" value="20"></tt> has the following effect on the animation speed.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="doublespeed" value="5">
+<param name="move" value="R' U2 R2' U R2' U R2' U2 R'">
+<param name="initrevmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="doublespeed" value="20">
+<param name="move" value="R' U2 R2' U R2' U R2' U2 R'">
+<param name="initrevmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="perspective"></a><b><tt>perspective</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to customize the perspective deformation of the cube. The value should consist only of decimal digits. The higher value the closer to a parallel view. The default value is 2.
+<p><i>Example:</i> <tt>&lt;param name="perspective" value="0"></tt>, <tt>&lt;param name="perspective" value="5"></tt> and <tt>&lt;param name="perspective" value="1000000"></tt> has the following effect on the perspective projection.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="perspective" value="0">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="perspective" value="5">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="perspective" value="1000000">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="scale"></a><b><tt>scale</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to customize the size of the cube. The value should consist only of decimal digits. The higher value the smaller cube. The exact size is computed as <i>1 / (1 + scale / 10)</i>. The default value is 0 that causes the cube to fit in window. The parameter is useful in combination with <tt>hint</tt> and/or <tt>movetext</tt>.
+<p><i>Example:</i> <tt>&lt;param name="scale" value="0"></tt>, <tt>&lt;param name="scale" value="5"></tt> and <tt>&lt;param name="scale" value="10"></tt> has the following effect on the cube size.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="scale" value="0">
+<param name="move" value="Us2 Fs2 Ls2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="scale" value="5">
+<param name="move" value="Ua2 Fa2 La2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="scale" value="10">
+<param name="move" value="Um2 Fm2 Lm2">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="align"></a><b><tt>align</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to position the cube vertically. The only permitted values are "<tt>0</tt>" for top-align, "<tt>1</tt>" for center-align and "<tt>2</tt>" for bottom align. The default value is 1. The parameter makes sense in combination with <tt>scale</tt>.
+<p><i>Example:</i> <tt>&lt;param name="align" value="0"></tt>, <tt>&lt;param name="align" value="1"></tt> and <tt>&lt;param name="align" value="2"></tt> has the following effect on the cube position.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="align" value="0">
+<param name="scale" value="4">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="align" value="1">
+<param name="scale" value="4">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="align" value="2">
+<param name="scale" value="4">
+<param name="move" value="U2 D2 F2 B2 L2 R2">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="hint"></a><b><tt>hint</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter allows to display some of the facelets that face off the user. The value should consist only of decimal digits. The higher value the further are the facelets from the cube. The default value is no value, that means no hint at all. Usable values are from 2 to 10, but you can try to experiment. The good visual arrangements can be accomplished in combination with <tt>scale</tt>.
+<p><i>Example:</i>
+<ul>
+<li><tt>&lt;param name="hint" value="2"></tt></li>
+<li><tt>&lt;param name="hint" value="5"></tt></li>
+<li><tt>&lt;param name="hint" value="10"></tt></li>
+</ul>
+has the following effect on the hint displaying.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M2 E2 S2">
+<param name="initmove" value="#">
+<param name="scale" value="3">
+<param name="hint" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M2 E2 S2">
+<param name="initmove" value="#">
+<param name="scale" value="3">
+<param name="hint" value="5">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M2 E2 S2">
+<param name="initmove" value="#">
+<param name="scale" value="3">
+<param name="hint" value="10">
+</applet>
+<p><i>Note:</i> I have been inspired by the idea in the Lars Petrus's applet while implementing this parameter.
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="buttonbar"></a><b><tt>buttonbar</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>Using this parameter the button bar containing animation controls can be customized. There are three possible values: "<tt>0</tt>", "<tt>1</tt>" and "<tt>2</tt>". The zero value means no buttons at all. The value equal to one causes the full button bar to appear. The value set to two shows only one button that is used to clear the cube state to the initial values.
+<p>If this parameter is not specified then there are several default settings. If <tt>move</tt> is specified then the full button bar is displayed. If <tt>move</tt> is missing then only the clear (rewind) button is shown.
+<p><i>Example:</i> <tt>&lt;param name="buttonbar" value="0"></tt>, <tt>&lt;param name="buttonbar" value="2"></tt> and <tt>&lt;param name="buttonbar" value="1"></tt> give the following results.
+<p>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="buttonbar" value="0">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="buttonbar" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="120">
+<param name="buttonbar" value="1">
+</applet>
+<p><i>Note:</i> In the third example you can see that the cube is smaller although the window has the same size as for the first two examples. This is caused by an automatic adjustment of the cube that fits it in the window. If you want to use full button bar, you should increase the height of the (square) applet window by 13 (that is the default height of the button bar).
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="edit"></a><b><tt>edit</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter can disable the possibility to twist cube layers with a mouse. There are two possible values: "<tt>0</tt>" and "<tt>1</tt>". The zero value means that cube can be only in compact state and separate layers cannot be twisted. The value equal to one enables the edition capability. The cube can be edited by default.
+<p><i>Example:</i> <tt>&lt;param name="edit" value="0"></tt> and <tt>&lt;param name="edit" value="1"></tt> give the following results.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="edit" value="0">
+<param name="move" value="E2 S2 M2">
+<param name="initmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="edit" value="1">
+<param name="move" value="E2 S2 M2">
+<param name="initmove" value="#">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="movetext"></a><b><tt>movetext</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter can enable the textual representation of the move sequence inside the applet window. There are five possible values: "<tt>0</tt>", "<tt>1</tt>", "<tt>2</tt>", "<tt>3</tt>" and "<tt>4</tt>". The zero value means that the textual representation of the move is not displayed. The value equal to one enables displaying the move in one of the most common notation (using modifiers '<tt>m</tt>', '<tt>c</tt>', '<tt>t</tt>', '<tt>s</tt>' and '<tt>a</tt>' to support various types of turns). The value equal to two enables displaying the move in the shortened notation (using move characters '<tt>M</tt>', '<tt>E</tt>', '<tt>S</tt>', '<tt>X</tt>', '<tt>Y</tt>', '<tt>Z</tt>', and lowercase basic letters as '<tt>u</tt>'). See the <tt>move</tt> parameter description for examples.</p>
+<p>To support another standard (described at <a href="http://speedcubing.com">speedcubing.com</a>) where the meaning of '<tt>Y</tt>' and '<tt>Z</tt>' is interchanged, you can use the parameter value <tt>3</tt>. Other moves are the same as for the parameter value <tt>2</tt>. The value set to <tt>4</tt> sets displaying middle slice moves to lowercase letters and the whole cube turns to use the prefix '<tt>Q</tt>'. However, these two representations (used by the values <tt>3</tt> and <tt>4</tt>) cannot be used to specify the value of input moves (e.g. in the <tt>move</tt> parameter) because of symbol meaning collisions.</p>
+<p>The move is not shown by default (the default value is "<tt>0</tt>").</p>
+<p><i>Example:</i> <tt>&lt;param name="movetext" value="0"></tt>, <tt>&lt;param name="movetext" value="1"></tt>, <tt>&lt;param name="movetext" value="2"></tt>, <tt>&lt;param name="movetext" value="3"></tt> and <tt>&lt;param name="movetext" value="4"></tt> give the following results for the same values of other parameters.</p>
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' f U R' F2 R2' F R F' R2 Z2 R' F R U2' b2' R">
+<param name="initrevmove" value="#">
+<param name="movetext" value="0">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' f U R' F2 R2' F R F' R2 Z2 R' F R U2' b2' R">
+<param name="initrevmove" value="#">
+<param name="movetext" value="1">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' f U R' F2 R2' F R F' R2 Z2 R' F R U2' b2' R">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' f U R' F2 R2' F R F' R2 Z2 R' F R U2' b2' R">
+<param name="initrevmove" value="#">
+<param name="movetext" value="3">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' f U R' F2 R2' F R F' R2 Z2 R' F R U2' b2' R">
+<param name="initrevmove" value="#">
+<param name="movetext" value="4">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="fonttype"></a><b><tt>fonttype</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter can adjust the appearance of the displayed text. There are two possible values: "<tt>0</tt>" and "<tt>1</tt>". The zero value means that all texts are displayed in the standard format with the black or white color depending on the background color. The value equal to one enables displaying all texts with outlined font (black outline around white text) and is used to increase legibility for strange background colors. The used font is outlined by default (the default value is "<tt>1</tt>").
+<p><i>Example:</i> <tt>&lt;param name="fonttype" value="0"></tt> and <tt>&lt;param name="fonttype" value="1"></tt> give the following results for the same values of other parameters. The next two examples shows the appearance after the background was changed to darker color.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U">
+<param name="initrevmove" value="#">
+<param name="movetext" value="1">
+<param name="fonttype" value="0">
+<param name="bgcolor" value="99bbdd">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U">
+<param name="initrevmove" value="#">
+<param name="movetext" value="1">
+<param name="fonttype" value="1">
+<param name="bgcolor" value="99bbdd">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U">
+<param name="initrevmove" value="#">
+<param name="movetext" value="1">
+<param name="fonttype" value="0">
+<param name="bgcolor" value="224466">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="F U' B L U' F2 U2' F U F' U2 D' B D L2 B2' U">
+<param name="initrevmove" value="#">
+<param name="movetext" value="1">
+<param name="fonttype" value="1">
+<param name="bgcolor" value="224466">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="metric"></a><b><tt>metric</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+Using this parameter the move counter can be adjusted to various metrics. There are four possible values with the following meaning:
+<ul>
+<li><tt>0</tt> - no metric: each animation step is counted as one step</li>
+<li><tt>1</tt> - quarter-turn metric: rotation by 90 degrees (any direction) of any single layer is counted as one move; cube rotation is not counted</li>
+<li><tt>2</tt> - face-turn metric: rotation by 90 or 180 degrees (any direction) of any single layer is counted as one move; cube rotation is not counted</li>
+<li><tt>3</tt> - face-turn metric: rotation by 90 or 180 degrees (any direction) of any single layer or two adjacent or opposite parallel layers is counted as one move; cube rotation is not counted</li>
+</ul>
+The default value is "<tt>0</tt>". The used metric can be seen as a character after the move counter.
+<p><i>Example:</i>
+<ul>
+<li><tt>&lt;param name="metric" value="0"></tt></li>
+<li><tt>&lt;param name="metric" value="1"></tt></li>
+<li><tt>&lt;param name="metric" value="2"></tt></li>
+<li><tt>&lt;param name="metric" value="3"></tt></li>
+</ul>
+give the following results for the same values of other parameters.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M' U M' U M' d2 M' U M' U M' d2">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+<param name="metric" value="0">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M' U M' U M' d2 M' U M' U M' d2">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+<param name="metric" value="1">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M' U M' U M' d2 M' U M' U M' d2">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+<param name="metric" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="M' U M' U M' d2 M' U M' U M' d2">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+<param name="metric" value="3">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="move"></a><b><tt>move</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>Move sequence is defined in extended Singmaster's notation. The basis for the turns are six letters of the following meaning.
+<ul>
+<li>U - Up (rotate top layer)</li>
+<li>D - Down (rotate bottom layer)</li>
+<li>F - Front (rotate front layer)</li>
+<li>B - Back (rotate back layer)</li>
+<li>L - Left (rotate left layer)</li>
+<li>R - Right (rotate right layer)</li>
+</ul>
+The letter case is important here, because the same - but lowercase - letters are used for different moves. Modifiers can be appended to the move character.
+<ul>
+<li>Separate characters mean turning the corresponding layer 90 degrees clock-wise.</li>
+<li>Appending apostrophe "<tt>'</tt>" or digit "<tt>3</tt>" means turning 90 degrees counter clock-wise.</li>
+<li>Appending digit "<tt>2</tt>" means 180 degrees rotation of the corresponding layer (clock-wise).</li>
+<li>You can use combination "<tt>2'</tt>" for double counter clock-wise turn.
+This combination is useful if you want to show the most efficient directions when using finger shortcuts.</li>
+</ul>
+To see the effect of these character sequences see the table below (press play to see the move and "next sequence" button - in the top-right position - to see other faces).
+<p><table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i></tt></td>
+<td bgcolor=white align=center><tt><i>X</i>'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="U;D;F;B;L;R">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="U';D';F';B';L';R'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="U2;D2;F2;B2;L2;R2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="U2';D2';F2';B2';L2';R2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+</table>
+<p>There are also some advanced modifiers that are written immediately after the move letter and right before the basic modifiers already defined. The possible modifiers are:
+<ul>
+<li>m - middle layer turn between the specified layer and the opposite one</li>
+<li>c - whole-cube turn in the direction of the specified layer</li>
+<li>s - slice turn; two opposite layers are turned in the same directions ("<tt>Rs</tt>" is equal to "<tt>R L'</tt>" or "<tt>L' R</tt>")</li>
+<li>a - anti-slice turn; two opposite layers are turned in the opposite directions ("<tt>Ra</tt>" is equal to "<tt>R L</tt>" or "<tt>L R</tt>")</li>
+<li>t - thick turn; two adjacent layers (the specified one and the adjacent one) are turned simultaneously</li>
+</ul>
+<p>Some of these modifiers can be omitted using extended move character set defined below. These advanced modifiers were added so as to reflect the agreement of cubists on the extended notation. It is quite orthogonal and consistent design. Examples are given in the following table.
+<p><table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i>s</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>s'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>s2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>s2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Us;Ds;Fs;Bs;Ls;Rs">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Us';Ds';Fs';Bs';Ls';Rs'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Us2;Ds2;Fs2;Bs2;Ls2;Rs2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Us2';Ds2';Fs2';Bs2';Ls2';Rs2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i>a</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>a'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>a2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>a2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ua;Da;Fa;Ba;La;Ra">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ua';Da';Fa';Ba';La';Ra'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ua2;Da2;Fa2;Ba2;La2;Ra2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ua2';Da2';Fa2';Ba2';La2';Ra2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i>m</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>m'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>m2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>m2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Um;Dm;Fm;Bm;Lm;Rm">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Um';Dm';Fm';Bm';Lm';Rm'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Um2;Dm2;Fm2;Bm2;Lm2;Rm2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Um2';Dm2';Fm2';Bm2';Lm2';Rm2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i>t</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>t'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>t2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>t2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ut;Dt;Ft;Bt;Lt;Rt">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ut';Dt';Ft';Bt';Lt';Rt'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ut2;Dt2;Ft2;Bt2;Lt2;Rt2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Ut2';Dt2';Ft2';Bt2';Lt2';Rt2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i>c</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>c'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>c2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>c2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Uc;Dc;Fc;Bc;Lc;Rc">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Uc';Dc';Fc';Bc';Lc';Rc'">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Uc2;Dc2;Fc2;Bc2;Lc2;Rc2">
+<param name="movetext" value="1">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="Uc2';Dc2';Fc2';Bc2';Lc2';Rc2'">
+<param name="movetext" value="1">
+</applet></td>
+</tr>
+</table>
+<p>The applet supports some additional characters to represent specific moves. The center layers can be rotated using the following characters in combination with previous modifiers.
+<ul>
+<li>E - equator (between U and D layers in the U'/D direction)</li>
+<li>S - standing (between F and B layers in the F/B' direction)</li>
+<li>M - middle (between L and R layers in the L/R' direction)</li>
+</ul>
+<p>The following table shows the effect of these characters.
+<p><table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i></tt></td>
+<td bgcolor=white align=center><tt><i>X</i>'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="E;S;M">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="E';S';M'">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="E2;S2;M2">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="E2';S2';M2'">
+<param name="movetext" value="2">
+</applet></td>
+</tr>
+</table>
+<p>The applet also supports turns of the entire cube. This feature can be used to rotate the cube in order to show the cube in the best position for the current situation to watch the move sequence. The available symbols to rotate the cube are shown in the following table (they can be also combined with the modifiers).
+<ul>
+<li>X - rotate around x-axis (in the same direction as "<tt>R</tt>" or "<tt>L'</tt>" is performed)</li>
+<li>Y - rotate around y-axis (in the same direction as "<tt>F</tt>" or "<tt>B'</tt>" is performed)</li>
+<li>Z - rotate around z-axis (in the same direction as "<tt>U</tt>" or "<tt>D'</tt>" is performed)</li>
+</ul>
+<p>The following table shows the effect of these characters.
+<p><table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i></tt></td>
+<td bgcolor=white align=center><tt><i>X</i>'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="X;Y;Z">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="X';Y';Z'">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="X2;Y2;Z2">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="X2';Y2';Z2'">
+<param name="movetext" value="2">
+</applet></td>
+</tr>
+</table>
+<p>There is also a possibility to rotate two adjacent layers simultaneously. The notation and meaning is similar to the face-layer rotations, but the letters are in lowercase.
+<ul>
+<li>u - up (rotate two top layers)</li>
+<li>d - down (rotate two bottom layers)</li>
+<li>f - front (rotate two front layers)</li>
+<li>b - back (rotate two back layers)</li>
+<li>l - left (rotate two left layers)</li>
+<li>r - right (rotate two right layers)</li>
+</ul>
+<p>The following table shows all cases.
+<table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td bgcolor=white align=center><tt><i>X</i></tt></td>
+<td bgcolor=white align=center><tt><i>X</i>'</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2</tt></td>
+<td bgcolor=white align=center><tt><i>X</i>2'</tt></td>
+</tr>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="u;d;f;b;l;r">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="u';d';f';b';l';r'">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="u2;d2;f2;b2;l2;r2">
+<param name="movetext" value="2">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=100 height=119>
+<param name="move" value="u2';d2';f2';b2';l2';r2'">
+<param name="movetext" value="2">
+</applet></td>
+</tr>
+</table>
+<p>There is yet another character to be used in the parameter value - the dot '<tt>.</tt>' character. When a dot is found in the sequence during playing the animation, it is delayed for a half of the time the quarter turn is performed.
+<p>It is possible to use text comments in the parameter value. Such comments appear at the top of the applet while the animation is perfermed. The text to appear must be enclosed in braces - '<tt>{</tt>' and '<tt>}</tt>' characters. Text can be specified in both the <tt>demo</tt> and <tt>move</tt> parameter. Text can be only on one line however there can be as many texts as necesary to appear at the given place within the animation.</p>
+<p>There can be more move sequences specified in one applet. However, the initial cube configuration can be still only one (in the current state of development). More move sequences can be specified in the <tt>move</tt> parameter. The sequences are <b>separated</b> by the semicolon character '<tt>;</tt>'. The sequences can be also empty.
+<p><i>Example:</i> <tt>&lt;param name="move" value="R2' U M U' R2' U M' U'"></tt> and <tt>&lt;param name="move" value="{right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'"></tt> are two different sequences showing one algorithm in different ways (the second one is more customized to fast finger shortcuts). The third example contains both sequences in one move parameter: <tt>&lt;param name="move" value="R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'"></tt>.
+The move in the second applet contains delays (represented by dots) and messages (enclosed in braces) to show the fingertricks more clearly. The animation is also speeded-up in this case.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="R2' U M U' R2' U M' U'">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="speed" value="6">
+<param name="move" value="{right index finger - U} R2' U r' {}.{right thumb - U'} R U' {}..{right index finger - U} R2' U l' {}.{left index finger - U'} L U'">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="move" value="R2' U M U' R2' U M' U'; R2' U r' R U' R2' U l' L U'">
+<param name="initrevmove" value="#">
+<param name="movetext" value="2">
+</applet>
+<p><i>Note:</i> Some of the moves affect centers and they can be moved to another layer from the user's point of view. Such movements does not affect the notation from the user's point of view. The characters are not fixed to particular centers. There are other approaches (e.g. Lars's one) that assigns letters to face centers and if the cube is rotated, the same move can be performed on different layers from the user's point of view. I have chosen the the center-independent way because of consistency and easier maintenance. The main motivation were the center layers move. If you perform "<tt>M</tt>" and then you want to perform "<tt>F</tt>", it should affect the front layer you see in the front position and not the bottom layer, where the center that was in the front position is now placed. The chosen way is very familiar to the "corner-starters" (solving the cube starting from the corners).
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="initmove"></a><b><tt>initmove</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter specifies the move to perform on the cube before start. This can be used to setup the clean cube to a certain position without using <tt>facelets</tt>. The format is the same as for <tt>move</tt>. If the value is set to "<tt>#</tt>" then the value is set to the value of the <tt>move</tt> parameter (the first one if more sequences are specified). This parameter is mutually exclusive with <tt>initrevmove</tt> and has lower priority.
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="initrevmove"></a><b><tt>initrevmove</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The meaning is the same as for <tt>initmove</tt> but the move is performed reversed (from end to start with opposite twisting direction). It is even more useful when the value is set to "<tt>#</tt>" and takes the move from the <tt>move</tt> parameter (the first one if more sequences are specified). See <tt>initmove</tt> for more details.
+<p><i>Example:</i> To show the flexibility of the page creation using this applet suppose that we have more sequences affecting the same part of the cube. Other parts should remain either unchanged (dark gray) or we do not care about them (light gray). Instead of creating the <tt>facelets</tt> coloring for each configuration, we can create only one universal and use it in all corresponding applets while changing only the <tt>move</tt>. The <tt>initrevmove</tt> set to "<tt>#</tt>" creates the cube setup for us.
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="facelets" value="YLYLYLYLY444444444OL6L66OL6RL7L77RL7BLBL9L999GL8L88GL8">
+<param name="move" value="R2 B2' R F R' B2' R F' R">
+<param name="initrevmove" value="#">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+<param name="facelets" value="YLYLYLYLY444444444OL6L66OL6RL7L77RL7BLBL9L999GL8L88GL8">
+<param name="move" value="F2' U L' U L U' F2' U' L' U' L">
+<param name="initrevmove" value="#">
+</applet>
+<p>The HTML souce for these two applet vindows is shown below.
+<pre></tt>&lt;applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+ &lt;param name="facelets" value="YLYLYLYLY444444444OL6L66OL6RL7L77RL7BLBL9L999GL8L88GL8">
+ &lt;param name="move" value="R2 B2' R F R' B2' R F' R">
+ &lt;param name="initrevmove" value="#">
+&lt;/applet>
+&lt;applet code="AnimCube.class" archive="AnimCube.jar" width="120" height="139">
+ &lt;param name="facelets" value="YLYLYLYLY444444444OL6L66OL6RL7L77RL7BLBL9L999GL8L88GL8">
+ &lt;param name="move" value="F2' U L' U L U' F2' U' L' U' L">
+ &lt;param name="initrevmove" value="#">
+&lt;/applet></tt></pre>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="demo"></a><b><tt>demo</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>This parameter can be used as a demonstration of various cube moves. The value format is the same as for <tt>move</tt>. If the value is set to "<tt>#</tt>" then the value is set to the value of the <tt>move</tt> parameter (the first one if more sequences are specified). The specified move is performed after page load and processes all the operations in loop from beginning to the end. The demo mode can be interrupted by any control button. The cube state and move sequence is then reiniated and the applet is prepared for regular operations.
+<p><i>Note:</i> Do not overuse this parameter. It is recommended using only one applet per page with this parameter set.
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="facelets"></a><b><tt>facelets</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The <tt>facelets</tt> parameter contains color codes of all cube facelets. This parameter is mutually exclusive with the parameters <tt>pos</tt> and <tt>colorscheme</tt> and has the highest priority. The value of this parameter must have exactly 54 characters. Each character determines the used color. All possible colors and the corresponding character codes are in the following table. The characters '<tt>0</tt>' to '<tt>9</tt>' represent adjustable colors that can be setup to any color using the <tt>colors</tt> parameter.
+<table align=center bgcolor=black cellpadding=4 cellspacing=2>
+<tr><td bgcolor=white align=center>0</td><td bgcolor=#FF8040>light orange</td></tr>
+<tr><td bgcolor=white align=center>1</td><td bgcolor=#FF0000>pure red</td></tr>
+<tr><td bgcolor=white align=center>2</td><td bgcolor=#00FF00>pure green</td></tr>
+<tr><td bgcolor=white align=center>3</td><td bgcolor=#0000FF>pure blue</td></tr>
+<tr><td bgcolor=white align=center>4</td><td bgcolor=#999999>white-grey</td></tr>
+<tr><td bgcolor=white align=center>5</td><td bgcolor=#AAAA44>yellow-grey</td></tr>
+<tr><td bgcolor=white align=center>6</td><td bgcolor=#BB7744>orange-grey</td></tr>
+<tr><td bgcolor=white align=center>7</td><td bgcolor=#994444>red-grey</td></tr>
+<tr><td bgcolor=white align=center>8</td><td bgcolor=#447744>green-grey</td></tr>
+<tr><td bgcolor=white align=center>9</td><td bgcolor=#004477>blue-grey</td></tr>
+<tr><td bgcolor=white align=center>w</td><td bgcolor=white>white</td></tr>
+<tr><td bgcolor=white align=center>y</td><td bgcolor=#FFFF00>yellow</td></tr>
+<tr><td bgcolor=white align=center>o</td><td bgcolor=#FF6020>orange</td></tr>
+<tr><td bgcolor=white align=center>r</td><td bgcolor=#D00000>red</td></tr>
+<tr><td bgcolor=white align=center>g</td><td bgcolor=#009000>green</td></tr>
+<tr><td bgcolor=white align=center>b</td><td bgcolor=#2040D0>blue</td></tr>
+<tr><td bgcolor=white align=center>l</td><td bgcolor=#B0B0B0>light grey</td></tr>
+<tr><td bgcolor=white align=center>d</td><td bgcolor=#505050>dark grey</td></tr>
+<tr><td bgcolor=white align=center>m</td><td bgcolor=#FF00FF>magenta</td></tr>
+<tr><td bgcolor=white align=center>c</td><td bgcolor=#00FFFF>cyan</td></tr>
+<tr><td bgcolor=white align=center>p</td><td bgcolor=#FFA0C0>pink</td></tr>
+<tr><td bgcolor=white align=center>n</td><td bgcolor=#20FF10>light green</td></tr>
+<tr><td bgcolor=white align=center>k</td><td bgcolor=black><font color=white>black</font></td></tr>
+<tr><td bgcolor=#808080 colspan=2 align=center>anything else means grey</td></tr>
+</table>
+<p>The following table shows the meaning of all positions in the facelets parameter. The parameter value can be divided into six parts. Each part consists of nine characters determining the facelet colors. To show the position of each facelet in one of the six groups (actually representing faces) each group in the table is set to the sequence of characters: <b><tt>123456789</tt></b>. The other characters in the parameter value are set to middle gray. The second row contains the affected cube face for each group. The third row contains character positions in the parameter value for the corresponding group.
+<table align=center bgcolor=black cellpadding=0 cellspacing=2>
+<tr>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value="123456789.............................................">
+<param name="hint" value="5">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value=".........123456789....................................">
+<param name="hint" value="5">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value="..................123456789...........................">
+<param name="hint" value="5">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value="...........................123456789..................">
+<param name="hint" value="5">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value="....................................123456789.........">
+<param name="hint" value="5">
+</applet></td>
+<td><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value=".............................................123456789">
+<param name="hint" value="5">
+</applet></td>
+</tr>
+<tr>
+<td bgcolor=white align=center>Up</td>
+<td bgcolor=white align=center>Down</td>
+<td bgcolor=white align=center>Front</td>
+<td bgcolor=white align=center>Back</td>
+<td bgcolor=white align=center>Left</td>
+<td bgcolor=white align=center>Right</td>
+</tr>
+<tr>
+<td bgcolor=white align=center>1-9</td>
+<td bgcolor=white align=center>10-18</td>
+<td bgcolor=white align=center>19-27</td>
+<td bgcolor=white align=center>28-36</td>
+<td bgcolor=white align=center>37-45</td>
+<td bgcolor=white align=center>46-55</td>
+</tr>
+</table>
+<p>To clarify the facelet layout the next picture shows the facelet positions in the parameter value (starting from 1).
+<p align=center><img src="facelets.gif">
+<applet code="AnimCube.class" archive="AnimCube.jar" width=185 height=185>
+<param name="colorscheme" value="wygbor">
+<param name="bgcolor" value="ffffff">
+<param name="hint" value="5">
+</applet>
+</p>
+<p><i>Example:</i> <tt>&lt;param name="facelets" value="oywoyyoooCMCMYMCMC.dkl.dwl.PNCNCPCPNrgbgbrbrgYNGNNGGGG"></tt> initializes the cube to the following (weird) configuration.
+(The mixed character case is used only to separate the faces.)
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width=120 height=120>
+<param name="facelets" value="oywoyyoooCMCMYMCMC.dkl.dwl.PNCNCPCPNrgbgbrbrgYNGNNGGGG">
+<param name="hint" value="5">
+</applet>
+</td></tr>
+
+<tr bgcolor=#DDDDDD><td><a name="pos"></a><b><tt>pos</tt> parameter</b></td></tr>
+<tr bgcolor=white><td>
+<p>The <tt>pos</tt> parameter is similar to the <tt>facelets</tt> parameter and is supported because of the compatibility with the applet by Lars Petrus. Using this parameter the applet sets another unset parameters to proper values so as the appearance is as close as possible to the Lars's applet. If this parameter is used then default implicit parameters are:
+<ul>
+<li><tt>&lt;param name="bgcolor" value="FFFFFF"></tt></li>
+<li><tt>&lt;param name="position" value="UUUUFF"></tt></li>
+</ul>
+<p>This parameter is mutually exclusive with the parameters <tt>facelets</tt> and <tt>colorscheme</tt>. When used simultaneously <tt>facelets</tt> has higher priority and <tt>colorscheme</tt> lower.
+<p>The exact format of this parameter is not published here. You can find it on Lars's page. The colored greys using uppercase letters are supported. However, this parameter should be considered obsolete and used only for smooth replacement of Lars's applet with this applet.
+<p><i>Example:</i> The following code is identical to the code on <a href="http://lar5.com/cube/">Lars's page</a>, only the <tt>lrubik.class</tt> is replaced by <tt>AnimCube.class</tt>. You can compare the appearance yourself.
+
+<p><tt>&lt;applet code=AnimCube.class archive="AnimCube.jar" width=125 height=145><br>
+&lt;param name="pos" value="abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd"><br>
+&lt;param name="move" value="L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2"><br>
+&lt;/applet></tt></p>
+
+<p>However, the next two examples comes from the new Lars's applet examples that use extended notation for whole-cube and two-layer turns. Although the same symbols are used, the meaning of symbols in the notations is different. In addition, the Lars's applet uses turns relative to the cube-centers (e.g. if the Right center is moved into the Front position then move "<tt>R</tt>" is performed on that layer - on the Front layer from the user's point of view, if the cube was not rotated by a mouse). My applet uses turns that are independent of the particular cube centers. When doing "<tt>R</tt>" move the Right layers is turned regardless how many times the cube was turned by the performed sequence. Objective reasons for this way to handle the turns are given in the description of the <tt>move</tt> parameter.
+<p>To show the same results as Lars's examples do, the following conversions took place.
+<p><tt>&lt;param name="move" value="z2L2D1U2B2L1U3x3F1U3F1U3F3y1U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3r2F1D1R2D3R3D1R1D3R3D1R3D3R2"></tt>
+<p>was converted to
+<p><tt>&lt;param name="move" value="z2R2D1U2F2R1U3y3B1L3B1L3B3x1L3D2L2F2L1D1F3D3F1D3F2D1F3D1F1D3b2U1L1F2L3F3L1F1L3F3L1F3L3F2"></tt>
+<p>and
+<p><tt>&lt;param name="move" value="R2 F B2 U2 R b' d B' D B' D' y3 B' D2 B2 L2 B D L' D' L D' L2 D L' D L D' L2 D F L2 F' L' F L F' L' F L' F' L2"></tt>
+<p>was converted to
+<p><tt>&lt;param name="move" value="R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2"></tt>
+<p><applet code="AnimCube.class" archive="AnimCube.jar" width=125 height=145>
+<param name="pos" value="abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd">
+<param name="move" value="L2D1U2B2L1U3F1U3F1U3F3U3F2U2R2U1F1R3F3R1F3R2F1R3F1R1F3R2F1D1R2D3R3D1R1D3R3D1R3D3R2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width=115 height=135>
+<param name="bgcolor" value="00aa00">
+<param name="pos" value="abaeacafbfadcbdfacaebccdeeffbeedacbdbdbcefcacefddffebd">
+<param name="move" value="z2R2D1U2F2R1U3y3B1L3B1L3B3x1L3D2L2F2L1D1F3D3F1D3F2D1F3D1F1D3b2U1L1F2L3F3L1F1L3F3L1F3L3F2">
+<param name="metric" value="2">
+</applet>
+<applet code="AnimCube.class" archive="AnimCube.jar" width=160 height=180>
+<param name="pos" value="feedccbeabdbcefcacbfacaeabadbeffddfefadcbdfacdbcadeebf">
+<param name="move" value="R2 F B2 U2 R f' l U' R U' R' X' F' R2 F2 U2 F R U' R' U R' U2 R U' R U R' U2' R B U2 B' U' B U B' U' B U' B' U2">
+<param name="metric" value="2">
+<param name="hint" value="3">
+</applet>
+
+<p>The best way to understand the meaning of parameters is to experiment.</p>
+</td></tr>
+</table>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Known and/or Fixed Bugs</i></b></td></tr>
+</table>
+<p>Minor bugs were fixed since last public version (incorrect twisting directions using mouse when the applet is mirrored was probably the most serious bug I noticed).</p>
+<p>If you use Internet Explorer and the MS Virtual Machine you may sometimes notice a strange behavior (locking while turning a layer or playing animation). This is (as far as I know) caused by a bug in the JIT (just in time) compiler of the MS Virtual Machine. You can try to deactivate the JIT in the menu "Tools/Internet Options", tab "Advanced", section "Microsoft VM", checkbox "JIT compiler enabled". Uncheck this checkbox. You can also try to use the Sun's Java Virtual Machine plugin (the new version can utilize the <tt>&lt;applet></tt> tag). I hope I found all workarounds but if you notice this (or another) bug send me an e-mail.</p>
+<p>In some browsers applets are not correctly redrawn when the browser window content is scrolled (this can sometimes happen when the scroll wheel is used). This is a problem of cooperation the between browser and applets repainting. This cannot be fixed in an applet and affects all other graphical applets. You can try to scroll or reload the page or start working with an applet and it will be repainted.</p>
+<p>Another problem was noticed in some configurations of Sun's Java VM plugin when dragging outside the applet window using the right mouse button. This sometimes locks the Internet Explorer. This bug affects all graphical applets running on the same configuration and is out of scope of this applet. The solution is not to use the right button dragging on such configurations (use Shift + left mouse button dragging).</p>
+<p>It is also interesting that the last released MS VM (it seems that is was really last one from MS!) is noticeably faster than the Sun's JVM (version 1.4.1) (measured in WinXP Task Manager).</p>
+<p>If you realize any problem I would be glad to get any information (via e-mail) to be able to fix it.</p>
+<br>
+
+<table align=center width=100% cellpadding=4 cellspacing=0>
+<tr bgcolor=#CCCCCC><td><b><i>Credits</i></b></td></tr>
+</table>
+<p>Idea of this applet and some algorithms come from the <a href="http://www.javaonthebrain.com/java/rubik/">original applet</a> created by Karl Hornell and the <a href="http://lar5.com/cube/">derived applet</a> with animation extensions made by Lars Petrus.</p>
+<p>I would like to thank Ryan Heise and Gilles Roux for their nice comments and ideas.</p>
+
+<p align=center><!--<a href="http://rubikscube.info">--><img src="logosmall.gif" border=0><!--</a>--></p>
+</font>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7991812-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
