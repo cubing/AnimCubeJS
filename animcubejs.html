@@ -118,7 +118,7 @@ th{
 </tbody></table>
 
 <p class="center"><b>AnimCubeJS (formerly AnimCube)</b></p>
-<p class="center"><b>AnimCube created by <a href="http://www.rubikscube.info/" target="_new">Josef Jelínek</a> 
+<p class="center"><b>AnimCube created by <a href="https://github.com/josef-jelinek" target="_new">Josef Jelínek</a> 
 (2001 - 2004)</b></p>
 <p class="center"><b>AnimCubeJS created by <a href="https://mfeather1.github.io/3ColorCube/" target="_new">Michael Feather</a> (old versions: 2015 - 2019, current version: 2021)</b></p>
 
@@ -148,7 +148,7 @@ th{
 <div class="justify"><ul>
 <li>This JavaScript (JS) simulator is aimed at showing animation of Rubik's Cube 
 manipulation.</li>
-<li>The simulator was initially created as Java applet (called <a href="http://software.rubikscube.info/AnimCube/" target="_new">AnimCube</a>) 
+<li>The simulator was initially created as Java applet (called <a href="old/sources/AnimCube/index.html" target="_new">AnimCube</a>) 
 by Josef Jelínek because of the problems with existing applets at that time 
 (2001). Features of AnimCubeJS simulator (the port from AnimCube to AnimCubeJS was made by Michael Feather) try to address and solve some of the 
 problems. However, the simulator evolved much further than its 
@@ -173,33 +173,35 @@ predecessors and a user can now choose what fits his/her needs.</li>
 
 <p>Main features of this simulator:</p>
 <div class="justify"><ul>
+<li>Open source, free, compact piece of <a href="https://github.com/cubing/AnimCubeJS/tree/gh-pages/sources/codes/js-unminified" target="_new">fully 
+readable plain JavaScript</a> code.</li>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
 available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5, 6x6x6 and 7x7x7 Rubik's Cubes,
 as well as 2x2x2 - 7x7x7 Supercubes. The 7x7x7 cube was contributed by 
 <a href="https://sites.google.com/site/cubomagicosemdecoreba/home" target="_new">Marcelo 
 Falcão de Oliveira</a> (in collaboration with Michael Feather).</li> 
 </li>
-<li>The simulator has very flexible settings specified directly in the web page 
-where the simulator is placed.</li>
-<li>The simulator allows natural and sensitive manipulation with the separate 
-cube layers (even inner ones) as well as the entire cube.</li>
-<li>The 3x3x3 simulator supports many types of single turns: one outer layer or center layer 
-separately, two adjacent or opposite layers simultaneously, and whole-cube rotations.</li>
-<li>The simulator is fully backward compatible with its Java applet predecessor.</li>
-<li>The simulator is displayed in configurable perspective projection in order 
-to display the cube in a more realistic way.</li>
-<li>The perspective projection uses bilinear interpolation to 
-display inner face points for the sake of rendering efficiency/speed.</li>
-<li>The simulator can show even some of normally hidden facelets (stickers) by means of 
-projection of facelets to the planes near the cube.</li>
-<li>The consumption of the processor time is reduced and more simulators can 
+<li>The simulator is known to be working not only in personal web pages (e.g. powered 
+by a content management system), but also in internet forum posts and native 
+mobile/web apps.</li>
+<li>Compatibility with all modern web browsers.</li>
+<li>Manipulation &amp; control actions are working on mobile devices. Retina display is 
+supported. Responsive-layout cubes can be easily designed.</li>
+<li>Consumption of the processor time is reduced and more simulators can 
 animate simultaneously without noticeable slow-down.</li>
-<li>The simulator is compatible with all modern web browsers.</li>
-<li>The entire simulator consists of 1 <a href="https://github.com/cubing/AnimCubeJS/tree/gh-pages/sources/codes/js-unminified" target="_new">fully readable plain JavaScript</a> file 
-(which has been minified) for each cube size.</li>
-<li>The simulator offers several cube looks. Graphical appearance can be adjusted by the parameters such as <code><a href="#cubecolor">cubecolor</a></code>, 
-<code><a href="#borderwidth">borderwidth</a></code> or <code><a href="#supercube">supercube</a></code>.</li>
-<li>Manipulation &amp; control actions are working on mobile devices. Retina display is supported. Responsive-layout cubes can be easily designed.</li>
+<li>Very flexible settings specified directly in the web page 
+where the simulator is placed. Both graphical appearance and functionality can be easily adjusted.</li>
+<li>Natural and sensitive manipulation with the separate 
+cube layers (even inner ones) as well as the entire cube. The 3x3x3 simulator supports 
+many types of single turns: one outer layer or center layer 
+separately, two adjacent or opposite layers simultaneously, and whole-cube rotations.</li>
+<li>The simulator is displayed in configurable perspective projection in order 
+to present the cube in a more realistic way.</li>
+<li>Perspective projection uses bilinear interpolation to 
+display inner face points for the sake of rendering efficiency/speed.</li>
+<li>Normally hidden facelets (stickers) can be shown by means of 
+projection of facelets to the planes near the cube.</li>
+<li>AnimCubeJS is fully backward compatible with its AnimCube Java applet predecessor.</li>
 </ul></div>
  
 <p><i>Note:</i> Native anti-aliasing was not used in the original AnimCube Java applet 
