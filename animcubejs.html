@@ -2625,13 +2625,13 @@ have the following effect on the simulators.
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&randmoves=3&snap=1&buttonheight=20&move=random&textsize=16")</script></div>
 </div>
 
-<p><i>Note:</i> Even though the function generating random move sequence takes the characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code> for 
-each cube size, obviously <code>m</code> and <code>n</code> modifiers will not be used to generate a random move sequence for the 2x2x2 cube. 
-Similarly, <code>n</code> modifier will not be used to generate a random move sequence for 
-the 3x3x3 and 4x4x4 cubes, and finally <code>m</code> modifier will not be used 
-to generate a random move sequence for the 3x3x3 and 5x5x5 cubes (the reason for the latter restriction lies in a so-called 
-fixed centers model, which is a Rubik's cube model in which center layers never turn).   
+<p><i>Note:</i> The function generating random move sequence for the 2x2x2 and 3x3x3 cubes takes the characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code> and <code>'</code>. 
+Obviously, <code>m</code> modifier will be used to generate a random move sequence for the 4x4x4 and 6x6x6 cubes. 
+Similarly, <code>n</code> modifier will be used to generate a random move sequence for the 5x5x5, 6x6x6 and 7x7x7 cubes. 
+Finally, <code>o</code> modifier will be used to generate a random move sequence for the 7x7x7 cube.
+There is no <code>m</code> modifier being generated for the 3x3x3, 5x5x5 and 7x7x7 cubes - the reason for this restriction lies 
+in a so-called fixed centers model, which is a Rubik's cube model in which center layers never turn.   
 </p>
 
 <p><i>Note:</i> Use of the <code>randmoves</code> and <code>scramble</code> parameters, as well as '<code>random</code>' parameter value (in the 
