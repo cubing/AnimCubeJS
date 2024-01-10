@@ -1685,8 +1685,8 @@ using multiple simulators (one for each solve reconstruction).
 
 <p>
 The parameter value equal to '<code>random</code>' (<i>note:</i> this value is not supported in the original AnimCube Java applet) 
-will randomly pick some characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+will randomly pick applicable characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code>, <code>n</code> and <code>o</code>, 
 resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
 </p>
 
@@ -2547,9 +2547,17 @@ red: '<code>9e0b19</code>') parameters.</p>
 <div class="sections-parameters"><a name="scramble"></a><b><code>scramble</code> parameter</b></div>
 
 <p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
-<p>This parameter can be used to generate random move sequence being formed by 
-some characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>.
+<p>This parameter can be used to generate random move sequence. The function generating 
+random move sequence for the 2x2x2 and 3x3x3 cubes takes the characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code> and <code>'</code>. 
+Obviously, <code>m</code> modifier will be used to generate random move sequence for the 4x4x4 and 6x6x6 cubes. 
+Similarly, <code>n</code> modifier will be used to generate random move sequence for the 5x5x5, 6x6x6 and 7x7x7 cubes. 
+Finally, <code>o</code> modifier will be used to generate random move sequence for the 7x7x7 cube.
+There is no <code>m</code> modifier being generated for the 3x3x3, 5x5x5 and 7x7x7 cubes - the reason for this restriction lies 
+in a so-called fixed centers model, which is a Rubik's cube model in which center layers never turn.
+</p>
+
+<p>
 There are three possible parameter values: '<code>0</code>' (which is the default value), '<code>1</code>' and '<code>2</code>'. 
 If the value is equal to '<code>1</code>' then the starting cube state will be solved and playing the move sequence will scramble the cube. If 
 the value is equal to '<code>2</code>' then the 
@@ -2624,15 +2632,6 @@ have the following effect on the simulators.
 <div class="cube" style="width:160px; height:160px"> <script>AnimCube3("colorscheme=wygbor&randmoves=2&snap=1&buttonheight=20&initrevmove=random")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&randmoves=3&snap=1&buttonheight=20&move=random&textsize=16")</script></div>
 </div>
-
-<p><i>Note:</i> The function generating random move sequence for the 2x2x2 and 3x3x3 cubes takes the characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code> and <code>'</code>. 
-Obviously, <code>m</code> modifier will be used to generate a random move sequence for the 4x4x4 and 6x6x6 cubes. 
-Similarly, <code>n</code> modifier will be used to generate a random move sequence for the 5x5x5, 6x6x6 and 7x7x7 cubes. 
-Finally, <code>o</code> modifier will be used to generate a random move sequence for the 7x7x7 cube.
-There is no <code>m</code> modifier being generated for the 3x3x3, 5x5x5 and 7x7x7 cubes - the reason for this restriction lies 
-in a so-called fixed centers model, which is a Rubik's cube model in which center layers never turn.   
-</p>
 
 <p><i>Note:</i> Use of the <code>randmoves</code> and <code>scramble</code> parameters, as well as '<code>random</code>' parameter value (in the 
 <code>move</code>, <code>initmove</code>, <code>initrevmove</code> or <code>demo</code> parameters) can provide much more functionality when used with HTML buttons that call JavaScript 
