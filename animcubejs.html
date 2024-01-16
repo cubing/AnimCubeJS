@@ -175,7 +175,7 @@ predecessors and a user can now choose what fits his/her needs.</li>
 
 <p>Main features of this simulator:</p>
 <div class="justify"><ul>
-<li>Open source, free, compact piece of <a href="https://github.com/cubing/AnimCubeJS/tree/gh-pages/sources/codes/js-unminified" target="_new">fully 
+<li>Open source, free, lightweight &amp; compact piece of <a href="https://github.com/cubing/AnimCubeJS/tree/gh-pages/sources/codes/js-unminified" target="_new">fully 
 readable plain JavaScript</a> code.</li>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
 available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5, 6x6x6 and 7x7x7 Rubik's Cubes,
@@ -189,11 +189,13 @@ mobile/web apps.</li>
 <li>Compatibility with all modern web browsers.</li>
 <li>Manipulation &amp; control actions are working on mobile devices. Retina display is 
 supported. Responsive-layout cubes can be easily designed.</li>
-<li>Consumption of the processor time is reduced and more simulators can 
+<li>Outstanding performance in comparison with similar Rubik's Cube simulators. 
+Consumption of the processor time is reduced and more simulators can 
 animate simultaneously without noticeable slow-down.</li>
 <li>Very flexible settings specified directly in the web page 
-where the simulator is placed. Both graphical appearance and functionality can be easily adjusted.</li>
-<li>Natural and sensitive manipulation with the separate 
+where the simulator is placed. Both graphical appearance and functionality can be easily adjusted. 
+Multiple cubing notations are supported.</li>
+<li>Natural and sensitive manipulation with separate 
 cube layers (even inner ones) as well as the entire cube. The 3x3x3 simulator supports 
 many types of single turns: one outer layer or center layer 
 separately, two adjacent or opposite layers simultaneously, and whole-cube rotations.</li>
@@ -656,7 +658,7 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 (i.e. with no parameters at all).</p>
 
 <div id="parameters" class="sections"><b><i>Parameters</i></b></div>
-<p>There are 45 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
+<p>There are 46 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
 documentation. The best way to understand their meaning is to experiment with example simulators provided in the 
 description of each parameter.</p>
 
@@ -707,7 +709,7 @@ Another way to create simulators is with the
 <a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
 <a href="#metric">parameter name: metric | value: 0 - 3</a><br>
 <a href="#move">parameter name: move | value: string from move character set or random</a><br>
-<a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5)<br>
+<a href="#movetext">parameter name: movetext | value: 0 - 6</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5 or 6)<br>
 <a href="#movetextspace">parameter name: movetextspace | value: 0 or 1</a><br>
 <a href="#perspective">parameter name: perspective | value: natural number</a><br>
 <a href="#pos">parameter name: pos | value: string of Lars Petrus' color codes</a><br>
@@ -725,6 +727,7 @@ Another way to create simulators is with the
 <a href="#superfacelets">parameter name: superfacelets | value: 0 - 3 string</a><br>
 <a href="#textsize">parameter name: textsize | value: 5 - 40</a><br>
 <a href="#troughcolor">parameter name: troughcolor | value: hexadecimal color</a><br>
+<a href="#wca">parameter name: wca | value: 0 or 1</a><br>
 <a href="#yz">parameter name: yz | value: 0 or 1</a></code></p>
 </div>
 
@@ -753,10 +756,11 @@ Another way to create simulators is with the
 <a href="#perspective">parameter name: perspective | value: natural number</a><br>
 <a href="#borderwidth">parameter name: borderwidth | value: 0 - 20</a><br>
 <a href="#move">parameter name: move | value: string from move character set or random</a><br>
-<a href="#movetext">parameter name: movetext | value: 0 - 5</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5)<br>
+<a href="#movetext">parameter name: movetext | value: 0 - 6</a> (for 3x3x3 only, other cube sizes: 0 or 1 or 5 or 6)<br>
 <a href="#movetextspace">parameter name: movetextspace | value: 0 or 1</a><br>
 <a href="#yz">parameter name: yz | value: 0 or 1</a><br>
 <a href="#sign">parameter name: sign | value: 0 or 1</a><br>
+<a href="#wca">parameter name: wca | value: 0 or 1</a><br>
 <a href="#initmove">parameter name: initmove | value: string from move character set, random or #</a><br>
 <a href="#initrevmove">parameter name: initrevmove | value: string from move character set, random or #</a><br>
 <a href="#demo">parameter name: demo | value: string from move character set, random or #</a><br>
@@ -1490,11 +1494,12 @@ on the extended notation. It is quite orthogonal and consistent design. Examples
 <li>X or x - rotates around the right-left axis (in the same direction as <code>R/L'</code> moves are 
 executed)</li>
 <li>Y or y - rotates around the y-axis (in the same direction as <code>F/B'</code> or <code>U/D'</code> moves 
-are executed, depending on the <code><a href="#sign">sign</a></code> and/or <code><a href="#movetext">movetext</a></code> 
-and/or <code><a href="#yz">yz</a></code> parameter value)</li>
+are executed, depending on values of these parameters: <code><a href="#yz">yz</a></code>, 
+<code><a href="#sign">sign</a></code>, <code><a href="#wca">wca</a></code>, 
+<code><a href="#movetext">movetext</a></code>)</li>
 <li>Z or z - rotates around the z-axis (in the same direction as <code>U/D'</code> or <code>F/B'</code> moves 
-are executed, depending on the <code>sign</code> and/or <code>movetext</code> and/or 
-<code>yz</code> parameter value)</li>
+are executed, depending on values of these parameters: <code>yz</code>, <code>sign</code>, <code>wca</code>, 
+<code>movetext</code>)</li>
 </ul></div>
 <p>The following table shows the effect of these characters (for the <code>sign=1</code> setting). 
 </p><div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
@@ -1553,6 +1558,37 @@ turn two adjacent layers simultaneously on a 3x3x3 cube.
 </td>
 </tr>
 </tbody></table>
+</div>
+
+<p>
+There is also another alternative to the <code>t</code> advanced modifier you can use. If you switch 
+from this default AnimCubeJS notation to the <code>wca</code> notation, 
+you can append a '<code>w</code>' letter right after an outer layer turn letter and before basic 
+modifiers '<code>'</code>' and '<code>2</code>'.
+</p>
+
+<div class="responsive-table"><table cellspacing="2" cellpadding="0" bgcolor="black" align="center">
+<tbody><tr>
+<td bgcolor="white" align="center"><code><i>X</i></code></td>
+<td bgcolor="white" align="center"><code><i>X</i>'</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2</code></td>
+<td bgcolor="white" align="center"><code><i>X</i>2'</code></td>
+</tr>
+<tr>
+<td>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("wca=1&colorscheme=wygbor&move=Uw;Dw;Fw;Bw;Lw;Rw&snap=1&buttonheight=20&textsize=16")</script></div>
+</td>
+<td>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("wca=1&colorscheme=wygbor&move=Uw';Dw';Fw';Bw';Lw';Rw'&snap=1&buttonheight=20&textsize=16")</script></div>
+</td>
+<td>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("wca=1&colorscheme=wygbor&move=Uw2;Dw2;Fw2;Bw2;Lw2;Rw2&snap=1&buttonheight=20&textsize=16")</script></div>
+</td>
+<td>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("wca=1&colorscheme=wygbor&move=Uw2';Dw2';Fw2';Bw2';Lw2';Rw2'&snap=1&buttonheight=20&textsize=16")</script></div>
+</td>
+</tr>
+</tbody></table>
 </div><br>
 
 <div class="button-to-center">
@@ -1573,11 +1609,12 @@ turn two adjacent layers simultaneously on a 3x3x3 cube.
 <code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code> and whole-cube rotations 
 <code>x</code>, <code>y</code>, <code>z</code> - as described for the 3x3x3 cube above - applies to 
 all cube sizes. For notation simplicity, the <code><a href="#movetext">movetext</a></code> parameter can be only set to either '<code>0</code>' 
-or '<code>1</code>' or '<code>5</code>' on other cube sizes 
-than 3x3x3 (see both <code>movetext=0</code> and <code>movetext=1</code> settings on the first and second examples below). To support a 
-widely used notation among speedcubers, the third example below uses the <code><a href="#sign">sign</a>=1</code> setting which automatically sets the 
-<code>movetext</code> parameter value to '<code>5</code>'. 
-<p>The following cubes show possible move character set which is divided into two move sequences.
+or '<code>1</code>' or '<code>5</code>' or '<code>6</code>' on other cube sizes 
+than 3x3x3 (see both <code>movetext=0</code> and <code>movetext=1</code> settings on the first and second examples below). To support 
+widely used notations among speedcubers, the third example below uses the <code><a href="#sign">sign</a>=1</code> setting which automatically sets the 
+<code>movetext</code> parameter value to '<code>5</code>', and the last example uses the <code><a href="#wca">wca</a>=1</code> setting 
+which automatically sets the <code>movetext</code> parameter value to '<code>6</code>'. 
+<p>The following example cubes show possible move character set which is divided into two move sequences.
 These two move sequences differ only in that the second one contains the basic modifier '<code>2</code>', and the first one does not.</p>
 <p>For the 2x2x2 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
@@ -1589,6 +1626,7 @@ These two move sequences differ only in that the second one contains the basic m
 <div id=s6c1 class="cube" style="width:140px; height:166px"></div>
 <div id=s6c2 class="cube" style="width:140px; height:166px"></div>
 <div id=s6c3 class="cube" style="width:140px; height:166px"></div>
+<div id=s6c3wca class="cube" style="width:140px; height:166px"></div>
 </div>
 <p>For the 4x4x4 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
@@ -1606,6 +1644,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <div id=s6c4 class="cube" style="width:180px; height:206px"></div>
 <div id=s6c5 class="cube" style="width:180px; height:206px"></div>
 <div id=s6c6 class="cube" style="width:180px; height:206px"></div>
+<div id=s6c6wca class="cube" style="width:180px; height:206px"></div>
 </div>
 <p>For the 5x5x5 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
@@ -1622,6 +1661,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <div id=s6c7 class="cube" style="width:200px; height:226px"></div>
 <div id=s6c8 class="cube" style="width:200px; height:226px"></div>
 <div id=s6c9 class="cube" style="width:200px; height:226px"></div>
+<div id=s6c9wca class="cube" style="width:200px; height:226px"></div>
 </div>
 <p>For the 6x6x6 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
@@ -1629,6 +1669,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <li>m - second inner layer turn in the direction of the specified outer layer</li>
 <li>c - whole-cube rotation in the direction of the specified outer layer</li>
 <li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li>
+<li>u - wide turn; specified outer layer and two adjacent inner layers are turned simultaneously in the same direction</li>
 <li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code>
 is equal to <code>R L'</code> or <code>L' R</code>)</li>
 <li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite
@@ -1638,6 +1679,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <div id=s6c10 class="cube" style="width:220px; height:246px"></div>
 <div id=s6c11 class="cube" style="width:220px; height:246px"></div>
 <div id=s6c12 class="cube" style="width:220px; height:246px"></div>
+<div id=s6c12wca class="cube" style="width:220px; height:246px"></div>
 </div>
 <p>For the 7x7x7 simulator, these are possible advanced modifiers that are written immediately after the move letter and right before the basic modifiers:</p>
 <div class="justify"><ul>
@@ -1646,6 +1688,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <li>m - middle layer turn in the direction of the specified outer layer</li>
 <li>c - whole-cube rotation in the direction of the specified outer layer</li>
 <li>t - thick turn; specified outer layer and adjacent inner layer are turned simultaneously in the same direction</li>
+<li>u - wide turn; specified outer layer and two adjacent inner layers are turned simultaneously in the same direction</li>
 <li>s - slice turn; two opposite outer layers are turned simultaneously in the same direction (<code>Rs</code>
 is equal to <code>R L'</code> or <code>L' R</code>)</li>
 <li>a - anti-slice turn; two opposite outer layers are turned simultaneously in the opposite
@@ -1655,6 +1698,7 @@ direction (<code>Ra</code> is equal to <code>R L</code> or <code>L R</code>)</li
 <div id=s6c13 class="cube" style="width:240px; height:266px"></div>
 <div id=s6c14 class="cube" style="width:240px; height:266px"></div>
 <div id=s6c15 class="cube" style="width:240px; height:266px"></div>
+<div id=s6c15wca class="cube" style="width:240px; height:266px"></div>
 </div><br>
 </div>
 
@@ -1725,10 +1769,12 @@ value:
 <div class="sections-parameters"><a name="movetext"></a><b><code>movetext</code> parameter</b></div>
 
 <p>This parameter can enable textual representation of a move sequence 
-inside the simulator window (div). There are six possible parameter values for the 3x3x3 simulator: '<code>0</code>', 
-'<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>' 
-(<i>note:</i> value '<code>5</code>' is not supported in the original AnimCube Java applet). There are three possible values for cube sizes other than 
-3x3x3: '<code>0</code>', '<code>1</code>' and '<code>5</code>'. 
+inside the simulator window (div). There are seven possible parameter values for the 3x3x3 simulator: '<code>0</code>', 
+'<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>', '<code>5</code>' and '<code>6</code>' 
+(<i>note:</i> values '<code>5</code>' and '<code>6</code>' are not supported in the original AnimCube Java 
+applet). There are four possible values for cube sizes other than 3x3x3: '<code>0</code>', '<code>1</code>', '<code>5</code>' 
+and '<code>6</code>'. The <code>movetext=2</code>, <code>movetext=3</code> and <code>movetext=4</code> settings 
+should be considered obsolete.
 </p><p>The '<code>0</code>' value, which is the default value, means that the textual representation of the turn is not 
 displayed (if you want to hide the move counter as well, use the <code><a href="#counter">counter</a></code> 
 parameter). The value equal to '<code>1</code>' enables displaying the turns in one of the older notation using advanced modifiers 
@@ -1738,33 +1784,40 @@ shortened notation (using characters <code>M</code>, <code>E</code>, <code>S</co
 and lowercase letters <code>r</code>, <code>l</code>, <code>f</code>, <code>b</code>, <code>u</code>, <code>d</code>).  
 See the <code><a href="#move">move</a></code> parameter section for examples (move character sets for cube sizes other than 3x3x3 are also discussed there).</p> 
 
-<p>To support another widely used standard where the meaning of <code>y</code> and <code>z</code> 
-rotations  is 
-interchanged, you can use the parameter value '<code>3</code>'. Other turns are the 
+<p> 
+To support notation where the meaning of <code>y</code> and <code>z</code> rotations 
+is interchanged, you can use the parameter value '<code>3</code>'. Other turns are the 
 same as for the parameter value '<code>2</code>'. The value equal to '<code>4</code>' is 
 displaying middle slice turns in lowercase letters, whole-cube rotations 
 use the "Q" prefix, and a simultaneous turn of two adjacent layers is expressed by two letters (first of them in uppercase, 
 second of them in lowercase). To display <code>XYZ</code> rotations in lowercase, use the parameter value '<code>5</code>'. The 
-<code>movetext=5</code> setting is also displaying move sequences in a notation widely used in the speedcubing community.</p> 
+<code>movetext=5</code> setting is also displaying move sequences in a notation (<code><a href="#sign">sign</a></code>) widely 
+used in the speedcubing community. Use the parameter value '<code>6</code>' to display move sequences in 
+another widely used cubing notation (<code><a href="#wca">wca</a></code>).</p> 
 
 <p>In order to prevent symbol meaning collisions 
 (<code>y</code> and <code>z</code> rotations to be specific, because they mean two different cube rotations depending on set parameter value), 
-use the <code><a href="#yz">yz</a></code> or <code><a href="#sign">sign</a></code> parameter.</p>
+use the <code><a href="#yz">yz</a></code> or <code>sign</code> or <code>wca</code> parameter.</p>
 
 <p>If you want to remove spaces in textual representation of a move sequence, use the <code><a href="#movetextspace">movetextspace</a></code> parameter.</p>
 
-<p><i>Examples:</i> <code>AnimCube3("movetext=0</code>, <code>AnimCube3("movetext=1")</code>, <code>AnimCube3("movetext=2")</code>, <code>AnimCube3("movetext=3")</code>, <code>AnimCube3("movetext=4")</code> and <code>AnimCube3("movetext=5")</code> give 
-the following results for the same values of other parameters. The move sequence begins with <code>move=xyz</code> which shows 
-the importance of using the <code>sign</code> or <code>yz</code> parameter when dealing with whole-cube rotations.
+<p><i>Examples:</i> <code>AnimCube3("movetext=0</code>, <code>AnimCube3("movetext=1")</code>, 
+<code>AnimCube3("movetext=2")</code>, <code>AnimCube3("movetext=3")</code>, <code>AnimCube3("movetext=4")</code>, 
+<code>AnimCube3("movetext=5")</code> and <code>AnimCube3("movetext=6")</code> give 
+the following results for the same values of other parameters. The <code>move</code> parameter is set to 
+'<code>x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'</code>' 
+which shows the importance of using the <code>yz</code> or <code>sign</code> or <code>wca</code> parameter 
+when dealing with whole-cube rotations.
 </p> 
 
 <div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=0&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=3&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=4&snap=1&buttonheight=20&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=xyzLLmR'FFmB'U'Um'DUtRtFtFt'Rt'Ut'RsUsFsRaUaFaFa'Ua'Ra'Fs'Us'Rs'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=0&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=1&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=2&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=3&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=4&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=5&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=x y z L Lm R' F Fm B' U' Um' D Ut Rt Ft Ft' Rt' Ut' Rs Us Fs Ra Ua Fa Fa' Ua' Ra' Fs' Us' Rs'&movetext=6&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1790,7 +1843,8 @@ spaces in a move sequence.
 There are two possible parameter values: '<code>0</code>' and '<code>1</code>' (the default value is '<code>0</code>'). 
 If set to '<code>1</code>' then <code>y</code> and <code>z</code> rotations 
 are switched. Examples below have the <code><a href="#move">move</a></code> parameter 
-set to '<code>xyz</code>', and at the same time the <code><a href="#movetext">movetext</a></code> parameter set to '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>' and '<code>5</code>', 
+set to '<code>xyz</code>', and at the same time the <code><a href="#movetext">movetext</a></code> parameter set 
+to '<code>1</code>', '<code>2</code>', '<code>3</code>', '<code>4</code>', '<code>5</code>' and '<code>6</code>',  
 which shows that while the original method of using <code>movetext=3</code> (or <code>movetext=5</code>) setting to switch the 
 display of <code>y</code> and <code>z</code> works fine - the actual function of the turn (as declared in the <code>move</code> parameter) does not change, an input rotation 
 of <code>z</code> still rotates around the up-down axis. With <code>yz=1</code> setting the function of the <code>move</code> parameter changes so 
@@ -1798,16 +1852,18 @@ that <code>z</code> rotates around the front-back
 axis and all <code>movetext</code> parameter values work as expected, except '<code>2</code>' which becomes switched.
 </p>
 <p>
-You can also use the <code><a href="#sign">sign</a>=1</code> setting instead.  
+You can also use the <code><a href="#sign">sign</a>=1</code> or <code><a href="#wca">wca</a>=1</code> setting instead.  
 </p>
 <p><i>Examples:</i> <code>AnimCube3("movetext=1&amp;yz=1&amp;move=xyz")</code>, <code>AnimCube3("movetext=2&amp;yz=1&amp;move=xyz")</code>, <code>AnimCube3("movetext=3&amp;yz=1&amp;move=xyz")</code>, 
-<code>AnimCube3("movetext=4&amp;yz=1&amp;move=xyz")</code> and <code>AnimCube3("movetext=5&amp;yz=1&amp;move=xyz")</code> have the following effect on the simulators.
+<code>AnimCube3("movetext=4&amp;yz=1&amp;move=xyz")</code>, <code>AnimCube3("movetext=5&amp;yz=1&amp;move=xyz")</code> and
+<code>AnimCube3("movetext=6&amp;yz=1&amp;move=xyz")</code> have the following effect on the simulators.
 </p><div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=1&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=2&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=3&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=4&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=5&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&movetext=6&yz=1&move=xyz&snap=1&buttonheight=20&textsize=16")</script></div>
 </div><br>
 
 
@@ -1830,19 +1886,21 @@ However, the default implicit parameter settings can be overridden by setting th
 <p>
 The <code>sign=1</code> setting tells the AnimCubeJS program to replace moves prefixed with numbers (see below) 
 with corresponding AnimCubeJS notation. With the <code>sign=0</code> setting the replacement is not done. If 
-<code>sign=1</code> is used, the basis of the move character set for each cube size is:  
+<code>sign=1</code> setting is used, the basis of the move character set for each cube size is:  
 </p><ul>
 <li>2x2x2: <code>R, U, F, L, D, B, x, y, z, 2, ', modifier a</code></li>
 <li>3x3x3: <code>2x2x2 set and r, u, f, l, d, b, M, E, S, modifier s</code></li>
 <li>4x4x4: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, r, u, f, l, d, b, m, e, s, modifier s</code></li>
 <li>5x5x5: <code>3x3x3 set and 2R, 2U, 2F, 2L, 2D, 2B</code></li>
-<li>6x6x6: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, 3R, 3U, 3F, 3L, 3D, 3B, r, u, f, l, d, b, modifier s</code></li>
+<li>6x6x6: <code>2x2x2 set and 2R, 2U, 2F, 2L, 2D, 2B, 3R, 3U, 3F, 3L, 3D, 3B, r, u, f, l, d, b, 3r, 3u, 3f, 3l, 3d, 3b, modifier s</code></li>
 <li>7x7x7: <code>6x6x6 set and M, E, S</code></li>
 </ul>
 <p>
 Make sure to separate moves by space, otherwise the move sequence might be ambiguous (for instance, R2L could mean 
 R2 L or R 2L for the 4x4x4 cube). The meaning of the characters written above is explained in the 
-<code><a href="#move">move</a></code> parameter section.
+<code><a href="#move">move</a></code> parameter section. The <code>sign</code> parameter is mutually 
+exclusive with the <code><a href="#wca">wca</a></code> parameter which is supporting another 
+widely used cubing notation.
 </p>
 
 <div class="button-to-center">
@@ -1869,6 +1927,71 @@ R2 L or R 2L for the 4x4x4 cube). The meaning of the characters written above is
 <br>
 
 
+<div class="sections-parameters"><a name="wca"></a><b><code>wca</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>The <code>wca</code> parameter supports the official 
+<a href="https://www.worldcubeassociation.org/regulations/#article-12-notation" target="_new">WCA scrambling notation</a> 
+as of 2023 (time reference is given here in case WCA decides to change its 
+scrambling notation in the future). There are two possible parameter values: '<code>0</code>' and '<code>1</code>' (the 
+default value is '<code>0</code>'). If set to '<code>1</code>' then default implicit parameter settings are:
+</p><ul>
+<li><code><a href="#movetext">movetext</a>=6</code></li>
+<li><code><a href="#yz">yz</a>=1</code></li>
+</ul>
+<p>
+However, the default implicit parameter settings can be overridden by setting the <code>movetext</code> and/or 
+<code>yz</code> parameter to the desired value.
+</p>
+<p>
+The <code>wca=1</code> setting tells the AnimCubeJS program to convert moves in the WCA scrambling notation to 
+corresponding moves in the SiGN notation. With the <code>wca=0</code> setting the conversion is not done. If 
+<code>wca=1</code> setting is used, the basis of the move character set for each cube size is:  
+</p><ul>
+<li>2x2x2: <code>R, U, F, L, D, B, x, y, z, 2, '</code></li>
+<li>3x3x3: <code>2x2x2 set and Rw, Uw, Fw, Lw, Dw, Bw</code></li>
+<li>4x4x4: <code>3x3x3 set</code></li>
+<li>5x5x5: <code>3x3x3 set</code></li>
+<li>6x6x6: <code>3x3x3 set and 3Rw, 3Uw, 3Fw, 3Lw, 3Dw, 3Bw</code></li>
+<li>7x7x7: <code>6x6x6 set</code></li>
+</ul>
+<p>
+Make sure to separate moves by space. The meaning of the characters written above is explained in the 
+<code><a href="#move">move</a></code> parameter section.
+</p>
+
+<p><i>Note:</i> Unless you have a very specific reason why you want to use this parameter, 
+it is recommended to use either the <code><a href="#sign">sign</a></code> parameter or the 
+default AnimCubeJS notation as described in the <code>move</code> parameter
+section instead. The reason for it is that the WCA scrambling notation - in terms of possible 
+moves - forms only a subset of both SiGN and AnimCubeJS notations. The <code>wca</code> parameter 
+is mutually exclusive with the <code>sign</code> parameter.</p>
+
+
+<div class="button-to-center">
+<button id=showHideButton26 onclick="showHideFunc(26,0)" class=btn>
+  <table border=0 class=nowrap width=100%>
+   <tr>
+    <td width=20%>&nbsp;&nbsp;&nbsp;<img id=showHideImage26 src=sources/images/down.png class=img alt=></td>
+    <td width=60% style=text-align:center><a id=showHideHeading26>Show examples</a></td>
+    <td width=20%></td>
+   </tr>
+  </table>
+</button>
+</div>
+
+<div class=showhide id=showHideText26>
+
+<p><i>Examples:</i> <code>AnimCube6("wca=0&amp;move=xyzLt2Rt2'Ft2Bt2'Ut2'Dt2&amp;movetext=6")</code> and <code>AnimCube6("wca=1&amp;move=x y z Lw2 Rw2' Fw2 Bw2' Uw2' Dw2")</code> have the following effect on the simulators.
+</p>
+<div>
+<div id=s26c1 class="cube" style="width:220px; height:246px"></div>
+<div id=s26c2 class="cube" style="width:220px; height:246px"></div>
+</div><br>
+</div>
+<br>
+
+
 <div class="sections-parameters"><a name="initmove"></a><b><code>initmove</code> parameter</b></div>
 
 <p>This parameter specifies the move sequence to be executed on the solved cube before starting the animation. It 
@@ -1878,8 +2001,9 @@ The value format is the same as for the <code><a href="#move">move</a></code> pa
 
 <p> 
 The parameter value equal to '<code>random</code>' (<i>note:</i> this parameter value is not supported in the original AnimCube Java applet) 
-will randomly pick some characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+will randomly pick applicable characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, 
+<code>2</code>, <code>'</code>, <code>m</code>, <code>n</code> and <code>o</code>, 
 resulting in generating random move sequence (compare with the <code><a href="#scramble">scramble</a></code> parameter). Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter.  
 If set only to the hash symbol '<code>#</code>' then it is equal to the value of the <code>move</code> parameter 
 (the whole parameter value if more move sequences are specified). Otherwise the hash symbol is a placeholder for a 
@@ -1949,8 +2073,9 @@ The last simulator below is an example of 5 different pretty patterns, all of th
 value format is the same as for the <code><a href="#move">move</a></code> parameter.</p> 
 
 <p>Using the '<code>random</code>' value (<i>note:</i> this parameter value is not supported in the original AnimCube Java applet) 
-will randomly pick some characters from the following move character subset:
-<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, <code>2</code>, <code>'</code>, <code>m</code> and <code>n</code>, 
+will randomly pick applicable characters from the following move character subset:
+<code>R</code>, <code>U</code>, <code>F</code>, <code>L</code>, <code>D</code>, <code>B</code>, 
+<code>2</code>, <code>'</code>, <code>m</code>, <code>n</code> and <code>o</code>, 
 resulting in generating random move sequence. Its length can be adjusted via the <code><a href="#randmoves">randmoves</a></code> parameter. 
 If set to '<code>#</code>' then it is equal to the value of the <code>move</code> parameter (the first one if more move sequences are specified). The specified 
 move sequence is executed after page load and all the operations are processed in loop from 
@@ -2021,32 +2146,32 @@ setting in the original AnimCube Java applet. It has been changed to "h".</p>
 <pre>
 metric=0:
 
-    X m t c s a w n o
- q: 1 1 1 1 1 1 1 1 1
- h: 1 1 1 1 1 1 1 1 1
+    X m t c s a w n o u
+ q: 1 1 1 1 1 1 1 1 1 1
+ h: 1 1 1 1 1 1 1 1 1 1
 
 metric=1:
 
-    X m t c s a w n o
- q: 1 2 1 0 2 2 2 2 2
- h: 2 4 2 0 4 4 4 4 4
+    X m t c s a w n o u
+ q: 1 2 1 0 2 2 2 2 2 1
+ h: 2 4 2 0 4 4 4 4 4 2
 
 metric=2:
 
-    X m t c s a w n o
- q: 1 2 1 0 2 2 2 2 2
- h: 1 2 1 0 2 2 2 2 2
+    X m t c s a w n o u
+ q: 1 2 1 0 2 2 2 2 2 1
+ h: 1 2 1 0 2 2 2 2 2 1
 
 metric=3:
 
-    X m t c s a w n o
- q: 1 1 1 0 2 2 1 1 1
- h: 1 1 1 0 2 2 1 1 1</pre>
+    X m t c s a w n o u
+ q: 1 1 1 0 2 2 1 1 1 1
+ h: 1 1 1 0 2 2 1 1 1 1</pre>
 <div class="justify">Legend for characters used above:<br>
 q = quarter turn<br>
 h = half turn<br>
 X = outer layer turn<br>
-m, t, c, s, a, w, n, o = advanced modifiers as described in the <code><a href="#move">move</a></code> parameter section<br>
+m, t, c, s, a, w, n, o, u = advanced modifiers as described in the <code><a href="#move">move</a></code> parameter section<br>
 number (0, 1, 2, or 4) = move count</div><br>
 
 <div>
@@ -2850,7 +2975,7 @@ function showHideCubes(n, c) {
     if (c)
       showCubes6();
     else 
-      for (var i=1; i <= 12; i++)
+      for (var i=1; i <= 20; i++)
         acjs_removeListeners['s6c' + i]();
   }
   if (n == 8) {
@@ -2874,23 +2999,35 @@ function showHideCubes(n, c) {
       for (var i=1; i <= 2; i++)
         acjs_removeListeners['s15c' + i]();
   }
+  if (n == 26) {
+    if (c)
+      showCubes26();
+    else 
+      for (var i=1; i <= 2; i++)
+        acjs_removeListeners['s26c' + i]();
+  }
 }
 function showCubes6() {
   AnimCube2("id=s6c1&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'RR'FF'BB'UU'DD'UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
   AnimCube2("id=s6c2&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'RR'FF'BB'UU'DD'UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'R2R2'F2F2'B2B2'U2U2'D2D2'Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
   AnimCube2("id=s6c3&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' R R' F F' B B' U U' D D' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2 R2' F2 F2' B2 B2' U2 U2' D2 D2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube2("id=s6c3wca&wca=1&colorscheme=wygbor&move=x x' y y' z z' L L' R R' F F' B B' U U' D D' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2 R2' F2 F2' B2 B2' U2 U2' D2 D2' .{ pause}&snap=1&buttonheight=20&textsize=16");
   AnimCube4("id=s6c4&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
   AnimCube4("id=s6c5&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LmLm'Rm'RmR'R FF'FmFm'Bm'BmB'B UU'UmUm'Dm'DmD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRwRs'Rw'FsFwFs'Fw'UsUwUs'Uw' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Lm2Lm2'Rm2'Rm2R2'R2 F2F2'Fm2Fm2'Bm2'Bm2B2'B2 U2U2'Um2Um2'Dm2'Dm2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rw2Rs2'Rw2'Fs2Fw2Fs2'Fw2'Us2Uw2Us2'Uw2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
   AnimCube4("id=s6c6&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 2R' 2R R' R F F' 2F 2F' 2B' 2B B' B U U' 2U 2U' 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs m' Rs' m Fs s Fs' s' Us e' Us' e Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 m2' Rs2' m2 Fs2 s2 Fs2' s2' Us2 e2' Us2' e2 Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube4("id=s6c6wca&wca=1&colorscheme=wygbor&move=x x' y y' z z' L L' R' R F F' B' B U U' D' D Lw Lw' Rw' Rw Fw Fw' Bw' Bw Uw Uw' Dw' Dw .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2' R2 F2 F2' B2' B2 U2 U2' D2' D2 Lw2 Lw2' Rw2' Rw2 Fw2 Fw2' Bw2' Bw2 Uw2 Uw2' Dw2' Dw2 .{ pause}&snap=1&buttonheight=20&textsize=16");
   AnimCube5("id=s6c7&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
   AnimCube5("id=s6c8&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rn'RnR'R FF'FnFn'FmFm'Bn'BnB'B UU'UnUn'UmUm'Dn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
   AnimCube5("id=s6c9&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' M M' 2R' 2R R' R F F' 2F 2F' S S' 2B' 2B B' B U U' 2U 2U' E' E 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' M2 M2' 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' S2 S2' 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' E2' E2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s6c10&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s6c11&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s6c12&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s6c13&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s6c14&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s6c15&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' M M' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' S S' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' E' E 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' M2 M2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' S2 S2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' E2' E2 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube5("id=s6c9wca&wca=1&colorscheme=wygbor&move=x x' y y' z z' L L' R' R F F' B' B U U' D' D Lw Lw' Rw' Rw Fw Fw' Bw' Bw Uw Uw' Dw' Dw .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2 R2' F2 F2' B2' B2 U2 U2' D2' D2 Lw2 Lw2' Rw2 Rw2' Fw2 Fw2' Bw2' Bw2 Uw2 Uw2' Dw2' Dw2 .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c10&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' UuUu'DuDu'FuFu'BuBu'RuRu'LuLu' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Uu2Uu2'Du2Du2'Fu2Fu2'Bu2Bu2'Ru2Ru2'Lu2Lu2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c11&colorscheme=wygbor&move=RcRc'UcUc'FcFc'LL'LnLn'LmLm'Rm'RmRn'RnR'R FF'FnFn'FmFm'Bm'BmBn'BnB'B UU'UnUn'UmUm'Dm'DmDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' UuUu'DuDu'FuFu'BuBu'RuRu'LuLu' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2'L2L2'Ln2Ln2'Lm2Lm2'Rm2'Rm2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fm2Fm2'Bm2'Bm2Bn2'Bn2B2'B2 U2U2'Un2Un2'Um2Um2'Dm2'Dm2Dn2'Dn2D2'D2 Ut2Ut2'Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Uu2Uu2'Du2Du2'Fu2Fu2'Bu2Bu2'Ru2Ru2'Lu2Lu2' Rs2Rs2'Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c12&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' 3u 3u' 3d 3d' 3f 3f' 3b 3b' 3r 3r' 3l 3l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' 3u2 3u2' 3d2 3d2' 3f2 3f2' 3b2 3b2' 3r2 3r2' 3l2 3l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s6c12wca&wca=1&colorscheme=wygbor&move=x x' y y' z z' L L' R' R F F' B' B U U' D' D Lw Lw' Rw' Rw Fw Fw' Bw' Bw Uw Uw' Dw' Dw 3Lw 3Lw' 3Rw' 3Rw 3Fw 3Fw' 3Bw' 3Bw 3Uw 3Uw' 3Dw' 3Dw .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2' R2 F2 F2' B2' B2 U2 U2' D2' D2 Lw2 Lw2' Rw2' Rw2 Fw2 Fw2' Bw2' Bw2 Uw2 Uw2' Dw2' Dw2 3Lw2 3Lw2' 3Rw2' 3Rw2 3Fw2 3Fw2' 3Bw2' 3Bw2 3Uw2 3Uw2' 3Dw2' 3Dw2 .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c13&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' UuUu'DuDu'FuFu'BuBu'RuRu'LuLu' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Uu2Uu2'Du2Du2'Fu2Fu2'Bu2Bu2'Ru2Ru2'Lu2Lu2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=0&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c14&colorscheme=wygbor&move=RcRc'UcUc'FcFc' LL'LnLn'LoLo'LmLm'Ro'RoRn'RnR'R FF'FnFn'FoFo'FmFm'Bo'BoBn'BnB'B UU'UnUn'UoUo'UmUm'Do'DoDn'DnD'D UtUt'DtDt'FtFt'BtBt'RtRt'LtLt' UuUu'DuDu'FuFu'BuBu'RuRu'LuLu' RsRs'FsFs'UsUs' UaFaRaRa'Fa'Ua'.{ pause};Rc2Rc2'Uc2Uc2'Fc2Fc2' L2L2'Ln2Ln2'Lo2Lo2'Lm2Lm2'Ro2'Ro2Rn2'Rn2R2'R2 F2F2'Fn2Fn2'Fo2Fo2'Fm2Fm2'Bo2'Bo2Bn2'Bn2B2'B2 U2U2'Un2Un2'Uo2Uo2'Um2Um2'Do2'Do2Dn2'Dn2D2'D2 Ut2Ut2' Dt2Dt2'Ft2Ft2'Bt2Bt2'Rt2Rt2'Lt2Lt2' Uu2Uu2'Du2Du2'Fu2Fu2'Bu2Bu2'Ru2Ru2'Lu2Lu2' Rs2Rs2' Fs2Fs2'Us2Us2' Ua2Fa2Ra2Ra2'Fa2'Ua2'.{ pause}&movetext=1&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c15&sign=1&colorscheme=wygbor&move=x x' y y' z z' L L' 2L 2L' 3L 3L' M M' 3R' 3R 2R' 2R R' R F F' 2F 2F' 3F 3F' S S' 3B' 3B 2B' 2B B' B U U' 2U 2U' 3U 3U' E' E 3D' 3D 2D' 2D D' D u u' d d' f f' b b' r r' l l' 3u 3u' 3d 3d' 3f 3f' 3b 3b' 3r 3r' 3l 3l' Rs Rs' Fs Fs' Us Us' Ua Fa Ra Ra' Fa' Ua' .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' 2L2 2L2' 3L2 3L2' M2 M2' 3R2' 3R2 2R2' 2R2 R2' R2 F2 F2' 2F2 2F2' 3F2 3F2' S2 S2' 3B2' 3B2 2B2' 2B2 B2' B2 U2 U2' 2U2 2U2' 3U2 3U2' E2' E2 3D2' 3D2 2D2' 2D2 D2' D2 u2 u2' d2 d2' f2 f2' b2 b2' r2 r2' l2 l2' 3u2 3u2' 3d2 3d2' 3f2 3f2' 3b2 3b2' 3r2 3r2' 3l2 3l2' Rs2 Rs2' Fs2 Fs2' Us2 Us2' Ua2 Fa2 Ra2 Ra2' Fa2' Ua2' .{ pause}&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s6c15wca&wca=1&colorscheme=wygbor&move=x x' y y' z z' L L' R' R F F' B' B U U' D' D Lw Lw' Rw' Rw Fw Fw' Bw' Bw Uw Uw' Dw' Dw 3Lw 3Lw' 3Rw' 3Rw 3Fw 3Fw' 3Bw' 3Bw 3Uw 3Uw' 3Dw' 3Dw .{ pause};x2 x2' y2 y2' z2 z2' L2 L2' R2' R2 F2 F2' B2' B2 U2 U2' D2' D2 Lw2 Lw2' Rw2' Rw2 Fw2 Fw2' Bw2' Bw2 Uw2 Uw2' Dw2' Dw2 3Lw2 3Lw2' 3Rw2' 3Rw2 3Fw2 3Fw2' 3Bw2' 3Bw2 3Uw2 3Uw2' 3Dw2' 3Dw2 .{ pause}&snap=1&buttonheight=20&textsize=16");
 }
 function showCubes8() {
   AnimCube2("id=s8c1&colorscheme=wygbor&move=R R2 x x2 Ra Ra2&metric=0&sign=1&snap=1&buttonheight=20&textsize=16");
@@ -2905,14 +3042,14 @@ function showCubes8() {
   AnimCube5("id=s8c10&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
   AnimCube5("id=s8c11&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
   AnimCube5("id=s8c12&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c13&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c14&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c15&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube6("id=s8c16&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s8c17&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s8c18&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s8c19&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
-  AnimCube7("id=s8c20&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c13&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c14&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c15&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s8c16&colorscheme=wygbor&move=R R2 Rn Rn2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c17&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=0&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c18&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=1&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c19&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=2&movetext=5&snap=1&buttonheight=20&textsize=16");
+  AnimCube7("id=s8c20&colorscheme=wygbor&move=R R2 Rn Rn2 Ro Ro2 Rm Rm2 Rt Rt2 Ru Ru2 Rc Rc2 Rs Rs2 Ra Ra2&metric=3&movetext=5&snap=1&buttonheight=20&textsize=16");
 }
 function showCubes14() {
   AnimCube6("id=s14c1&colorscheme=wygbor&sign=0&move=xyzLm2Rm2'Fm2Bm2'Um2'Dm2&movetext=5&snap=1&buttonheight=20&textsize=16");
@@ -2921,6 +3058,10 @@ function showCubes14() {
 function showCubes15() {
   AnimCube3(config + "&id=s15c1&colorscheme=wygbor&move=Ra Fa Ra Fa Ra Fa&initrevmove=#&snap=1&buttonheight=20");
   AnimCube3(config + "&id=s15c2&colorscheme=wygbor&move=Ra Fa Ra' Fa' Ra Fa&initrevmove=#&snap=1&buttonheight=20");
+}
+function showCubes26() {
+  AnimCube6("id=s26c1&colorscheme=wygbor&wca=0&move=xyzLt2Rt2'Ft2Bt2'Ut2'Dt2&movetext=6&snap=1&buttonheight=20&textsize=16");
+  AnimCube6("id=s26c2&colorscheme=wygbor&wca=1&move=x y z Lw2 Rw2' Fw2 Bw2' Uw2' Dw2&snap=1&buttonheight=20&textsize=16");
 }
 /* 
 Goals for Show/Hide implementation:
