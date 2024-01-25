@@ -139,6 +139,7 @@ function AnimCube4(params) {
   var outlined = true;
   var snap = false;
   var signNotation;
+  var wcaNotation;
   var yzAlt;
   var superCube = false;
   var scrambleToggle = false;
@@ -146,6 +147,7 @@ function AnimCube4(params) {
   var randMoveCount = 0;
   var scw = 0;
   var borderWidth = 0;
+  var rotateAllowed = 1;
   // transformation tables for compatibility with Lars's applet
   var posFaceTransform = [3, 2, 0, 5, 1, 4];
   var posFaceletTransform = [
@@ -396,6 +398,14 @@ function AnimCube4(params) {
         moveText = 5;
         yzAlt = true;
       }
+    wcaNotation = false;
+    param = getParameter("wca");
+    if (param != null)
+      if ("1" == param) {
+        wcaNotation = true;
+        moveText = 6;
+        yzAlt = true;
+      }
     param = getParameter("yz");
     if (param != null)
       if ("0" == param)
@@ -582,10 +592,14 @@ function AnimCube4(params) {
       clickProgress = true;
     // displaying the textual representation of the move
     param = getParameter("movetext");
-    if ("1" == (param))
+    if ("0" == (param))
+      moveText = 0;
+    else if ("1" == (param))
       moveText = 1;
     else if ("5" == (param))
       moveText = 5;
+    else if ("6" == (param))
+      moveText = 6;
     moveTextSpace = 1;
     param = getParameter("movetextspace");
     if ("0" == (param))
@@ -755,7 +769,11 @@ function AnimCube4(params) {
   var modeChar = ['m', 't', 'c', 's', 'a', 'w'];
 
   function getMovePart(sequence, info, num) {
-    if (signNotation)
+    if (wcaNotation) {
+      sequence = wca_to_sign(sequence);
+      sequence = convertNotation4(sequence);
+    }
+    else if (signNotation)
       sequence = convertNotation4(sequence);
     if (sequence.trim() == '#')
       if (typeof move[num] != 'undefined')
@@ -840,16 +858,26 @@ function AnimCube4(params) {
     s = s.replace(/^e| e/g, " Dw").
           replace(/^s| s/g, " Fw").
           replace(/^m| m/g, " Lw");
-    s = replaceMoves(s, 2, 'm');
+    s = replaceMoves(s, 2, 'm', 0);
+    s = replaceMoves(s, 2, 't', 1);
     return s;
   }
 
   var faces = ['U', 'D', 'F', 'B', 'L', 'R'];
 
-  function replaceMoves(s, a, b) {
+  function replaceMoves(s, a, b, t) {
     for (var i=0; i < 6; i++) {
-      var r = new RegExp(a + faces[i], "g");
+      var f = (t==0) ? faces[i] : faces[i].toLowerCase();
+      var r = new RegExp(a + f, "g");
       s = s.replace(r, faces[i] + b);
+    }
+    return s;
+  }
+
+  function wca_to_sign(s) {
+    for (var i=0; i < 6; i++) {
+      var r = new RegExp(faces[i] + 'w', "g");
+      s = s.replace(r, faces[i].toLowerCase());
     }
     return s;
   }
@@ -909,7 +937,16 @@ function AnimCube4(params) {
       ["y", "~y", "z", "~z", "~x", "x"],
       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
       ["Ua", "Da", "Fa", "Ba", "La", "Ra"],
-      ["e", "e", "s", "s", "m", "m"]
+      ["~e", "e", "s", "~s", "m", "~m"]
+    ],
+    [ // WCA 
+      ["U", "D", "F", "B", "L", "R"],
+      ["2U", "2D", "2F", "2B", "2L", "2R"],
+      ["Uw", "Dw", "Fw", "Bw", "Lw", "Rw"],
+      ["y", "~y", "z", "~z", "~x", "x"],
+      ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
+      ["Ua", "Da", "Fa", "Ba", "La", "Ra"],
+      ["~e", "e", "s", "~s", "m", "~m"]
     ]
   ];
   var modifierStrings = ["", "2", "'", "2'"];
@@ -1340,7 +1377,7 @@ function AnimCube4(params) {
   // last position of mouse (for dragging the cube)
   var lastX;
   var lastY;
-  // last position of mouse (when waiting for clear decission)
+  // last position of mouse (when waiting for clear decision)
   var lastDragX;
   var lastDragY;
   // drag areas
@@ -1454,14 +1491,9 @@ function AnimCube4(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
-      setClip(graphics, 0, 0, width, height - dpr);
-      graphics.fillRect(0, 0, width, height - dpr);
-    }
-    else {
-      setClip(graphics, 0, 0, width, height);
-      graphics.fillRect(0, 0, width, height);
-    }
+    var h = (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) ? height - dpr : height;
+    setClip(graphics, 0, 0, width, h);
+    graphics.fillRect(0, 0, width, h); // cube background
     dragAreas = 0;
     if (natural) // compact cube
     {
@@ -2454,7 +2486,7 @@ function AnimCube4(params) {
         if (jobNumber <= nowServing + 1)
           animating = false;
         drawButtons = true;
-        if (buttonPressed == 0)
+        if (buttonPressed == 0 || buttonPressed > 6)
           clear();
         paint();
         if (demo) {
@@ -2570,45 +2602,8 @@ function AnimCube4(params) {
     lastDragY = lastY = getY(e);
     toTwist = false;
     buttonPressed = selectButton(lastX, lastY);
-    if (buttonPressed >= 0) {
-      pushed = true;
-      if (buttonPressed == 3) {
-        if (!animating) // special feature
-          mirrored = !mirrored;
-        else
-          stopAnimation();
-      }
-      else if (buttonPressed == 0) { // clear everything to the initial setup
-        if (scramble > 0 && buttonBar == 2) {
-          if (scrambleToggle == true) {
-            scrambleToggle = false;
-            stopAnimation();
-            clear();
-          }
-          else {
-            scrambleToggle = true;
-            buttonPressed = 6;
-            startAnimation(buttonAction[buttonPressed]);
-          }
-        }
-        else {
-          stopAnimation();
-          clear();
-        }
-      }
-      else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
-        stopAnimation();
-        setTimeout(clear, 20);
-        if (buttonPressed == 7)
-          curMove = curMove > 0 ? curMove - 1 : move.length - 1;
-        else
-          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
-      }
-      else
-        startAnimation(buttonAction[buttonPressed]);
-      drawButtons = true;
-      paint();
-    }
+    if (buttonPressed >= 0)
+      button();
     else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY > height - progressHeight && lastY <= height) {
       if (clickProgress) {
         stopAnimation();
@@ -2627,6 +2622,46 @@ function AnimCube4(params) {
           toTwist = true;
       }
     }
+  }
+
+  function button() {
+    pushed = true;
+    if (buttonPressed == 3) {
+      if (!animating) // special feature
+        mirrored = !mirrored;
+      else
+        stopAnimation();
+    }
+    else if (buttonPressed == 0) { // clear everything to the initial setup
+      if (scramble > 0 && buttonBar == 2) {
+        if (scrambleToggle == true) {
+          scrambleToggle = false;
+          stopAnimation();
+          clear();
+        }
+        else {
+          scrambleToggle = true;
+          buttonPressed = 6;
+          startAnimation(buttonAction[buttonPressed]);
+        }
+      }
+      else {
+        stopAnimation();
+        clear();
+      }
+    }
+    else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
+      stopAnimation();
+      setTimeout(clear, 0);
+      if (buttonPressed == 7)
+        curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+      else
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+    }
+    else
+      startAnimation(buttonAction[buttonPressed]);
+    drawButtons = true;
+    paint();
   }
 
   function progress(jobNum) {
@@ -2711,12 +2746,14 @@ function AnimCube4(params) {
     dx = (x - lastX) / dpr;
     dy = (y - lastY) / dpr;
     if (!twisting || animating) { // whole cube rotation
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
-      vNorm(vMul(eyeX, eyeY, eye));
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
-      vNorm(vMul(eyeY, eye, eyeX));
-      lastX = x;
-      lastY = y;
+      if (rotateAllowed) {
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
+        vNorm(vMul(eyeX, eyeY, eye));
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
+        vNorm(vMul(eyeY, eye, eyeX));
+        lastX = x;
+        lastY = y;
+      }
     }
     else {
       if (natural)

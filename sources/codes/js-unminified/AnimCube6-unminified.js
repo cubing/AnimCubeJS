@@ -139,6 +139,7 @@ function AnimCube6(params) {
   var outlined = true;
   var snap = false;
   var signNotation;
+  var wcaNotation;
   var yzAlt;
   var superCube = false;
   var scrambleToggle = false;
@@ -146,6 +147,7 @@ function AnimCube6(params) {
   var randMoveCount = 0;
   var scw = 0;
   var borderWidth = 0;
+  var rotateAllowed = 1;
   // transformation tables for compatibility with Lars's applet
   var posFaceTransform = [3, 2, 0, 5, 1, 4];
   var posFaceletTransform = [
@@ -389,6 +391,14 @@ function AnimCube6(params) {
         moveText = 5;
         yzAlt = true;
       }
+    wcaNotation = false;
+    param = getParameter("wca");
+    if (param != null)
+      if ("1" == param) {
+        wcaNotation = true;
+        moveText = 6;
+        yzAlt = true;
+      }
     param = getParameter("yz");
     if (param != null)
       if ("0" == param)
@@ -575,10 +585,14 @@ function AnimCube6(params) {
       clickProgress = true;
     // displaying the textual representation of the move
     param = getParameter("movetext");
-    if ("1" == (param))
+    if ("0" == (param))
+      moveText = 0;
+    else if ("1" == (param))
       moveText = 1;
     else if ("5" == (param))
       moveText = 5;
+    else if ("6" == (param))
+      moveText = 6;
     moveTextSpace = 1;
     param = getParameter("movetextspace");
     if ("0" == (param))
@@ -745,10 +759,16 @@ function AnimCube6(params) {
     return mv;
   }
 
-  var modeChar = ['n', 't', 'c', 's', 'a', 'm'];
+  var modeChar = ['n', 't', 'c', 's', 'a', 'm', 'u'];
+  var mcl = modeChar.length + 1;
+  var mcl4 = mcl * 4;
 
   function getMovePart(sequence, info, num) {
-    if (signNotation)
+    if (wcaNotation) {
+      sequence = wca_to_sign(sequence);
+      sequence = convertNotation6(sequence);
+    }
+    else if (signNotation)
       sequence = convertNotation6(sequence);
     if (sequence.trim() == '#')
       if (typeof move[num] != 'undefined')
@@ -789,7 +809,7 @@ function AnimCube6(params) {
               continue;
             i++;
             var mode = moveModes[j];
-            mv[length] = moveCodes[j] * 28;
+            mv[length] = moveCodes[j] * mcl4;
             if (i < sequence.length) {
               if (moveModes[j] == 0) { // modifiers for basic characters UDFBLR
                 for (var k = 0; k < modeChar.length; k++) {
@@ -830,17 +850,28 @@ function AnimCube6(params) {
   }
 
   function convertNotation6(s) {
-    s = replaceMoves(s, 2, 'n');
-    s = replaceMoves(s, 3, 'm');
+    s = replaceMoves(s, 2, 'n', 0);
+    s = replaceMoves(s, 3, 'm', 0);
+    s = replaceMoves(s, 2, 't', 1);
+    s = replaceMoves(s, 3, 'u', 1);
     return s;
   }
 
   var faces = ['U', 'D', 'F', 'B', 'L', 'R'];
 
-  function replaceMoves(s, a, b) {
+  function replaceMoves(s, a, b, t) {
     for (var i=0; i < 6; i++) {
-      var r = new RegExp(a + faces[i], "g");
+      var f = (t==0) ? faces[i] : faces[i].toLowerCase();
+      var r = new RegExp(a + f, "g");
       s = s.replace(r, faces[i] + b);
+    }
+    return s;
+  }
+
+  function wca_to_sign(s) {
+    for (var i=0; i < 6; i++) {
+      var r = new RegExp(faces[i] + 'w', "g");
+      s = s.replace(r, faces[i].toLowerCase());
     }
     return s;
   }
@@ -864,7 +895,8 @@ function AnimCube6(params) {
       ["Uc", "Dc", "Fc", "Bc", "Lc", "Rc"],
       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
       ["Ua", "Da", "Fa", "Ba", "La", "Ra"],
-      ["Um", "Dm", "Fm", "Bm", "Lm", "Rm"]
+      ["Um", "Dm", "Fm", "Bm", "Lm", "Rm"],
+      ["Uu", "Du", "Fu", "Bu", "Lu", "Ru"]
     ],
     [ // "reduced" notation
       ["U", "D", "F", "B", "L", "R"],
@@ -900,7 +932,18 @@ function AnimCube6(params) {
       ["y", "~y", "z", "~z", "~x", "x"],
       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
       ["Ua", "Da", "Fa", "Ba", "La", "Ra"],
-      ["3U", "3D", "3F", "3B", "3L", "3R"]
+      ["3U", "3D", "3F", "3B", "3L", "3R"],
+      ["3u", "3d", "3f", "3b", "3l", "3r"]
+    ],
+    [ // WCA
+      ["U", "D", "F", "B", "L", "R"],
+      ["2U", "2D", "2F", "2B", "2L", "2R"],
+      ["Uw", "Dw", "Fw", "Bw", "Lw", "Rw"],
+      ["y", "~y", "z", "~z", "~x", "x"],
+      ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
+      ["Ua", "Da", "Fa", "Ba", "La", "Ra"],
+      ["3U", "3D", "3F", "3B", "3L", "3R"],
+      ["3Uw", "3Dw", "3Fw", "3Bw", "3Lw", "3Rw"]
     ]
   ];
   var modifierStrings = ["", "2", "'", "2'"];
@@ -912,7 +955,7 @@ function AnimCube6(params) {
       return "";
     if (move[pos] == -1)
       return ".";
-    var s = turnSymbol[moveText - 1][Math.floor(move[pos] / 4) % 7][Math.floor(move[pos] / 28)];
+    var s = turnSymbol[moveText - 1][Math.floor(move[pos] / 4) % mcl][Math.floor(move[pos] / mcl4)];
     if (s.charAt(0) == '~')
       return s.substring(1) + modifierStrings[(move[pos] + 2) % 4];
     return s + modifierStrings[move[pos] % 4];
@@ -963,14 +1006,14 @@ function AnimCube6(params) {
     if (turn < 0 || turn >= 1000)
       return 0;
     var modifier = turn % 4;
-    var mode = Math.floor(turn / 4) % 7;
+    var mode = Math.floor(turn / 4) % mcl;
     var n = 1;
     switch (metric) {
       case 1: // quarter-turn metric
         if (modifier == 1 || modifier == 3)
           n *= 2;
       case 2: // face-turn metric
-        if (mode == 1 || mode > 3)
+        if (mode == 1 || (mode > 3 && mode != 7))
           n *= 2;
       case 3: // slice-turn metric
         if (mode == 3)
@@ -1001,12 +1044,12 @@ function AnimCube6(params) {
       }
       else if (move[position] >= 0) {
         var modifier = move[position] % 4 + 1;
-        var mode = Math.floor(move[position] / 4) % 7;
+        var mode = Math.floor(move[position] / 4) % mcl;
         if (modifier == 4) // reversed double turn
           modifier = 2;
         if (reversed)
           modifier = 4 - modifier;
-        twistLayers(cube, Math.floor(move[position] / 28), modifier, mode);
+        twistLayers(cube, Math.floor(move[position] / mcl4), modifier, mode);
       }
       if (!reversed) {
         position++;
@@ -1207,6 +1250,11 @@ function AnimCube6(params) {
         twistLayer(cube, layer ^ 1, 4 - num, 0);
         twistLayer(cube, layer, 4 - num, 0);
         break;
+      case 7: // mode u
+        twistLayer(cube, layer, 4 - num, 0);
+        twistLayer(cube, layer, 4 - num, 1);
+        twistLayer(cube, layer, 4 - num, 2);
+        break;
       default:
         twistLayer(cube, layer, 4 - num, mode);
     }
@@ -1381,7 +1429,7 @@ function AnimCube6(params) {
   // last position of mouse (for dragging the cube)
   var lastX;
   var lastY;
-  // last position of mouse (when waiting for clear decission)
+  // last position of mouse (when waiting for clear decision)
   var lastDragX;
   var lastDragY;
   // drag areas
@@ -1463,7 +1511,8 @@ function AnimCube6(params) {
     [1, 1, 1, 1, 1, 1], // c
     [1, 0, 0, 0, 0, 1], // s
     [1, 0, 0, 0, 0, 2], // a
-    [0, 0, 1, 0, 0, 0]  // m
+    [0, 0, 1, 0, 0, 0], // m
+    [1, 1, 1, 0, 0, 0]  // u
   ];
   var blockArray = [];
   var blockMode = [
@@ -1473,7 +1522,8 @@ function AnimCube6(params) {
     [2, 2, 2, 2, 2, 2],
     [2, 2, 2, 2, 2, 2],
     [2, 2, 2, 2, 2, 2],
-    [2, 2, 6, 2, 2, 2]
+    [2, 2, 6, 2, 2, 2],
+    [2, 2, 2, 2, 2, 2]
   ];
   var drawOrder = [
     [0, 1, 2, 3, 4, 5],
@@ -1502,14 +1552,9 @@ function AnimCube6(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
-      setClip(graphics, 0, 0, width, height - dpr);
-      graphics.fillRect(0, 0, width, height - dpr);
-    }
-    else {
-      setClip(graphics, 0, 0, width, height);
-      graphics.fillRect(0, 0, width, height);
-    }
+    var h = (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) ? height - dpr : height;
+    setClip(graphics, 0, 0, width, h);
+    graphics.fillRect(0, 0, width, h); // cube background
     dragAreas = 0;
     if (natural) // compact cube
     {
@@ -2342,8 +2387,8 @@ function AnimCube6(params) {
           curInfoText = mv[movePos] - 1000;
         else if (mv[movePos] != -1) {
           var num = mv[movePos] % 4 + 1;
-          var mode = Math.floor(mv[movePos] / 4) % 7;
-          var layer = Math.floor(mv[movePos] / 28);
+          var mode = Math.floor(mv[movePos] / 4) % mcl;
+          var layer = Math.floor(mv[movePos] / mcl4);
           twistLayers(cube, layer, (num == 4) ? 2 : num, mode);
         }
         movePos++;
@@ -2431,7 +2476,7 @@ function AnimCube6(params) {
             spin = true;
           if (spin) {
             num = mv[movePos] % 4 + 1;
-            mode = Math.floor(mv[movePos] / 4) % 7;
+            mode = Math.floor(mv[movePos] / 4) % mcl;
             var clockwise = num < 3;
             if (num == 4)
               num = 2;
@@ -2439,7 +2484,7 @@ function AnimCube6(params) {
               clockwise = !clockwise;
               num = 4 - num;
             }
-            layer = Math.floor(mv[movePos] / 28);
+            layer = Math.floor(mv[movePos] / mcl4);
             twisting = false;
             natural = true;
             spinning = true;
@@ -2523,7 +2568,7 @@ function AnimCube6(params) {
         if (jobNumber <= nowServing + 1)
           animating = false;
         drawButtons = true;
-        if (buttonPressed == 0)
+        if (buttonPressed == 0 || buttonPressed > 6)
           clear();
         paint();
         if (demo) {
@@ -2639,45 +2684,8 @@ function AnimCube6(params) {
     lastDragY = lastY = getY(e);
     toTwist = false;
     buttonPressed = selectButton(lastX, lastY);
-    if (buttonPressed >= 0) {
-      pushed = true;
-      if (buttonPressed == 3) {
-        if (!animating) // special feature
-          mirrored = !mirrored;
-        else
-          stopAnimation();
-      }
-      else if (buttonPressed == 0) { // clear everything to the initial setup
-        if (scramble > 0 && buttonBar == 2) {
-          if (scrambleToggle == true) {
-            scrambleToggle = false;
-            stopAnimation();
-            clear();
-          }
-          else {
-            scrambleToggle = true;
-            buttonPressed = 6;
-            startAnimation(buttonAction[buttonPressed]);
-          }
-        }
-        else {
-          stopAnimation();
-          clear();
-        }
-      }
-      else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
-        stopAnimation();
-        setTimeout(clear, 20);
-        if (buttonPressed == 7)
-          curMove = curMove > 0 ? curMove - 1 : move.length - 1;
-        else
-          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
-      }
-      else
-        startAnimation(buttonAction[buttonPressed]);
-      drawButtons = true;
-      paint();
-    }
+    if (buttonPressed >= 0)
+      button();
     else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY > height - progressHeight && lastY <= height) {
       if (clickProgress) {
         stopAnimation();
@@ -2696,6 +2704,46 @@ function AnimCube6(params) {
           toTwist = true;
       }
     }
+  }
+
+  function button() {
+    pushed = true;
+    if (buttonPressed == 3) {
+      if (!animating) // special feature
+        mirrored = !mirrored;
+      else
+        stopAnimation();
+    }
+    else if (buttonPressed == 0) { // clear everything to the initial setup
+      if (scramble > 0 && buttonBar == 2) {
+        if (scrambleToggle == true) {
+          scrambleToggle = false;
+          stopAnimation();
+          clear();
+        }
+        else {
+          scrambleToggle = true;
+          buttonPressed = 6;
+          startAnimation(buttonAction[buttonPressed]);
+        }
+      }
+      else {
+        stopAnimation();
+        clear();
+      }
+    }
+    else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
+      stopAnimation();
+      setTimeout(clear, 0);
+      if (buttonPressed == 7)
+        curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+      else
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+    }
+    else
+      startAnimation(buttonAction[buttonPressed]);
+    drawButtons = true;
+    paint();
   }
 
   function progress(jobNum) {
@@ -2780,12 +2828,14 @@ function AnimCube6(params) {
     dx = (x - lastX) / dpr;
     dy = (y - lastY) / dpr;
     if (!twisting || animating) { // whole cube rotation
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
-      vNorm(vMul(eyeX, eyeY, eye));
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
-      vNorm(vMul(eyeY, eye, eyeX));
-      lastX = x;
-      lastY = y;
+      if (rotateAllowed) {
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
+        vNorm(vMul(eyeX, eyeY, eye));
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
+        vNorm(vMul(eyeY, eye, eyeX));
+        lastX = x;
+        lastY = y;
+      }
     }
     else {
       if (natural)

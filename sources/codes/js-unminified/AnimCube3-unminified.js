@@ -139,6 +139,7 @@ function AnimCube3(params) {
   var outlined = true;
   var snap = false;
   var signNotation;
+  var wcaNotation;
   var yzAlt;
   var superCube = false;
   var scrambleToggle = false;
@@ -146,6 +147,7 @@ function AnimCube3(params) {
   var randMoveCount = 0;
   var scw = 0;
   var borderWidth = 0;
+  var rotateAllowed = 1;
   // transformation tables for compatibility with Lars's applet
   // pos layout:
   //           25 26 27
@@ -169,10 +171,13 @@ function AnimCube3(params) {
 
   function onModuleLoad() {
     var fname = getParameter("config");
-    if (fname != null)
-      loadConfigFile(fname);
-    else {
+    if (fname == null)
       init();
+    else {
+      var p = location.pathname;
+      var f = p.substring(p.lastIndexOf('/')+1);
+      var pf = (f.length == 0) ? p + fname : p.replace(f, fname);
+      loadConfigFile(pf);
     }
   }
 
@@ -396,6 +401,14 @@ function AnimCube3(params) {
         moveText = 5;
         yzAlt = true;
       }
+    wcaNotation = false;
+    param = getParameter("wca");
+    if (param != null)
+      if ("1" == param) {
+        wcaNotation = true;
+        moveText = 6;
+        yzAlt = true;
+      }
     param = getParameter("yz");
     if (param != null)
       if ("0" == param)
@@ -582,7 +595,7 @@ function AnimCube3(params) {
       clickProgress = true;
     // displaying the textual representation of the move
     param = getParameter("movetext");
-    if (param >= 1 && param <= 5)
+    if (param >= 0 && param <= 6)
       moveText = parseInt(param);
     moveTextSpace = 1;
     param = getParameter("movetextspace");
@@ -753,6 +766,8 @@ function AnimCube3(params) {
   var modeChar = ['m', 't', 'c', 's', 'a'];
 
   function getMovePart(sequence, info, num) {
+    if (wcaNotation)
+      sequence = wca_to_sign(sequence);
     if (sequence.trim() == '#')
       if (typeof move[num] != 'undefined')
         return(move[num]);
@@ -829,6 +844,16 @@ function AnimCube3(params) {
     return mv;
   }
 
+  var faces = ['U', 'D', 'F', 'B', 'L', 'R'];
+
+  function wca_to_sign(s) {
+    for (var i=0; i < 6; i++) {
+      var r = new RegExp(faces[i] + 'w', "g");
+      s = s.replace(r, faces[i].toLowerCase());
+    }
+    return s;
+  }
+
   function moveTextFunc(move, start, end) {
     if (start >= move.length)
       return "";
@@ -874,10 +899,18 @@ function AnimCube3(params) {
       ["UD'", "DU'", "FB'", "BF'", "LR'", "RL'"],
       ["UD", "DU", "FB", "BF", "LR", "RL"]
     ],
-    [ // swapped Y and Z, lowercase rotation
+    [ // SiGN
       ["U", "D", "F", "B", "L", "R"],
       ["~E", "E", "S", "~S", "M", "~M"],
       ["u", "d", "f", "b", "l", "r"],
+      ["y", "~y", "z", "~z", "~x", "x"],
+      ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
+      ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
+    ],
+    [ // WCA 
+      ["U", "D", "F", "B", "L", "R"],
+      ["~E", "E", "S", "~S", "M", "~M"],
+      ["Uw", "Dw", "Fw", "Bw", "Lw", "Rw"],
       ["y", "~y", "z", "~z", "~x", "x"],
       ["Us", "Ds", "Fs", "Bs", "Ls", "Rs"],
       ["Ua", "Da", "Fa", "Ba", "La", "Ra"]
@@ -1271,7 +1304,7 @@ function AnimCube3(params) {
   // last position of mouse (for dragging the cube)
   var lastX;
   var lastY;
-  // last position of mouse (when waiting for clear decission)
+  // last position of mouse (when waiting for clear decision)
   var lastDragX;
   var lastDragY;
   // drag areas
@@ -1344,14 +1377,9 @@ function AnimCube3(params) {
   function paint() {
     graphics.save();
     graphics.fillStyle = bgColor;
-    if (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) {
-      setClip(graphics, 0, 0, width, height - dpr);
-      graphics.fillRect(0, 0, width, height - dpr);
-    }
-    else {
-      setClip(graphics, 0, 0, width, height);
-      graphics.fillRect(0, 0, width, height);
-    }
+    var h = (buttonBar == 1 && (progressHeight == 0 || demo || move[curMove].length == 0)) ? height - dpr : height;
+    setClip(graphics, 0, 0, width, h);
+    graphics.fillRect(0, 0, width, h); // cube background
     dragAreas = 0;
     if (natural) // compact cube
     {
@@ -2207,6 +2235,7 @@ function AnimCube3(params) {
         drawButtons = true;
       }
       if (innerLoopTop) {
+        var time0 = Date.now();
         innerLoopTop = false;
         if (moveDir < 0) {
           cont = false;
@@ -2328,7 +2357,7 @@ function AnimCube3(params) {
         if (jobNumber <= nowServing + 1)
           animating = false;
         drawButtons = true;
-        if (buttonPressed == 0)
+        if (buttonPressed == 0 || buttonPressed > 6)
           clear();
         paint();
         if (demo) {
@@ -2445,45 +2474,8 @@ function AnimCube3(params) {
     lastDragY = lastY = getY(e);
     toTwist = false;
     buttonPressed = selectButton(lastX, lastY);
-    if (buttonPressed >= 0) {
-      pushed = true;
-      if (buttonPressed == 3) {
-        if (!animating) // special feature
-          mirrored = !mirrored;
-        else
-          stopAnimation();
-      }
-      else if (buttonPressed == 0) { // clear everything to the initial setup
-        if (scramble > 0 && buttonBar == 2) {
-          if (scrambleToggle == true) {
-            scrambleToggle = false;
-            stopAnimation();
-            clear();
-          }
-          else {
-            scrambleToggle = true;
-            buttonPressed = 6;
-            startAnimation(buttonAction[buttonPressed]);
-          }
-        }
-        else {
-          stopAnimation();
-          clear();
-        }
-      }
-      else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
-        stopAnimation();
-        setTimeout(clear, 20);
-        if (buttonPressed == 7)
-          curMove = curMove > 0 ? curMove - 1 : move.length - 1;
-        else
-          curMove = curMove < move.length - 1 ? curMove + 1 : 0;
-      }
-      else
-        startAnimation(buttonAction[buttonPressed]);
-      drawButtons = true;
-      paint();
-    }
+    if (buttonPressed >= 0)
+      button();
     else if (progressHeight > 0 && move.length > 0 && move[curMove].length > 0 && lastY > height - progressHeight && lastY <= height) {
       if (clickProgress) {
         stopAnimation();
@@ -2502,6 +2494,46 @@ function AnimCube3(params) {
           toTwist = true;
       }
     }
+  }
+
+  function button() {
+    pushed = true;
+    if (buttonPressed == 3) {
+      if (!animating) // special feature
+        mirrored = !mirrored;
+      else
+        stopAnimation();
+    }
+    else if (buttonPressed == 0) { // clear everything to the initial setup
+      if (scramble > 0 && buttonBar == 2) {
+        if (scrambleToggle == true) {
+          scrambleToggle = false;
+          stopAnimation();
+          clear();
+        }
+        else {
+          scrambleToggle = true;
+          buttonPressed = 6;
+          startAnimation(buttonAction[buttonPressed]);
+        }
+      }
+      else {
+        stopAnimation();
+        clear();
+      }
+    }
+    else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
+      stopAnimation();
+      setTimeout(clear, 0);
+      if (buttonPressed == 7)
+        curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+      else
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+    }
+    else
+      startAnimation(buttonAction[buttonPressed]);
+    drawButtons = true;
+    paint();
   }
 
   function progress(jobNum) {
@@ -2586,12 +2618,14 @@ function AnimCube3(params) {
     dx = (x - lastX) / dpr;
     dy = (y - lastY) / dpr;
     if (!twisting || animating) { // whole cube rotation
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
-      vNorm(vMul(eyeX, eyeY, eye));
-      vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
-      vNorm(vMul(eyeY, eye, eyeX));
-      lastX = x;
-      lastY = y;
+      if (rotateAllowed) {
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), dx * -0.016)));
+        vNorm(vMul(eyeX, eyeY, eye));
+        vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeY), dy * 0.016)));
+        vNorm(vMul(eyeY, eye, eyeX));
+        lastX = x;
+        lastY = y;
+      }
     }
     else {
       if (natural)
@@ -2733,7 +2767,7 @@ function AnimCube3(params) {
     document.removeEventListener('contextmenu', contextmenu);
     window.removeEventListener('resize', resize);
   }
-
+  
   function init0() {
     canvas = document.createElement('canvas');
     if (typeof params != 'undefined')
