@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+ <title>Transparent Background</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=A3_transparent.js></script>
+ <style>
+  body {
+    margin-left: 10%; margin-right: 10%;
+    background-image: url('abstract.jpg');
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  p {margin:0; text-align: justify;}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Transparent Background</font>
+<br>
+<div id=c1 style="width:300px; height:300px;"></div>
+<script>
+acjs_put_var = [];
+acjs_drawButtonsFunc = [];
+acjs_graphics = [];
+acjs_paint = [];
+AnimCube3("id=c1&move=RU'LFU'R2U2RUR'U2D'LDF2L2U&buttonheight=16&textsize=14&fonttype=0&movetext=1&scale=1&align=0");
+var id = 'c1';
+acjs_put_var[id]('buttonBorderColor', 'white', 's');
+acjs_put_var[id]('sliderColor', 'white', 's');
+acjs_put_var[id]('textColor', 'white', 's');
+acjs_put_var[id]('hlColor', 'gray', 's');
+acjs_drawButtonsFunc[id](acjs_graphics[id]);
+acjs_paint[id]();
+</script>
+<br>
+<a style="background-color:black; color:white;
+border-radius:15px;padding:2px 8px" href=javascript:history.go(-1)>Back</a>
+<br><br>
+</center>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+ <title>Transparent Background</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=A3_transparent.js></script>
+ <style>
+  body {
+    margin-left: 10%; margin-right: 10%; font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(45deg, #acffab, beige);
+  }
+  p {margin:0; text-align: justify;}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Transparent Background</font>
+<br><br>
+<p>This cube uses a modified version of AnimCube3.js for transparency
+as described below (check out also <a href=abstract.html>abstract background</a>).
+The mods override the parameters bgcolor, butbgcolor, troughcolor,
+slidercolor and cubecolor.
+You can maintain control of the color for any of those in your own
+customized version of AnimCube by not making the changes that would
+override the relevant parameters.
+Facelet borders can also be added as shown on the second cube in each
+row.</p>
+<table>
+ <tr>
+  <td>
+   <div id=c1 style="width:180px; height:180px"></div>
+  </td>
+  <td width=30>
+  <td>
+   <div id=c2 style="width:180px; height:180px"></div>
+  </td>
+ </tr>
+</table>
+<table>
+ <tr>
+  <td>
+   <div id=c3 style="width:180px; height:180px"></div>
+  </td>
+  <td width=30>
+  <td>
+   <div id=c4 style="width:180px; height:180px"></div>
+  </td>
+ </tr>
+</table>
+<br>
+<p>Code mods:
+<br><br>
+To make the cube background transparent change the first occurrence of 
+fillRect to clearRect in the paint function.
+To make the trough transparent do the same for the second occurrence.
+For a transparent slider with only a vertical bar showing progress in a
+transparent trough, change the whole line for the third occurrence to the
+following (do not change fillRect to clearRect):
+<br><br>
+graphics.fillRect(progress-dpr*2, height-progressHeight-dph, dpr*3, progressHeight);
+<br><br>
+To make the buttonbar transparent change both occurrences of fillRect to
+clearRect in the drawbuttons function (first one is for clear button only,
+second one is for full buttonbar).
+To make the cube color transparent, in the fixblock function add the
+following line right after where it says: "find and draw black inner faces".
+<br><br>
+graphics.globalCompositeOperation = 'destination-out';
+<br><br>
+Also add the following line right before where it says:
+"draw all visible faces and get dragging regions".
+<br><br>
+graphics.globalCompositeOperation = 'source-over';
+<br><br>
+For facelet borders, make the following mod in the fixblock function in
+section: "draw all visible faces and get dragging regions".
+<br><br>
+Change:<br>
+drawPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);<br>
+fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);
+<br><br>
+To:<br>
+fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 3 + q]]);<br>
+drawPolygon(graphics, fillX, fillY, darker(colors[cube[i][p * 3 + q]]));
+<br><br>
+Make a similar mod in the same section for supercube.
+<br><br>
+For dark backgrounds, some additional mods are needed as shown
+<a href=transparent_dark.html>here</a>.</p>
+<br>
+<a href=javascript:history.go(-1)>Back</a>
+<br><br>
+<script>
+var acjs_paint = [];
+var acjs_put_var = [];
+var params = "&move=RU'LFU'R2U2RUR'U2D'LDF2L2U&buttonheight=18&textsize=16&fonttype=0";
+AnimCube3('id=c1' + params);
+AnimCube3('id=c2' + params);
+AnimCube3('id=c3' + params + '&supercube=1');
+AnimCube3('id=c4' + params + '&supercube=1');
+acjs_put_var['c2']('drawFaceletBorder', 1, 'n');
+acjs_put_var['c4']('drawFaceletBorder', 1, 'n');
+acjs_paint['c2']();
+acjs_paint['c4']();
+</script>
+</center>
+</body>
+</html>

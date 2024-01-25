@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+ <title>JS Buttons - Demo 1</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
+ <style> 
+  body {margin-left: 10%; margin-right: 10%; font-family: Arial, Helvetica, sans-serif;}
+  p {margin:0; text-align: justify;}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>JS Buttons<br>Demo 1</font>
+<br><br>
+<p>This demo shows how to use javascript buttons to duplicate the
+functionality of the buttonbar.</p>
+<Br>
+<div id=c1 style="width:180px; height:180px"></div>
+<br>
+<button onclick="btn('c1',0)">reset</button>
+<button onclick="btn('c1',1)">back1</button>
+<button onclick="btn('c1',2)">back</button>
+<button onclick="btn('c1',3)">mir/stop</button>
+<button onclick="btn('c1',4)">play</button>
+<button onclick="btn('c1',5)">step</button>
+<button onclick="btn('c1',6)">end</button>
+<table><tr height=4><td></table>
+<button onclick="btn('c1',7)">prev seq</button>&nbsp;
+<button onclick="btn('c1',8)">next seq</button>
+<br><br>
+<a href=javascript:history.go(-1)>Back</a>
+<br><br>
+<script>
+var acjs_button = [];
+var acjs_put_var = [];
+var acjs_paint = [];
+var mv="RU'LFU'R2U2RUR'U2D'LDF2L2U";
+var params = 'id=c1&bgcolor=ffffff&buttonheight=18&textsize=16&fonttype=0';
+params += '&initmove=;#&initrevmove=;;#&move=' + mv + ';' + mv + ';' + mv;
+AnimCube3(params);
+function btn(id, n) {
+  // if buttonbar is not showing then these two lines are sufficient:
+  acjs_put_var[id]('buttonPressed', n, 'n');
+  acjs_button[id]();
+
+  // if buttonbar is showing then add this for proper display, otherwise
+  // buttons remain gray after pressing
+  setTimeout(function(){
+    acjs_put_var[id]('pushed', 0, 'n');
+    acjs_put_var[id]('drawButtons', 1, 'n');
+    acjs_paint[id]();
+  });
+}
+</script>
+</center>
+</body>
+</html>

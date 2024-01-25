@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+ <title>JS Buttons - Demo 2</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=../../../AnimCube3.js></script>
+ <style> 
+  body {margin-left: 10%; margin-right: 10%; font-family: Arial, Helvetica, sans-serif;}
+  p {margin:0; text-align: justify;}
+  .tab td {padding-left:2px; padding-right:2px}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>JS Buttons<br>Demo 2</font>
+<br><br>
+<p>This demo shows how to use javascript buttons or keyboard letters to 
+make moves on the cube.
+To use letters to manipulate a cube, click on it and then press letters
+corresponding to the moves.
+Layers can also be turned via mouse/touch but the whole cube can only be
+rotated by buttons/letters on the first one (cannot be rotated via
+mouse/touch).
+On the second one, the cube can be rotated via mouse/touch but then it 
+needs to be rotated back to the initial position (by pressing Repos
+button) before making moves with buttons/letters otherwise the results
+may not be as expected.
+<table>
+ <tr>
+  <td><div id=c1 style="width:180px; height:180px"></div></td>
+  <td width=40>
+  <td><div id=c2 style="width:180px; height:180px"></div></td>
+ </tr>
+</table>
+<table class=tab border=0><tr><td width=10>
+<td><button onclick="cubeMove('c1','R')">R</button></td>
+<td><button onclick="cubeMove('c1','L')">L</button></td>
+<td><button onclick="cubeMove('c1','U')">U</button></td>
+<td><button onclick="cubeMove('c1','D')">D</button></td>
+<td><button onclick="cubeMove('c1','F')">F</button></td>
+<td><button onclick="cubeMove('c1','B')">B</button></td>
+<td width=50>
+<td><button onclick="cubeMove('c2','R')">R</button></td>
+<td><button onclick="cubeMove('c2','L')">L</button></td>
+<td><button onclick="cubeMove('c2','U')">U</button></td>
+<td><button onclick="cubeMove('c2','D')">D</button></td>
+<td><button onclick="cubeMove('c2','F')">F</button></td>
+<td><button onclick="cubeMove('c2','B')">B</button></td>
+</tr><tr height=5px><tr><td>
+<td><button onclick="cubeMove('c1','X')">X</button></td>
+<td><button onclick="cubeMove('c1','Y')">Y</button></td>
+<td><button onclick="cubeMove('c1','Z')">Z</button></td>
+<td colspan=3><button onclick="cubeReset('c1')">Reset</button></td>
+<td>
+<td><button onclick="cubeMove('c2','X')">X</button></td>
+<td><button onclick="cubeMove('c2','Y')">Y</button></td>
+<td><button onclick="cubeMove('c2','Z')">Z</button></td>
+<td colspan=2><button onclick="cubeRepos('c2')">Repos</button></td>
+<td colspan=2><button onclick="cubeReset('c2')">Reset</button></td>
+</tr></table>
+<br>
+<a href=javascript:history.go(-1)>Back</a>
+<br><br>
+<script>
+var gid = '';
+var acjs_move = [];
+var acjs_getMove = [];
+var acjs_startAnimation = [];
+var acjs_stopAnimation = [];
+var acjs_eye = [];
+var acjs_eyeX = [];
+var acjs_eyeY = [];
+var acjs_initialEye = [];
+var acjs_initialEyeX = [];
+var acjs_initialEyeY = [];
+var acjs_vCopy = [];
+var acjs_paint = [];
+var acjs_clear = [];
+var acjs_get_var = [];
+var acjs_put_var = [];
+var acjs_parNode = [];
+var params = '&buttonbar=0&counter=0&bgcolor=ffffff&snap=1&yz=1';
+document.addEventListener("keydown", keydown);
+document.addEventListener("mousedown", mousedown);
+AnimCube3('id=c1' + params);
+AnimCube3('id=c2' + params);
+acjs_put_var['c1']('rotateAllowed', 0, 'n');
+function cubeMove(id, mv) {
+  acjs_move[id][0] = acjs_getMove[id](mv, 0)[0]; 
+  acjs_startAnimation[id](0);
+}
+function mousedown(e) {
+  if (typeof e.target.parentNode.id != 'undefined') {
+    var s = e.target.parentNode.id;
+    if (typeof acjs_parNode[s] != 'undefined')
+      gid = s; 
+  }
+}
+function keydown(e) {
+  if (gid == '')
+    return;
+  var mlist = ['x','y','z','r','l','u','d','f','b'];
+  if (mlist.includes(e.key)) {
+    var mv = e.key;
+    if (['r','l','u','d','f','b'].includes(mv))
+      mv = mv.toUpperCase();
+    cubeMove(gid, mv);
+  }
+}
+function cubeRepos(id) {
+  var vCopy = acjs_vCopy[id];
+  vCopy(acjs_eye[id], acjs_initialEye[id]);
+  vCopy(acjs_eyeX[id], acjs_initialEyeX[id]);
+  vCopy(acjs_eyeY[id], acjs_initialEyeY[id]);
+  acjs_paint[id]();
+}
+function cubeReset(id) {
+  if (acjs_get_var[id]('animating')) {
+    acjs_stopAnimation[id]();
+    setTimeout(cubeReset, 10, id);
+  }
+  else
+    acjs_clear[id]();
+}
+</script>
+</center>
+</body>
+</html>

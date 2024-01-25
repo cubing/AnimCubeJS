@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+ <title>Transparent Background</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=A3_transparent.js></script>
+ <style>
+  body {
+    margin-left: 10%; margin-right: 10%; font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(45deg, #555555, black);
+    color:white;
+  }
+  p {margin:0; text-align: justify;}
+  a:link {color:#4B80FE}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Transparent Background</font>
+<br><br>
+<p>For dark backgrounds the button border, slider, text and highlight colors
+need to be changed, there are two methods:
+<br><br>
+Method 1:
+<br><br>
+Modify AnimCube3.js and add the following lines (with colors of your choice)
+to the init function prior to the call to init2:
+<br><br>
+buttonBorderColor = "white";<br>
+sliderColor = "white";<br>
+textColor = "white";<br>
+hlColor = "gray";
+<br><br>
+Method 2:
+<br><br>
+Use direct access to AnimCube internals to change the colors for the four
+variables shown above.
+This does not require any additional modifications to AnimCube and is the
+method used by this page (view source to see the implementation details).
+</p>
+<div id=c1 style="width:180px; height:180px"></div>
+<script>
+acjs_put_var = [];
+acjs_drawButtonsFunc = [];
+acjs_graphics = [];
+acjs_paint = [];
+AnimCube3("id=c1&move=RU'LFU'R2U2RUR'U2D'LDF2L2U&buttonheight=16&textsize=14&fonttype=0&movetext=1&scale=1&align=0");
+var id = 'c1';
+acjs_put_var[id]('buttonBorderColor', 'white', 's');
+acjs_put_var[id]('sliderColor', 'white', 's');
+acjs_put_var[id]('textColor', 'white', 's');
+acjs_put_var[id]('hlColor', 'gray', 's');
+acjs_drawButtonsFunc[id](acjs_graphics[id]);
+acjs_paint[id]();
+</script>
+<br>
+<a href=javascript:history.go(-1)>Back</a>
+<br><br>
+</center>
+</body>
+</html>
