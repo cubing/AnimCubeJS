@@ -1209,14 +1209,12 @@ function AnimCube2(params) {
   */
 
   function twistSuperLayer(layer, num, mode) {
-    if (mode == 0) {
-      for (var i = 0; i < 4; i++)
-        scube[layer][i] = (scube[layer][i] + 4 - num) % 4;
-      if (layer == 2) superTwist2(0, 4 - num);
-      if (layer == 3) superTwist2(1, num);
-      if (layer == 4) superTwist(2, num);
-      if (layer == 5) superTwist(3, num);
-    }
+    for (var i = 0; i < 4; i++)
+      scube[layer][i] = (scube[layer][i] + 4 - num) % 4;
+    if (layer == 2) superTwist2(0, 4 - num);
+    if (layer == 3) superTwist2(1, num);
+    if (layer == 4) superTwist(2, num);
+    if (layer == 5) superTwist(3, num);
   }
 
   function superTwist(ix, num) {
@@ -1516,12 +1514,14 @@ function AnimCube2(params) {
                   fillY[j] = Math.floor(fillY[j] - y);
                 }
                 if (superCube == true) {
-                  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
+                  /* commenting out the code that draws the facelet background
+		  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
                   if (hintBorder)
                     drawPolygon(graphics, fillX, fillY, darker("#fdfdfd"));
                   else
                     drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 2 + q], colors[cube[i][p * 2 + q]]);
+                  */
+		  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 2 + q], colors[cube[i][p * 2 + q]]);
                 }
                 else {
                   fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 2 + q]]);

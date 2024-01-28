@@ -1711,12 +1711,14 @@ function AnimCube4(params) {
                   fillY[j] = Math.floor(fillY[j] - y);
                 }
                 if (superCube == true) {
-                  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
+                  /* commenting out the code that draws the facelet background
+		  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
                   if (hintBorder)
                     drawPolygon(graphics, fillX, fillY, darker("#fdfdfd"));
                   else
                     drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 4 + q], colors[cube[i][p * 4 + q]]);
+                  */
+		  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 4 + q], colors[cube[i][p * 4 + q]]);
                 }
                 else {
                   fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 4 + q]]);

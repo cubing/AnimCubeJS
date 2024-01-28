@@ -1253,7 +1253,7 @@ function AnimCube6(params) {
       case 7: // mode u
         twistLayer(cube, layer, 4 - num, 0);
         twistLayer(cube, layer, 4 - num, 1);
-        twistLayer(cube, layer, 4 - num, 2);
+        twistLayer(cube, layer, 4 - num, 6);
         break;
       default:
         twistLayer(cube, layer, 4 - num, mode);
@@ -1774,12 +1774,14 @@ function AnimCube6(params) {
                   fillY[j] = Math.floor(fillY[j] - y);
                 }
                 if (superCube == true) {
-                  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
+                  /* commenting out the code that draws the facelet background
+		  fillPolygon(graphics, fillX, fillY, "#fdfdfd");
                   if (hintBorder)
                     drawPolygon(graphics, fillX, fillY, darker("#fdfdfd"));
                   else
                     drawPolygon(graphics, fillX, fillY, "#fdfdfd");
-                  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 6 + q], colors[cube[i][p * 6 + q]]);
+                  */
+		  drawSuperArrow(graphics, fillX, fillY, i, scube[i][p * 6 + q], colors[cube[i][p * 6 + q]]);
                 }
                 else {
                   fillPolygon(graphics, fillX, fillY, colors[cube[i][p * 6 + q]]);
