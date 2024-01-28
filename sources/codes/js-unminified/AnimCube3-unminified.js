@@ -1115,7 +1115,7 @@ function AnimCube3(params) {
     [[0, 3], [2, 3]],
     [[2, 3], [0, 3]]
   ];
-  // subcube dimmensions for middle layers
+  // subcube dimensions for middle layers
   var midBlockTable = [
     [[0, 0], [0, 0]],
     [[0, 3], [1, 2]],
