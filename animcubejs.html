@@ -42,7 +42,7 @@ p {
 a:link {color: #2d0d74;}
 a:visited {color: #006400;}
 a:link:hover {color: green;}
-hr.hr {width: 80%; margin-bottom: 1.5em;}
+hr.hr {width: 80%; margin: 1.4em auto;}
 button::-moz-focus-inner {border: 0;}
 pre, code {white-space: pre-wrap; word-wrap: break-word;}
 
@@ -180,7 +180,7 @@ readable plain JavaScript</a> code.</li>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
 available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5, 6x6x6 and 7x7x7 Rubik's Cubes,
 as well as 2x2x2 - 7x7x7 Supercubes. The 7x7x7 cube was contributed by 
-<a href="https://sites.google.com/site/cubomagicosemdecoreba/home" target="_new">Marcelo 
+<a href="https://sites.google.com/view/rubiks-cube-by-logic/" target="_new">Marcelo 
 Falcão de Oliveira</a> (in collaboration with Michael Feather).</li> 
 </li>
 <li>The simulator is known to be working not only in personal web pages (e.g. powered 
@@ -224,11 +224,11 @@ In order to do so, download one (or more) of the files below. Supercubes are inc
 <p><a href="sources/zip/2x2x2-AnimCubeJS.zip">2x2x2 AnimCubeJS simulator 
 <code>.zip</code> file</a> (12 kB)</p>
 <p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
-<code>.zip</code> file</a> (13 kB)</p>
+<code>.zip</code> file</a> (12 kB)</p>
 <p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
 <code>.zip</code> file</a> (13 kB)</p>
 <p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
-<code>.zip</code> file</a> (14 kB)</p>
+<code>.zip</code> file</a> (13 kB)</p>
 <p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
 <code>.zip</code> file</a> (14 kB)</p>
 <p><a href="sources/zip/7x7x7-AnimCubeJS.zip">7x7x7 AnimCubeJS simulator 
@@ -1211,14 +1211,14 @@ from '<code>2</code>' to '<code>10</code>'. The higher the value, the closer are
 <li><code>AnimCube3("hinthoriz=2&amp;hint=6")</code></li>
 <li><code>AnimCube3("hinthoriz=3.7&amp;hint=6")</code></li>
 <li><code>AnimCube3("hinthoriz=10&amp;hint=6")</code></li>
-<li><code>AnimCube3("hinthoriz=2.8&amp;hint=11&amp;align=30&amp;position=lluuu")</code></li>
+<li><code>AnimCube3("hinthoriz=3&amp;hint=12&amp;align=30&amp;position=lluuu")</code></li>
 </ul>
 	<p>give the following results.</p>
 <div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=M2 E2 S2&initmove=#&scale=3&hint=6&snap=1&buttonheight=20&textsize=16&hinthoriz=2")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=M2 E2 S2&initmove=#&scale=3&hint=6&snap=1&buttonheight=20&textsize=16&hinthoriz=3.7")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=M2 E2 S2&initmove=#&scale=3&hint=6&snap=1&buttonheight=20&textsize=16&hinthoriz=10")</script></div>
-<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=M2 E2 S2&initmove=#&scale=7&hint=11&snap=1&buttonheight=20&textsize=16&hinthoriz=2.8&position=lluuu&align=30")</script></div>
+<div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&move=M2 E2 S2&initmove=#&scale=7&hint=12&snap=1&buttonheight=20&textsize=16&hinthoriz=3&position=lluuu&align=30")</script></div>
 </div><br>
 
 
@@ -2828,7 +2828,7 @@ which might become handy if you want to cube but do not have a physical cube aro
 <li><a href="sources/codes/enhancement/scrambler-solver.html" target="_new">Scrambler and solver</a> with adjustable number of scrambling moves</li>
 <li><a href="sources/codes/enhancement/cube-parts.html" target="_new">Cube parts scrambling</a> with programmable rules for scrambling sequences</li>
 <li>Randomly <a href="sources/codes/enhancement/animating-cube.html" target="_new">animating cube</a> on each page reload</li>
-<li>Etc.</li>
+<li>Et cetera, the possibilities are endless</li>
 </ul>
 </div>
 
@@ -2950,11 +2950,11 @@ acjs_put_var[id]('speed', 5, 'n');
 </code><br>
 Here are three examples of using direct access to make Javascript buttons
 for applying moves to the cube:<br><br>
-<a href=sources/codes/enhancement/button_demo1.html>Demo 1</a> - duplicates the functionality of the
+<a href="sources/codes/enhancement/button_demo1.html" target="_new">Demo 1</a> - duplicates the functionality of the
 buttonbar.<br>
-<a href=sources/codes/enhancement/button_demo2.html>Demo 2</a> - applies moves with buttons and keyboard
+<a href="sources/codes/enhancement/button_demo2.html" target="_new">Demo 2</a> - applies moves with buttons and keyboard
 letters.<br>
-<a href=sources/codes/enhancement/button_demo3.html>Demo 3</a> - applies moves to any cube position.
+<a href="sources/codes/enhancement/button_demo3.html" target="_new">Demo 3</a> - applies moves to any cube position.
 <br><br>
 See more examples in the documentation for 
 <a href="sources/codes/enhancement/save_restore.html" target="_new">AnimCubeJS Direct Access</a>,
@@ -2963,10 +2963,17 @@ other examples of usage are in the
 <a href="sources/codes/enhancement/hamilton/hamilton.html" target="_new">2x2x2 Devil's algorithm</a>.
 </p>
 </div>
-<br>
-A transparent background can be implemented by modifying the AnimCubeJS program
-as shown <a href=sources/codes/enhancement/transparent.html>here</a>.
-<br><br>
+
+<p>
+Additional features can be implemented by modifying the AnimCubeJS program:
+</p>
+
+<div class="justify-li-margin">
+<ul><li>Background <a href="sources/codes/enhancement/transparent.html" target="_new">transparency</a></li>
+<li>Cube rotation using <a href="sources/codes/enhancement/rotate_with_arrows.html" target="_new">keyboard arrow keys</a>
+</ul>
+</div>
+
 <hr class="hr">
 <p>If you realize any problem you can contact <a href="https://hlavolam.maweb.eu/contact" target="_new">Tadeáš Miler</a> 
 (he is a co-author of the AnimCubeJS documentation which is still heavily based on the original AnimCube documentation by 
@@ -2974,9 +2981,7 @@ Josef Jelínek) or you can file an issue to the <a href="https://github.com/cubi
 
 <p>
 If you like AnimCubeJS you can support it at <a href="https://ko-fi.com/animcubejs" target="_blank">ko-fi.com/animcubejs</a>.
-</p>
-
-<br><br>
+</p><br><br>
  
 <script>document.getElementById('a1').innerHTML = 'enabled.'; </script>
  
