@@ -123,6 +123,7 @@ th{
 <p class="center"><b>AnimCube created by <a href="https://github.com/josef-jelinek" target="_new">Josef Jelínek</a> 
 (2001 - 2004)</b></p>
 <p class="center"><b>AnimCubeJS created by <a href="https://mfeather1.github.io/3ColorCube/" target="_new">Michael Feather</a> (old versions: 2015 - 2019, current version: 2021)</b></p>
+<p class="center"><b>AnimCubeJS 4x4x4 - 7x7x7 3D graphics core improvement by <a href="https://sites.google.com/view/rubiks-cube-by-logic/" target="_new">Marcelo Falcão de Oliveira</a> (2023)</b></p>
 
 <div class="responsive-table">
 <table width="99%"><tr><td width="33%">
@@ -180,9 +181,8 @@ readable plain JavaScript</a> code.</li>
 <li>AnimCube was available only for the 3x3x3 Rubik's Cube. AnimCubeJS is 
 available for the 2x2x2, 3x3x3, 4x4x4, 5x5x5, 6x6x6 and 7x7x7 Rubik's Cubes,
 as well as 2x2x2 - 7x7x7 Supercubes. The 7x7x7 cube was contributed by 
-<a href="https://sites.google.com/view/rubiks-cube-by-logic/" target="_new">Marcelo 
-Falcão de Oliveira</a> (in collaboration with Michael Feather).</li> 
-</li>
+Marcelo Falcão de Oliveira (in collaboration with Michael Feather).</li> 
+<li>Larger cube sizes 8x8x8, 9x9x9 ... NxNxN can be created by modifying the existing program.</li>
 <li>The simulator is known to be working not only in personal web pages (e.g. powered 
 by a content management system), but also in internet forum posts and native 
 mobile/web apps.</li>
@@ -668,10 +668,10 @@ documentation. The best way to understand their meaning is to experiment with ex
 description of each parameter.</p>
 
 <p>
-By <a href="sources/codes/enhancement/parameters/create.html" target="_new">declaring parameters online</a> (it actually 
-works even offline) you can create your own simulator with the desired functionality, and then share it using a URL link.
-Another way to create simulators is with the
-<a href="sources/codes/enhancement/parameters/config_tool.html" target="_new">AnimCubeJS Configuration Tool</a>.
+<a href="sources/codes/enhancement/parameters/config_tool.html" target="_new">AnimCubeJS Configuration Tool</a> is 
+a nice and easy way for creating simulators with the desired functionality. By 
+<a href="sources/codes/enhancement/parameters/create.html" target="_new">declaring parameters online</a> (it actually 
+works even offline) you can build a simulator and then share it using a URL link.
 </p>
 
 <div class="button-to-center">
@@ -3636,7 +3636,17 @@ In March 2023 Marcelo Falcão de Oliveira, in collaboration with Michael Feather
 </div>\
 </center>\
 <p>\
-Marcelo also made a nice and user friendly all-in-one-place  \
+Thanks to his 3D graphics expertise, Marcelo made an important improvement to the core code. \
+Prior to his contribution the rendering of black inner faces was problematic for cubes larger \
+than 3x3x3, and a workaround was used to get them to display properly up to 5x5x5. However, \
+as the cube size increased the workaround became less effective, and the slight anomolies that \
+were already visible in the 6x6x6 cube became unacceptable for the 7x7x7. Hence development of \
+larger cubes was halted. That is, until Marcelo came along and solved the problem entirely \
+with a proper 3D solution, thus eliminating the workarounds used for 4x4x4 - 6x6x6 cubes and \
+making it possible to extend AnimCubeJS to any size. \
+</p>\
+<p>\
+Marcelo also made a nice and user friendly all-in-one-place \
 configuration tool which can be found in the <a href="#parameters">Parameters</a> section below. \
 </p>';
 </script>       
