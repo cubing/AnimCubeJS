@@ -1,7 +1,8 @@
 MIT License
 
-Copyright (c) 2015 Michael Feather, Tadeáš Miler  
-Copyright (c) 2001 Josef Jelínek
+Copyright (c) 2001 Josef Jelínek   
+Copyright (c) 2015 Michael Feather, Tadeáš Miler   
+Copyright (c) 2023 Marcelo Falcão de Oliveira
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
