@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+ <title>Florian Mod (straight cut)</title>
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <meta name="author" content="Michael Feather">
+ <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+ <script src=A3_florian.js></script>
+ <style> 
+  body {margin-left: 10%; margin-right: 10%; font-family: Arial, Helvetica, sans-serif;}
+  p {margin:0; text-align: justify;}
+ </style>
+</head>
+<body>
+<center>
+<font size=+2>Florian Mod (straight cut)</font>
+<br><br>
+<p>In this demo the inner corners have been sanded down (to make the layer
+twists more easily on a physical cube).
+The amount can be adjusted, enter a number in the box and press Enter 
+(must be &gt;= 1, can be decimal, less is more).
+The corners that are modded are configurable as can be seen on the second
+cube (see function drawFlorian in A3_florian.js for implementation details).
+</p>
+<br>
+<table>
+ <tr>
+  <td align=center>
+   <input id=a1 onchange=ff(1) style=width:40px value=10></input>
+   <br><br>
+   <div id=c1 style="width:200px; height:200px"></div>
+  </td>
+  <td width=30>
+  <td align=center>
+   <input id=a2 onchange=ff(2) style=width:40px value=10></input>
+   <br><br>
+   <div id=c2 style="width:200px; height:200px"></div>
+  </td>
+ </tr>
+</table>
+<br>
+<a href="javascript:window.close()">Close</a>
+<br><br>
+<script>
+var alt_layout = [
+  [[0,0,0,0], [0,0,1,1], [0,0,0,0]],
+  [[0,1,1,0], [1,1,1,1], [1,0,0,1]],
+  [[0,0,0,0], [1,1,0,0], [0,0,0,0]],
+];
+var acjs_florianLayout = [];
+var acjs_florianSize = [];
+var acjs_paint = [];
+var acjs_put_var = [];
+AnimCube3('id=c1&bgcolor=ffffff&borderwidth=6');
+AnimCube3('id=c2&bgcolor=ffffff&supercube=1');
+for (var i=0; i < 36; i++)
+  acjs_florianLayout['c2'][i] = alt_layout[i];
+acjs_paint['c2']();
+function ff(n) {
+console.log(n);
+  var cid = 'c' + n;
+  var aid = 'a' + n;
+  var s = document.getElementById(aid).value;
+  console.log(s);
+  if (isNaN(s) || s < 1)
+    return;
+  console.log(cid, s);
+  acjs_put_var[cid]('florianSize', s,'n');
+  acjs_paint[cid]();
+}
+</script>
+</center>
+</body>
+</html>
