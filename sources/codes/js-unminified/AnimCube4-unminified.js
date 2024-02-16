@@ -2811,6 +2811,7 @@ function AnimCube4(params) {
     utextHeight = textHeight;
     scaleCanvas();
     parNode.appendChild(canvas);
+    initSliceNormals();
     paint();
   }
 
@@ -2929,7 +2930,6 @@ function AnimCube4(params) {
     curMove = 0;
     originalAngle = 0;
     onModuleLoad();
-    initSliceNormals();
     if (parNode.id != null)
       init_direct_access(parNode.id);
   }
