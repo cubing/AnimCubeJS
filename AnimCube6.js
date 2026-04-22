@@ -130,6 +130,8 @@ function AnimCube6(params) {
   var buttonBar; // button bar mode
   var buttonHeight;
   var drawButtons = true;
+  // including buttonSymbolScale
+  var buttonSymbolScale = 1.0;
   var pushed;
   var buttonPressed = -1;
   var progressHeight = 6;
@@ -550,6 +552,13 @@ function AnimCube6(params) {
       var n = parseInt(param);
       if (n >= 9 & n <= 25)
         buttonHeight = n;
+    }// get button symbols' scale, default = 1, 0.5 min., 2.5 max. according to buttonHeight
+    param = getParameter("butsymbolscale");
+    if (param != null) {
+      var n = parseFloat(param);
+      if (param < 0.5) {param = 0.5}
+      if (param > 1+(buttonHeight-9)*0.09375) {param = 1+(buttonHeight-9)*0.09375}
+      buttonSymbolScale = param;
     }
     progressHeight = move.length == 0 ? 0 : 6;
     buttonBar = 1;
@@ -2194,50 +2203,50 @@ function AnimCube6(params) {
     y = Math.floor(y);
     switch (i) {
       case 0: // rewind
-        drawRect(g, x - ds[4], y - ds[3], ds[3], ds[6] + 1);
-        drawArrow(g, x + ds[4], y, -1); // left
+        drawRect(g, x - ds[4]*buttonSymbolScale, y - ds[3]*buttonSymbolScale, ds[3]*buttonSymbolScale, (ds[6] + 1)*buttonSymbolScale);
+        drawArrow(g, x + ds[4]*buttonSymbolScale, y, -1*buttonSymbolScale); // left
         break;
       case 1: // reverse step
-        drawRect(g, x + ds[1], y - ds[3], ds[3], ds[6] + 1);
-        drawArrow(g, x - ds[1], y, -1); // left
+        drawRect(g, x + ds[1]*buttonSymbolScale, y - ds[3]*buttonSymbolScale, ds[3]*buttonSymbolScale, (ds[6] + 1)*buttonSymbolScale);
+        drawArrow(g, x - ds[1]*buttonSymbolScale, y, -1*buttonSymbolScale); // left
         break;
       case 2: // reverse play
-        drawArrow(g, x + ds[1], y, -1); // left
+        drawArrow(g, x + ds[1]*buttonSymbolScale, y, -1*buttonSymbolScale); // left
         break;
       case 3: // stop / mirror
         if (animating)
-          drawRect(g, x - ds[4], y - ds[3], ds[7], ds[7]);
+          drawRect(g, x - ds[4]*buttonSymbolScale, y - (ds[3]+ds[4])/2*buttonSymbolScale, ds[7]*buttonSymbolScale, ds[7]*buttonSymbolScale);
         else {
-          drawRect(g, x - ds[4], y - ds[2], ds[7], ds[5]);
-          drawRect(g, x - ds[2], y - ds[4], ds[3], ds[9]);
+          drawRect(g, x - ds[4]*buttonSymbolScale, y - (ds[2]+ds[3])/2*buttonSymbolScale, ds[7]*buttonSymbolScale, ds[5]*buttonSymbolScale);
+          drawRect(g, x - ds[2]*buttonSymbolScale, y - (ds[4]+ds[5])/2*buttonSymbolScale, ds[3]*buttonSymbolScale, ds[9]*buttonSymbolScale);
         }
         break;
       case 4: // play
-        drawArrow(g, x - ds[2], y, 1); // right
+        drawArrow(g, x - ds[2]*buttonSymbolScale, y, 1*buttonSymbolScale); // right
         break;
       case 5: // step
-        drawRect(g, x - ds[4], y - ds[3], ds[3], ds[6] + 1);
-        drawArrow(g, x, y, 1); // right
+        drawRect(g, x - (ds[4]+ds[5])/2*buttonSymbolScale, y - ds[3]*buttonSymbolScale, ds[3]*buttonSymbolScale, (ds[6] + 1)*buttonSymbolScale);
+        drawArrow(g, x + ds[1]/2*buttonSymbolScale, y, 1*buttonSymbolScale); // right
         break;
       case 6: // fast forward
-        drawRect(g, x + ds[1], y - ds[3], ds[3], ds[6] + 1);
-        drawArrow(g, x - ds[4], y, 1); // right
+        drawRect(g, x + ds[1]*buttonSymbolScale, y - ds[3]*buttonSymbolScale, ds[3]*buttonSymbolScale, (ds[6] + 1)*buttonSymbolScale);
+        drawArrow(g, x - ds[4]*buttonSymbolScale, y, 1*buttonSymbolScale); // right
         break;
       case 7: // prev sequence
         var c = (buttonPressed == 7) ? darker(buttonBgColor) : buttonBgColor;
-        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
-        drawArrow(g, x+dpr*2 + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, -1);
+        drawRect2(g, x-dpr*2*buttonSymbolScale, y+dpr*buttonSymbolScale, buttonHeight*buttonSymbolScale, y + buttonHeight*buttonSymbolScale, c*buttonSymbolScale);
+        drawArrow(g, x+dpr*2*buttonSymbolScale + buttonHeight/2 - dpr*3*buttonSymbolScale, y + (buttonHeight/2+dph)*buttonSymbolScale, -1*buttonSymbolScale);
         break;
       case 8: // next sequence
         var c = (buttonPressed == 8) ? darker(buttonBgColor) : buttonBgColor;
-        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
-        drawArrow(g, x-dpr + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, 1);
+        drawRect2(g, x-dpr*2*buttonSymbolScale, y+dpr*buttonSymbolScale, buttonHeight*buttonSymbolScale, y + buttonHeight*buttonSymbolScale, c*buttonSymbolScale);
+        drawArrow(g, x-dpr*buttonSymbolScale + buttonHeight/2 - dpr*3*buttonSymbolScale, y + (buttonHeight/2+dph)*buttonSymbolScale, 1*buttonSymbolScale);
         break;
     }
   }
 
   function drawArrow(g, x, y, dir) {
-    var d3 = 3 * dpr;
+    var d3 = (3 * dpr)*buttonSymbolScale;
     var fillX = [];
     var fillY = [];
     fillX[0] = x;
