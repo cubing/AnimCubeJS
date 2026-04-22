@@ -2325,13 +2325,13 @@ function AnimCube7(params) {
         break;
       case 7: // prev sequence
         var c = (buttonPressed == 7) ? darker(buttonBgColor) : buttonBgColor;
-        drawRect2(g, x-dpr*2*buttonSymbolScale, y+dpr*buttonSymbolScale, buttonHeight*buttonSymbolScale, y + buttonHeight*buttonSymbolScale, c*buttonSymbolScale);
-        drawArrow(g, x+dpr*2*buttonSymbolScale + buttonHeight/2 - dpr*3*buttonSymbolScale, y + (buttonHeight/2+dph)*buttonSymbolScale, -1*buttonSymbolScale);
+        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
+        drawArrow(g, x+dpr*2*buttonSymbolScale + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, -1*buttonSymbolScale);
         break;
       case 8: // next sequence
         var c = (buttonPressed == 8) ? darker(buttonBgColor) : buttonBgColor;
-        drawRect2(g, x-dpr*2*buttonSymbolScale, y+dpr*buttonSymbolScale, buttonHeight*buttonSymbolScale, y + buttonHeight*buttonSymbolScale, c*buttonSymbolScale);
-        drawArrow(g, x-dpr*buttonSymbolScale + buttonHeight/2 - dpr*3*buttonSymbolScale, y + (buttonHeight/2+dph)*buttonSymbolScale, 1*buttonSymbolScale);
+        drawRect2(g, x-dpr*2, y+dpr, buttonHeight, y + buttonHeight, c);
+        drawArrow(g, x-dpr*buttonSymbolScale + buttonHeight/2 - dpr*3, y + buttonHeight/2+dph, 1*buttonSymbolScale);
         break;
     }
   }
