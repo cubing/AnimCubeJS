@@ -558,7 +558,7 @@ function AnimCube2(params) {
     param = getParameter("butsymbolscale");
     if (param != null) {
       var n = parseFloat(param);
-      if (param < 0.5) {param = 0.5}
+      if (param < 0.5 || param > 2.5) {param = 1.0}
       if (param > 1+(buttonHeight-9)*0.09375) {param = 1+(buttonHeight-9)*0.09375}
       buttonSymbolScale = param;
     }
