@@ -564,9 +564,11 @@ function AnimCube4(params) {
     param = getParameter("butsymbolscale");
     if (param != null) {
       var n = parseFloat(param);
-      if (param < 0.5 || param > 2.5) {param = 1.0}
-      if (param > 1+(buttonHeight-9)*0.09375) {param = 1+(buttonHeight-9)*0.09375}
-      buttonSymbolScale = param;
+      if (n > 0) {
+        if (n < 0.5 || n > 2.5) {n = 1.0}
+        if (n > 1+(buttonHeight-9)*0.09375) {n = 1+(buttonHeight-9)*0.09375}
+        buttonSymbolScale = n;
+      }
     }
     progressHeight = move.length == 0 ? 0 : 6;
     buttonBar = 1;
