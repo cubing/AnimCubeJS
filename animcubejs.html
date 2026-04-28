@@ -226,13 +226,13 @@ In order to do so, download one (or more) of the files below. Supercubes are inc
 <p><a href="sources/zip/3x3x3-AnimCubeJS.zip">3x3x3 AnimCubeJS simulator 
 <code>.zip</code> file</a> (20 kB)</p>
 <p><a href="sources/zip/4x4x4-AnimCubeJS.zip">4x4x4 AnimCubeJS simulator 
-<code>.zip</code> file</a> (20 kB)</p>
+<code>.zip</code> file</a> (21 kB)</p>
 <p><a href="sources/zip/5x5x5-AnimCubeJS.zip">5x5x5 AnimCubeJS simulator 
 <code>.zip</code> file</a> (21 kB)</p>
 <p><a href="sources/zip/6x6x6-AnimCubeJS.zip">6x6x6 AnimCubeJS simulator 
 <code>.zip</code> file</a> (21 kB)</p>
 <p><a href="sources/zip/7x7x7-AnimCubeJS.zip">7x7x7 AnimCubeJS simulator 
-<code>.zip</code> file</a> (22 kB)</p>
+<code>.zip</code> file</a> (23 kB)</p>
 
 <p>
 You can choose from 2 different versions of AnimCubeJS. Click on the button below for details.
@@ -662,7 +662,7 @@ is optional so the simplest possible call is made using <code>&lt;script&gt;Anim
 (i.e. with no parameters at all).</p>
 
 <div id="parameters" class="sections"><b><i>Parameters</i></b></div>
-<p>There are 46 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
+<p>There are 47 customizable parameters. They are listed below in the order corresponding to their occurrence in the 
 documentation. The best way to understand their meaning is to experiment with example simulators provided in the 
 description of each parameter.</p>
 
@@ -691,6 +691,7 @@ works even offline) you can build a simulator and then share it using a URL link
 <a href="#bgcolor">parameter name: bgcolor | value: hexadecimal color</a><br>
 <a href="#borderwidth">parameter name: borderwidth | value: 0 - 20</a><br>
 <a href="#butbgcolor">parameter name: butbgcolor | value: hexadecimal color</a><br>
+<a href="#butsymbolscale">parameter name: butsymbolscale | value: 0.5 - 2.5</a><br>
 <a href="#buttonbar">parameter name: buttonbar | value: 0 - 2</a><br>
 <a href="#buttonheight">parameter name: buttonheight | value: 9 - 25</a><br>
 <a href="#clickprogress">parameter name: clickprogress | value: 0 or 1</a><br>
@@ -746,6 +747,7 @@ works even offline) you can build a simulator and then share it using a URL link
 <a href="#snap">parameter name: snap | value: 0 or 1</a><br>
 <a href="#buttonbar">parameter name: buttonbar | value: 0 - 2</a><br>
 <a href="#buttonheight">parameter name: buttonheight | value: 9 - 25</a><br>
+<a href="#butsymbolscale">parameter name: butsymbolscale | value: 0.5 - 2.5</a><br>
 <a href="#repeat">parameter name: repeat | value: 0 or 1</a><br>
 <a href="#edit">parameter name: edit | value: 0 or 1</a><br>
 <a href="#speed">parameter name: speed | value: natural number</a><br>
@@ -1046,12 +1048,44 @@ clear the cube state to the initial values (unless otherwise stated).
 
 <p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
 <p>With this parameter you can adjust the height of the buttons in the button bar. The 
-range is from '<code>9</code>' to '<code>25</code>' (pixels), the default value is '<code>13</code>'.
-</p><p><i>Examples:</i> <code>AnimCube3("buttonheight=9")</code> and <code>AnimCube3("buttonheight=25")</code> give the following results.
+range is from '<code>9</code>' to '<code>25</code>' (pixels), the default value is '<code>13</code>'. In combination 
+with the <code><a href="#butsymbolscale">butsymbolscale</a></code> parameter it is possible to customize the 
+appearance of the button symbols as well. 
+</p><p><i>Examples:</i> <code>AnimCube3("buttonheight=9")</code>, <code>AnimCube3("buttonheight=13")</code> 
+and <code>AnimCube3("buttonheight=25")</code> give the following results.
 </p><div>
-<div class="cube" style="width:160px; height:175px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=9&textsize=16")</script></div>
-<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&buttonbar=1&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=25&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:175px"> <script>AnimCube3("colorscheme=wygbor&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=9&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:179px"> <script>AnimCube3("colorscheme=wygbor&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=13&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Ra2Ua2Fa2&initmove=#&snap=1&buttonheight=25&textsize=16")</script></div>
 </div><br>
+
+
+<div class="sections-parameters"><a name="butsymbolscale"></a><b><code>butsymbolscale</code> parameter</b></div>
+
+<p><i>Note:</i> This parameter is not supported in the original AnimCube Java applet.</p>
+<p>Using this parameter, the readability of the symbols of the VCR-like buttons controlling the animation can be adjusted. 
+The range is from '<code>0.5</code>' to '<code>2.5</code>', and the default value is '<code>1.0</code>'. In combination 
+with the <code><a href="#buttonheight">buttonheight</a></code> parameter it is possible to customize the 
+height of the buttons as well.
+<p><i>Examples:</i>
+</p><ul>
+<li><code>AnimCube3("butsymbolscale=0.5&buttonheight=25")</code></li>
+<li><code>AnimCube3("butsymbolscale=1.0&buttonheight=25")</code></li>
+<li><code>AnimCube3("butsymbolscale=1.5&buttonheight=25")</code></li>
+<li><code>AnimCube3("butsymbolscale=1.9&buttonheight=25")</code></li>
+<li><code>AnimCube3("butsymbolscale=2.3&buttonheight=25")</code></li>
+</ul>
+<p>give the following results.</p>
+<div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=25&butsymbolscale=0.5&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=25&butsymbolscale=1.0&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=25&butsymbolscale=1.5&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=25&butsymbolscale=1.9&textsize=16")</script></div>
+<div class="cube" style="width:160px; height:191px"> <script>AnimCube3("colorscheme=wygbor&move=Rs2Us2Fs2&initmove=#&snap=1&buttonheight=25&butsymbolscale=2.3&textsize=16")</script></div>
+</div>
+
+<p><i>Note:</i> Clearly, the higher the parameter value you use, the larger the 
+simulator window (div dimensions) should be for better appearance.</p>
 
 
 <div class="sections-parameters"><a name="repeat"></a><b><code>repeat</code> parameter</b></div>
@@ -2281,8 +2315,8 @@ to '<code>40</code>' (pixels), the default value is '<code>12</code>'.
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=12&movetext=5&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
 <div class="cube" style="width:160px; height:186px"> <script>AnimCube3("colorscheme=wygbor&textsize=40&movetext=5&move=R2L2F2B2U2D2&initmove=#&snap=1&buttonheight=20")</script></div>
 </div>
-<p><i>Note:</i> Clearly, the higher the parameter value you use, the higher 
-simulator window (div dimensions) you should use for a better appearance.</p>
+<p><i>Note:</i> Clearly, the higher the parameter value you use, the larger the 
+simulator window (div dimensions) should be for better appearance.</p>
 
 
 <div class="sections-parameters"><a name="facelets"></a><b><code>facelets</code> parameter</b></div>
