@@ -867,9 +867,15 @@ function AnimCube4(params) {
   }
 
   function convertNotation4(s) {
-    s = s.replace(/^e| e/g, " Dw").
-          replace(/^s| s/g, " Fw").
-          replace(/^m| m/g, " Lw");
+    s = s.replace(/\{[^}]*\}|[^{}]+/g, (trecho) => {
+      // If it starts with {, it is an info box then leave as it is
+      if (trecho.startsWith("{")) return trecho;
+      // otherwise, apply the replacements
+      return trecho
+      .replace(/^e| e/g, " Dw")
+      .replace(/^s| s/g, " Fw")
+      .replace(/^m| m/g, " Lw");
+    });
     s = replaceMoves(s, 2, 'm', 0);
     s = replaceMoves(s, 2, 't', 1);
     return s;
@@ -889,7 +895,13 @@ function AnimCube4(params) {
   function wca_to_sign(s) {
     for (var i=0; i < 6; i++) {
       var r = new RegExp(faces[i] + 'w', "g");
-      s = s.replace(r, faces[i].toLowerCase());
+      s = s.replace(/\{[^}]*\}|[^{}]+/g, (trecho) => {
+        // If it starts with {, it is an info box then leave as it is
+        if (trecho.startsWith("{")) return trecho;
+        // otherwise, apply the replacements
+        return trecho
+        .replace(r, faces[i].toLowerCase());
+      });
     }
     return s;
   }

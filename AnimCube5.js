@@ -877,7 +877,13 @@ function AnimCube5(params) {
   function wca_to_sign(s) {
     for (var i=0; i < 6; i++) {
       var r = new RegExp(faces[i] + 'w', "g");
-      s = s.replace(r, faces[i].toLowerCase());
+      s = s.replace(/\{[^}]*\}|[^{}]+/g, (trecho) => {
+        // If it starts with {, it is an info box then leave as it is
+        if (trecho.startsWith("{")) return trecho;
+        // otherwise, apply the replacements
+        return trecho
+        .replace(r, faces[i].toLowerCase());
+      });
     }
     return s;
   }
