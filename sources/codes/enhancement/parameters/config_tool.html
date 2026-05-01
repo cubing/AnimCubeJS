@@ -181,7 +181,7 @@
                 <br>
                 borderwidth: 
                 <input type="number" id="borderwidth" style="width:40px; display:none;" step="1" min="0" max="20" value="10" onchange="replace_cube()"/>
-		<input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="borderwidthdefault" checked onchange="setdisplay('borderwidth', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 supercube: 
                 <input type="radio" name="supercube" id="supercubeon" onchange="setdisplay('supercubestuff', 'block'); replace_cube()"/>on
@@ -251,27 +251,27 @@
                 <br>
                 movetext: 
                 <input type="number" id="movetext" style="width:40px; display:none;" step="1" min="0" max="6" value="0" onchange="replace_cube()"/>
-		<input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
-		<text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
-		<br>
+		            <input type='checkbox' id="movetextdefault" checked onchange="setdisplay('movetext', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <text id='movetextalert' style='font-size: 12px; color: red; display: none;'>Not supported for this cube size</text>
+		            <br>
                 movetextspace: 
                 <input type="radio" name="movetextspace" checked onchange="replace_cube()"/>on
                 <input type="radio" name="movetextspace" id="movetextspaceoff" onchange="replace_cube()"/>off 
                 <br>
                 yz:
-		<div id='yzoptions' style='display:none;'>
+		            <div id='yzoptions' style='display:none;'>
                   <!-- <input type="radio" name="yz" id="switchyz" onchange="replace_cube()"/>on
                        <input type="radio" name="yz" checked onchange="replace_cube()"/>off
-		  -->
-		  <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
+		              -->
+		            <input type="number" id="yz" style="width:30px;" step="1" min="0" max="1" value="0" onchange="replace_cube();"/>
                 </div>
-		<input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
+		            <input type='checkbox' id="yzdefault" checked onchange="setdisplay('yzoptions', this.checked ? 'none' : 'inline'); replace_cube()"/>default
                 <br>
                 sign: 
                 <input type="radio" name="sign" id="signon" onchange="check('wcaoff',true); replace_cube()"/>on
                 <input type="radio" name="sign" id="signoff" checked onchange="replace_cube()"/>off 
                 <br>
-		wca: 
+		            wca: 
                 <input type="radio" name="wca" id="wcaon" onchange="check('signoff',true); replace_cube()"/>on
                 <input type="radio" name="wca" id="wcaoff" checked onchange="replace_cube()"/>off 
                 <br>
@@ -318,11 +318,11 @@
               <a href="javascript:void(0)" id='label:faceletssettings' onclick="reverse('faceletssettings');"><b>Faces &#8631;</b></a>
               <div id="faceletssettings" style="display: none;"> 
                 <hr>
-		<div id='faceletsshow'>
+		            <div id='faceletsshow'>
                   facelets:
                   <input id='faceletsdefault' type="checkbox" checked onchange="setdisplay('showcolorscheme', this.checked ? 'block' : 'none'); unfold_cube(); replace_cube();"/>default
                   <br>
-		  <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
+		              <textarea id="facelets" rows="5" cols="40" autocomplete="off" style="resize: none; display: none;"></textarea>
                 </div>
                 <div id='setfacelets' style='display: none;'>
                   <br>
@@ -455,10 +455,10 @@
                   <br>
                   <br>
                 </div>
-		<div id="supercubestuff" style="display: none;">
-		  scw: 
+		            <div id="supercubestuff" style="display: none;">
+		              scw: 
                   <input type="number" id="scw" style="width:30px;" step="1" min="0" max="2" value="0" onchange="dopallet(); updatecolor();replace_cube();"/>
-		  <br>
+		              <br>
                   superfacelets:
                   <input id='superfaceletsdefault' type="checkbox" checked onchange="unfold_supercube(); replace_cube();"/>default
                   <br>
@@ -500,7 +500,7 @@
                     </table>
                     <br>
                   </div>
-		</div>
+		            </div>
                 gabbacolors: 
                 <input type="radio" name="gabbacolors" id="gabbacolorson" onchange="dopallet(); updatecolor(); replace_cube();"/>on
                 <input type="radio" name="gabbacolors" checked onchange="dopallet(); updatecolor(); replace_cube();"/>off 
@@ -519,12 +519,12 @@
                 <b>HTML code:</b><br>
                 <br>
                 &lt;script src="AnimCube3.js">&lt;/script><br>
-		<br>
+		            <br>
                 &lt;div style="width:400px;height:400px;"><br>
                 &lt;script><br>
                 AnimCube3("")<br>
                 &lt;/script><br>
-		&lt;/div><br>
+		            &lt;/div><br>
             </div>
           </td>
         </tr>
@@ -575,15 +575,15 @@
         params += getvalue('perspective')!='2' ? '&perspective='+getvalue('perspective') : '';
         //params += !checked('borderwidthdefault') && getvalue('borderwidth')!='10' && !checked('supercubeon') && !checked('gabbacolorson') ? '&borderwidth='+getvalue('borderwidth') : '';
         //params += !checked('borderwidthdefault') && (getvalue('borderwidth')!='6' && (checked('supercubeon') || checked('gabbacolorson'))) ? '&borderwidth='+getvalue('borderwidth') : '';
-	params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
+	      params += !checked('borderwidthdefault') ? '&borderwidth='+getvalue('borderwidth') : '';
         params += getvalue('move')!='' ? '&move='+getvalue('move') : '';
         //params += !checked('movetextdefault') && ((movetextint>1 && movetextint<5 && getvalue('cubesize')=='3') || (movetextint!=5 && checked('signon')) || (movetextint>0 && !checked('signon') && !checked('wcaon')) || (movetextint!=6 && checked('wcaon'))) ? '&movetext='+getvalue('movetext') : '';
-	params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
+	      params += !checked('movetextdefault') ? '&movetext='+getvalue('movetext') : '';
         setdisplay('movetextalert', !checked('movetextdefault') && movetextint>1 && movetextint<5 && getvalue('cubesize')!='3' ? 'block' : 'none');
         params += checked('movetextspaceoff') ? '&movetextspace=0' : '';
         //params += !checked('yzdefault') && (checked('switchyz') && !checked('signon') && !checked('wcaon')) ? '&yz=1' : '';
         //params += !checked('yzdefault') && (!checked('switchyz') && (checked('signon') || checked('wcaon'))) ? '&yz=0' : '';
-	params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
+	      params += !checked('yzdefault') ? '&yz='+getvalue('yz') : '';
         params += checked('signon') ? '&sign=1' : '';
         params += checked('wcaon') ? '&wca=1' : '';
         params += getvalue('initmove')!='' ? '&initmove='+getvalue('initmove') : '';
@@ -628,16 +628,16 @@
             AnimCube7("id=cube"+params);
             break;
         }
-	if (!params=='') {
-		params = params.replace('&','');
-	}
+	      if (!params=='') {
+		      params = params.replace('&','');
+	      }
         sethtml('texto', saida+'&lt;script src="AnimCube'+getvalue('cubesize')+'.js">&lt;/script><br>\
                   <br>\
                   &lt;div style="width:'+getvalue('width')+'px;height:'+getvalue('height')+'px;"><br>\
                   &lt;script><br>\
                   AnimCube'+getvalue('cubesize')+'("'+params+'")<br>\
                   &lt;/script><br>\
-		  &lt;/div><br>');
+		              &lt;/div><br>');
       }
       
       function reverse(nome) {
@@ -655,7 +655,7 @@
         //dotable();
         if (!checked('faceletsdefault')) {
           //dopallet();
-	  dotable();
+	        dotable();
           setfacelets();
           setdisplay('setfacelets', 'block');
           setdisplay('showpallet', 'block');
@@ -839,7 +839,7 @@
           }
         }
         table = '<table style="padding: 5px; border-spacing: 5px;">\
-              <tbody>';
+                  <tbody>';
         for (var i = 0; i < 6; i++) {
               table += '<tr>';
               for (var j=0; j<4; j++) {
@@ -848,7 +848,7 @@
               table += '</tr>';
         }
         table += "</tbody>\
-          </table>";
+                  </table>";
         sethtml('pallet', table);
       }
 
@@ -866,14 +866,14 @@
           index = getattrib('CS_'+faces[f], 'data-face');
           setbackground('CS_'+faces[f], getbackground('pallet-'+index));
           //update facelets if faceletsdefault is not set
-	  if (!checked('faceletsdefault')) {
+	        if (!checked('faceletsdefault')) {
             for (var i=1; i<=parseInt(num,10); i++) {
               for (var j=1; j<=parseInt(num,10); j++) {
                 index = getattrib(faces[f]+'lin'+i.toString()+'col'+j.toString(), 'data-face');
                 setbackground(faces[f]+'lin'+i.toString()+'col'+j.toString(), getbackground('pallet-'+index));
               }
             }
-	  }
+	        }
         }
         setbackground('selectedcolor', getbackground('pallet-'+gethtml('selectedindex')));
       }
