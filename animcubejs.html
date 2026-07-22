@@ -2895,7 +2895,7 @@ AnimCube to display each cube in the proper div:
 <code>AnimCube('id=cube2&...');</code>
 <br><br>
 Each time AnimCube is called, a new set of event listeners is created and they
-will accumulate.
+will accumulate which leads to page locking/freezing.
 To avoid that, declare the following global array prior to any calls to
 AnimCube:
 <br><br>
@@ -2922,6 +2922,11 @@ A copy of the example implementation without acjs_removeListeners can be seen
 use Dev Tools to see the listeners
 accumulating after each button press (click the Refresh icon in the Event
 Listeners subtab to update).
+<br><br>
+If your website is experiencing page locking/freezing related 
+to use of AnimCube via JavaScript then feel free to file an 
+issue on 
+the <a href="https://github.com/cubing/AnimCubeJS" target="_new">AnimCubeJS repository</a> for support.
 </p>
 </div>
 <br>
