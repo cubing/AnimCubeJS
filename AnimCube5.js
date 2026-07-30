@@ -196,7 +196,7 @@ function AnimCube5(params) {
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i].split('=');
       if (typeof line[1] != 'undefined')
-        config[line[0]] = line[1].trim();
+        config[line[0].trim()] = line[1].trim();
     }
   }
 
