@@ -2060,7 +2060,7 @@ resulting in generating random move sequence (compare with the <code><a href="#s
 If set only to the hash symbol '<code>#</code>' then it is equal to the value of the <code>move</code> parameter 
 (the whole parameter value if more move sequences are specified). Otherwise the hash symbol is a placeholder for a 
 specific move sequence declared in the <code>move</code> parameter. So for example: <code>initmove=#;sequence;#</code> 
-setting means that the first and third sequences specified in the move parameter will be used as the initializing 
+setting means that the first and third sequences specified in the <code>move</code> parameter will be used as the initializing 
 sequences for the first and third cubes (the second cube will be initialized using a custom sequence).
 </p>
 
@@ -2098,7 +2098,7 @@ the <code>initmove</code> parameter section for more details.
 	the cube. Other parts should remain either unchanged (dark gray) or we do 
 	not care about them (light gray). Instead of creating the
  <code><a href="#facelets">facelets</a></code> coloring for each configuration, we can create only one 
-	universal, and use it in all corresponding simulators while changing only the 
+	universal, and use it in all corresponding simulators while changing only the value of the 
 	<code>move</code> parameter. The <code>initrevmove</code> parameter set to '<code>#</code>' creates the cube setup for us. 
 The last simulator below is an example of 5 different pretty patterns, all of them being displayed using only 1 simulator.
 </p>
