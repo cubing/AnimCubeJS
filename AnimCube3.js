@@ -428,7 +428,10 @@ function AnimCube3(params) {
     }
     // setup move sequence (and info texts)
     param = getParameter("move");
-    if ("random" == (param) || scramble > 0)
+    if (param && param.indexOf("random") != -1)
+      while (param.indexOf("random") != -1)
+        param = param.replace("random", randMoves(3, randMoveCount));
+    if (scramble > 0)
       param = randMoves(3, randMoveCount);
     move = (param == null ? [] : getMove(param, true));
     movePos = 0;
@@ -437,22 +440,30 @@ function AnimCube3(params) {
     if (scramble == 0) {
       param = getParameter("initmove");
       if (param != null) {
-        if ("random" == (param))
-          param = randMoves(3, randMoveCount);
+        // if ("random" == (param))
+        //   param = randMoves(3, randMoveCount);
+        if (param.indexOf("random") != -1)
+          while (param.indexOf("random") != -1)
+            param = param.replace("random", randMoves(3, randMoveCount));
         initialMove = param == ("#") ? move : getMove(param, false);
       }
       // setup initial reversed move sequence
       param = getParameter("initrevmove");
       if (param != null) {
-        if ("random" == (param))
-          param = randMoves(3, randMoveCount);
+        // if ("random" == (param))
+        //   param = randMoves(3, randMoveCount);
+        if (param.indexOf("random") != -1)
+          while (param.indexOf("random") != -1)
+            param = param.replace("random", randMoves(3, randMoveCount));
         initialReversedMove = param == ("#") ? move : getMove(param, false);
       }
       // setup demo move sequence
       param = getParameter("demo");
       if (param != null) {
-        if ("random" == (param))
-          param = randMoves(3, randMoveCount);
+        // if ("random" == (param))
+        //   param = randMoves(3, randMoveCount);
+        if (param.indexOf("random") != -1)
+          param = param.replace("random", randMoves(3, randMoveCount));
         demoMove = param == ("#") ? move : getMove(param, true);
         if (demoMove.length > 0 && demoMove[0].length > 0)
           demo = true;
