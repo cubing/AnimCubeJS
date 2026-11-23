@@ -2651,9 +2651,12 @@ function AnimCube2(params) {
   }
 
   function scaleCanvas() {
-    height = parNode.clientHeight - 1;
-    width = parNode.clientWidth - 1;
+    // Measure without scrollbars caused by the old canvas size.
+    canvas.style.display = 'none';
+    height = parNode.clientHeight;
+    width = parNode.clientWidth;
     setCanvasCssSize();
+    canvas.style.display = 'block';
     dpr = devicePixelRatio;
     dph = dpr / 2;
     height = Math.floor(height * dpr);
